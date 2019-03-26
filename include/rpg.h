@@ -15,6 +15,12 @@ enum page {
     MAINMENU
 };
 
+typedef struct s_player {
+    char *name;
+    int health;
+    int xp;
+} player_t;
+
 typedef struct s_scene {
     int nb_button;
     struct s_button *button;
@@ -24,6 +30,7 @@ typedef struct s_window {
     sfRenderWindow *window;
     sfEvent event;
     scene_t *scene;
+    player_t *player;
     enum page page;
     enum page actual_page;
     int vsync;
@@ -65,5 +72,7 @@ void main_menu(window_t *win);
 ptr_func *init_func(void);
 int button_is_clicked(button_t button, sfVector2i click_position);
 int button_is_hovered(button_t button, sfVector2i mouse_position);
+char *get_next_line(int fd);
+int parser(player_t *player, char *filename);
 
 #endif
