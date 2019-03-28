@@ -10,7 +10,7 @@
 CC		:= gcc
 
 NAME		:= my_rpg
-FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line
+FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))

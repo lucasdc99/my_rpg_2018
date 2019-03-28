@@ -15,6 +15,12 @@ enum page {
     MAINMENU
 };
 
+typedef struct s_sprite {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+} sprite_t;
+
 typedef struct s_player {
     char *name;
     int health;
@@ -22,6 +28,8 @@ typedef struct s_player {
 } player_t;
 
 typedef struct s_scene {
+    sprite_t *sprite;
+    int nb_sprite;
     int nb_button;
     struct s_button *button;
 } scene_t;
@@ -74,5 +82,6 @@ int button_is_clicked(button_t button, sfVector2i click_position);
 int button_is_hovered(button_t button, sfVector2i mouse_position);
 char *get_next_line(int fd);
 int parser(player_t *player, char *filename);
+sprite_t *init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 
 #endif
