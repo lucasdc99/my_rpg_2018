@@ -38,7 +38,7 @@ int button_is_hovered(button_t button, sfVector2i mouse_position)
     return (0);
 }
 
-button_t *init_button_text(button_t *button, char *text, sfVector2f pos)
+void init_button_text(button_t *button, char *text, sfVector2f pos)
 {
     button->font = sfFont_createFromFile("ressources/font/berlin.ttf");
     button->text = sfText_create();
@@ -46,10 +46,9 @@ button_t *init_button_text(button_t *button, char *text, sfVector2f pos)
     sfText_setFont(button->text, button->font);
     sfText_setCharacterSize(button->text, 50);
     sfText_setPosition(button->text, pos);
-    return (button);
 }
 
-button_t *init_button(button_t *button, sfVector2f position, sfVector2f size)
+void init_button(button_t *button, sfVector2f position, sfVector2f size)
 {
     button->rect = sfRectangleShape_create();
     sfRectangleShape_setPosition(button->rect, position);
@@ -60,5 +59,4 @@ button_t *init_button(button_t *button, sfVector2f position, sfVector2f size)
     sfRectangleShape_setFillColor(button->rect, button->idle_color);
     sfRectangleShape_setOutlineColor(button->rect, sfWhite);
     sfRectangleShape_setOutlineThickness(button->rect, 1);
-    return (button);
 }

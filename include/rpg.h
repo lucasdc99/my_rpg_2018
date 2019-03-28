@@ -69,8 +69,8 @@ window_t *create_window(window_t *win);
 sfVector2f get_pos_float(float x, float y);
 sfVector2i get_pos_int(int x, int y);
 
-button_t *init_button(button_t *button, sfVector2f position, sfVector2f size);
-button_t *init_button_text(button_t *button, char *text, sfVector2f pos);
+void init_button(button_t *button, sfVector2f position, sfVector2f size);
+void init_button_text(button_t *button, char *text, sfVector2f pos);
 window_t *init_menu(window_t *win);
 void display(window_t *win);
 window_t *draw_scene(window_t *win);
@@ -82,6 +82,6 @@ int button_is_clicked(button_t button, sfVector2i click_position);
 int button_is_hovered(button_t button, sfVector2i mouse_position);
 char *get_next_line(int fd);
 int parser(player_t *player, char *filename);
-sprite_t *init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
+void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 
 #endif

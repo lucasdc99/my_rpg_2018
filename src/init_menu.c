@@ -18,11 +18,11 @@ window_t *init_menu(window_t *win)
     pos_window.y = (size_window.y - size.y) / 4;
     win->scene[MAINMENU].button = malloc(sizeof(button_t) * 1);
     win->scene[MAINMENU].sprite = malloc(sizeof(sprite_t) * 1);
-    win->scene[MAINMENU].button = init_button(win->scene[MAINMENU].button, pos_window, size);
-    win->scene[MAINMENU].button = init_button_text(win->scene[MAINMENU].button, "PLAY", pos_window);
+    init_button(&win->scene[MAINMENU].button[0], pos_window, size);
+    init_button_text(&win->scene[MAINMENU].button[0], "PLAY", pos_window);
     win->scene[MAINMENU].button->callback = &main_menu;
     win->scene[MAINMENU].nb_button = 1;
     win->scene[MAINMENU].nb_sprite = 1;
-    win->scene[MAINMENU].sprite =  init_sprite(win->scene[MAINMENU].sprite, "ressources/generic-rpg-pack_v0.3_(alpha-release)_vacaroxa/rpg-pack/atlas.png", get_pos_float(100, 100));
+    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/generic-rpg-pack_v0.3_(alpha-release)_vacaroxa/rpg-pack/atlas.png", get_pos_float(100, 100));
     return (win);
 }
