@@ -26,19 +26,12 @@ void display(window_t *win)
 
     while (sfRenderWindow_isOpen(win->window)) {
         if (win->page != win->actual_page) {
-            printf("ok1\n");
             win = ptr_choose[win->actual_page].end(win);
-            printf("ok2\n");
             win = ptr_choose[win->page].start(win);
-            printf("ok3\n");
             win->actual_page = win->page;
-            printf("ok4\n");
         }
-        printf("ok5\n");
         while (sfRenderWindow_pollEvent(win->window, &win->event))
             ptr_choose[win->actual_page].event(win);
-        printf("ok6\n");
         win = ptr_choose[win->actual_page].draw(win);
-        printf("ok7\n");
     }
 }
