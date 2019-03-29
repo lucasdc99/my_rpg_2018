@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** my_rpg_2018
+** MUL_my_rpg_2018
 ** File description:
 ** main
 */

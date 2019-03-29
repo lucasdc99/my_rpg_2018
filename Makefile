@@ -10,13 +10,13 @@
 CC		:= gcc
 
 NAME		:= my_rpg
-FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite
+FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite transform_2d init_game init_options init_how_to
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))
 
 CINC		:= -I include/
-CFLAGS		:= -W   -g
+CFLAGS		:= -W -Wextra -Wall -g
 LDFLAGS		:= -L./lib/my -lmy -L./lib/printf -lprintf -lcsfml-graphics -lcsfml-audio -lcsfml-window -lcsfml-system
 
 OBJ             := $(SRC:src/%.c=obj/%.o)

@@ -12,7 +12,10 @@
 #include <SFML/Graphics.h>
 
 enum page {
-    MAINMENU
+    MAINMENU,
+    GAME,
+    HOW_TO_PLAY,
+    OPTIONS,
 };
 
 typedef struct s_sprite {
@@ -72,11 +75,18 @@ sfVector2i get_pos_int(int x, int y);
 void init_button(button_t *button, sfVector2f position, sfVector2f size);
 void init_button_text(button_t *button, char *text, sfVector2f pos);
 window_t *init_menu(window_t *win);
+window_t *init_game(window_t *win);
+window_t *init_options(window_t *win);
+window_t *init_how_to_play(window_t *win);
 void display(window_t *win);
 window_t *draw_scene(window_t *win);
 void global_event(window_t *win);
 window_t *destroy_scene(window_t *win);
 void main_menu(window_t *win);
+void play_game(window_t *win);
+void how_to_play(window_t *win);
+void options(window_t *win);
+void quit(window_t *win);
 ptr_func *init_func(void);
 int button_is_clicked(button_t button, sfVector2i click_position);
 int button_is_hovered(button_t button, sfVector2i mouse_position);
