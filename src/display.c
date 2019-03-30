@@ -30,9 +30,8 @@ void display(window_t *win)
             win = ptr_choose[win->page].start(win);
             win->actual_page = win->page;
         }
-        while (sfRenderWindow_pollEvent(win->window, &win->event)) {
+        while (sfRenderWindow_pollEvent(win->window, &win->event))
             ptr_choose[win->actual_page].event(win);
-        }
         win = ptr_choose[win->actual_page].draw(win);
         if (win->actual_page == GAME) {
             win->move_time = sfClock_getElapsedTime(win->move);

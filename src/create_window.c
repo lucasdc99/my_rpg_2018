@@ -16,7 +16,7 @@ window_t *create_window(window_t *win)
     win->window = sfRenderWindow_create(mode, name, sfClose | sfResize, NULL);
     win->page = MAINMENU;
     win->actual_page = win->page;
-    win->scene = malloc(sizeof(scene_t) * 1);
+    win->scene = malloc(sizeof(scene_t) * 4);
     win->player = malloc(sizeof(player_t) * 1);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;

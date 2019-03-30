@@ -35,6 +35,7 @@ typedef struct s_player {
     char *name;
     int health;
     int xp;
+    int strength;
 } player_t;
 
 typedef struct s_scene {
@@ -109,7 +110,7 @@ ptr_func *init_func(void);
 int button_is_clicked(button_t button, sfVector2i click_position);
 int button_is_hovered(button_t button, sfVector2i mouse_position);
 char *get_next_line(int fd);
-int parser(player_t *player, char *filename);
+player_t *parser(player_t *player, char *filename);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void move_sprites(window_t *win, int offset);
 
