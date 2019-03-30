@@ -54,6 +54,6 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
     win->scene[OPTIONS].button[4].callback = &change_music;
-    init_sprite(&win->scene[OPTIONS].sprite[0], "ressources/generic-rpg-pack_v0.3_(alpha-release)_vacaroxa/rpg-pack/atlas.png", get_pos_float(100, 100));
+    init_sprite(&win->scene[OPTIONS].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(100, 100));
     return (win);
 }

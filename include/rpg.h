@@ -25,6 +25,7 @@ typedef struct s_text {
 } text_t;
 
 typedef struct s_sprite {
+    sfIntRect rect;
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f pos;
@@ -56,6 +57,9 @@ typedef struct s_window {
     int fps;
     int volume;
     sfMusic *button_sound;
+    sfClock *move;
+    sfTime move_time;
+    int seconds;
 } window_t;
 
 typedef struct s_button {
@@ -107,5 +111,16 @@ int button_is_hovered(button_t button, sfVector2i mouse_position);
 char *get_next_line(int fd);
 int parser(player_t *player, char *filename);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
+void move_sprites(window_t *win, int offset);
+
+
+void choose_glenys(window_t *win);
+void choose_hex(window_t *win);
+void choose_ley(window_t *win);
+void choose_linail(window_t *win);
+void choose_oratio(window_t *win);
+void choose_ouzo(window_t *win);
+void choose_prime(window_t *win);
+void choose_wyvera(window_t *win);
 
 #endif

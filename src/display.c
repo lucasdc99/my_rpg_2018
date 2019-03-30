@@ -34,5 +34,10 @@ void display(window_t *win)
             ptr_choose[win->actual_page].event(win);
         }
         win = ptr_choose[win->actual_page].draw(win);
+        if (win->actual_page == GAME) {
+            win->move_time = sfClock_getElapsedTime(win->move);
+            win->seconds = win->move_time.microseconds / 1000000.0;
+            move_sprites(win, 48);
+        }
     }
 }

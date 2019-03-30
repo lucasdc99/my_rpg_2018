@@ -33,6 +33,6 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].button[1].callback = &how_to_play;
     win->scene[MAINMENU].button[2].callback = &options;
     win->scene[MAINMENU].button[3].callback = &quit;
-    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/generic-rpg-pack_v0.3_(alpha-release)_vacaroxa/rpg-pack/atlas.png", get_pos_float(100, 100));
+    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(100, 100));
     return (win);
 }
