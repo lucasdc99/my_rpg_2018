@@ -10,25 +10,29 @@
 
 void main_menu(window_t *win)
 {
+    sfMusic_play(win->button_sound);
     win->page = MAINMENU;
 }
 
 void play_game(window_t *win)
 {
+    sfMusic_play(win->button_sound);
     win->page = GAME;
 }
 
 void how_to_play(window_t *win)
 {
+    sfMusic_play(win->button_sound);
     win->page = HOW_TO_PLAY;
 }
 
 void options(window_t *win)
 {
+    sfMusic_play(win->button_sound);
     win->page = OPTIONS;
 }
 
 void quit(window_t *win)
 {
-    exit(0);
+    sfRenderWindow_close(win->window);
 }

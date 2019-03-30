@@ -10,7 +10,7 @@
 
 static char *parse_string(char *str)
 {
-    for (; *str != '='; *str++);
+    for (; *str != '='; (*str)++);
     str += 2;
     if (my_strcmp(str, "NULL") == 0)
         return (NULL);
@@ -19,7 +19,7 @@ static char *parse_string(char *str)
 
 static int parse_int(char *str)
 {
-    for (; *str != '='; *str++);
+    for (; *str != '='; (*str)++);
     str += 2;
     return (my_getnbr(str));
 }

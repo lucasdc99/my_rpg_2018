@@ -17,6 +17,10 @@ window_t *draw_scene(window_t *win)
         sfRenderWindow_drawText(win->window,
         win->scene[win->actual_page].button[i].text, NULL);
     }
+    for (int i = 0; i < win->scene[win->actual_page].nb_text; i++) {
+        sfRenderWindow_drawText(win->window,
+        win->scene[win->actual_page].text[i].str, NULL);
+    }
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
         sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }

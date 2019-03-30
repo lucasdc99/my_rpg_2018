@@ -19,6 +19,7 @@ window_t *init_game(window_t *win)
     pos_window.y = (size_window.y - size.y) / 4;
     win->scene[GAME].button = malloc(sizeof(button_t) * 4);
     win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 1);
+    win->scene[GAME].nb_text = 0;
     win->scene[GAME].nb_button = 4;
     win->scene[GAME].nb_sprite = 1;
     for (int i = 0; i < win->scene[GAME].nb_button; i++) {

@@ -19,8 +19,11 @@ window_t *init_menu(window_t *win)
     pos_window.y = (size_window.y - size.y) / 4;
     win->scene[MAINMENU].button = malloc(sizeof(button_t) * 4);
     win->scene[MAINMENU].sprite = malloc(sizeof(sprite_t) * 1);
+    win->scene[MAINMENU].text = malloc(sizeof(text_t) * 1);
+    win->scene[MAINMENU].nb_text = 1;
     win->scene[MAINMENU].nb_button = 4;
     win->scene[MAINMENU].nb_sprite = 1;
+    init_text(&win->scene[MAINMENU].text[0], "MY RPG", get_pos_float(pos_window.x, 10));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         init_button(&win->scene[MAINMENU].button[i], pos_window, size);
         init_button_text(&win->scene[MAINMENU].button[i], text[i], pos_window);

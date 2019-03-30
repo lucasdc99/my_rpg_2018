@@ -45,5 +45,6 @@ int main(int ac, char **av, char **env)
     win = create_window(win);
     parser(win->player, "ressources/text/config_player");
     display(win);
+    destroy_all_music(win);
     return (0);
 }

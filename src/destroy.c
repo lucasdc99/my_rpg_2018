@@ -19,3 +19,8 @@ window_t *destroy_scene(window_t *win)
     free(win->scene[page].button);
     return (win);
 }
+
+void destroy_all_music(window_t *win)
+{
+    sfMusic_destroy(win->button_sound);
+}

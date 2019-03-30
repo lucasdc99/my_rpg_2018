@@ -18,6 +18,12 @@ enum page {
     OPTIONS,
 };
 
+typedef struct s_text {
+    sfFont *font;
+    sfText *str;
+    sfVector2f *pos_text;
+} text_t;
+
 typedef struct s_sprite {
     sfSprite *sprite;
     sfTexture *texture;
@@ -32,9 +38,11 @@ typedef struct s_player {
 
 typedef struct s_scene {
     sprite_t *sprite;
+    text_t *text;
+    struct s_button *button;
+    int nb_text;
     int nb_sprite;
     int nb_button;
-    struct s_button *button;
 } scene_t;
 
 typedef struct s_window {
@@ -46,6 +54,8 @@ typedef struct s_window {
     enum page actual_page;
     int vsync;
     int fps;
+    int volume;
+    sfMusic *button_sound;
 } window_t;
 
 typedef struct s_button {
@@ -71,7 +81,11 @@ window_t *create_window(window_t *win);
 
 sfVector2f get_pos_float(float x, float y);
 sfVector2i get_pos_int(int x, int y);
-
+void change_music(window_t *win);
+void change_fps(window_t *win);
+void change_vsync(window_t *win);
+void destroy_all_music(window_t *win);
+void init_text(text_t *text, char *display, sfVector2f pos);
 void init_button(button_t *button, sfVector2f position, sfVector2f size);
 void init_button_text(button_t *button, char *text, sfVector2f pos);
 window_t *init_menu(window_t *win);

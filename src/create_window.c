@@ -22,5 +22,7 @@ window_t *create_window(window_t *win)
     win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);
     win->fps = 60;
+    win->volume = 100;
+    win->button_sound = sfMusic_createFromFile("ressources/music/button.ogg");
     return (win);
 }
