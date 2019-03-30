@@ -10,8 +10,8 @@
 CC		:= gcc
 
 NAME		:= my_rpg
-FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite transform_2d init_game init_options init_how_to\
-                        options init_text move_rect choose_player
+FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite transform_2d init_choose_heroes init_options init_how_to\
+                        options init_text move_rect choose_heroes init_game
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))

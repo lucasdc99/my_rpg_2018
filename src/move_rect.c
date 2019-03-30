@@ -10,6 +10,6 @@
 
 void move_sprites(window_t *win, int offset)
 {
-    win->scene[GAME].sprite[0].rect.left = offset * (win->seconds % 2);
-    sfSprite_setTextureRect(win->scene[GAME].sprite[0].sprite, win->scene[GAME].sprite[0].rect);
+    win->scene[HEROES].sprite[0].rect.left = offset * (win->seconds % 2);
+    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
 }
