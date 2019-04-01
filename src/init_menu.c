@@ -34,6 +34,14 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].button[2].callback = &how_to_play;
     win->scene[MAINMENU].button[3].callback = &options;
     win->scene[MAINMENU].button[4].callback = &quit;
-    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(100, 100));
+
+    win->scene[MAINMENU].sprite[0].rect.top = 150;
+    win->scene[MAINMENU].sprite[0].rect.left = 0;
+    win->scene[MAINMENU].sprite[0].rect.width = 50;
+    win->scene[MAINMENU].sprite[0].rect.height = 50;
+
+    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", get_pos_float(win->test, win->test2));
+    sfSprite_setScale(win->scene[MAINMENU].sprite[0].sprite, get_pos_float(15, 15));
+    sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
     return (win);
 }

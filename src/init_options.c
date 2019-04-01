@@ -14,6 +14,8 @@ window_t *init_options(window_t *win)
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
     sfTexture *texture;
+    win->test = 500;
+    win->test2 = 500;
     char **text = transform_2d("OPTIONS\nFPS\nVSYNC\nMusic\nBack to main menu\n30\n60\n");
 
     pos_window.x = (size_window.x - size.x) / 2;
@@ -54,6 +56,7 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
     win->scene[OPTIONS].button[4].callback = &change_music;
-    init_sprite(&win->scene[OPTIONS].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(100, 100));
+    init_sprite(&win->scene[OPTIONS].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(win->test, win->test2));
+    //sfSprite_setPosition(&win->scene[MAINMENU].sprite[0], posatlas);
     return (win);
 }

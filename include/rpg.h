@@ -53,6 +53,8 @@ typedef struct s_window {
     sfEvent event;
     scene_t *scene;
     player_t *player;
+    float test;
+    float test2;
     enum page page;
     enum page actual_page;
     int vsync;
