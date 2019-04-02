@@ -118,7 +118,7 @@ char *get_next_line(int fd);
 player_t *parser(player_t *player, char *filename);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void move_sprites(window_t *win, int offset);
-
+sfVector2f get_pos_text_button(button_t button, char *text);
 
 void choose_glenys(window_t *win);
 void choose_hex(window_t *win);

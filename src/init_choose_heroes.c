@@ -36,7 +36,7 @@ window_t *init_choose_heroes(window_t *win)
             pos_window.y = (size_window.y - (size.y + 50) * 2);
         }
         init_button(&win->scene[HEROES].button[i], pos_window, size);
-        init_button_text(&win->scene[HEROES].button[i], text[i], pos_window);
+        init_button_text(&win->scene[HEROES].button[i], text[i], get_pos_text_button(win->scene[HEROES].button[i], text[i]));
         pos_window.y += size.y + 10;
     }
     win->scene[HEROES].button[0].callback = &choose_glenys;

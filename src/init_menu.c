@@ -8,11 +8,24 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+sfVector2f get_pos_text_button(button_t button, char *text)
+{
+    int len = my_strlen(text);
+    sfVector2f size = sfRectangleShape_getSize(button.rect);
+    int text_size = len * 35;
+    sfVector2f new_pos = sfRectangleShape_getPosition(button.rect);
+
+    new_pos.x += (size.x - text_size) / 2 + len * 2;
+    new_pos.y += size.y / 2 - 35;
+    return (new_pos);
+}
+
 window_t *init_menu(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
+    sfVector2f text_pos;
     char **text = transform_2d("NEW GAME\nLOAD GAME\nHOW TO PLAY\nOPTIONS\nEXIT\n");
 
     pos_window.x = (size_window.x - size.x) / 2;
@@ -26,7 +39,8 @@ window_t *init_menu(window_t *win)
     init_text(&win->scene[MAINMENU].text[0], "MY RPG", get_pos_float(pos_window.x, 10));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         init_button(&win->scene[MAINMENU].button[i], pos_window, size);
-        init_button_text(&win->scene[MAINMENU].button[i], text[i], pos_window);
+        text_pos = get_pos_text_button(win->scene[MAINMENU].button[i], text[i]);
+        init_button_text(&win->scene[MAINMENU].button[i], text[i], text_pos);
         pos_window.y += size.y + 20;
     }
     win->scene[MAINMENU].button[0].callback = &heroes_menu;
@@ -45,3 +59,4 @@ window_t *init_menu(window_t *win)
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
     return (win);
 }
+
