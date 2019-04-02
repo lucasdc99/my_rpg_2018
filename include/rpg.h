@@ -40,10 +40,14 @@ typedef struct s_sprite {
 } sprite_t;
 
 typedef struct s_player {
+    sprite_t *sprite;
     char *name;
     int health;
     int xp;
     int strength;
+    sfVector2f speed;
+    float test;
+    float test2;
 } player_t;
 
 typedef struct s_scene {
@@ -61,8 +65,6 @@ typedef struct s_window {
     sfEvent event;
     scene_t *scene;
     player_t *player;
-    float test;
-    float test2;
     enum page page;
     enum page actual_page;
     int vsync;

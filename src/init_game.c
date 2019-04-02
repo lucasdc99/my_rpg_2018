@@ -54,12 +54,15 @@ window_t *init_game(window_t *win)
     win->scene[GAME].nb_text = 0;
     win->scene[GAME].nb_button = 0;
     win->scene[GAME].nb_sprite = 1;
-    win->scene[GAME].sprite[0].rect.top = 15;
-    win->scene[GAME].sprite[0].rect.left = 15;
-    win->scene[GAME].sprite[0].rect.width = 18;
-    win->scene[GAME].sprite[0].rect.height = 18;
-    init_sprite(&win->scene[GAME].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", get_pos_float(win->test, win->test2));
-    sfSprite_setScale(win->scene[GAME].sprite[0].sprite, get_pos_float(3, 3));
-    sfSprite_setTextureRect(win->scene[GAME].sprite[0].sprite, win->scene[GAME].sprite[0].rect);
+    win->player->sprite->rect.top = 15;
+    win->player->sprite->rect.left = 15;
+    win->player->sprite->rect.width = 18;
+    win->player->sprite->rect.height = 18;
+    init_sprite(win->player->sprite, "ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", get_pos_float(win->player->speed.x, win->player->speed.y));
+    sfSprite_setScale(win->player->sprite->sprite, get_pos_float(3, 3));
+    sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
+
+    init_sprite(&win->scene[GAME].sprite[0], "ressources/pack/rpg-pack/decorations/generic-rpg-house-inn.png", get_pos_float(200, 200));
+    sfSprite_setScale(win->scene[GAME].sprite[0].sprite, get_pos_float(2, 2));
     return (win);
 }
