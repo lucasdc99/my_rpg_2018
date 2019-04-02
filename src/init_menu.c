@@ -8,24 +8,11 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-sfVector2f get_pos_text_button(button_t button, char *text)
-{
-    int len = my_strlen(text);
-    sfVector2f size = sfRectangleShape_getSize(button.rect);
-    int text_size = len * 35;
-    sfVector2f new_pos = sfRectangleShape_getPosition(button.rect);
-
-    new_pos.x += (size.x - text_size) / 2 + len * 2;
-    new_pos.y += size.y / 2 - 35;
-    return (new_pos);
-}
-
 window_t *init_menu(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
-    sfVector2f text_pos;
     char **text = transform_2d("NEW GAME\nLOAD GAME\nHOW TO PLAY\nOPTIONS\nEXIT\n");
 
     pos_window.x = (size_window.x - size.x) / 2;
@@ -39,8 +26,7 @@ window_t *init_menu(window_t *win)
     init_text(&win->scene[MAINMENU].text[0], "MY RPG", get_pos_float(pos_window.x, 10));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         init_button(&win->scene[MAINMENU].button[i], pos_window, size);
-        text_pos = get_pos_text_button(win->scene[MAINMENU].button[i], text[i]);
-        init_button_text(&win->scene[MAINMENU].button[i], text[i], text_pos);
+        init_button_text(&win->scene[MAINMENU].button[i], text[i], get_pos_text_button(win->scene[MAINMENU].button[i], text[i]));
         pos_window.y += size.y + 20;
     }
     win->scene[MAINMENU].button[0].callback = &heroes_menu;
@@ -55,7 +41,7 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].sprite[0].rect.height = 50;
 
     init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", get_pos_float(win->test, win->test2));
-    sfSprite_setScale(win->scene[MAINMENU].sprite[0].sprite, get_pos_float(15, 15));
+    //sfSprite_setScale(win->scene[MAINMENU].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
     return (win);
 }
