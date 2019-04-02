@@ -10,7 +10,7 @@
 
 window_t *init_options(window_t *win)
 {
-    sfVector2f size = get_pos_float(400, 100);
+    sfVector2f size = get_pos_float(500, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
     sfTexture *texture;
@@ -21,11 +21,10 @@ window_t *init_options(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = 800;
     win->scene[OPTIONS].button = malloc(sizeof(button_t) * 5);
-    win->scene[OPTIONS].sprite = malloc(sizeof(sprite_t) * 1);
     win->scene[OPTIONS].text = malloc(sizeof(text_t) * 1);
     win->scene[OPTIONS].nb_text = 1;
     win->scene[OPTIONS].nb_button = 5;
-    win->scene[OPTIONS].nb_sprite = 1;
+    win->scene[OPTIONS].nb_sprite = 0;
     init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x, 10));
     init_button(&win->scene[OPTIONS].button[0], pos_window, size);
     init_button(&win->scene[OPTIONS].button[1], get_pos_float(pos_window.x + 200, 200), get_pos_float(80, 80));
@@ -44,7 +43,7 @@ window_t *init_options(window_t *win)
         texture = sfTexture_createFromFile("ressources/buttons/Checkbox.png", NULL);
     pos_window.x += 20;
     pos_window.y += 10;
-    init_button_text(&win->scene[OPTIONS].button[0], text[4], pos_window);
+    init_button_text(&win->scene[OPTIONS].button[0], text[4], get_pos_text_button(win->scene[OPTIONS].button[0], text[4]));
     init_button_text(&win->scene[OPTIONS].button[1], text[5], get_pos_float(pos_window.x + 200, 200));
     init_button_text(&win->scene[OPTIONS].button[2], text[6], get_pos_float(pos_window.x + 400, 200));
     init_button_text(&win->scene[OPTIONS].button[3], NULL, get_pos_float(pos_window.x + 200, pos_window.y - 450));
@@ -56,7 +55,6 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
     win->scene[OPTIONS].button[4].callback = &change_music;
-    init_sprite(&win->scene[OPTIONS].sprite[0], "ressources/pack/rpg-pack/atlas.png", get_pos_float(win->test, win->test2));
     //sfSprite_setPosition(&win->scene[MAINMENU].sprite[0], posatlas);
     return (win);
 }
