@@ -12,7 +12,7 @@ sfVector2f get_pos_text_button(button_t button, char *text)
 {
     int len = my_strlen(text);
     sfVector2f size = sfRectangleShape_getSize(button.rect);
-    int text_size = len * 35;
+    int text_size = len * 30;
     sfVector2f new_pos = sfRectangleShape_getPosition(button.rect);
 
     new_pos.x += (size.x - text_size) / 2 + len * 2;

@@ -13,7 +13,7 @@ window_t *init_menu(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
-    char **text = transform_2d("NEW GAME\nLOAD GAME\nHOW TO PLAY\nOPTIONS\nEXIT\n");
+    char **text = transform_2d("New game\nLoad game\nHow to play\nOptions\nExit\n");
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;

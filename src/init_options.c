@@ -55,6 +55,5 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
     win->scene[OPTIONS].button[4].callback = &change_music;
-    //sfSprite_setPosition(&win->scene[MAINMENU].sprite[0], posatlas);
     return (win);
 }
