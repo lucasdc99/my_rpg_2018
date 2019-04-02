@@ -21,11 +21,14 @@ window_t *init_options(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = 800;
     win->scene[OPTIONS].button = malloc(sizeof(button_t) * 5);
-    win->scene[OPTIONS].text = malloc(sizeof(text_t) * 1);
-    win->scene[OPTIONS].nb_text = 1;
+    win->scene[OPTIONS].text = malloc(sizeof(text_t) * 6);
+    win->scene[OPTIONS].nb_text = 6;
     win->scene[OPTIONS].nb_button = 5;
     win->scene[OPTIONS].nb_sprite = 0;
     init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x, 10));
+    init_text(&win->scene[OPTIONS].text[1], text[1], get_pos_float(pos_window.x, 200));
+    init_text(&win->scene[OPTIONS].text[2], text[2], get_pos_float(pos_window.x, pos_window.y - 450));
+    init_text(&win->scene[OPTIONS].text[3], text[3], get_pos_float(pos_window.x, pos_window.y - 250));
     init_button(&win->scene[OPTIONS].button[0], pos_window, size);
     init_button(&win->scene[OPTIONS].button[1], get_pos_float(pos_window.x + 200, 200), get_pos_float(80, 80));
     init_button(&win->scene[OPTIONS].button[2], get_pos_float(pos_window.x + 400, 200), get_pos_float(80, 80));
