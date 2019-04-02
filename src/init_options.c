@@ -14,8 +14,6 @@ window_t *init_options(window_t *win)
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
     sfTexture *texture;
-    win->test = 500;
-    win->test2 = 500;
     char **text = transform_2d("OPTIONS\nFPS\nVSYNC\nMusic\nBack to main menu\n30\n60\n");
 
     pos_window.x = (size_window.x - size.x) / 2;
@@ -34,8 +32,13 @@ window_t *init_options(window_t *win)
     init_button(&win->scene[OPTIONS].button[2], get_pos_float(pos_window.x + 400, 200), get_pos_float(80, 80));
     init_button(&win->scene[OPTIONS].button[3], get_pos_float(pos_window.x + 200, pos_window.y - 450), get_pos_float(100, 100));
     init_button(&win->scene[OPTIONS].button[4], get_pos_float(pos_window.x + 200, pos_window.y - 250), get_pos_float(150, 100));
-    win->scene[OPTIONS].button[1].idle_color = sfRed;
-    win->scene[OPTIONS].button[2].idle_color = sfYellow;
+    if (win->fps == 60) {
+        win->scene[OPTIONS].button[1].idle_color = sfRed;
+        win->scene[OPTIONS].button[2].idle_color = sfYellow;
+    } else {
+        win->scene[OPTIONS].button[1].idle_color = sfYellow;
+        win->scene[OPTIONS].button[2].idle_color = sfRed;
+    }
     sfRectangleShape_setFillColor(win->scene[OPTIONS].button[2].rect,
     win->scene[OPTIONS].button[2].idle_color);
     sfRectangleShape_setFillColor(win->scene[OPTIONS].button[1].rect,
