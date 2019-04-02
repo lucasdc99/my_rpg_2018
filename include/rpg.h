@@ -19,6 +19,13 @@ enum page {
     GAME,
 };
 
+typedef struct background {
+    sfTexture *texture;
+    sfSprite *sprite;
+    sfVector2f pos;
+    char **tab_pos;
+} background_t;
+
 typedef struct s_text {
     sfFont *font;
     sfText *str;
@@ -40,6 +47,7 @@ typedef struct s_player {
 } player_t;
 
 typedef struct s_scene {
+    background_t *background;
     sprite_t *sprite;
     text_t *text;
     struct s_button *button;
@@ -119,7 +127,7 @@ player_t *parser(player_t *player, char *filename);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void move_sprites(window_t *win, int offset);
 sfVector2f get_pos_text_button(button_t button, char *text);
-
+char **transform_pos_to_tab(char *str);
 void choose_glenys(window_t *win);
 void choose_hex(window_t *win);
 void choose_ley(window_t *win);
