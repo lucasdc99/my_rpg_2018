@@ -23,7 +23,7 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].nb_text = 7;
     win->scene[HEROES].nb_button = 10;
     win->scene[HEROES].nb_sprite = 1;
-    init_text(&win->scene[HEROES].text[0], "Choose Player", get_pos_float(pos_window.x, 10));
+    init_text(&win->scene[HEROES].text[0], "Choose Player", get_pos_float(pos_window.x + 40, 10));
     init_text(&win->scene[HEROES].text[1], win->player->name, get_pos_float(pos_window.x / 2, 100));
     init_text(&win->scene[HEROES].text[2], "Life: ", get_pos_float((pos_window.x - 100) / 2, (size_window.y - 450)));
     init_text(&win->scene[HEROES].text[3], my_itc(win->player->health), get_pos_float((pos_window.x + 250) / 2, (size_window.y - 450)));

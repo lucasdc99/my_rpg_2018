@@ -22,7 +22,7 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].nb_text = 1;
     win->scene[MAINMENU].nb_button = 5;
     win->scene[MAINMENU].nb_sprite = 0;
-    init_text(&win->scene[MAINMENU].text[0], "MY RPG", get_pos_float(pos_window.x, 10));
+    init_text(&win->scene[MAINMENU].text[0], "MY RPG", get_pos_float(pos_window.x + 90, 10));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         init_button(&win->scene[MAINMENU].button[i], pos_window, size);
         init_button_text(&win->scene[MAINMENU].button[i], text[i], get_pos_text_button(win->scene[MAINMENU].button[i], text[i]));

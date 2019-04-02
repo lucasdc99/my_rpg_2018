@@ -23,7 +23,7 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].nb_text = 4;
     win->scene[OPTIONS].nb_button = 5;
     win->scene[OPTIONS].nb_sprite = 0;
-    init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x, 10));
+    init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x + 150, 10));
     init_text(&win->scene[OPTIONS].text[1], text[1], get_pos_float(pos_window.x, 210));
     init_text(&win->scene[OPTIONS].text[2], text[2], get_pos_float(pos_window.x, pos_window.y - 430));
     init_text(&win->scene[OPTIONS].text[3], text[3], get_pos_float(pos_window.x, pos_window.y - 230));
