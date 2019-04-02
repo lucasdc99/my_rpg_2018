@@ -10,7 +10,7 @@
 
 void draw_background(window_t *win)
 {
-    for (int i = 0; i < 120; i++) {
+    for (int i = 0; i < 220; i++) {
         sfRenderWindow_drawSprite(win->window,
         win->scene[GAME].background[i].sprite, NULL);
     }

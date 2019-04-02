@@ -17,7 +17,7 @@ void set_background(window_t *win, int i, char *filename)
     win->scene[GAME].background[i].texture, sfTrue);
     sfSprite_setPosition(win->scene[GAME].background[i].sprite,
     win->scene[GAME].background[i].pos);
-    sfSprite_setScale(win->scene[GAME].background[i].sprite, get_pos_float(8, 8));
+    sfSprite_setScale(win->scene[GAME].background[i].sprite, get_pos_float(6, 6));
 }
 
 void load_background(window_t *win)
@@ -26,10 +26,10 @@ void load_background(window_t *win)
     int y = 0;
     char *filename = malloc(sizeof(char) * 58);
 
-    for (int i = 0; i < 120; i++) {
-        if (i % 15 == 0 && i != 0) {
+    for (int i = 0; i < 220; i++) {
+        if (i % 20 == 0 && i != 0) {
             x = 0;
-            y += 128;
+            y += 96;
         }
         win->scene[GAME].background[i].pos.x = x;
         win->scene[GAME].background[i].pos.y = y;
@@ -37,17 +37,17 @@ void load_background(window_t *win)
         filename = my_strcat(filename, win->scene[GAME].background->tab_pos[i]);
         filename = my_strcat(filename, ".png");
         set_background(win, i, filename);
-        x += 128;
+        x += 96;
     }
 }
 
 window_t *init_game(window_t *win)
 {
     int fd = open("ressources/text/pos_bg", O_RDONLY);
-    char buff[500];
+    char buff[660];
 
     read(fd, buff, sizeof(buff));
-    win->scene[GAME].background = malloc(sizeof(background_t) * 134);
+    win->scene[GAME].background = malloc(sizeof(background_t) * 222);
     win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 1);
     win->scene[GAME].background->tab_pos = transform_pos_to_tab(buff);
     load_background(win);

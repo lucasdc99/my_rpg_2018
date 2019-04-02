@@ -44,10 +44,10 @@ char **transform_pos_to_tab(char *str)
 {
     int x = 0;
     int y = 0;
-    char **tab = malloc(sizeof(char *) * 122);
+    char **tab = malloc(sizeof(char *) * 222);
 
-    for (int i = 0; i < 121; i++)
-        tab[i] = malloc(sizeof(char) * 5);
+    for (int i = 0; i < 222; i++)
+        tab[i] = malloc(sizeof(char) * 3);
     for (int i = 0; str[i + 1] != '\0'; i++) {
         if (str[i] == ' ' || str[i] == '\n') {
             tab[y][x] = '\0';
