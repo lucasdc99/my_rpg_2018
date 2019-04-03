@@ -23,5 +23,6 @@ window_t *destroy_scene(window_t *win)
 
 void destroy_all_music(window_t *win)
 {
+    sfMusic_destroy(win->menu_song);
     sfMusic_destroy(win->button_sound);
 }

@@ -11,6 +11,8 @@
 void main_menu(window_t *win)
 {
     sfMusic_play(win->button_sound);
+    if (sfMusic_getStatus(win->menu_song) == sfStopped)
+        sfMusic_play(win->menu_song);
     win->page = MAINMENU;
 }
 
@@ -50,5 +52,6 @@ void play_game(window_t *win)
         fprintf(fp, "STRENGTH = %d\n", win->player->strength);
         fclose(fp);
     }
+    sfMusic_stop(win->menu_song);
     win->page = GAME;
 }

@@ -58,12 +58,10 @@ typedef struct s_scene {
     background_t *background;
     sprite_t *sprite;
     text_t *text;
-    music_t *music;
     struct s_button *button;
     int nb_text;
     int nb_sprite;
     int nb_button;
-    int nb_music;
 } scene_t;
 
 typedef struct s_window {
