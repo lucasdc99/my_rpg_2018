@@ -153,6 +153,17 @@ void check_interaction(window_t *win)
     }
 }
 
+void check_out(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+
+    printf("%f %f\n", pos_player.x, pos_player.y);
+    if (pos_player.x >= 600 && pos_player.x < 620) {
+        if (pos_player.y >= 700 && pos_player.y < 720)
+            win->page = GAME;
+    }
+}
+
 void global_event(window_t *win)
 {
     if (win->event.type == sfEvtClosed)
@@ -163,6 +174,7 @@ void global_event(window_t *win)
         if (win->page == GAME || win->page == HOUSE) {
             move_player(win);
             check_interaction(win);
+            check_out(win);
         }
     }
     if (win->event.type == sfEvtMouseButtonPressed)

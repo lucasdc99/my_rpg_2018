@@ -18,6 +18,7 @@ window_t *create_window(window_t *win)
     win->actual_page = win->page;
     win->scene = malloc(sizeof(scene_t) * 6);
     win->player = malloc(sizeof(player_t) * 1);
+    win->player->sprite = malloc(sizeof(sprite_t) * 1);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);

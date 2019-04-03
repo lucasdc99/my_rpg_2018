@@ -12,7 +12,7 @@ void draw_background(window_t *win)
 {
     for (int i = 0; i < 220; i++) {
         sfRenderWindow_drawSprite(win->window,
-        win->scene[GAME].background[i].sprite, NULL);
+        win->scene[win->actual_page].background[i].sprite, NULL);
     }
 }
 
@@ -30,7 +30,7 @@ window_t *draw_scene(window_t *win)
         win->scene[win->actual_page].text[i].str, NULL);
     }
 
-    if (win->actual_page == GAME) {
+    if (win->actual_page == GAME || win->actual_page == HOUSE) {
         draw_background(win);
     }
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {

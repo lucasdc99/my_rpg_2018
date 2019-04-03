@@ -10,7 +10,7 @@
 
 void choose_glenys(window_t *win)
 {
-    win->player->name = "Glenys";
+    win->player->name = "Glenys-the-Demonswordsman";
     win->player->health = 150;
     win->player->strength = 150;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -32,7 +32,7 @@ void choose_glenys(window_t *win)
 
 void choose_hex(window_t *win)
 {
-    win->player->name = "Hex";
+    win->player->name = "Hex-the-Time-Witch";
     win->player->health = 70;
     win->player->strength = 70;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -54,7 +54,7 @@ void choose_hex(window_t *win)
 
 void choose_ley(window_t *win)
 {
-    win->player->name = "Ley";
+    win->player->name = "Ley-the-Monster-Whisperer";
     win->player->health = 80;
     win->player->strength = 90;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -76,7 +76,7 @@ void choose_ley(window_t *win)
 
 void choose_linail(window_t *win)
 {
-    win->player->name = "Linail";
+    win->player->name = "Linail-the-High-Priestess";
     win->player->health = 110;
     win->player->strength = 70;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -98,7 +98,7 @@ void choose_linail(window_t *win)
 
 void choose_oratio(window_t *win)
 {
-    win->player->name = "Oratio";
+    win->player->name = "Oratio-the-Mercenary";
     win->player->health = 100;
     win->player->strength = 100;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -120,7 +120,7 @@ void choose_oratio(window_t *win)
 
 void choose_ouzo(window_t *win)
 {
-    win->player->name = "Ouzo";
+    win->player->name = "Ouzo-the-Wolf-Bard";
     win->player->health = 70;
     win->player->strength = 120;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -142,7 +142,7 @@ void choose_ouzo(window_t *win)
 
 void choose_prime(window_t *win)
 {
-    win->player->name = "Prime";
+    win->player->name = "Prime-the-Great-Sage";
     win->player->health = 150;
     win->player->strength = 70;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
@@ -164,7 +164,7 @@ void choose_prime(window_t *win)
 
 void choose_wyvera(window_t *win)
 {
-    win->player->name = "Wyvera";
+    win->player->name = "Wyvera-the-Queen-Dragoon";
     win->player->health = 110;
     win->player->strength = 90;
     sfText_setString(win->scene[HEROES].text[1].str, win->player->name);

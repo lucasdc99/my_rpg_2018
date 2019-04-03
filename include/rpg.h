@@ -45,6 +45,7 @@ typedef struct s_sprite {
 } sprite_t;
 
 typedef struct s_player {
+    sfVector2f last_pos;
     sprite_t *sprite;
     char *name;
     int health;
@@ -109,6 +110,7 @@ void change_music(window_t *win);
 void change_fps(window_t *win);
 void change_vsync(window_t *win);
 window_t *init_house(window_t *win);
+void load_background(window_t *win);
 void destroy_all_music(window_t *win);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void init_button(button_t *button, sfVector2f position, sfVector2f size);

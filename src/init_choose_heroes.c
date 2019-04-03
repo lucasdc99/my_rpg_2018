@@ -15,6 +15,7 @@ window_t *init_choose_heroes(window_t *win)
     sfVector2f pos_window;
     char **text = transform_2d("Glenys\nHex\nLey\nLinail\nOratio\nOuzo\nPrime\nWyvera\nCONFIRM\nBACK TO MAIN MENU\n");
 
+    win->player->name = malloc(sizeof(char) * 20);
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 8;
     win->scene[HEROES].button = malloc(sizeof(button_t) * 10);
