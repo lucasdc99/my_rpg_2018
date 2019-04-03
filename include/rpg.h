@@ -32,6 +32,10 @@ typedef struct s_text {
     sfVector2f *pos_text;
 } text_t;
 
+typedef struct s_music {
+    sfMusic *menu_song;
+} music_t;
+
 typedef struct s_sprite {
     sfIntRect rect;
     sfSprite *sprite;
@@ -54,10 +58,12 @@ typedef struct s_scene {
     background_t *background;
     sprite_t *sprite;
     text_t *text;
+    music_t *music;
     struct s_button *button;
     int nb_text;
     int nb_sprite;
     int nb_button;
+    int nb_music;
 } scene_t;
 
 typedef struct s_window {
@@ -71,6 +77,7 @@ typedef struct s_window {
     int fps;
     int volume;
     sfMusic *button_sound;
+    sfMusic *menu_song;
     sfClock *move;
     sfTime move_time;
     int seconds;

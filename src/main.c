@@ -43,6 +43,7 @@ int main(int ac, char **av, char **env)
     if (ac == 2 && my_strcmp(av[1], "-h") == 0)
         return (display_help());
     win = create_window(win);
+    printf("%d", win->actual_page);
     win->player = parser(win->player, "ressources/text/config_player");
     if (win->player == NULL)
         return (84);

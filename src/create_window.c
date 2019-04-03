@@ -24,5 +24,10 @@ window_t *create_window(window_t *win)
     win->fps = 60;
     win->volume = 100;
     win->button_sound = sfMusic_createFromFile("ressources/music/button.ogg");
+    win->menu_song = sfMusic_createFromFile("ressources/music/main_song.ogg");
+
+    if (win->actual_page != GAME)
+        sfMusic_play(win->menu_song);
+    //else 
     return (win);
 }

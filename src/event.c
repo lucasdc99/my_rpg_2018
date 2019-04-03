@@ -177,4 +177,5 @@ void global_event(window_t *win)
         mouse_released_event(win);
     if (win->event.type == sfEvtMouseMoved)
         mouse_moved_event(win);
+
 }
