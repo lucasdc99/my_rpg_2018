@@ -43,6 +43,7 @@ void quit(window_t *win)
 void play_game(window_t *win)
 {
     FILE *fp;
+    float vol_sound = 100;
 
     if (win->page == HEROES) {
         fp = fopen("ressources/text/config_player", "wb+");
@@ -52,6 +53,8 @@ void play_game(window_t *win)
         fprintf(fp, "STRENGTH = %d\n", win->player->strength);
         fclose(fp);
     }
-    sfMusic_stop(win->menu_song);
+    for (; vol_sound >= 0; vol_sound--)
+        sfMusic_setVolume(win->menu_song, vol_sound);
+
     win->page = GAME;
 }
