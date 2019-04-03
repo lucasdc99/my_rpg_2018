@@ -81,6 +81,8 @@ typedef struct s_window {
     sfClock *move;
     sfTime move_time;
     int seconds;
+    int vol_drag_posx;
+    int drag_value;
 } window_t;
 
 typedef struct s_button {
@@ -147,5 +149,6 @@ void choose_oratio(window_t *win);
 void choose_ouzo(window_t *win);
 void choose_prime(window_t *win);
 void choose_wyvera(window_t *win);
+void change_music_two(window_t *win);
 
 #endif
