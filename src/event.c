@@ -8,26 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void check_interaction(window_t *win)
-{
-    sfVector2f player_pos = sfSprite_getPosition(win->player->sprite->sprite);
-    printf("%f\n%f\n", player_pos.x, player_pos.y);
-    if (sfKeyboard_isKeyPressed(sfKeyE) == sfTrue)
-        if (check_interaction_hitbox(win, player_pos) == 1)
-            printf("ok\n");
-        
-}
-
-int check_interaction_hitbox(window_t *win, sfVector2f pos)
-{
-    sfVector2f size = {win->player->sprite->rect.width, win->player->sprite->rect.height};
-    printf("%f\n", size.x);
-    sfVector2f target_pos = {400, 400};
-    if ((pos.x == target_pos.x - 20 || pos.x == target_pos.x + 20) && (pos.y == target_pos.y - 20 || pos.y == target_pos.y + 20))
-        return (1);
-    return (0);
-}
-
 void mouse_pressed_event(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
@@ -159,6 +139,20 @@ void move_player(window_t *win)
     }
 }
 
+void check_interaction(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    sfVector2f pos_element = sfSprite_getPosition(win->scene[GAME].sprite[0].sprite);
+
+    pos_element.x += 45;
+    pos_element.y += 140;
+    //printf("%f %f %f %f\n", pos_player.x, pos_player.y, pos_element.x, pos_element.y);
+    if (pos_player.x > pos_element.x - 20 && pos_player.x < pos_element.x) {
+        if (pos_player.y > pos_element.y - 20 && pos_player.y < pos_element.y + 20)
+            win->page = HOUSE;
+    }
+}
+
 void global_event(window_t *win)
 {
     if (win->event.type == sfEvtClosed)
@@ -166,16 +160,15 @@ void global_event(window_t *win)
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
             sfRenderWindow_close(win->window);
-        if (win->page == GAME) {
+        if (win->page == GAME || win->page == HOUSE) {
             move_player(win);
             check_interaction(win);
         }
-}
+    }
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);
     if (win->event.type == sfEvtMouseButtonReleased)
         mouse_released_event(win);
     if (win->event.type == sfEvtMouseMoved)
         mouse_moved_event(win);
-
 }

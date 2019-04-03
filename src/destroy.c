@@ -17,7 +17,8 @@ window_t *destroy_scene(window_t *win)
         sfText_destroy(win->scene[page].button[i].text);
         sfRectangleShape_destroy(win->scene[page].button[i].rect);
     }
-    free(win->scene[page].button);
+    if (win->scene[page].nb_button > 0)
+        free(win->scene[page].button);
     return (win);
 }
 

@@ -36,7 +36,7 @@ window_t *draw_scene(window_t *win)
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
         sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }
-    if (win->actual_page == GAME)
+    if (win->actual_page == GAME || win->actual_page == HOUSE)
         sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
     sfRenderWindow_display(win->window);
     return (win);

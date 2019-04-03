@@ -17,6 +17,7 @@ enum page {
     HOW_TO_PLAY,
     OPTIONS,
     GAME,
+    HOUSE,
 };
 
 typedef struct background {
@@ -107,6 +108,7 @@ sfVector2i get_pos_int(int x, int y);
 void change_music(window_t *win);
 void change_fps(window_t *win);
 void change_vsync(window_t *win);
+window_t *init_house(window_t *win);
 void destroy_all_music(window_t *win);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void init_button(button_t *button, sfVector2f position, sfVector2f size);
