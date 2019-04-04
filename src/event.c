@@ -198,7 +198,10 @@ void global_event(window_t *win)
         sfRenderWindow_close(win->window);
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
-            sfRenderWindow_close(win->window);
+            if (win->actual_page == MAINMENU)
+                sfRenderWindow_close(win->window);
+            if (win->actual_page == GAME)
+                pause_game(win);
         if (win->page == GAME || win->page == HOUSE) {
             move_player(win);
             check_interaction(win);
@@ -215,4 +218,40 @@ void global_event(window_t *win)
         mouse_released_event(win);
     if (win->event.type == sfEvtMouseMoved)
         mouse_moved_event(win);
+    if (win->event.type == sfEvtKeyPressed)
+        if (win->actual_page == GAME)
+            check_keyboard_input_ingame(win);
+}
+
+void check_keyboard_input_ingame(window_t *win)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyI)) {
+        open_inventory(win);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyO)) {
+        open_quests_menu(win);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyC)) {
+        open_characteristics(win);
+    }
+}
+
+void open_inventory(window_t *win)
+{
+    printf("inventory\n");
+}
+
+void open_quests_menu(window_t *win)
+{
+    printf("quests\n");
+}
+
+void open_characteristics(window_t *win)
+{
+    printf("chars\n");
+}
+
+void pause_game(window_t *win)
+{
+    printf("pause\n");
 }

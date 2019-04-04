@@ -31,7 +31,7 @@ window_t *init_menu(window_t *win)
     init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background.png", get_pos_float(0, 0));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         set_next_buttons(&win->scene[MAINMENU].button[i], win->rect_buttons, order_button[i]);
-        init_button(&win->scene[MAINMENU].button[i], pos_window, size, win->texture_button);
+        init_button(&win->scene[MAINMENU].button[i], get_pos_float(pos_window.x - 600, pos_window.y), size, win->texture_button);
         pos_window.y += size.y + 20;
     }
     win->scene[MAINMENU].button[0].callback = &play_game;
