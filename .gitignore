@@ -3,4 +3,3 @@
 *.o
 my_rpg
 *pytest_cache
-config_player

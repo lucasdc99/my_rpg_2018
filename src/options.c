@@ -39,8 +39,3 @@ void change_fps(window_t *win)
         win->fps = 30;
     }
 }
-
-void change_music_two(window_t *win)
-{
-    printf("dqdqz");
-}

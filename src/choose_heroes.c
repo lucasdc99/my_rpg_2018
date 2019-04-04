@@ -8,6 +8,43 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void choose_hero(window_t *win)
+{
+    static int actual = 1;
+
+    switch (actual) {
+        case 0:
+            choose_glenys(win);
+            break;
+        case 1:
+            choose_hex(win);
+            break;
+        case 2:
+            choose_ley(win);
+            break;
+        case 3:
+            choose_linail(win);
+            break;
+        case 4:
+            choose_oratio(win);
+            break;
+        case 5:
+            choose_ouzo(win);
+            break;
+        case 6:
+            choose_prime(win);
+            break;
+        case 7:
+            choose_wyvera(win);
+            break;
+        default:
+            break;
+    }
+    actual++;
+    if (actual == 8)
+        actual = 0;
+}
+
 void choose_glenys(window_t *win)
 {
     win->player->name = "Glenys-the-Demonswordsman";
@@ -22,12 +59,6 @@ void choose_glenys(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[0].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[0].shape, win->scene[HEROES].button[0].idle_color);
 }
 
 void choose_hex(window_t *win)
@@ -44,12 +75,6 @@ void choose_hex(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[1].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[1].shape, win->scene[HEROES].button[1].idle_color);
 }
 
 void choose_ley(window_t *win)
@@ -66,12 +91,6 @@ void choose_ley(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[2].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[2].shape, win->scene[HEROES].button[2].idle_color);
 }
 
 void choose_linail(window_t *win)
@@ -88,12 +107,6 @@ void choose_linail(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[3].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[3].shape, win->scene[HEROES].button[3].idle_color);
 }
 
 void choose_oratio(window_t *win)
@@ -110,12 +123,6 @@ void choose_oratio(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[4].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[4].shape, win->scene[HEROES].button[4].idle_color);
 }
 
 void choose_ouzo(window_t *win)
@@ -132,12 +139,6 @@ void choose_ouzo(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[5].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[5].shape, win->scene[HEROES].button[5].idle_color);
 }
 
 void choose_prime(window_t *win)
@@ -154,12 +155,6 @@ void choose_prime(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[6].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[6].shape, win->scene[HEROES].button[6].idle_color);
 }
 
 void choose_wyvera(window_t *win)
@@ -176,10 +171,4 @@ void choose_wyvera(window_t *win)
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-    // for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-    //     win->scene[HEROES].button[i].idle_color = sfRed;
-    //     sfRectangleShape_setFillColor(win->scene[HEROES].button[i].shape, win->scene[HEROES].button[i].idle_color);
-    // }
-    // win->scene[HEROES].button[7].idle_color = sfYellow;
-    // sfRectangleShape_setFillColor(win->scene[HEROES].button[7].shape, win->scene[HEROES].button[7].idle_color);
 }

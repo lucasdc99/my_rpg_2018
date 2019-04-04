@@ -59,6 +59,6 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[1].callback = &change_fps;
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
-    win->scene[OPTIONS].button[4].callback = &change_music_two;
+    win->scene[OPTIONS].button[4].callback = NULL;
     return (win);
 }

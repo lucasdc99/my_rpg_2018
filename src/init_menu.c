@@ -34,11 +34,10 @@ window_t *init_menu(window_t *win)
     sfText_setFont(win->scene[MAINMENU].text[0].str, win->scene[MAINMENU].text[0].font);
 
     for (int i = 1; i != 9; i++) {
-        get_number = strcat(my_itc(number_str), ".png");
+        get_number = my_strcat(my_itc(number_str), ".png");
         path = my_strcat(str, get_number);
         number_str++;
         get_number = NULL;
-        printf("%s\n", path);
     }
     init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background/frame1.png", get_pos_float(0, 0));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
