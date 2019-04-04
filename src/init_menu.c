@@ -15,7 +15,6 @@ window_t *init_menu(window_t *win)
     sfVector2f pos_window;
     char **text = transform_2d("New game\nLoad game\nHow to play\nOptions\nExit\n");
 
-
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
     win->scene[MAINMENU].button = malloc(sizeof(button_t) * 5);
@@ -25,7 +24,10 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].nb_button = 5;
     win->scene[MAINMENU].nb_sprite = 1;
     init_text(&win->scene[MAINMENU].text[0], "Tekzerk", get_pos_float(pos_window.x + 90, 10));
-    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background.png", get_pos_float(100, 0));
+
+    win->scene[MAINMENU].text[0].font = sfFont_createFromFile("ressources/font/font.ttf");
+    sfText_setFont(win->scene[MAINMENU].text[0].str, win->scene[MAINMENU].text[0].font);
+    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background.png", get_pos_float(0, 0));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         init_button(&win->scene[MAINMENU].button[i], pos_window, size);
         init_button_text(&win->scene[MAINMENU].button[i], text[i], get_pos_text_button(win->scene[MAINMENU].button[i], text[i]));
