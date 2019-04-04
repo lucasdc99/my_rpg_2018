@@ -40,6 +40,13 @@ void quit(window_t *win)
     sfRenderWindow_close(win->window);
 }
 
+void quit_pause(window_t *win)
+{
+    win->pause = 0;
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(-200, -200));
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(-200, -200));
+}
+
 void play_game(window_t *win)
 {
     FILE *fp;

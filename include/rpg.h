@@ -102,6 +102,7 @@ typedef struct s_window {
     int vol_drag_posx;
     int drag_value;
     int vol_register;
+    int pause;
 } window_t;
 
 typedef struct s_button {
@@ -110,7 +111,6 @@ typedef struct s_button {
     sfIntRect rect_idle;
     sfIntRect rect_hovered;
     sfIntRect rect_pressed;
-    
 } button_t;
 
 typedef struct ptr_func
@@ -142,6 +142,7 @@ sfIntRect get_rect(int left, int top, int width, int height);
 window_t *init_menu(window_t *win);
 window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);
+void quit_pause(window_t *win);
 window_t *init_how_to_play(window_t *win);
 void display(window_t *win);
 window_t *draw_scene(window_t *win);

@@ -29,5 +29,6 @@ window_t *create_window(window_t *win)
     win->texture_button = sfTexture_createFromFile("ressources/buttons/buttons.png", NULL);
     win->rect_buttons = init_pos_button();
     sfMusic_play(win->menu_song);
+    win->pause = 0;
     return (win);
 }

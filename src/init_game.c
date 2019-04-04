@@ -43,9 +43,11 @@ void load_background(window_t *win)
 
 window_t *init_game(window_t *win)
 {
+    sfVector2f size = get_pos_float(400, 100);
     int fd = open("ressources/text/pos_bg", O_RDONLY);
     char buff[660];
     char *skin = malloc(sizeof(char) * 80);
+    int order_button[] = {REPRENDRE, QUITTER};
 
     if (win->page == HOUSE) {
         sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
@@ -53,15 +55,20 @@ window_t *init_game(window_t *win)
     read(fd, buff, sizeof(buff));
     win->scene[GAME].background = malloc(sizeof(background_t) * 222);
     win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 1);
+    win->scene[GAME].button = malloc(sizeof(button_t) * 2);
     win->scene[GAME].background->tab_pos = transform_pos_to_tab(buff);
     load_background(win);
     win->scene[GAME].nb_text = 0;
-    win->scene[GAME].nb_button = 0;
+    win->scene[GAME].nb_button = 2;
     win->scene[GAME].nb_sprite = 1;
     win->player->sprite->rect.top = 15;
     win->player->sprite->rect.left = 15;
     win->player->sprite->rect.width = 18;
     win->player->sprite->rect.height = 18;
+    set_next_buttons(&win->scene[GAME].button[0], win->rect_buttons, order_button[0]);
+    init_button(&win->scene[GAME].button[0], get_pos_float(-200, -200), size, win->texture_button);
+    set_next_buttons(&win->scene[GAME].button[1], win->rect_buttons, order_button[1]);
+    init_button(&win->scene[GAME].button[1], get_pos_float(-200, -200), size, win->texture_button);
     skin = my_strcat("ressources/pack/Pixel_Champions/Magical Heroes/", win->player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(win->player->sprite, skin, get_pos_float(win->player->speed.x, win->player->speed.y));
@@ -69,5 +76,7 @@ window_t *init_game(window_t *win)
     sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
     init_sprite(&win->scene[GAME].sprite[0], "ressources/pack/rpg-pack/decorations/generic-rpg-house-inn.png", get_pos_float(200, 200));
     sfSprite_setScale(win->scene[GAME].sprite[0].sprite, get_pos_float(2, 2));
+    win->scene[GAME].button[0].callback = &quit_pause;
+    win->scene[GAME].button[1].callback = &main_menu;
     return (win);
 }

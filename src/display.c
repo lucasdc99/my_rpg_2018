@@ -40,7 +40,7 @@ void display(window_t *win)
             win->seconds = win->move_time.microseconds / 1000000.0;
             move_sprites(win, 48);
         }
-        if (win->actual_page == GAME || win->actual_page == HOUSE) {
+        if ((win->actual_page == GAME || win->actual_page == HOUSE) && win->pause == 0) {
             move_player(win);
             if (win->actual_page == HOUSE)
                 check_out(win);

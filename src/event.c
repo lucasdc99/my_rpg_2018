@@ -169,7 +169,6 @@ void check_interaction(window_t *win)
 
     pos_element.x += 45;
     pos_element.y += 140;
-    printf("%f %f %f %f\n", pos_player.x, pos_player.y, pos_element.x, pos_element.y);
     if (pos_player.x > pos_element.x - 40 && pos_player.x < pos_element.x + 40) {
         if (pos_player.y > pos_element.y - 40 && pos_player.y < pos_element.y)
             win->page = HOUSE;
@@ -231,7 +230,14 @@ void open_characteristics(window_t *win)
 
 void pause_game(window_t *win)
 {
-    printf("pause\n");
+    sfVector2f size = get_pos_float(400, 100);
+    sfVector2u size_window = sfRenderWindow_getSize(win->window);
+    sfVector2f pos_window;
+    pos_window.x = (size_window.x - size.x) / 2;
+    pos_window.y = (size_window.y - size.y) / 4;
+    win->pause = 1;
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(pos_window.x, pos_window.y));
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(pos_window.x, pos_window.y + 200));
 }
 
 void check_keyboard_input_ingame(window_t *win)
