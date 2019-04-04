@@ -14,11 +14,10 @@ void mouse_pressed_event(window_t *win)
     sfRectangleShape *rect;
 
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].rect;
+        rect = win->scene[win->actual_page].button[i].shape;
         if (button_is_clicked(win->scene[win->actual_page].button[i],
         click_pos)) {
-            sfRectangleShape_setFillColor(rect,
-            win->scene[win->actual_page].button[i].clicked_color);
+            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_pressed);
         }
     }
 }
@@ -29,12 +28,11 @@ void mouse_released_event(window_t *win)
     sfRectangleShape *rect;
 
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].rect;
+        rect = win->scene[win->actual_page].button[i].shape;
         if (button_is_clicked(win->scene[win->actual_page].button[i],
         click_pos)) {
+            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_idle);
             win->scene[win->actual_page].button[i].callback(win);
-            sfRectangleShape_setFillColor(rect,
-            win->scene[win->actual_page].button[i].idle_color);
         }
     }
 }
@@ -45,14 +43,12 @@ void mouse_moved_event(window_t *win)
     sfRectangleShape *rect;
 
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].rect;
+        rect = win->scene[win->actual_page].button[i].shape;
         if (button_is_hovered(win->scene[win->actual_page].button[i],
         click_pos)) {
-            sfRectangleShape_setFillColor(rect,
-            win->scene[win->actual_page].button[i].hovered_color);
+            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_hovered);
         } else {
-            sfRectangleShape_setFillColor(rect,
-            win->scene[win->actual_page].button[i].idle_color);
+            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_idle);
         }
     }
 }
@@ -163,8 +159,8 @@ void drag_button(window_t *win)
     float diff_between_volume = win->vol_drag_posx - get_pos_volume; 
     char *str = malloc(sizeof(char) * 5);
 
-    sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].rect);
-    sfVector2f get_size_four = sfRectangleShape_getSize(win->scene[OPTIONS].button[4].rect);
+    sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].shape);
+    sfVector2f get_size_four = sfRectangleShape_getSize(win->scene[OPTIONS].button[4].shape);
 
 
     if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
@@ -175,10 +171,10 @@ void drag_button(window_t *win)
             sfMusic_setVolume(win->button_sound, win->volume);
             str = my_itc(win->volume);
             str = my_strcat(str, "%");
-            sfText_setString(win->scene[OPTIONS].button[4].text, str);
+            sfText_setString(win->scene[OPTIONS].text[4].str, str);
             printf("volume is  = %d\n", win->volume);
             win->vol_drag_posx = click_pos.x - get_size_four.x / 2;
-            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].rect, get_pos_float(win->vol_drag_posx, 800 - 250));
+            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape, get_pos_float(win->vol_drag_posx, 800 - 250));
         }
     }
 }
@@ -198,10 +194,8 @@ void global_event(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
 
-
     if (win->event.type == sfEvtClosed)
         sfRenderWindow_close(win->window);
-
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
             sfRenderWindow_close(win->window);
@@ -211,12 +205,9 @@ void global_event(window_t *win)
             check_out(win);
         }
     }
-    if (win->page == OPTIONS)
-        win->vol_register = (win->volume + VALUE_FIRST) * 1.284;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
             drag_button(win);
-
     }
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);

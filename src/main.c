@@ -44,7 +44,6 @@ int main(int ac, char **av, char **env)
         return (display_help());
     win = create_window(win);
     win->vol_drag_posx = 800;
-    printf("%d", win->actual_page);
     win->player = parser(win->player, "ressources/text/config_player");
     if (win->player == NULL)
         return (84);

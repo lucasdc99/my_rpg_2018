@@ -11,7 +11,7 @@
 window_t *create_window(window_t *win)
 {
     sfVideoMode mode = {1920, 1080, 32};
-    char *name = {"My defender"};
+    char *name = {"TEKZERK"};
 
     win->window = sfRenderWindow_create(mode, name, sfClose | sfResize, NULL);
     win->page = MAINMENU;
@@ -26,6 +26,8 @@ window_t *create_window(window_t *win)
     win->volume = 100;
     win->button_sound = sfMusic_createFromFile("ressources/music/button.ogg");
     win->menu_song = sfMusic_createFromFile("ressources/music/main_song.ogg");
+    win->texture_button = sfTexture_createFromFile("ressources/buttons/buttons.png", NULL);
+    win->rect_buttons = init_pos_button();
     sfMusic_play(win->menu_song);
     return (win);
 }

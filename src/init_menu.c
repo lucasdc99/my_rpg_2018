@@ -13,7 +13,7 @@ window_t *init_menu(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
-    char **text = transform_2d("New game\nLoad game\nHow to play\nOptions\nExit\n");
+    int order_button[] = {JOUER, NOUVEAU, TUTORIEL, PARAM, QUITTER};
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
@@ -30,12 +30,12 @@ window_t *init_menu(window_t *win)
     sfText_setFont(win->scene[MAINMENU].text[0].str, win->scene[MAINMENU].text[0].font);
     init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background.png", get_pos_float(0, 0));
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
-        init_button(&win->scene[MAINMENU].button[i], pos_window, size);
-        init_button_text(&win->scene[MAINMENU].button[i], text[i], get_pos_text_button(win->scene[MAINMENU].button[i], text[i]));
+        set_next_buttons(&win->scene[MAINMENU].button[i], win->rect_buttons, order_button[i]);
+        init_button(&win->scene[MAINMENU].button[i], pos_window, size, win->texture_button);
         pos_window.y += size.y + 20;
     }
-    win->scene[MAINMENU].button[0].callback = &heroes_menu;
-    win->scene[MAINMENU].button[1].callback = &play_game;
+    win->scene[MAINMENU].button[0].callback = &play_game;
+    win->scene[MAINMENU].button[1].callback = &heroes_menu;
     win->scene[MAINMENU].button[2].callback = &how_to_play;
     win->scene[MAINMENU].button[3].callback = &options;
     win->scene[MAINMENU].button[4].callback = &quit;

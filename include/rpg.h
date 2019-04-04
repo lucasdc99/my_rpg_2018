@@ -12,6 +12,21 @@
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 
+enum type_button {
+    JOUER,
+    PARAM,
+    QUITTER,
+    REPRENDRE,
+    RETOUR,
+    NOUVEAU,
+    SAUVEGARDER,
+    SON,
+    CURSEUR,
+    PAUSE,
+    TUTORIEL,
+    FLECHE,
+};
+
 enum page {
     MAINMENU,
     HEROES,
@@ -68,6 +83,7 @@ typedef struct s_scene {
 } scene_t;
 
 typedef struct s_window {
+    sfTexture *texture_button;
     sfRenderWindow *window;
     sfEvent event;
     scene_t *scene;
@@ -76,26 +92,25 @@ typedef struct s_window {
     enum page actual_page;
     int vsync;
     int fps;
+    int volume;
     sfMusic *button_sound;
     sfMusic *menu_song;
     sfClock *move;
     sfTime move_time;
+    sfIntRect *rect_buttons;
     int seconds;
-    // DRAG_SOUND
     int vol_drag_posx;
     int drag_value;
-    int volume;
     int vol_register;
 } window_t;
 
 typedef struct s_button {
-    sfRectangleShape *rect;
+    sfRectangleShape *shape;
     void (*callback)(struct s_window *window);
-    sfFont *font;
-    sfText *text;
-    sfColor hovered_color;
-    sfColor clicked_color;
-    sfColor idle_color;
+    sfIntRect rect_idle;
+    sfIntRect rect_hovered;
+    sfIntRect rect_pressed;
+    
 } button_t;
 
 typedef struct ptr_func
@@ -114,12 +129,14 @@ sfVector2i get_pos_int(int x, int y);
 void change_music(window_t *win);
 void change_fps(window_t *win);
 void change_vsync(window_t *win);
+sfIntRect *init_pos_button(void);
 window_t *init_house(window_t *win);
 void load_background(window_t *win);
 void destroy_all_music(window_t *win);
 void init_text(text_t *text, char *display, sfVector2f pos);
-void init_button(button_t *button, sfVector2f position, sfVector2f size);
-void init_button_text(button_t *button, char *text, sfVector2f pos);
+void set_next_buttons(button_t *button, sfIntRect *rect, int type);
+void init_button(button_t *button, sfVector2f position, sfVector2f size, sfTexture *);
+sfIntRect get_rect(int left, int top, int width, int height);
 window_t *init_menu(window_t *win);
 window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);

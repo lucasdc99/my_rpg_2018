@@ -29,14 +29,10 @@ window_t *init_how_to_play(window_t *win)
     pos_window.y += 150;
     init_text(&win->scene[HOW_TO_PLAY].text[1], buff, pos_window);
     win->scene[HOW_TO_PLAY].button[0].callback = &main_menu;
-    win->scene[HOW_TO_PLAY].button[0].clicked_color = sfGreen;
-    win->scene[HOW_TO_PLAY].button[0].idle_color = sfRed;
-    win->scene[HOW_TO_PLAY].button[0].hovered_color = sfBlack;
     pos_window.x = (size_window.x - size.x - 20);
     pos_window.y = 900;
-    init_button(&win->scene[HOW_TO_PLAY].button[0], pos_window, size);
+    set_next_buttons(&win->scene[HOW_TO_PLAY].button[0], win->rect_buttons, RETOUR);
+    init_button(&win->scene[HOW_TO_PLAY].button[0], pos_window, size, win->texture_button);
     pos_window.x += 30;
-    init_button_text(&win->scene[HOW_TO_PLAY].button[0], "Back to main menu",
-    pos_window);
     return (win);
 }

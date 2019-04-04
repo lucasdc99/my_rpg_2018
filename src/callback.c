@@ -55,6 +55,5 @@ void play_game(window_t *win)
     }
     for (; vol_sound >= 0; vol_sound--)
         sfMusic_setVolume(win->menu_song, vol_sound);
-
     win->page = GAME;
 }

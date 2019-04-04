@@ -15,7 +15,6 @@ window_t *init_choose_heroes(window_t *win)
     sfVector2f pos_window;
     char **text = transform_2d("Glenys\nHex\nLey\nLinail\nOratio\nOuzo\nPrime\nWyvera\nCONFIRM\nBACK TO MAIN MENU\n");
 
-    win->player->name = malloc(sizeof(char) * 20);
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 8;
     win->scene[HEROES].button = malloc(sizeof(button_t) * 10);
@@ -31,15 +30,19 @@ window_t *init_choose_heroes(window_t *win)
     init_text(&win->scene[HEROES].text[4], "Strength: ", get_pos_float((pos_window.x - 200) / 2, (size_window.y - 350)));
     init_text(&win->scene[HEROES].text[5], my_itc(win->player->health), get_pos_float((pos_window.x + 250) / 2, (size_window.y - 350)));
     init_text(&win->scene[HEROES].text[6], "Description", get_pos_float((pos_window.x - 200) / 2, (size_window.y - 250)));
-    for (int i = 0; i < win->scene[HEROES].nb_button; i++) {
-        if (i == win->scene[HEROES].nb_button - 2) {
-            pos_window.x = (size_window.x - size.x - 10);
-            pos_window.y = (size_window.y - (size.y + 50) * 2);
-        }
-        init_button(&win->scene[HEROES].button[i], pos_window, size);
-        init_button_text(&win->scene[HEROES].button[i], text[i], get_pos_text_button(win->scene[HEROES].button[i], text[i]));
+    for (int i = 0; i < win->scene[HEROES].nb_button - 2; i++) {
+        set_next_buttons(&win->scene[HEROES].button[i], win->rect_buttons, FLECHE);
+        init_button(&win->scene[HEROES].button[i], pos_window, get_pos_float(size.x / 2, size.y), win->texture_button);
         pos_window.y += size.y + 10;
     }
+    pos_window.x = (size_window.x - size.x - 10);
+    pos_window.y = (size_window.y - (size.y + 50) * 2);
+    set_next_buttons(&win->scene[HEROES].button[win->scene[HEROES].nb_button - 2], win->rect_buttons, SAUVEGARDER);
+    init_button(&win->scene[HEROES].button[win->scene[HEROES].nb_button - 2], pos_window, size, win->texture_button);
+    pos_window.y += size.y + 10;
+    set_next_buttons(&win->scene[HEROES].button[win->scene[HEROES].nb_button - 1], win->rect_buttons, QUITTER);
+    init_button(&win->scene[HEROES].button[win->scene[HEROES].nb_button - 1], pos_window, size, win->texture_button);
+    pos_window.y += size.y + 10;
     win->scene[HEROES].button[0].callback = &choose_glenys;
     win->scene[HEROES].button[1].callback = &choose_hex;
     win->scene[HEROES].button[2].callback = &choose_ley;
@@ -50,8 +53,6 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].button[7].callback = &choose_wyvera;
     win->scene[HEROES].button[8].callback = &play_game;
     win->scene[HEROES].button[9].callback = &main_menu;
-    win->scene[HEROES].button[0].idle_color = sfYellow;
-    sfRectangleShape_setFillColor(win->scene[HEROES].button[0].rect, win->scene[HEROES].button[0].idle_color);
     init_sprite(&win->scene[HEROES].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", get_pos_float(100, 100));
     win->scene[HEROES].sprite[0].rect.top = 100;
     win->scene[HEROES].sprite[0].rect.left = 0;
