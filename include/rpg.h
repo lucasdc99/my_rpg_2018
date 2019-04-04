@@ -7,6 +7,7 @@
 
 #ifndef RPG_H_
 #define RPG_H_
+#define VALUE_FIRST 674
 
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
@@ -75,14 +76,16 @@ typedef struct s_window {
     enum page actual_page;
     int vsync;
     int fps;
-    int volume;
     sfMusic *button_sound;
     sfMusic *menu_song;
     sfClock *move;
     sfTime move_time;
     int seconds;
+    // DRAG_SOUND
     int vol_drag_posx;
     int drag_value;
+    int volume;
+    int vol_register;
 } window_t;
 
 typedef struct s_button {

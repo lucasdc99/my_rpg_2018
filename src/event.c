@@ -156,7 +156,12 @@ void check_interaction(window_t *win)
 void drag_button(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
+    int get_pos_volume = 800;
+    int volume = 100;
+
     win->vol_drag_posx = click_pos.x;
+    float diff_between_volume = win->vol_drag_posx - get_pos_volume; 
+    char *str = malloc(sizeof(char) * 5);
 
     sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].rect);
     sfVector2f get_size_four = sfRectangleShape_getSize(win->scene[OPTIONS].button[4].rect);
@@ -164,9 +169,15 @@ void drag_button(window_t *win)
 
     if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
         click_pos.y > get_pos_four.y && click_pos.y < get_pos_four.y + get_size_four.y) {
-        if (win->vol_drag_posx >= 674 && win->vol_drag_posx <= 1056) {
+        if (win->vol_drag_posx >= VALUE_FIRST && win->vol_drag_posx <= 1056) {
+            win->volume = (diff_between_volume + (get_pos_volume - VALUE_FIRST)) * 0.264;
+            sfMusic_setVolume(win->menu_song, win->volume);
+            sfMusic_setVolume(win->button_sound, win->volume);
+            str = my_itc(win->volume);
+            str = my_strcat(str, "%");
+            sfText_setString(win->scene[OPTIONS].button[4].text, str);
+            printf("volume is  = %d\n", win->volume);
             win->vol_drag_posx = click_pos.x - get_size_four.x / 2;
-            win->scene[OPTIONS].button[4].callback = &change_music_two;
             sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].rect, get_pos_float(win->vol_drag_posx, 800 - 250));
         }
     }
@@ -187,8 +198,10 @@ void global_event(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
 
+
     if (win->event.type == sfEvtClosed)
         sfRenderWindow_close(win->window);
+
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
             sfRenderWindow_close(win->window);
@@ -198,9 +211,12 @@ void global_event(window_t *win)
             check_out(win);
         }
     }
+    if (win->page == OPTIONS)
+        win->vol_register = (win->volume + VALUE_FIRST) * 1.284;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
             drag_button(win);
+
     }
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);

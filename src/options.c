@@ -63,21 +63,5 @@ void change_music(window_t *win)
 
 void change_music_two(window_t *win)
 {
-    sfMusic_play(win->button_sound);
-    char **music = transform_2d("0%\n25%\n50%\n75%\n100%\n");
-    const char *str =
-    sfText_getString(win->scene[OPTIONS].button[4].text);
-    int i = 0;
-    win->drag_value = 0;
-
-    sfVector2f pos_window;
-    pos_window.y = 800;
-    for (; my_strcmp(music[i], str) != 0; i++);
-    if (i == 4)
-        i = -1;
-    i++;
-    win->volume = i * 25;
-   
-    sfMusic_setVolume(win->button_sound, win->volume);
-    sfText_setString(win->scene[OPTIONS].button[4].text, music[i]);
+    printf("dqdqz");
 }

@@ -23,6 +23,8 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].nb_text = 4;
     win->scene[OPTIONS].nb_button = 5;
     win->scene[OPTIONS].nb_sprite = 0;
+    win->vol_register = (win->volume + VALUE_FIRST) * 1.284;
+
     init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x + 150, 10));
     init_text(&win->scene[OPTIONS].text[1], text[1], get_pos_float(pos_window.x, 210));
     init_text(&win->scene[OPTIONS].text[2], text[2], get_pos_float(pos_window.x, pos_window.y - 430));
@@ -31,7 +33,7 @@ window_t *init_options(window_t *win)
     init_button(&win->scene[OPTIONS].button[1], get_pos_float(pos_window.x + 200, 200), get_pos_float(80, 80));
     init_button(&win->scene[OPTIONS].button[2], get_pos_float(pos_window.x + 400, 200), get_pos_float(80, 80));
     init_button(&win->scene[OPTIONS].button[3], get_pos_float(pos_window.x + 200, pos_window.y - 450), get_pos_float(100, 100));
-    init_button(&win->scene[OPTIONS].button[4], get_pos_float(pos_window.x + 200, pos_window.y - 250), get_pos_float(150, 100));
+    init_button(&win->scene[OPTIONS].button[4], get_pos_float(win->vol_register, pos_window.y - 250), get_pos_float(150, 100));
     if (win->fps == 60) {
         win->scene[OPTIONS].button[1].idle_color = sfRed;
         win->scene[OPTIONS].button[2].idle_color = sfYellow;
@@ -60,6 +62,6 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].button[1].callback = &change_fps;
     win->scene[OPTIONS].button[2].callback = &change_fps;
     win->scene[OPTIONS].button[3].callback = &change_vsync;
-    win->scene[OPTIONS].button[4].callback = &change_music;
+    win->scene[OPTIONS].button[4].callback = &change_music_two;
     return (win);
 }
