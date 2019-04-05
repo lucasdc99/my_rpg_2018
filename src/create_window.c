@@ -30,5 +30,6 @@ window_t *create_window(window_t *win)
     win->rect_buttons = init_pos_button();
     sfMusic_play(win->menu_song);
     win->pause = 0;
+    win->move = sfClock_create();
     return (win);
 }

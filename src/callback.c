@@ -18,7 +18,6 @@ void main_menu(window_t *win)
 
 void heroes_menu(window_t *win)
 {
-    win->move = sfClock_create();
     sfMusic_play(win->button_sound);
     win->page = HEROES;
 }

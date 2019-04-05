@@ -14,10 +14,6 @@ window_t *init_menu(window_t *win)
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
     int order_button[] = {JOUER, NOUVEAU, TUTORIEL, PARAM, QUITTER};
-    int number_str = 1;
-    char *get_number = malloc(sizeof(char) * 5);
-    char *str = "ressources/pack/background/frame";
-    char *path = malloc(sizeof(char) * (my_strlen(str) + 5));
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
@@ -28,30 +24,15 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].nb_button = 5;
     win->scene[MAINMENU].nb_sprite = 1;
     init_text(&win->scene[MAINMENU].text[0], "Tekzerk", get_pos_float(pos_window.x - 70, 10));
-    sfText_setColor(win->scene[MAINMENU].text[0].str, sfBlack);
+    sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
     win->scene[MAINMENU].text[0].font = sfFont_createFromFile("ressources/font/font.ttf");
     sfText_setFont(win->scene[MAINMENU].text[0].str, win->scene[MAINMENU].text[0].font);
-
-    /*while (1) {
-        for (int i = 1; i != 8; i++) {
-            get_number = my_strcat(my_itc(number_str), ".png");
-            path = my_strcat(str, get_number);
-            number_str++;
-            get_number = NULL;
-            printf("%s\n", path);
-            init_sprite(&win->scene[MAINMENU].sprite[0], path, get_pos_float(0, 0));
-            sfRenderWindow_display(win->window);
-            sfRenderWindow_drawSprite(win->window, win->scene[MAINMENU].sprite[0].sprite, NULL);
-            sfSprite_destroy(win->scene[MAINMENU].sprite[0].sprite);
-
-            //init_sprite(&win->scene[MAINMENU].sprite[0], path, get_pos_float(0, 0));
-
-            if (i == 7)
-                number_str = 1;
-        }
-    }*/
-    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background/frame1.png", get_pos_float(0, 0));
+    init_sprite(&win->scene[MAINMENU].sprite[0], "ressources/pack/background/frame2.png", get_pos_float(0, 0));
+    win->scene[MAINMENU].sprite[0].rect.top = 0;
+    win->scene[MAINMENU].sprite[0].rect.left = 0;
+    win->scene[MAINMENU].sprite[0].rect.width = 1920;
+    win->scene[MAINMENU].sprite[0].rect.height = 1080;
     for (int i = 0; i < win->scene[MAINMENU].nb_button; i++) {
         set_next_buttons(&win->scene[MAINMENU].button[i], win->rect_buttons, order_button[i]);
         init_button(&win->scene[MAINMENU].button[i], get_pos_float(pos_window.x - 600, pos_window.y), size, win->texture_button);
@@ -62,5 +43,6 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].button[2].callback = &how_to_play;
     win->scene[MAINMENU].button[3].callback = &options;
     win->scene[MAINMENU].button[4].callback = &quit;
+    sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
     return (win);
 }

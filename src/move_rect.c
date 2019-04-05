@@ -13,3 +13,10 @@ void move_sprites(window_t *win, int offset)
     win->scene[HEROES].sprite[0].rect.left = offset * (win->seconds % 2);
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
 }
+
+void animation_mainmenu(window_t *win, int offset)
+{
+    win->scene[MAINMENU].sprite[0].rect.left = offset * (win->seconds % 7);
+    sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
+
+}

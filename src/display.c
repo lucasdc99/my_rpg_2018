@@ -35,6 +35,11 @@ void display(window_t *win)
         while (sfRenderWindow_pollEvent(win->window, &win->event))
             ptr_choose[win->actual_page].event(win);
         win = ptr_choose[win->actual_page].draw(win);
+        if (win->actual_page == MAINMENU) {
+            win->move_time = sfClock_getElapsedTime(win->move);
+            win->seconds = win->move_time.microseconds / 120000.0;
+            animation_mainmenu(win, 1920);
+        }
         if (win->actual_page == HEROES) {
             win->move_time = sfClock_getElapsedTime(win->move);
             win->seconds = win->move_time.microseconds / 1000000.0;
