@@ -16,12 +16,3 @@ void init_sprite(sprite_t *sprite, char *filename, sfVector2f position)
     sprite->pos = position;
     sfSprite_setPosition(sprite->sprite, sprite->pos);
 }
-
-void init_music(music_t *music, char *filename)
-{
-    music->menu_song = sfMusic_createFromFile(filename);
-    //sprite->texture = sfTexture_createFromFile(filename, NULL);
-    //sfSprite_setTexture(sprite->sprite, sprite->texture, sfTrue);
-    //sprite->pos = position;
-    //sfSprite_setPosition(sprite->sprite, sprite->pos);
-}

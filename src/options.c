@@ -10,7 +10,7 @@
 
 void change_vsync(window_t *win)
 {
-    sfMusic_play(win->button_sound);
+    sfMusic_play(win->music->button_sound);
     if (win->vsync == 0) {
         sfRectangleShape_setTexture(win->scene[OPTIONS].button[3].shape,
         sfTexture_createFromFile("ressources/buttons/Checkbox.png", NULL), sfTrue);
@@ -26,7 +26,7 @@ void change_vsync(window_t *win)
 
 void change_fps(window_t *win)
 {
-    sfMusic_play(win->button_sound);
+    sfMusic_play(win->music->button_sound);
     if (win->fps == 30) {
         sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[1].shape, win->scene[OPTIONS].button[1].rect_pressed);
         sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[2].shape, win->scene[OPTIONS].button[2].rect_idle);

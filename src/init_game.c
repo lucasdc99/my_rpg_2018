@@ -49,9 +49,6 @@ window_t *init_game(window_t *win)
     char *skin = malloc(sizeof(char) * 80);
     int order_button[] = {REPRENDRE, QUITTER};
 
-    if (win->page == HOUSE) {
-        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
-    }
     read(fd, buff, sizeof(buff));
     win->scene[GAME].background = malloc(sizeof(background_t) * 222);
     win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 2);
@@ -77,6 +74,10 @@ window_t *init_game(window_t *win)
     init_sprite(&win->scene[GAME].sprite[0], "ressources/pack/rpg-pack/decorations/generic-rpg-house-inn.png", get_pos_float(200, 200));
     init_sprite(&win->scene[GAME].sprite[1], "ressources/inventaire_de_merde.png", get_pos_float(-600, -300));
     sfSprite_setScale(win->scene[GAME].sprite[0].sprite, get_pos_float(2, 2));
+    if (win->player->last_pos.x >= 0)
+        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+    else
+        sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(500, 500));
     win->scene[GAME].button[0].callback = &quit_pause;
     win->scene[GAME].button[1].callback = &main_menu;
     return (win);

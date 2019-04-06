@@ -37,7 +37,7 @@ void display(window_t *win)
         win = ptr_choose[win->actual_page].draw(win);
         if (win->actual_page == MAINMENU) {
             win->move_time = sfClock_getElapsedTime(win->move);
-            win->seconds = win->move_time.microseconds / 120000.0;
+            win->seconds = win->move_time.microseconds / 130000.0;
             animation_mainmenu(win, 1920);
         }
         if (win->actual_page == HEROES) {
@@ -46,11 +46,22 @@ void display(window_t *win)
             move_sprites(win, 48);
         }
         if ((win->actual_page == GAME || win->actual_page == HOUSE) && win->pause == 0) {
-            move_player(win);
-            if (win->actual_page == HOUSE)
-                check_out(win);
-            if (win->actual_page == GAME)
-                check_interaction(win);
+            if (!check_dead_zone(win)) {
+                move_player(win);
+                if (win->actual_page == HOUSE)
+                    check_out(win);
+                if (win->actual_page == GAME)
+                    check_interaction(win);
+            } else {
+                if (win->player->direction == UP)
+                    move_player_down(win);
+                if (win->player->direction == LEFT)
+                    move_player_right(win);
+                if (win->player->direction == DOWN)
+                    move_player_up(win);
+                if (win->player->direction == RIGHT)
+                    move_player_left(win);
+            }
         }
     }
 }

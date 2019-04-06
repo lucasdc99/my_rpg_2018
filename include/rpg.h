@@ -12,6 +12,13 @@
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 
+enum direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+};
+
 enum type_button {
     JOUER,
     PARAM,
@@ -36,7 +43,7 @@ enum page {
     HOUSE,
 };
 
-typedef struct background {
+typedef struct s_background {
     sfTexture *texture;
     sfSprite *sprite;
     sfVector2f pos;
@@ -51,6 +58,11 @@ typedef struct s_text {
 
 typedef struct s_music {
     sfMusic *menu_song;
+    sfMusic *button_sound;
+    int vol_drag_posx;
+    int drag_value;
+    int vol_register;
+    int volume;
 } music_t;
 
 typedef struct s_sprite {
@@ -68,8 +80,8 @@ typedef struct s_player {
     int xp;
     int strength;
     sfVector2f speed;
-    float test;
-    float test2;
+    int direction;
+    int move_rect;
 } player_t;
 
 typedef struct s_scene {
@@ -88,20 +100,15 @@ typedef struct s_window {
     sfEvent event;
     scene_t *scene;
     player_t *player;
+    music_t *music;
     enum page page;
     enum page actual_page;
     int vsync;
     int fps;
-    int volume;
-    sfMusic *button_sound;
-    sfMusic *menu_song;
     sfClock *move;
     sfTime move_time;
     sfIntRect *rect_buttons;
     int seconds;
-    int vol_drag_posx;
-    int drag_value;
-    int vol_register;
     int pause;
     int inventory;
 } window_t;
@@ -124,7 +131,10 @@ typedef struct ptr_func
 } ptr_func;
 
 window_t *create_window(window_t *win);
-
+void move_player_up(window_t *win);
+void move_player_down(window_t *win);
+void move_player_left(window_t *win);
+void move_player_right(window_t *win);
 sfVector2f get_pos_float(float x, float y);
 sfVector2i get_pos_int(int x, int y);
 void change_music(window_t *win);
@@ -156,6 +166,7 @@ window_t *init_game(window_t *win);
 void check_out(window_t *win);
 void check_interaction(window_t *win);
 void play_game(window_t *win);
+int check_dead_zone(window_t *win);
 void options(window_t *win);
 void quit(window_t *win);
 ptr_func *init_func(void);
@@ -176,5 +187,6 @@ void choose_ouzo(window_t *win);
 void choose_prime(window_t *win);
 void choose_wyvera(window_t *win);
 void change_music_two(window_t *win);
+void animation_mainmenu(window_t *win, int offset);
 
 #endif

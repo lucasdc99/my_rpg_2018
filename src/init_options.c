@@ -24,7 +24,7 @@ window_t *init_options(window_t *win)
     win->scene[OPTIONS].nb_text = 5;
     win->scene[OPTIONS].nb_button = 5;
     win->scene[OPTIONS].nb_sprite = 0;
-    win->vol_register = (win->volume + VALUE_FIRST) * 1.284;
+    win->music->vol_register = (win->music->volume + VALUE_FIRST) * 1.284;
     init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x + 150, 10));
     init_text(&win->scene[OPTIONS].text[1], text[1], get_pos_float(pos_window.x, 210));
     init_text(&win->scene[OPTIONS].text[2], text[2], get_pos_float(pos_window.x, pos_window.y - 430));

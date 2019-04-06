@@ -46,5 +46,7 @@ player_t *parser(player_t *player, char *filename)
     player->strength = parse_int(get_next_line(fd));
     if (player->strength < 0)
         return (NULL);
+    player->last_pos.x = parse_int(get_next_line(fd));
+    player->last_pos.y = parse_int(get_next_line(fd));
     return (player);
 }

@@ -54,24 +54,20 @@ void mouse_moved_event(window_t *win)
     }
 }
 
-void move_player(window_t *win)
+void move_player_up(window_t *win)
 {
-    static int move = 0;
-    static int move_rect = 0;
-    int no_moves = 0;
-
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue) {
-        if (move != 0) {
-            if (move == 1)
+        if (win->player->direction != UP) {
+            if (win->player->direction == DOWN)
                 win->player->speed.y -= 5;
-            if (move == 2)
+            if (win->player->direction == LEFT)
                 win->player->speed.x += 5;
-            if (move == 3)
+            if (win->player->direction == RIGHT)
                 win->player->speed.x -= 5;
-            move = 0;
+            win->player->direction = UP;
             win->player->sprite->rect.left = 15;
         }
-        move_rect++;
+        win->player->move_rect++;
         sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
         pos.y -= 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
@@ -79,23 +75,25 @@ void move_player(window_t *win)
         if (win->player->sprite->rect.left > 111)
             win->player->sprite->rect.left = 15;
         sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((move_rect % 5) == 0)
+        if ((win->player->move_rect % 5) == 0)
             win->player->sprite->rect.left += 48;
-    } else {
-        no_moves++;
     }
+}
+
+void move_player_down(window_t *win)
+{
     if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue || sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue) {
-        if (move != 1) {
-            if (move == 0)
+        if (win->player->direction != DOWN) {
+            if (win->player->direction == UP)
                 win->player->speed.y += 5;
-            if (move == 2)
+            if (win->player->direction == LEFT)
                 win->player->speed.x += 5;
-            if (move == 3)
+            if (win->player->direction == RIGHT)
                 win->player->speed.x -= 5;
-            move = 1;
+            win->player->direction = DOWN;
             win->player->sprite->rect.left = 15;
         }
-        move_rect++;
+        win->player->move_rect++;
         sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
         pos.y += 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
@@ -103,23 +101,25 @@ void move_player(window_t *win)
         if (win->player->sprite->rect.left > 111)
             win->player->sprite->rect.left = 15;
         sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((move_rect % 5) == 0)
+        if ((win->player->move_rect % 5) == 0)
             win->player->sprite->rect.left += 48;
-    } else {
-        no_moves++;
     }
+}
+
+void move_player_left(window_t *win)
+{
     if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue) {
-        if (move != 2) {
-            if (move == 3)
+        if (win->player->direction != LEFT) {
+            if (win->player->direction == RIGHT)
                 win->player->speed.x -= 5;
-            if (move == 0)
+            if (win->player->direction == UP)
                 win->player->speed.y += 5;
-            if (move == 1)
+            if (win->player->direction == DOWN)
                 win->player->speed.y -= 5;
-            move = 2;
+            win->player->direction = LEFT;
             win->player->sprite->rect.left = 15;
         }
-        move_rect++;
+        win->player->move_rect++;
         sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
         pos.x -= 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
@@ -127,23 +127,25 @@ void move_player(window_t *win)
         if (win->player->sprite->rect.left > 111)
             win->player->sprite->rect.left = 15;
         sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((move_rect % 5) == 0)
+        if ((win->player->move_rect % 5) == 0)
             win->player->sprite->rect.left += 48;
-    } else {
-        no_moves++;
     }
+}
+
+void move_player_right(window_t *win)
+{
     if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue || sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue) {
-        if (move != 3) {
-            if (move == 2)
+        if (win->player->direction != RIGHT) {
+            if (win->player->direction == LEFT)
                 win->player->speed.x += 5;
-            if (move == 0)
+            if (win->player->direction == UP)
                 win->player->speed.y += 5;
-            if (move == 1)
+            if (win->player->direction == DOWN)
                 win->player->speed.y -= 5;
-            move = 3;
+            win->player->direction = RIGHT;
             win->player->sprite->rect.left = 15;
         }
-        move_rect++;
+        win->player->move_rect++;
         sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
         pos.x += 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
@@ -151,15 +153,34 @@ void move_player(window_t *win)
         if (win->player->sprite->rect.left > 111)
             win->player->sprite->rect.left = 15;
         sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((move_rect % 5) == 0)
+        if ((win->player->move_rect % 5) == 0)
             win->player->sprite->rect.left += 48;
-    } else {
-        no_moves++;
     }
-    if (no_moves == 4) {
-        win->player->sprite->rect.left = 63;
-        sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-    }
+}
+
+void move_player(window_t *win)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
+        move_player_up(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
+        move_player_left(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue || sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
+        move_player_down(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue || sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
+        move_player_right(win);
+}
+
+int check_dead_zone(window_t *win)
+{
+    sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
+    sfIntRect size = win->player->sprite->rect;
+    sfVector2u size_window = sfRenderWindow_getSize(win->window);
+
+    if (((pos.x - size.width) < 0) || ((pos.x + size.width) > size_window.x))
+        return (1);
+    if (((pos.y - size.height) < 0) || ((pos.y + size.height) > size_window.y))
+        return (1);
+    return (0);    
 }
 
 void check_interaction(window_t *win)
@@ -170,8 +191,10 @@ void check_interaction(window_t *win)
     pos_element.x += 45;
     pos_element.y += 140;
     if (pos_player.x > pos_element.x - 40 && pos_player.x < pos_element.x + 40) {
-        if (pos_player.y > pos_element.y - 40 && pos_player.y < pos_element.y)
+        if (pos_player.y > pos_element.y - 40 && pos_player.y < pos_element.y) {
+            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
             win->page = HOUSE;
+        }
     }
 }
 
@@ -180,8 +203,8 @@ void drag_button(window_t *win)
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     int get_pos_volume = 800;
 
-    win->vol_drag_posx = click_pos.x;
-    float diff_between_volume = win->vol_drag_posx - get_pos_volume; 
+    win->music->vol_drag_posx = click_pos.x;
+    float diff_between_volume = win->music->vol_drag_posx - get_pos_volume; 
     char *str = malloc(sizeof(char) * 5);
 
     sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].shape);
@@ -190,15 +213,15 @@ void drag_button(window_t *win)
 
     if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
         click_pos.y > get_pos_four.y && click_pos.y < get_pos_four.y + get_size_four.y) {
-        if (win->vol_drag_posx >= VALUE_FIRST && win->vol_drag_posx <= 1024) {
-            win->volume = (diff_between_volume + (get_pos_volume - VALUE_FIRST)) * 0.264;
-            sfMusic_setVolume(win->menu_song, win->volume);
-            sfMusic_setVolume(win->button_sound, win->volume);
-            str = my_itc(win->volume);
+        if (win->music->vol_drag_posx >= VALUE_FIRST && win->music->vol_drag_posx <= 1056) {
+            win->music->volume = (diff_between_volume + (get_pos_volume - VALUE_FIRST)) * 0.264;
+            sfMusic_setVolume(win->music->menu_song, win->music->volume);
+            sfMusic_setVolume(win->music->button_sound, win->music->volume);
+            str = my_itc(win->music->volume);
             str = my_strcat(str, "%");
             sfText_setString(win->scene[OPTIONS].text[4].str, str);
-            win->vol_drag_posx = click_pos.x - get_size_four.x / 2;
-            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape, get_pos_float(win->vol_drag_posx, 800 - 250));
+            win->music->vol_drag_posx = click_pos.x - get_size_four.x / 2;
+            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape, get_pos_float(win->music->vol_drag_posx, 800 - 250));
         }
     }
 }
@@ -208,8 +231,10 @@ void check_out(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (pos_player.x >= 580 && pos_player.x < 640) {
-        if (pos_player.y >= 700 && pos_player.y < 740)
+        if (pos_player.y >= 700 && pos_player.y < 740) {
             win->page = GAME;
+            sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+        }
     }
 }
 
@@ -279,11 +304,12 @@ void global_event(window_t *win)
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
                 sfRenderWindow_close(win->window);
-            if (win->actual_page == GAME || win->actual_page == HOUSE)
+            if (win->actual_page == GAME || win->actual_page == HOUSE) {
                 if (win->pause == 0)
                     pause_game(win);
                 else if (win->pause == 1)
                     unpause_game(win);
+            }
         }
     }
     if (sfMouse_isButtonPressed(sfMouseLeft)) {

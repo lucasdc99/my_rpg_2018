@@ -18,5 +18,4 @@ void animation_mainmenu(window_t *win, int offset)
 {
     win->scene[MAINMENU].sprite[0].rect.left = offset * (win->seconds % 7);
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
-
 }
