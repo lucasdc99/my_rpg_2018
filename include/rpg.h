@@ -103,6 +103,7 @@ typedef struct s_window {
     int drag_value;
     int vol_register;
     int pause;
+    int inventory;
 } window_t;
 
 typedef struct s_button {

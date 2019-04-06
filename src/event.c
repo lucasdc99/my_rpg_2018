@@ -190,7 +190,7 @@ void drag_button(window_t *win)
 
     if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
         click_pos.y > get_pos_four.y && click_pos.y < get_pos_four.y + get_size_four.y) {
-        if (win->vol_drag_posx >= VALUE_FIRST && win->vol_drag_posx <= 556) {
+        if (win->vol_drag_posx >= VALUE_FIRST && win->vol_drag_posx <= 1024) {
             win->volume = (diff_between_volume + (get_pos_volume - VALUE_FIRST)) * 0.264;
             sfMusic_setVolume(win->menu_song, win->volume);
             sfMusic_setVolume(win->button_sound, win->volume);
@@ -215,7 +215,15 @@ void check_out(window_t *win)
 
 void open_inventory(window_t *win)
 {
-    printf("inventory\n");
+    win->inventory = 1;
+    sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
+}
+
+
+void close_inventory(window_t *win)
+{
+    win->inventory = 0;
+    sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -300));
 }
 
 void open_quests_menu(window_t *win)
@@ -240,10 +248,20 @@ void pause_game(window_t *win)
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(pos_window.x, pos_window.y + 200));
 }
 
+void unpause_game(window_t *win)
+{
+    win->pause = 0;
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(-600, -300));
+    sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(-600, -100));
+}
+
 void check_keyboard_input_ingame(window_t *win)
 {
     if (sfKeyboard_isKeyPressed(sfKeyI)) {
-        open_inventory(win);
+        if (win->inventory == 0)
+            open_inventory(win);
+        else if (win->inventory == 1)
+            close_inventory(win);
     }
     if (sfKeyboard_isKeyPressed(sfKeyO)) {
         open_quests_menu(win);
@@ -261,8 +279,11 @@ void global_event(window_t *win)
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
                 sfRenderWindow_close(win->window);
-            if (win->actual_page == GAME || win->actual_page == GAME)
-                pause_game(win);
+            if (win->actual_page == GAME || win->actual_page == HOUSE)
+                if (win->pause == 0)
+                    pause_game(win);
+                else if (win->pause == 1)
+                    unpause_game(win);
         }
     }
     if (sfMouse_isButtonPressed(sfMouseLeft)) {

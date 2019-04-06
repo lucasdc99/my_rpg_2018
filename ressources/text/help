@@ -1,9 +1,9 @@
-USAGE:
-    ./my_rpg
-
-DESCRIPTION:
-    ...
-
-COMMANDS:
-    ...
-
+HOTKEYS:
+Move up : Z
+Move down : S
+Move left : Q
+Move Right : D
+Interact : E
+Open Inventory : I
+Open Character Statistics : C
+Open Quests Menu : O
