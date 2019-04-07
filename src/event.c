@@ -241,14 +241,19 @@ void check_out(window_t *win)
 void open_inventory(window_t *win)
 {
     win->inventory = 1;
-    sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
+    if (win->actual_page == GAME)
+        sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
+    if (win->actual_page == HOUSE)
+        sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(1200, 150));
 }
-
 
 void close_inventory(window_t *win)
 {
     win->inventory = 0;
-    sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -300));
+    if (win->actual_page == GAME)
+        sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -600));
+    if (win->actual_page == HOUSE)
+        sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(-600, -600));
 }
 
 void open_quests_menu(window_t *win)

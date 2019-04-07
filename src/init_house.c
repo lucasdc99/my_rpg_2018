@@ -16,10 +16,12 @@ window_t *init_house(window_t *win)
     win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
     read(fd, buff, sizeof(buff));
     win->scene[HOUSE].background = malloc(sizeof(background_t) * 222);
+    win->scene[HOUSE].sprite = malloc(sizeof(sprite_t) * 1);
     win->scene[HOUSE].background->tab_pos = transform_pos_to_tab(buff);
     load_background(win);
+    init_sprite(&win->scene[HOUSE].sprite[0], "ressources/inventaire_de_merde.png", get_pos_float(-600, -300));
     win->scene[HOUSE].nb_text = 0;
     win->scene[HOUSE].nb_button = 0;
-    win->scene[HOUSE].nb_sprite = 0;
+    win->scene[HOUSE].nb_sprite = 1;
     return (win);
 }
