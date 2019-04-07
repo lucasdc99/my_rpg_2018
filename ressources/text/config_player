@@ -1,4 +1,6 @@
-NAME = Linail-the-High-Priestess
-HEALTH = 110
+NAME = Ley-the-Monster-Whisperer
+HEALTH = 80
 XP = 100
-STRENGTH = 70
+STRENGTH = 90
+POSITION X = 475.000000
+POSITION Y = 385.000000

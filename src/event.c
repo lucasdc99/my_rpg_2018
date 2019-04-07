@@ -29,8 +29,7 @@ void mouse_released_event(window_t *win)
 
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
         rect = win->scene[win->actual_page].button[i].shape;
-        if (button_is_clicked(win->scene[win->actual_page].button[i],
-        click_pos)) {
+        if (button_is_clicked(win->scene[win->actual_page].button[i], click_pos)) {
             sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_idle);
             if (win->scene[win->actual_page].button[i].callback != NULL)
                 win->scene[win->actual_page].button[i].callback(win);
@@ -193,6 +192,7 @@ void check_interaction(window_t *win)
     if (pos_player.x > pos_element.x - 40 && pos_player.x < pos_element.x + 40) {
         if (pos_player.y > pos_element.y - 40 && pos_player.y < pos_element.y) {
             win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+            win->player->last_pos.y += 30;
             win->page = HOUSE;
         }
     }
@@ -240,6 +240,7 @@ void check_out(window_t *win)
 
 void open_inventory(window_t *win)
 {
+    win->pause = 1;
     win->inventory = 1;
     if (win->actual_page == GAME)
         sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
@@ -249,6 +250,7 @@ void open_inventory(window_t *win)
 
 void close_inventory(window_t *win)
 {
+    win->pause = 0;
     win->inventory = 0;
     if (win->actual_page == GAME)
         sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -600));
@@ -304,11 +306,11 @@ void check_keyboard_input_ingame(window_t *win)
 void global_event(window_t *win)
 {
     if (win->event.type == sfEvtClosed)
-        sfRenderWindow_close(win->window);
+        quit(win);
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
-                sfRenderWindow_close(win->window);
+                quit(win);
             if (win->actual_page == GAME || win->actual_page == HOUSE) {
                 if (win->pause == 0)
                     pause_game(win);

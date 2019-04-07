@@ -48,6 +48,7 @@ window_t *init_game(window_t *win)
     char buff[660];
     char *skin = malloc(sizeof(char) * 80);
     int order_button[] = {REPRENDRE, QUITTER};
+    static int game_launched = 0;
 
     read(fd, buff, sizeof(buff));
     win->scene[GAME].background = malloc(sizeof(background_t) * 222);

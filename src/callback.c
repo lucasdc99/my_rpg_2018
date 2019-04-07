@@ -11,7 +11,8 @@
 void main_menu(window_t *win)
 {
     win->pause = 0;
-    win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+    if (win->page == GAME || win->page == HOUSE)
+        win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
     sfMusic_play(win->music->button_sound);
     if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
         sfMusic_play(win->music->menu_song);
@@ -38,9 +39,12 @@ void options(window_t *win)
 
 void quit(window_t *win)
 {
-    FILE *fp;
+    FILE *fp = fopen("ressources/text/config_player", "wb+");
 
-    fp = fopen("ressources/text/config_player", "wb+");
+    if (win->player->last_pos.x <= 20)
+        win->player->last_pos.x = 100;
+    if (win->player->last_pos.y <= 20)
+        win->player->last_pos.y = 100;
     fprintf(fp, "NAME = %s\n", win->player->name);
     fprintf(fp, "HEALTH = %d\n", win->player->health);
     fprintf(fp, "XP = %d\n", win->player->xp);
