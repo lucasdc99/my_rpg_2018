@@ -20,12 +20,14 @@ window_t *create_window(window_t *win)
     win->player = malloc(sizeof(player_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
+    win->player->items = malloc(sizeof(items_t) * 1);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);
     win->fps = 60;
     win->player->last_pos = get_pos_float(-100, -100);
     win->player->direction = 1;
+    win->player->items->sword = 0;
     win->player->move_rect = 0;
     win->music->volume = 100;
     win->music->vol_drag_posx = 800;

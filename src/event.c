@@ -158,7 +158,9 @@ void move_player_right(window_t *win)
 }
 
 void move_player(window_t *win)
-{
+{   
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    printf("=>%f%f\n", pos_player.x, pos_player.y);
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
     else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
@@ -246,6 +248,8 @@ void open_inventory(window_t *win)
         sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
     if (win->actual_page == HOUSE)
         sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(1200, 150));
+    if (win->player->items->sword == 1)
+        sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(1280, 370));
 }
 
 void close_inventory(window_t *win)
@@ -256,6 +260,8 @@ void close_inventory(window_t *win)
         sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -600));
     if (win->actual_page == HOUSE)
         sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(-600, -600));
+    if (win->player->items->sword == 1)
+        sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(-400, -400));
 }
 
 void open_quests_menu(window_t *win)
@@ -301,10 +307,28 @@ void check_keyboard_input_ingame(window_t *win)
     if (sfKeyboard_isKeyPressed(sfKeyC)) {
         open_characteristics(win);
     }
+    if (sfKeyboard_isKeyPressed(sfKeyE)) {
+        check_item_pickup(win);
+    }
+}
+
+void check_item_pickup(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    sfVector2f pos_element = sfSprite_getPosition(win->scene[GAME].sprite[2].sprite);
+
+    printf("(%f%f)", pos_element.x, pos_element.y);
+    if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
+        if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
+            sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(-400, -400));
+            win->player->items->sword = 1;
+        }
+    }
 }
 
 void global_event(window_t *win)
 {
+
     if (win->event.type == sfEvtClosed)
         quit(win);
     if (win->event.type == sfEvtKeyPressed) {

@@ -72,9 +72,14 @@ typedef struct s_sprite {
     sfVector2f pos;
 } sprite_t;
 
+typedef struct s_items {
+    int sword;
+} items_t;
+
 typedef struct s_player {
     sfVector2f last_pos;
     sprite_t *sprite;
+    items_t *items;
     char *name;
     int health;
     int xp;

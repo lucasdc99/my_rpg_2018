@@ -52,13 +52,13 @@ window_t *init_game(window_t *win)
 
     read(fd, buff, sizeof(buff));
     win->scene[GAME].background = malloc(sizeof(background_t) * 222);
-    win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 2);
+    win->scene[GAME].sprite = malloc(sizeof(sprite_t) * 3);
     win->scene[GAME].button = malloc(sizeof(button_t) * 2);
     win->scene[GAME].background->tab_pos = transform_pos_to_tab(buff);
     load_background(win);
     win->scene[GAME].nb_text = 0;
     win->scene[GAME].nb_button = 2;
-    win->scene[GAME].nb_sprite = 2;
+    win->scene[GAME].nb_sprite = 3;
     win->player->sprite->rect.top = 15;
     win->player->sprite->rect.left = 15;
     win->player->sprite->rect.width = 18;
@@ -74,7 +74,9 @@ window_t *init_game(window_t *win)
     sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
     init_sprite(&win->scene[GAME].sprite[0], "ressources/pack/rpg-pack/decorations/generic-rpg-house-inn.png", get_pos_float(200, 200));
     init_sprite(&win->scene[GAME].sprite[1], "ressources/inventaire_de_merde.png", get_pos_float(-600, -300));
+    init_sprite(&win->scene[GAME].sprite[2], "ressources/pack/rpg-pack/decorations/sword.png", get_pos_float(400, 400));
     sfSprite_setScale(win->scene[GAME].sprite[0].sprite, get_pos_float(2, 2));
+    sfSprite_setScale(win->scene[GAME].sprite[2].sprite, get_pos_float(2, 2));
     if (win->player->last_pos.x >= 0)
         sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
     else
