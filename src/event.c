@@ -13,10 +13,10 @@ void mouse_pressed_event(window_t *win)
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     sfRectangleShape *rect;
 
+    printf("[x: %d, y: %d]\n", click_pos.x, click_pos.y);
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
         rect = win->scene[win->actual_page].button[i].shape;
-        if (button_is_clicked(win->scene[win->actual_page].button[i],
-        click_pos)) {
+        if (button_is_clicked(win->scene[win->actual_page].button[i], click_pos)) {
             sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_pressed);
         }
     }
@@ -77,9 +77,9 @@ int check_dead_zone(window_t *win, int move)
         if (tab_castle == NULL || tab_town == NULL)
             return (84);
     }
-    if (win->actual_page == GAME)
+    if (win->actual_page == CASTLE)
         tab = tab_castle;
-    if (win->actual_page == HOUSE)
+    if (win->actual_page == TOWN)
         tab = tab_town;
     if (move == UP) {
         if (y - 1 >= 0 && tab[y - 1][x] == '2') {
@@ -227,7 +227,7 @@ void check_interaction(window_t *win)
             win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
             win->player->last_pos.y += 30;
             sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 950));
-            win->page = HOUSE;
+            win->page = TOWN;
         }
     }
 }
@@ -266,7 +266,7 @@ void check_out(window_t *win)
 
     if (pos_player.x >= 820 && pos_player.x < 1050) {
         if (pos_player.y >= 955) {
-            win->page = GAME;
+            win->page = CASTLE;
             sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 380));
         }
     }
@@ -276,24 +276,24 @@ void open_inventory(window_t *win)
 {
     win->pause = 1;
     win->inventory = 1;
-    if (win->actual_page == GAME)
-        sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(1200, 150));
-    if (win->actual_page == HOUSE)
-        sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(1200, 150));
+    if (win->actual_page == CASTLE)
+        sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(1200, 150));
+    if (win->actual_page == TOWN)
+        sfSprite_setPosition(win->scene[TOWN].sprite[0].sprite, get_pos_float(1200, 150));
     if (win->player->items->sword == 1)
-        sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(1280, 370));
+        sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(1280, 370));
 }
 
 void close_inventory(window_t *win)
 {
     win->pause = 0;
     win->inventory = 0;
-    if (win->actual_page == GAME)
-        sfSprite_setPosition(win->scene[GAME].sprite[1].sprite, get_pos_float(-600, -600));
-    if (win->actual_page == HOUSE)
-        sfSprite_setPosition(win->scene[HOUSE].sprite[0].sprite, get_pos_float(-600, -600));
+    if (win->actual_page == CASTLE)
+        sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(-600, -600));
+    if (win->actual_page == TOWN)
+        sfSprite_setPosition(win->scene[TOWN].sprite[0].sprite, get_pos_float(-600, -600));
     if (win->player->items->sword == 1)
-        sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(-400, -400));
+        sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
 }
 
 void open_quests_menu(window_t *win)
@@ -347,12 +347,12 @@ void check_keyboard_input_ingame(window_t *win)
 void check_item_pickup(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfVector2f pos_element = sfSprite_getPosition(win->scene[GAME].sprite[2].sprite);
+    sfVector2f pos_element = sfSprite_getPosition(win->scene[CASTLE].sprite[2].sprite);
 
     printf("(%f%f)", pos_element.x, pos_element.y);
     if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
         if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
-            sfSprite_setPosition(win->scene[GAME].sprite[2].sprite, get_pos_float(-400, -400));
+            sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
             win->player->items->sword = 1;
         }
     }
@@ -360,14 +360,13 @@ void check_item_pickup(window_t *win)
 
 void global_event(window_t *win)
 {
-
     if (win->event.type == sfEvtClosed)
         quit(win);
     if (win->event.type == sfEvtKeyPressed) {
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
                 quit(win);
-            if (win->actual_page == GAME || win->actual_page == HOUSE) {
+            if (win->actual_page == CASTLE || win->actual_page == TOWN) {
                 if (win->pause == 0)
                     pause_game(win);
                 else if (win->pause == 1)
@@ -386,6 +385,6 @@ void global_event(window_t *win)
     if (win->event.type == sfEvtMouseMoved)
         mouse_moved_event(win);
     if (win->event.type == sfEvtKeyPressed)
-        if (win->actual_page == GAME || win->actual_page == HOUSE)
+        if (win->actual_page == CASTLE || win->actual_page == TOWN)
             check_keyboard_input_ingame(win);
 }

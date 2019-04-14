@@ -20,6 +20,8 @@ window_t *create_window(window_t *win)
     win->player = malloc(sizeof(player_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
+    win->player->sprite->sprite = NULL;
+    win->player->sprite->texture = NULL;
     win->player->items = malloc(sizeof(items_t) * 1);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;
@@ -29,6 +31,7 @@ window_t *create_window(window_t *win)
     win->player->direction = 1;
     win->player->items->sword = 0;
     win->player->move_rect = 0;
+    win->player->last_page = CASTLE;
     win->music->volume = 100;
     win->music->vol_drag_posx = 800;
     win->music->button_sound = sfMusic_createFromFile("ressources/music/button.ogg");

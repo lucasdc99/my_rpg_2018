@@ -28,8 +28,8 @@ void change_fps(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     if (win->fps == 30) {
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[1].shape, win->scene[OPTIONS].button[1].rect_pressed);
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[2].shape, win->scene[OPTIONS].button[2].rect_idle);
+        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[1].shape, win->scene[OPTIONS].button[1].rect_idle);
+        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[2].shape, win->scene[OPTIONS].button[2].rect_pressed);
         sfRenderWindow_setFramerateLimit(win->window, 60);
         win->fps = 60;
     } else {

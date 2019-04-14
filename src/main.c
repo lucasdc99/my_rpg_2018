@@ -47,6 +47,6 @@ int main(int ac, char **av, char **env)
     if (win->player == NULL)
         return (84);
     display(win);
-    destroy_all_music(win);
+    destroy_all(win);
     return (0);
 }

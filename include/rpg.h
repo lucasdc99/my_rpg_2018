@@ -39,21 +39,14 @@ enum page {
     HEROES,
     HOW_TO_PLAY,
     OPTIONS,
-    GAME,
-    HOUSE,
+    CASTLE,
+    TOWN,
 };
-
-typedef struct s_background {
-    sfTexture *texture;
-    sfSprite *sprite;
-    sfVector2f pos;
-    char **tab_pos;
-} background_t;
 
 typedef struct s_text {
     sfFont *font;
     sfText *str;
-    sfVector2f *pos_text;
+    sfVector2f pos_text;
 } text_t;
 
 typedef struct s_music {
@@ -87,10 +80,10 @@ typedef struct s_player {
     sfVector2f speed;
     int direction;
     int move_rect;
+    int last_page;
 } player_t;
 
 typedef struct s_scene {
-    background_t *background;
     sprite_t *sprite;
     text_t *text;
     struct s_button *button;
@@ -138,6 +131,7 @@ typedef struct ptr_func
 window_t *create_window(window_t *win);
 void move_player_up(window_t *win);
 void move_player_down(window_t *win);
+void init_player(window_t *win);
 void move_player_left(window_t *win);
 void move_player_right(window_t *win);
 sfVector2f get_pos_float(float x, float y);
@@ -150,7 +144,7 @@ window_t *init_house(window_t *win);
 void choose_hero(window_t *win);
 void load_background(window_t *win);
 void move_player(window_t *win);
-void destroy_all_music(window_t *win);
+void destroy_all(window_t *win);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void set_next_buttons(button_t *button, sfIntRect *rect, int type);
 void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
