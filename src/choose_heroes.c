@@ -13,32 +13,32 @@ void choose_hero(window_t *win)
     static int actual = 1;
 
     switch (actual) {
-        case 0:
-            choose_glenys(win);
-            break;
-        case 1:
-            choose_hex(win);
-            break;
-        case 2:
-            choose_ley(win);
-            break;
-        case 3:
-            choose_linail(win);
-            break;
-        case 4:
-            choose_oratio(win);
-            break;
-        case 5:
-            choose_ouzo(win);
-            break;
-        case 6:
-            choose_prime(win);
-            break;
-        case 7:
-            choose_wyvera(win);
-            break;
-        default:
-            break;
+    case 0:
+        choose_glenys(win);
+        break;
+    case 1:
+        choose_hex(win);
+        break;
+    case 2:
+        choose_ley(win);
+        break;
+    case 3:
+        choose_linail(win);
+        break;
+    case 4:
+        choose_oratio(win);
+        break;
+    case 5:
+        choose_ouzo(win);
+        break;
+    case 6:
+        choose_prime(win);
+        break;
+    case 7:
+        choose_wyvera(win);
+        break;
+    default:
+        break;
     }
     actual++;
     if (actual == 8)

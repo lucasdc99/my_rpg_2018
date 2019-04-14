@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
+** MUL_my_rpg_2018
 ** File description:
 ** event
 */
@@ -53,9 +53,57 @@ void mouse_moved_event(window_t *win)
     }
 }
 
+int check_dead_zone(window_t *win, int move)
+{
+    static char **tab_castle = NULL;
+    static char **tab_town = NULL;
+    char **tab = NULL;
+    char *buffer_castle = NULL;
+    char *buffer_town = NULL;
+    sfVector2u size_win = sfRenderWindow_getSize(win->window);
+    sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
+    int scalex = size_win.x / 30;
+    int scaley = size_win.y / 30;
+    int x = pos.x / 30;
+    int y = pos.y / 30;
+
+    if (tab_town == NULL || tab_castle == NULL) {
+        buffer_castle = get_buffer("ressources/text/pos_castle");
+        buffer_town = get_buffer("ressources/text/pos_house");
+        if (buffer_town == NULL || buffer_castle == NULL)
+            return (84);
+        tab_castle = transform_2d(buffer_castle, '\n');
+        tab_town = transform_2d(buffer_town, '\n');
+        if (tab_castle == NULL || tab_town == NULL)
+            return (84);
+    }
+    if (win->actual_page == GAME)
+        tab = tab_castle;
+    if (win->actual_page == HOUSE)
+        tab = tab_town;
+    if (move == UP) {
+        if (y - 1 >= 0 && tab[y - 1][x] == '2') {
+            return (1);
+        }
+    }
+    if (move == LEFT) {
+        if (x - 1 >= 0 && tab[y][x - 1] == '2')
+            return (1);
+    }
+    if (move == DOWN) {
+        if (y + 1 < scaley - 1 && tab[y + 1][x] == '2')
+            return (1);
+    }
+    if (move == RIGHT) {
+        if (x + 1 < scalex - 2 && tab[y][x + 1] == '2')
+            return (1);
+    }
+    return (0);
+}
+
 void move_player_up(window_t *win)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue) {
+    if (check_dead_zone(win, UP) == 1) {
         if (win->player->direction != UP) {
             if (win->player->direction == DOWN)
                 win->player->speed.y -= 5;
@@ -81,7 +129,7 @@ void move_player_up(window_t *win)
 
 void move_player_down(window_t *win)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue || sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue) {
+    if (check_dead_zone(win, DOWN) == 1) {
         if (win->player->direction != DOWN) {
             if (win->player->direction == UP)
                 win->player->speed.y += 5;
@@ -107,7 +155,7 @@ void move_player_down(window_t *win)
 
 void move_player_left(window_t *win)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue) {
+    if (check_dead_zone(win, LEFT) == 1) {
         if (win->player->direction != LEFT) {
             if (win->player->direction == RIGHT)
                 win->player->speed.x -= 5;
@@ -133,7 +181,7 @@ void move_player_left(window_t *win)
 
 void move_player_right(window_t *win)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue || sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue) {
+    if (check_dead_zone(win, RIGHT) == 1) {
         if (win->player->direction != RIGHT) {
             if (win->player->direction == LEFT)
                 win->player->speed.x += 5;
@@ -160,7 +208,6 @@ void move_player_right(window_t *win)
 void move_player(window_t *win)
 {   
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    printf("=>%f%f\n", pos_player.x, pos_player.y);
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
     else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
@@ -171,30 +218,15 @@ void move_player(window_t *win)
         move_player_right(win);
 }
 
-int check_dead_zone(window_t *win)
-{
-    sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
-    sfIntRect size = win->player->sprite->rect;
-    sfVector2u size_window = sfRenderWindow_getSize(win->window);
-
-    if (((pos.x - size.width) < 0) || ((pos.x + size.width) > size_window.x))
-        return (1);
-    if (((pos.y - size.height) < 0) || ((pos.y + size.height) > size_window.y))
-        return (1);
-    return (0);    
-}
-
 void check_interaction(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfVector2f pos_element = sfSprite_getPosition(win->scene[GAME].sprite[0].sprite);
 
-    pos_element.x += 45;
-    pos_element.y += 140;
-    if (pos_player.x > pos_element.x - 40 && pos_player.x < pos_element.x + 40) {
-        if (pos_player.y > pos_element.y - 40 && pos_player.y < pos_element.y) {
+    if (pos_player.x > 825 && pos_player.x < 1030) {
+        if (pos_player.y < 360) {
             win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
             win->player->last_pos.y += 30;
+            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 950));
             win->page = HOUSE;
         }
     }
@@ -232,10 +264,10 @@ void check_out(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (pos_player.x >= 580 && pos_player.x < 640) {
-        if (pos_player.y >= 700 && pos_player.y < 740) {
+    if (pos_player.x >= 820 && pos_player.x < 1050) {
+        if (pos_player.y >= 955) {
             win->page = GAME;
-            sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 380));
         }
     }
 }

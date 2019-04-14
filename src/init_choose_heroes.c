@@ -16,12 +16,7 @@ window_t *init_choose_heroes(window_t *win)
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 8;
-    win->scene[HEROES].button = malloc(sizeof(button_t) * 3);
-    win->scene[HEROES].sprite = malloc(sizeof(sprite_t) * 1);
-    win->scene[HEROES].text = malloc(sizeof(text_t) * 7);
-    win->scene[HEROES].nb_text = 7;
-    win->scene[HEROES].nb_button = 3;
-    win->scene[HEROES].nb_sprite = 1;
+    set_struct(win, 3, 7, 1);
     init_text(&win->scene[HEROES].text[0], "Choose Player", get_pos_float(pos_window.x + 40, 10));
     init_text(&win->scene[HEROES].text[1], "Glenys-the-Demonswordsman", get_pos_float(pos_window.x / 2, 100));
     init_text(&win->scene[HEROES].text[2], "Life: ", get_pos_float((pos_window.x - 100) / 2, (size_window.y - 450)));

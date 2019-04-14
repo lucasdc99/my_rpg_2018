@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
+** MUL_my_rpg_2018
 ** File description:
 ** create_window
 */

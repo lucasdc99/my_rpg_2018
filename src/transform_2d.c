@@ -5,81 +5,40 @@
 ** transform_2d
 */
 
-#include "my.h"
+#include <stdlib.h>
+#include <string.h>
 
-int count_lines(char *str)
+static int count_lines(char *str, char sep)
 {
     int count = 0;
 
     for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '\n' && str[i + 1] != '\0')
+        if (str[i] == sep)
             count++;
     }
-    return (count);
+    return (++count);
 }
 
-int len_line(char *str, int i)
+char **transform_2d(char *tmp, char sep)
 {
-    int count = 0;
-    int a = 0;
-
-    while (count < i) {
-        if (str[a] == '\0')
-            return (-1);
-        if (str[a] == '\n' && str[a + 1] != '\0')
-            count++;
-        a++;
-    }
-    count = 0;
-    a++;
-    while (str[a] != '\n' && str[a + 1] != '\0') {
-        count++;
-        a++;
-    }
-    count++;
-    return (count);
-}
-
-char **transform_pos_to_tab(char *str)
-{
-    int x = 0;
-    int y = 0;
-    char **tab = malloc(sizeof(char *) * 222);
-
-    for (int i = 0; i < 222; i++)
-        tab[i] = malloc(sizeof(char) * 3);
-    for (int i = 0; str[i + 1] != '\0'; i++) {
-        if (str[i] == ' ' || str[i] == '\n') {
-            tab[y][x] = '\0';
-            x = 0;
-            y++;
-        } else {
-            tab[y][x] = str[i];
-            x++;
-        }
-    }
-    tab[y][x] = '\0';
-    tab[y + 1] = NULL;
-    return (tab);
-}
-
-char **transform_2d(char *str)
-{
-    char **str_2d = malloc(sizeof(char *) * (count_lines(str) + 1));
+    char **str_2d = malloc(sizeof(char *) * (count_lines(tmp, sep) + 1));
+    char *str = strdup(tmp);
     int j = 0;
     int k = 0;
+    int i = 0;
 
-    for (int i = 0; i < count_lines(str) + 1; i++)
-        str_2d[i] = malloc(sizeof(char) * (len_line(str, i) + 1));
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '\n') {
-            str_2d[j][k] = '\0';
+    for (; str[i] != '\0'; i++) {
+        if (str[i] == sep) {
+            str[i++] = '\0';
+            str_2d[j] = &str[k];
             j++;
-            k = 0;
-        } else {
-            str_2d[j][k] = str[i];
-            k++;
+            k = i;
         }
     }
+    str[i] = '\0';
+    str_2d[j] = &str[k];
+    j++;
+    k = i;
+    str_2d[j] = NULL;
     return (str_2d);
 }

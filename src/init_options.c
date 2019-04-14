@@ -14,16 +14,12 @@ window_t *init_options(window_t *win)
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
     sfTexture *texture;
-    char **text = transform_2d("OPTIONS\nFPS\nVSYNC\nMusic\n0\n");
+    char **text = transform_2d("OPTIONS\nFPS\nVSYNC\nMusic\n0\n", '\n');
     int order_button[] = {SAUVEGARDER, CURSEUR, CURSEUR, CURSEUR, CURSEUR};
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = 800;
-    win->scene[OPTIONS].button = malloc(sizeof(button_t) * 5);
-    win->scene[OPTIONS].text = malloc(sizeof(text_t) * 5);
-    win->scene[OPTIONS].nb_text = 5;
-    win->scene[OPTIONS].nb_button = 5;
-    win->scene[OPTIONS].nb_sprite = 0;
+    set_struct(win, 5, 5, 0);
     win->music->vol_register = (win->music->volume + VALUE_FIRST) * 1.284;
     init_text(&win->scene[OPTIONS].text[0], text[0], get_pos_float(pos_window.x + 150, 10));
     init_text(&win->scene[OPTIONS].text[1], text[1], get_pos_float(pos_window.x, 210));

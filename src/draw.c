@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
+** MUL_my_rpg_2018
 ** File description:
 ** draw
 */
@@ -8,20 +8,9 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void draw_background(window_t *win)
-{
-    for (int i = 0; i < 220; i++) {
-        sfRenderWindow_drawSprite(win->window,
-        win->scene[win->actual_page].background[i].sprite, NULL);
-    }
-}
-
 window_t *draw_scene(window_t *win)
 {
     sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
-    if (win->actual_page == GAME || win->actual_page == HOUSE) {
-        draw_background(win);
-    }
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
         sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }

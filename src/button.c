@@ -1,7 +1,7 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
-** File description
+** MUL_my_rpg_2018
+** File description:
 ** button
 */
 
@@ -53,8 +53,12 @@ int button_is_hovered(button_t button, sfVector2i mouse_position)
 void set_next_buttons(button_t *button, sfIntRect *rect, int type)
 {
     button->rect_idle = rect[type];
-    button->rect_hovered = get_rect(button->rect_idle.left, button->rect_idle.top + 80, button->rect_idle.width, button->rect_idle.height);
-    button->rect_pressed = get_rect(button->rect_idle.left, button->rect_idle.top + 160, button->rect_idle.width, button->rect_idle.height);
+    button->rect_hovered = get_rect(button->rect_idle.left,
+    button->rect_idle.top + 80,
+    button->rect_idle.width, button->rect_idle.height);
+    button->rect_pressed = get_rect(button->rect_idle.left,
+    button->rect_idle.top + 160,
+    button->rect_idle.width, button->rect_idle.height);
 }
 
 sfIntRect *init_pos_button(void)

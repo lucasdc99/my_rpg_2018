@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
+** MUL_my_rpg_2018
 ** File description:
 ** get
 */
@@ -35,4 +35,26 @@ sfVector2i get_pos_int(int x, int y)
     vec.x = x;
     vec.y = y;
     return (vec);
+}
+
+char *get_buffer(char *filename)
+{
+    int fd = open(filename, O_RDONLY);
+    char *buff = NULL;
+    char *tmp = NULL;
+
+    if (fd < 0)
+        return (NULL);
+    buff = get_next_line(fd);
+    if (buff == NULL)
+        return (NULL);
+    buff = my_strcat(buff, "\n");
+    tmp = get_next_line(fd);
+    while (tmp != NULL) {
+        buff = my_strcat(buff, tmp);
+        buff = my_strcat(buff, "\n");
+        tmp = get_next_line(fd);
+    }
+    close(fd);
+    return (buff);
 }

@@ -47,7 +47,6 @@ char *my_itc(int nbr);
 int my_contains(char *str, char c);
 void my_memset(char *tab, int value, int size);
 void my_memsetdouble(double *, int value , int size);
-char **transform_2d(char *str);
 
 // NUMBER
 

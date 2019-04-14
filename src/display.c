@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Untitled (Workspace)
+** MUL_my_rpg_2018
 ** File description:
 ** display
 */
@@ -46,22 +46,11 @@ void display(window_t *win)
             move_sprites(win, 48);
         }
         if ((win->actual_page == GAME || win->actual_page == HOUSE) && win->pause == 0) {
-            if (!check_dead_zone(win)) {
-                move_player(win);
-                if (win->actual_page == HOUSE)
-                    check_out(win);
-                if (win->actual_page == GAME)
-                    check_interaction(win);
-            } else {
-                if (win->player->direction == UP)
-                    move_player_down(win);
-                if (win->player->direction == LEFT)
-                    move_player_right(win);
-                if (win->player->direction == DOWN)
-                    move_player_up(win);
-                if (win->player->direction == RIGHT)
-                    move_player_left(win);
-            }
+            move_player(win);
+            if (win->actual_page == HOUSE)
+                check_out(win);
+            if (win->actual_page == GAME)
+                check_interaction(win);
         }
     }
 }

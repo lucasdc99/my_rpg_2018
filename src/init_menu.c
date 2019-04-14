@@ -17,12 +17,7 @@ window_t *init_menu(window_t *win)
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
-    win->scene[MAINMENU].button = malloc(sizeof(button_t) * 5);
-    win->scene[MAINMENU].text = malloc(sizeof(text_t) * 1);
-    win->scene[MAINMENU].sprite = malloc(sizeof(sprite_t) * 1);
-    win->scene[MAINMENU].nb_text = 1;
-    win->scene[MAINMENU].nb_button = 5;
-    win->scene[MAINMENU].nb_sprite = 1;
+    set_struct(win, 5, 1, 1);
     init_text(&win->scene[MAINMENU].text[0], "Tekzerk", get_pos_float(pos_window.x - 70, 10));
     sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
