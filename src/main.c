@@ -37,6 +37,7 @@ int display_help(void)
 int main(int ac, char **av, char **env)
 {
     window_t *win = malloc(sizeof(window_t));
+    FILE *fp;
 
     if (win == NULL || env == NULL || env[0] == NULL || check_env(env) == 84)
         return (84);
@@ -44,8 +45,25 @@ int main(int ac, char **av, char **env)
         return (display_help());
     win = create_window(win);
     win->player = parser(win->player, "ressources/text/config_player");
-    if (win->player == NULL)
-        return (84);
+    if (win->player == NULL) {
+        fp = fopen("ressources/text/config_player", "wb+");
+        fprintf(fp, "NAME = %s\n", "Ley-the-Monster-Whisperer");
+        fprintf(fp, "HEALTH = %d\n", 80);
+        fprintf(fp, "XP = %d\n", 100);
+        fprintf(fp, "STRENGTH = %d\n", 90);
+        fprintf(fp, "POSITION X = %f\n", 900.0);
+        fprintf(fp, "POSITION Y = %f\n", 527.0);
+        fprintf(fp, "PAGE = %d\n", CASTLE);
+        fclose(fp);
+        win->player = malloc(sizeof(player_t) * 1);
+        win->player->sprite = malloc(sizeof(sprite_t) * 1);
+        win->player->sprite->sprite = NULL;
+        win->player->sprite->texture = NULL;
+        win->player->items = malloc(sizeof(items_t) * 1);
+        win->player = parser(win->player, "ressources/text/config_player");
+        if (win->player == NULL)
+            return (84);
+    }
     display(win);
     destroy_all(win);
     return (0);

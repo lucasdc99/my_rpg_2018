@@ -34,6 +34,8 @@ player_t *parser(player_t *player, char *filename)
 {
     int fd = open(filename, O_RDONLY);
 
+    if (fd < 0)
+        return (NULL);
     player->name = parse_string(get_next_line(fd));
     if (player->name == NULL)
         return (NULL);
