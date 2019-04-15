@@ -228,7 +228,7 @@ void check_interaction(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (pos_player.x > 825 && pos_player.x < 1030) {
+    if (pos_player.x > 825 && pos_player.x < 1050) {
         if (pos_player.y < 360) {
             win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
             win->player->last_pos.y += 30;
@@ -282,12 +282,6 @@ void open_inventory(window_t *win)
 {
     win->pause = 1;
     win->inventory = 1;
-    if (win->actual_page == CASTLE)
-        sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(1200, 150));
-    if (win->actual_page == TOWN)
-        sfSprite_setPosition(win->scene[TOWN].sprite[1].sprite, get_pos_float(1200, 150));
-    if (win->player->items->sword == 1)
-        sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(1280, 370));
 }
 
 void open_door(window_t *win)
@@ -296,21 +290,32 @@ void open_door(window_t *win)
     sfIntRect rect;
     sfVector2f pos_door;
 
-    for (int i = 2; i < 5; i++) {
+    for (int i = 1; i < 5; i++) {
         rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[i].sprite);
         pos_door = sfSprite_getPosition(win->scene[TOWN].sprite[i].sprite);
         if (pos_player.x >= pos_door.x - 10 && pos_player.x <= pos_door.x + 40) {
-            if (pos_player.y <= pos_door.y + 100) {
+            if (pos_player.y >= pos_door.y && pos_player.y <= pos_door.y + 100) {
                 rect.top = 64;
+                if (i == 4)
+                    rect.top = 192;
                 sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
             } else {
-                if (rect.top == 64) {
+                if (rect.top >= 64) {
                     rect.top = 0;
+                    if (i == 4)
+                        rect.top = 128;
                     sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
                 }
             }
-            if (pos_player.y <= pos_door.y + 50) {
+            if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20) {
                 win->page = HOUSE1;
+            }
+        } else {
+            if (rect.top >= 64) {
+                rect.top = 0;
+                if (i == 4)
+                    rect.top = 128;
+                sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
             }
         }
     }
@@ -320,12 +325,6 @@ void close_inventory(window_t *win)
 {
     win->pause = 0;
     win->inventory = 0;
-    if (win->actual_page == CASTLE)
-        sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(-600, -600));
-    if (win->actual_page == TOWN)
-        sfSprite_setPosition(win->scene[TOWN].sprite[1].sprite, get_pos_float(-600, -600));
-    if (win->player->items->sword == 1)
-        sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
 }
 
 void open_quests_menu(window_t *win)
@@ -381,11 +380,11 @@ void check_item_pickup(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
     sfVector2f pos_element = sfSprite_getPosition(win->scene[CASTLE].sprite[2].sprite);
 
-    printf("(%f%f)", pos_element.x, pos_element.y);
+    printf("(%f %f)\n", pos_element.x, pos_element.y);
     if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
         if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
             sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
-            win->player->items->sword = 1;
+            win->inv->items->sword = 1;
         }
     }
 }

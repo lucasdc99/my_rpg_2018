@@ -68,12 +68,13 @@ typedef struct s_sprite {
 
 typedef struct s_items {
     int sword;
+    char *name;
+    
 } items_t;
 
 typedef struct s_player {
     sfVector2f last_pos;
     sprite_t *sprite;
-    items_t *items;
     char *name;
     int health;
     int xp;
@@ -93,6 +94,12 @@ typedef struct s_scene {
     int nb_button;
 } scene_t;
 
+typedef struct s_inventory {
+    sprite_t *sprite;
+    sfSprite *player;
+    items_t *items;
+} inventory_t;
+
 typedef struct s_window {
     sfTexture *texture_button;
     sfRenderWindow *window;
@@ -110,6 +117,7 @@ typedef struct s_window {
     int seconds;
     int pause;
     int inventory;
+    inventory_t *inv;
 } window_t;
 
 typedef struct s_button {

@@ -59,7 +59,8 @@ int main(int ac, char **av, char **env)
         win->player->sprite = malloc(sizeof(sprite_t) * 1);
         win->player->sprite->sprite = NULL;
         win->player->sprite->texture = NULL;
-        win->player->items = malloc(sizeof(items_t) * 1);
+        win->inv = malloc(sizeof(inventory_t) * 1);
+        win->inv->items = malloc(sizeof(items_t) * 1);
         win->player = parser(win->player, "ressources/text/config_player");
         if (win->player == NULL)
             return (84);

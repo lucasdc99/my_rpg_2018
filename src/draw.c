@@ -24,6 +24,10 @@ window_t *draw_scene(window_t *win)
         sfRenderWindow_drawText(win->window,
         win->scene[win->actual_page].text[i].str, NULL);
     }
+    if (win->inventory == 1) {
+        sfRenderWindow_drawSprite(win->window, win->inv->sprite->sprite, NULL);
+        sfRenderWindow_drawSprite(win->window, win->inv->player, NULL);        
+    }
     sfRenderWindow_display(win->window);
     return (win);
 }

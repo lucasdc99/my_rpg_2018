@@ -26,4 +26,9 @@ void init_player(window_t *win)
     else
         sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(500, 500));
     check_dead_zone(win, -1);
+    win->inv->player = sfSprite_create();
+    sfSprite_setTexture(win->inv->player, win->player->sprite->texture, sfTrue);
+    sfSprite_setScale(win->inv->player, get_pos_float(3, 3));
+    sfSprite_setTextureRect(win->inv->player, win->player->sprite->rect);
+    sfSprite_setPosition(win->inv->player, get_pos_float(1440, 305));
 }
