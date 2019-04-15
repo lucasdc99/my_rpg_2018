@@ -12,7 +12,7 @@ void main_menu(window_t *win)
 {
     FILE *fp = fopen("ressources/text/config_player", "wb+");
 
-    if (win->page == CASTLE || win->page == TOWN) {
+    if (win->page >= CASTLE) {
         win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
         if (win->player->last_pos.x <= 20)
             win->player->last_pos.x = 100;

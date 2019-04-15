@@ -41,6 +41,7 @@ enum page {
     OPTIONS,
     CASTLE,
     TOWN,
+    HOUSE1,
 };
 
 typedef struct s_text {
@@ -133,6 +134,7 @@ void move_player_up(window_t *win);
 void move_player_down(window_t *win);
 void init_player(window_t *win);
 void move_player_left(window_t *win);
+window_t *init_house1(window_t *win);
 void move_player_right(window_t *win);
 sfVector2f get_pos_float(float x, float y);
 sfVector2i get_pos_int(int x, int y);
@@ -152,6 +154,7 @@ char *get_buffer(char *filename);
 void set_struct(window_t *win, int button, int text, int sprite);
 sfIntRect get_rect(int left, int top, int width, int height);
 window_t *init_menu(window_t *win);
+void open_door(window_t *win);
 window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);
 void quit_pause(window_t *win);

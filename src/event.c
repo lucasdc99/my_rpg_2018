@@ -57,9 +57,11 @@ int check_dead_zone(window_t *win, int move)
 {
     static char **tab_castle = NULL;
     static char **tab_town = NULL;
+    static char **tab_house1 = NULL;
     char **tab = NULL;
     char *buffer_castle = NULL;
     char *buffer_town = NULL;
+    char *buffer_house1 = NULL;
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
     sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
     int scalex = size_win.x / 30;
@@ -67,20 +69,24 @@ int check_dead_zone(window_t *win, int move)
     int x = pos.x / 30;
     int y = pos.y / 30;
 
-    if (tab_town == NULL || tab_castle == NULL) {
+    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL) {
         buffer_castle = get_buffer("ressources/text/pos_castle");
         buffer_town = get_buffer("ressources/text/pos_house");
-        if (buffer_town == NULL || buffer_castle == NULL)
+        buffer_house1 = get_buffer("ressources/text/pos_house1");
+        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL)
             return (84);
         tab_castle = transform_2d(buffer_castle, '\n');
         tab_town = transform_2d(buffer_town, '\n');
-        if (tab_castle == NULL || tab_town == NULL)
+        tab_house1 = transform_2d(buffer_house1, '\n');
+        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL)
             return (84);
     }
     if (win->actual_page == CASTLE)
         tab = tab_castle;
     if (win->actual_page == TOWN)
         tab = tab_town;
+    if (win->actual_page == HOUSE1)
+        tab = tab_house1;
     if (move == UP) {
         if (y - 1 >= 0 && tab[y - 1][x] == '2') {
             return (1);
@@ -279,9 +285,35 @@ void open_inventory(window_t *win)
     if (win->actual_page == CASTLE)
         sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(1200, 150));
     if (win->actual_page == TOWN)
-        sfSprite_setPosition(win->scene[TOWN].sprite[0].sprite, get_pos_float(1200, 150));
+        sfSprite_setPosition(win->scene[TOWN].sprite[1].sprite, get_pos_float(1200, 150));
     if (win->player->items->sword == 1)
         sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(1280, 370));
+}
+
+void open_door(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    sfIntRect rect;
+    sfVector2f pos_door;
+
+    for (int i = 2; i < 5; i++) {
+        rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[i].sprite);
+        pos_door = sfSprite_getPosition(win->scene[TOWN].sprite[i].sprite);
+        if (pos_player.x >= pos_door.x - 10 && pos_player.x <= pos_door.x + 40) {
+            if (pos_player.y <= pos_door.y + 100) {
+                rect.top = 64;
+                sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
+            } else {
+                if (rect.top == 64) {
+                    rect.top = 0;
+                    sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
+                }
+            }
+            if (pos_player.y <= pos_door.y + 50) {
+                win->page = HOUSE1;
+            }
+        }
+    }
 }
 
 void close_inventory(window_t *win)
@@ -291,7 +323,7 @@ void close_inventory(window_t *win)
     if (win->actual_page == CASTLE)
         sfSprite_setPosition(win->scene[CASTLE].sprite[1].sprite, get_pos_float(-600, -600));
     if (win->actual_page == TOWN)
-        sfSprite_setPosition(win->scene[TOWN].sprite[0].sprite, get_pos_float(-600, -600));
+        sfSprite_setPosition(win->scene[TOWN].sprite[1].sprite, get_pos_float(-600, -600));
     if (win->player->items->sword == 1)
         sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
 }
@@ -366,7 +398,7 @@ void global_event(window_t *win)
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
                 quit(win);
-            if (win->actual_page == CASTLE || win->actual_page == TOWN) {
+            if (win->actual_page >= CASTLE) {
                 if (win->pause == 0)
                     pause_game(win);
                 else if (win->pause == 1)
@@ -385,6 +417,6 @@ void global_event(window_t *win)
     if (win->event.type == sfEvtMouseMoved)
         mouse_moved_event(win);
     if (win->event.type == sfEvtKeyPressed)
-        if (win->actual_page == CASTLE || win->actual_page == TOWN)
+        if (win->actual_page >= CASTLE)
             check_keyboard_input_ingame(win);
 }

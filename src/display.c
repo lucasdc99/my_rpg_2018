@@ -17,6 +17,7 @@ ptr_func *init_func(void)
         {OPTIONS, &init_options, &draw_scene, &global_event, &destroy_scene},
         {CASTLE, &init_game, &draw_scene, &global_event, &destroy_scene},
         {TOWN, &init_house, &draw_scene, &global_event, &destroy_scene},
+        {HOUSE1, &init_house1, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
 }
@@ -45,10 +46,12 @@ void display(window_t *win)
             win->seconds = win->move_time.microseconds / 1000000.0;
             move_sprites(win, 48);
         }
-        if ((win->actual_page == CASTLE || win->actual_page == TOWN) && win->pause == 0) {
+        if ((win->actual_page >= CASTLE) && win->pause == 0) {
             move_player(win);
-            if (win->actual_page == TOWN)
+            if (win->actual_page == TOWN) {
+                open_door(win);
                 check_out(win);
+            }
             if (win->actual_page == CASTLE)
                 check_interaction(win);
         }

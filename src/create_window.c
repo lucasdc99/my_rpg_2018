@@ -16,7 +16,7 @@ window_t *create_window(window_t *win)
     win->window = sfRenderWindow_create(mode, name, sfClose | sfResize, NULL);
     win->page = MAINMENU;
     win->actual_page = win->page;
-    win->scene = malloc(sizeof(scene_t) * 6);
+    win->scene = malloc(sizeof(scene_t) * 7);
     win->player = malloc(sizeof(player_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
