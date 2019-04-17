@@ -342,6 +342,7 @@ void pause_game(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
+
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
     win->pause = 1;

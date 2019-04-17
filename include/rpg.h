@@ -60,6 +60,7 @@ typedef struct s_music {
 } music_t;
 
 typedef struct s_sprite {
+    int depth;
     sfIntRect rect;
     sfSprite *sprite;
     sfTexture *texture;

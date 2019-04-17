@@ -24,6 +24,8 @@ window_t *init_game(window_t *win)
     init_sprite(&win->scene[CASTLE].sprite[3], "ressources/tree.png", get_pos_float(80, 458));
     init_sprite(&win->scene[CASTLE].sprite[4], "ressources/tree.png", get_pos_float(1350, 508));
     init_sprite(&win->scene[CASTLE].sprite[5], "ressources/tree2.png", get_pos_float(1520, 500));
+    for (int i = 2; i < 6; i++)
+        win->scene[CASTLE].sprite[i].depth = 1;
     sfSprite_setScale(win->scene[CASTLE].sprite[1].sprite, get_pos_float(2, 2));
     win->scene[CASTLE].button[0].callback = &quit_pause;
     win->scene[CASTLE].button[1].callback = &main_menu;
