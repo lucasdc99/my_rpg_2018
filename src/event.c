@@ -53,26 +53,41 @@ void mouse_moved_event(window_t *win)
     }
 }
 
+int open_buff(char *filename, char *buffer[], int size)
+{
+    int fd = open(filename, O_RDONLY);
+
+    if (fd < 0)
+        return (84);
+    if (read(fd, buffer, size) <= 0)
+        return (84);
+    close(fd);
+    return (0);
+}
+
 int check_dead_zone(window_t *win, int move)
 {
     static char **tab_castle = NULL;
     static char **tab_town = NULL;
     static char **tab_house1 = NULL;
     char **tab = NULL;
-    char *buffer_castle = NULL;
-    char *buffer_town = NULL;
-    char *buffer_house1 = NULL;
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
     sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
-    int scalex = size_win.x / 30;
-    int scaley = size_win.y / 30;
-    int x = pos.x / 30;
-    int y = pos.y / 30;
+    int scalex = size_win.x / 16;
+    int scaley = size_win.y / 15;
+    int x = pos.x / 16;
+    int y = pos.y / 15;
+    char buffer_castle[8400];
+    char buffer_town[8400];
+    char buffer_house1[8400];
 
-    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL) {
-        buffer_castle = get_buffer("ressources/text/pos_castle");
-        buffer_town = get_buffer("ressources/text/pos_house");
-        buffer_house1 = get_buffer("ressources/text/pos_house1");
+    if (tab_town == NULL || tab_castle == NULL) {
+        if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
+            return (84);
+        if (open_buff("ressources/text/pos_house", &buffer_town, 8400) == 84)
+            return (84);
+        if (open_buff("ressources/text/pos_house1", &buffer_house1, 8400) == 84)
+            return (84);
         if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL)
             return (84);
         tab_castle = transform_2d(buffer_castle, '\n');

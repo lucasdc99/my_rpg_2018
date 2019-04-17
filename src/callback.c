@@ -10,9 +10,10 @@
 
 void main_menu(window_t *win)
 {
-    FILE *fp = fopen("ressources/text/config_player", "wb+");
+    FILE *fp;
 
     if (win->page >= CASTLE) {
+        fp = fopen("ressources/text/config_player", "wb+");
         win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
         if (win->player->last_pos.x <= 20)
             win->player->last_pos.x = 100;
@@ -25,8 +26,8 @@ void main_menu(window_t *win)
         fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);
         fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
         fprintf(fp, "PAGE = %d\n", win->actual_page);
+        fclose(fp);
     }
-    fclose(fp);
     win->pause = 0;
     sfMusic_play(win->music->button_sound);
     if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
@@ -68,6 +69,7 @@ void play_game(window_t *win)
 {
     FILE *fp;
 
+    printf("ok\n");
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
         fp = fopen("ressources/text/config_player", "wb+");
@@ -82,6 +84,7 @@ void play_game(window_t *win)
     }
     win->player = parser(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
+    printf("ok2\n");
     init_player(win);
     sfMusic_stop(win->music->menu_song);
 }
