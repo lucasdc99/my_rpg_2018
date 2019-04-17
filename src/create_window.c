@@ -24,7 +24,7 @@ window_t *create_window(window_t *win)
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
     win->player->sprite->sprite = NULL;
     win->player->sprite->texture = NULL;
-    win->inv->items = malloc(sizeof(items_t) * 1);
+    win->inv->items = malloc(sizeof(items_t) * 12);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);
@@ -44,6 +44,7 @@ window_t *create_window(window_t *win)
     sfMusic_play(win->music->menu_song);
     win->pause = 0;
     win->inventory = 0;
+    init_inventory(win->inv);
     win->move = sfClock_create();
     return (win);
 }

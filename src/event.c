@@ -53,14 +53,15 @@ void mouse_moved_event(window_t *win)
     }
 }
 
-int open_buff(char *filename, char *buffer[], int size)
+int open_buff(char *filename, char **buffer, int size)
 {
     int fd = open(filename, O_RDONLY);
 
     if (fd < 0)
         return (84);
-    if (read(fd, buffer, size) <= 0)
+    if (read(fd, buffer[0], size) <= 0)
         return (84);
+    buffer[0][size - 1] = '\0';
     close(fd);
     return (0);
 }
@@ -77,9 +78,9 @@ int check_dead_zone(window_t *win, int move)
     int scaley = size_win.y / 15;
     int x = pos.x / 16;
     int y = pos.y / 15;
-    char buffer_castle[8400];
-    char buffer_town[8400];
-    char buffer_house1[8400];
+    char *buffer_castle = malloc(sizeof(char) * 8400);
+    char *buffer_town = malloc(sizeof(char) * 8400);
+    char *buffer_house1 = malloc(sizeof(char) * 8400);
 
     if (tab_town == NULL || tab_castle == NULL) {
         if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
@@ -228,7 +229,6 @@ void move_player_right(window_t *win)
 
 void move_player(window_t *win)
 {   
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
     else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
@@ -391,18 +391,153 @@ void check_keyboard_input_ingame(window_t *win)
     }
 }
 
+sfVector2f get_nearest_item_pos(inventory_t *inv, sfVector2f move_pos)
+{
+    sfVector2f pos = {10, 10};
+
+    for (int i = 0; i < 12; i++) {
+        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
+            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y < inv->items[i].pos.y + 80) {
+                pos.x = inv->items[i].pos.x;
+                pos.y = inv->items[i].pos.y;
+                return (pos);
+            }
+        }
+    }
+    return (get_inv_pos(inv));
+}
+
+char *get_name_from_type(int type)
+{
+    if (type == SWORD)
+        return ("Dague");
+    if (type == POTION)
+        return ("Potion");
+    if (type == BOOK)
+        return ("Livre");
+    return ("\n");
+}
+
+
+int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos)
+{
+    int not_busy = -1;
+
+    for (int i = 0; i < 12; i++) {
+        if (inv->items[i].busy == 0 && not_busy == -1)
+            not_busy = i;
+        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
+            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y < inv->items[i].pos.y + 80) {
+                return (i);
+            }
+        }
+    }
+    return (not_busy);
+}
+
+void check_drag_and_drop_inv(window_t *win)
+{
+    sfVector2i click_pos;
+    sfVector2f move_pos;
+    sfVector2f pos;
+    int actual_pos = 0;
+
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
+        click_pos = sfMouse_getPositionRenderWindow(win->window);
+        move_pos = get_pos_float(click_pos.x, click_pos.y);
+        if (win->scene[win->actual_page].sprite[i].item == 2 && win->scene[win->actual_page].sprite[i].depth == 2) {
+            sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
+            actual_pos = get_actual_pos_inv(win->inv, move_pos);
+            win->inv->items[actual_pos].name = get_name_from_type(win->scene[win->actual_page].sprite[i].type);
+            win->scene[win->actual_page].sprite[i].item = 1;
+            pos = get_nearest_item_pos(win->inv, move_pos);
+            if (win->inv->items[actual_pos].busy == 0)
+                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, pos);
+            else
+                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
+            win->inv->items[actual_pos].busy = 1;
+        }
+    }
+}
+
+void drag_and_drop_inv(window_t *win)
+{
+    sfVector2i click_pos;
+    sfVector2f move_pos;
+    sfVector2f pos_item;
+    int actual_pos = 0;
+    int item = -1;
+
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
+        if (win->scene[win->actual_page].sprite[i].item == 2)
+            item = i;
+    }
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
+        if (win->scene[win->actual_page].sprite[i].item == 1 && win->scene[win->actual_page].sprite[i].depth == 2) {
+            click_pos = sfMouse_getPositionRenderWindow(win->window);
+            move_pos = get_pos_float(click_pos.x, click_pos.y);
+            pos_item = sfSprite_getPosition(win->scene[win->actual_page].sprite[i].sprite);
+            if (move_pos.x >= pos_item.x - 10 && move_pos.x < pos_item.x + 20) {
+                if (move_pos.y >= pos_item.y - 10 && move_pos.y < pos_item.y + 20) {
+                    actual_pos = get_actual_pos_inv(win->inv, move_pos);
+                    win->scene[win->actual_page].sprite[i].item = 2;
+                    win->inv->items[actual_pos].busy = 0;
+                    win->inv->items[actual_pos].name = NULL;
+                    item = i;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
+        if (win->scene[win->actual_page].sprite[i].item == 2)
+            item = i;
+    }
+    click_pos = sfMouse_getPositionRenderWindow(win->window);
+    move_pos = get_pos_float(click_pos.x, click_pos.y);
+    if (item != -1)
+        sfSprite_setPosition(win->scene[win->actual_page].sprite[item].sprite, move_pos);
+}
+
 void check_item_pickup(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfVector2f pos_element = sfSprite_getPosition(win->scene[CASTLE].sprite[2].sprite);
+    sfVector2f pos_element;
+    int actual_pos = -1;
 
-    printf("(%f %f)\n", pos_element.x, pos_element.y);
-    if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
-        if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
-            sfSprite_setPosition(win->scene[CASTLE].sprite[2].sprite, get_pos_float(-400, -400));
-            win->inv->items->sword = 1;
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
+        if (win->scene[win->actual_page].sprite[i].item == 1) {
+            pos_element = sfSprite_getPosition(win->scene[CASTLE].sprite[i].sprite);
+            if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
+                if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
+                    sfSprite_setPosition(win->scene[CASTLE].sprite[i].sprite, get_inv_pos(win->inv));
+                    actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
+                    win->inv->items[actual_pos].busy = 1;
+                    win->inv->items[actual_pos].name = get_name_from_type(win->scene[CASTLE].sprite[i].type);
+                    win->inv->items->sword = 1;
+                    win->scene[CASTLE].sprite[i].item = 1;
+                    win->scene[CASTLE].sprite[i].depth = 2;
+                }
+            }
         }
     }
+}
+
+void set_text_inv(window_t *win)
+{
+    sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
+    sfVector2f move_pos = get_pos_float(click_pos.x, click_pos.y);
+    int ok = 0;
+
+    for (int i = 0; i < 12; i++) {
+        if (move_pos.x >= win->inv->items[i].pos.x - 10 && move_pos.x < win->inv->items[i].pos.x + 80) {
+            if (move_pos.y >= win->inv->items[i].pos.y - 10 && move_pos.y < win->inv->items[i].pos.y + 80) {
+                ok = 1;
+                sfText_setString(win->inv->text, win->inv->items[i].name);
+            }
+        }
+    }
+    if (ok == 0)
+        sfText_setString(win->inv->text, "\n");
 }
 
 void global_event(window_t *win)
@@ -414,7 +549,7 @@ void global_event(window_t *win)
             if (win->actual_page == MAINMENU)
                 quit(win);
             if (win->actual_page >= CASTLE) {
-                if (win->pause == 0)
+                if (win->pause == 0 && win->inventory == 0)
                     pause_game(win);
                 else if (win->pause == 1)
                     unpause_game(win);
@@ -424,13 +559,21 @@ void global_event(window_t *win)
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
             drag_button(win);
+        if (win->actual_page >= CASTLE && win->inventory == 1)
+            drag_and_drop_inv(win);
     }
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);
-    if (win->event.type == sfEvtMouseButtonReleased)
+    if (win->event.type == sfEvtMouseButtonReleased) {
         mouse_released_event(win);
-    if (win->event.type == sfEvtMouseMoved)
+        if (win->actual_page >= CASTLE && win->inventory == 1)
+            check_drag_and_drop_inv(win);
+    }
+    if (win->event.type == sfEvtMouseMoved) {
         mouse_moved_event(win);
+        if (win->actual_page >= CASTLE && win->inventory == 1)
+            set_text_inv(win);
+    }
     if (win->event.type == sfEvtKeyPressed)
         if (win->actual_page >= CASTLE)
             check_keyboard_input_ingame(win);

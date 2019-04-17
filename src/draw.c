@@ -31,7 +31,13 @@ window_t *draw_scene(window_t *win)
     }
     if (win->inventory == 1) {
         sfRenderWindow_drawSprite(win->window, win->inv->sprite->sprite, NULL);
-        sfRenderWindow_drawSprite(win->window, win->inv->player, NULL);        
+        sfRenderWindow_drawSprite(win->window, win->inv->player, NULL);
+        if (sfText_getString(win->inv->text) != NULL)
+            sfRenderWindow_drawText(win->window, win->inv->text, NULL);   
+        for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
+            if (win->scene[win->actual_page].sprite[i].item >= 1)
+                sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
+        }     
     }
     sfRenderWindow_display(win->window);
     return (win);

@@ -19,6 +19,12 @@ enum direction {
     RIGHT,
 };
 
+enum type {
+    SWORD,
+    POTION,
+    BOOK,
+};
+
 enum type_button {
     JOUER,
     PARAM,
@@ -61,6 +67,8 @@ typedef struct s_music {
 
 typedef struct s_sprite {
     int depth;
+    int item;
+    int type;
     sfIntRect rect;
     sfSprite *sprite;
     sfTexture *texture;
@@ -70,7 +78,8 @@ typedef struct s_sprite {
 typedef struct s_items {
     int sword;
     char *name;
-    
+    sfVector2f pos;
+    int busy;
 } items_t;
 
 typedef struct s_player {
@@ -96,6 +105,7 @@ typedef struct s_scene {
 } scene_t;
 
 typedef struct s_inventory {
+    sfText *text;
     sprite_t *sprite;
     sfSprite *player;
     items_t *items;
@@ -149,6 +159,8 @@ sfVector2f get_pos_float(float x, float y);
 sfVector2i get_pos_int(int x, int y);
 void change_music(window_t *win);
 void change_fps(window_t *win);
+void check_item_pickup(window_t *win);
+inventory_t *parser_inv(inventory_t *inv, char *filename);
 void change_vsync(window_t *win);
 sfIntRect *init_pos_button(void);
 window_t *init_house(window_t *win);
@@ -156,6 +168,7 @@ void choose_hero(window_t *win);
 void load_background(window_t *win);
 void move_player(window_t *win);
 void destroy_all(window_t *win);
+int get_type_from_inv(char *name);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void set_next_buttons(button_t *button, sfIntRect *rect, int type);
 void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
@@ -166,6 +179,8 @@ window_t *init_menu(window_t *win);
 void open_door(window_t *win);
 window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);
+sfVector2f get_inv_pos(inventory_t *inv);
+void init_inventory(inventory_t *inv);
 void quit_pause(window_t *win);
 window_t *init_how_to_play(window_t *win);
 void display(window_t *win);

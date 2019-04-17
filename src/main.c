@@ -45,6 +45,7 @@ int main(int ac, char **av, char **env)
         return (display_help());
     win = create_window(win);
     win->player = parser(win->player, "ressources/text/config_player");
+    win->inv = parser_inv(win->inv, "ressources/text/inventory");
     if (win->player == NULL) {
         fp = fopen("ressources/text/config_player", "wb+");
         fprintf(fp, "NAME = %s\n", "Ley-the-Monster-Whisperer");
@@ -62,6 +63,7 @@ int main(int ac, char **av, char **env)
         win->inv = malloc(sizeof(inventory_t) * 1);
         win->inv->items = malloc(sizeof(items_t) * 1);
         win->player = parser(win->player, "ressources/text/config_player");
+        win->inv = parser_inv(win->inv, "ressources/text/inventory");
         if (win->player == NULL)
             return (84);
     }

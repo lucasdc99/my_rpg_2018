@@ -27,6 +27,11 @@ void main_menu(window_t *win)
         fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
         fprintf(fp, "PAGE = %d\n", win->actual_page);
         fclose(fp);
+        fp = fopen("ressources/text/inventory", "wb+");
+        for (int i = 0; i < 12; i++) {
+            fprintf(fp, "%s\n", win->inv->items[i].name);
+        }
+        fclose(fp);
     }
     win->pause = 0;
     sfMusic_play(win->music->button_sound);
@@ -69,7 +74,6 @@ void play_game(window_t *win)
 {
     FILE *fp;
 
-    printf("ok\n");
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
         fp = fopen("ressources/text/config_player", "wb+");
@@ -84,7 +88,6 @@ void play_game(window_t *win)
     }
     win->player = parser(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
-    printf("ok2\n");
     init_player(win);
     sfMusic_stop(win->music->menu_song);
 }

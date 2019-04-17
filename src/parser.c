@@ -30,6 +30,23 @@ static int parse_int(char *str)
     return (my_getnbr(str));
 }
 
+inventory_t *parser_inv(inventory_t *inv, char *filename)
+{
+    int fd = open(filename, O_RDONLY);
+
+    if (fd < 0)
+        return (NULL);
+    for (int i = 0; i < 12; i++) {
+        inv->items[i].name = get_next_line(fd);
+        if (my_strcmp(inv->items[i].name, "(null)") == 0) {
+            inv->items[i].name = NULL;
+        } else
+            inv->items[i].busy = 1;
+    }
+    close(fd);
+    return (inv);
+}
+
 player_t *parser(player_t *player, char *filename)
 {
     int fd = open(filename, O_RDONLY);
@@ -51,5 +68,6 @@ player_t *parser(player_t *player, char *filename)
     player->last_pos.x = parse_int(get_next_line(fd));
     player->last_pos.y = parse_int(get_next_line(fd));
     player->last_page = parse_int(get_next_line(fd));
+    close(fd);
     return (player);
 }

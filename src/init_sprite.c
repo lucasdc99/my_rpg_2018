@@ -16,4 +16,5 @@ void init_sprite(sprite_t *sprite, char *filename, sfVector2f position)
     sprite->pos = position;
     sfSprite_setPosition(sprite->sprite, sprite->pos);
     sprite->depth = 0;
+    sprite->item = 0;
 }
