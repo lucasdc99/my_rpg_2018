@@ -166,6 +166,7 @@ sfIntRect *init_pos_button(void);
 window_t *init_house(window_t *win);
 void choose_hero(window_t *win);
 void load_background(window_t *win);
+void close_door(window_t *win);
 void move_player(window_t *win);
 void destroy_all(window_t *win);
 int get_type_from_inv(char *name);

@@ -54,6 +54,8 @@ void display(window_t *win)
             }
             if (win->actual_page == CASTLE)
                 check_interaction(win);
+            if (win->actual_page == HOUSE1)
+                close_door(win);
         }
     }
 }

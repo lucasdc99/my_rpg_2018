@@ -228,7 +228,7 @@ void move_player_right(window_t *win)
 }
 
 void move_player(window_t *win)
-{   
+{
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
     else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
@@ -299,6 +299,35 @@ void open_inventory(window_t *win)
     win->inventory = 1;
 }
 
+void close_door(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    sfIntRect rect;
+    sfVector2f pos_door;
+
+    rect = sfSprite_getTextureRect(win->scene[HOUSE1].sprite[1].sprite);
+    pos_door = sfSprite_getPosition(win->scene[HOUSE1].sprite[1].sprite);
+    if (pos_player.x >= pos_door.x - 10 && pos_player.x <= pos_door.x + 40) {
+        if (pos_player.y >= pos_door.y - 100 && pos_player.y <= pos_door.y) {
+            rect.top = 64;
+            sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
+        } else {
+            if (rect.top >= 64) {
+                rect.top = 0;
+                sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
+            }
+        }
+        if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == DOWN) {
+            win->page = TOWN;
+        }
+    } else {
+        if (rect.top >= 64) {
+            rect.top = 0;
+            sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
+        }
+    }
+}
+
 void open_door(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
@@ -322,7 +351,7 @@ void open_door(window_t *win)
                     sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite, rect);
                 }
             }
-            if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20) {
+            if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
                 win->page = HOUSE1;
             }
         } else {
