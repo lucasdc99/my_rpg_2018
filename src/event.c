@@ -85,7 +85,7 @@ int check_dead_zone(window_t *win, int move)
     if (tab_town == NULL || tab_castle == NULL) {
         if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
             return (84);
-        if (open_buff("ressources/text/pos_house", &buffer_town, 8400) == 84)
+        if (open_buff("ressources/text/pos_town", &buffer_town, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_house1", &buffer_house1, 8400) == 84)
             return (84);
