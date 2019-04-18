@@ -184,6 +184,8 @@ sfVector2f get_inv_pos(inventory_t *inv);
 void init_inventory(inventory_t *inv);
 void quit_pause(window_t *win);
 window_t *init_how_to_play(window_t *win);
+int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
+void save_inventory(window_t *win);
 void display(window_t *win);
 window_t *draw_scene(window_t *win);
 void global_event(window_t *win);
