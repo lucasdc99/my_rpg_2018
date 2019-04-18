@@ -27,11 +27,7 @@ void main_menu(window_t *win)
         fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
         fprintf(fp, "PAGE = %d\n", win->actual_page);
         fclose(fp);
-        fp = fopen("ressources/text/inventory", "wb+");
-        for (int i = 0; i < 12; i++) {
-            fprintf(fp, "%s\n", win->inv->items[i].name);
-        }
-        fclose(fp);
+        save_inventory(win);
     }
     win->pause = 0;
     sfMusic_play(win->music->button_sound);

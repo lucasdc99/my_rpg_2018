@@ -14,7 +14,6 @@ window_t *init_house1(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
 
     set_struct(win, 2, 0, 2);
-    //init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/town.png", get_pos_float(0, 0));
     init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/inv.png", get_pos_float(-600, -600));
     init_sprite(&win->scene[HOUSE1].sprite[1], "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png", get_pos_float(646, 645));
     set_next_buttons(&win->scene[HOUSE1].button[0], win->rect_buttons, order_button[0]);

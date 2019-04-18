@@ -319,6 +319,7 @@ void close_door(window_t *win)
         }
         if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == DOWN) {
             win->page = TOWN;
+            sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
         }
     } else {
         if (rect.top >= 64) {
@@ -352,6 +353,7 @@ void open_door(window_t *win)
                 }
             }
             if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
+                win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
                 win->page = HOUSE1;
             }
         } else {
@@ -464,6 +466,18 @@ int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos)
     return (not_busy);
 }
 
+int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv)
+{
+    sfVector2f pos_inv = sfSprite_getPosition(inv->sprite->sprite);
+    sfVector2u size_inv = sfTexture_getSize(sfSprite_getTexture(inv->sprite->sprite));
+
+    if (move_pos.x < pos_inv.x || move_pos.x > pos_inv.x + size_inv.x)
+        return (1);
+    if (move_pos.y < pos_inv.y || move_pos.y > pos_inv.y + size_inv.y)
+        return (1);
+    return (0);
+}
+
 void check_drag_and_drop_inv(window_t *win)
 {
     sfVector2i click_pos;
@@ -479,12 +493,19 @@ void check_drag_and_drop_inv(window_t *win)
             actual_pos = get_actual_pos_inv(win->inv, move_pos);
             win->inv->items[actual_pos].name = get_name_from_type(win->scene[win->actual_page].sprite[i].type);
             win->scene[win->actual_page].sprite[i].item = 1;
-            pos = get_nearest_item_pos(win->inv, move_pos);
-            if (win->inv->items[actual_pos].busy == 0)
-                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, pos);
-            else
-                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
-            win->inv->items[actual_pos].busy = 1;
+            if (is_item_outside_inv(move_pos, win->inv) == 0) {
+                pos = get_nearest_item_pos(win->inv, move_pos);
+                if (win->inv->items[actual_pos].busy == 0)
+                    sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, pos);
+                else
+                    sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
+                win->inv->items[actual_pos].busy = 1;
+            } else {
+                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, sfSprite_getPosition(win->player->sprite->sprite));
+                win->scene[win->actual_page].sprite[i].depth = 0;
+                win->inv->items[actual_pos].name = NULL;
+                save_inventory(win);
+            }
         }
     }
 }
