@@ -34,11 +34,11 @@ window_t *draw_scene(window_t *win)
         sfRenderWindow_drawSprite(win->window, win->inv->player, NULL);
         if (sfText_getString(win->inv->text) != NULL)
             sfRenderWindow_drawText(win->window, win->inv->text, NULL);   
-        for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-            if (win->scene[win->actual_page].sprite[i].item == 1 && is_item_outside_inv(sfSprite_getPosition(win->scene[win->actual_page].sprite[i].sprite), win->inv) == 0)
-                sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
-            if (win->scene[win->actual_page].sprite[i].item == 2)
-                sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
+        for (int i = 0; i < win->nb_objects; i++) {
+            if (win->objects[i].item == 1 && is_item_outside_inv(sfSprite_getPosition(win->objects[i].sprite), win->inv) == 0)
+                sfRenderWindow_drawSprite(win->window, win->objects[i].sprite, NULL);
+            if (win->objects[i].item == 2)
+                sfRenderWindow_drawSprite(win->window, win->objects[i].sprite, NULL);
         }     
     }
     sfRenderWindow_display(win->window);

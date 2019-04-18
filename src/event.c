@@ -307,7 +307,7 @@ void close_door(window_t *win)
 
     rect = sfSprite_getTextureRect(win->scene[HOUSE1].sprite[1].sprite);
     pos_door = sfSprite_getPosition(win->scene[HOUSE1].sprite[1].sprite);
-    if (pos_player.x >= pos_door.x - 10 && pos_player.x <= pos_door.x + 40) {
+    if (pos_player.x >= pos_door.x - 20 && pos_player.x <= pos_door.x + 40) {
         if (pos_player.y >= pos_door.y - 100 && pos_player.y <= pos_door.y) {
             rect.top = 64;
             sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
@@ -338,7 +338,7 @@ void open_door(window_t *win)
     for (int i = 1; i < 5; i++) {
         rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[i].sprite);
         pos_door = sfSprite_getPosition(win->scene[TOWN].sprite[i].sprite);
-        if (pos_player.x >= pos_door.x - 10 && pos_player.x <= pos_door.x + 40) {
+        if (pos_player.x >= pos_door.x - 20 && pos_player.x <= pos_door.x + 40) {
             if (pos_player.y >= pos_door.y && pos_player.y <= pos_door.y + 100) {
                 rect.top = 64;
                 if (i == 4)
@@ -354,6 +354,9 @@ void open_door(window_t *win)
             }
             if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
                 win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+                win->player->last_pos.y += 50;
+                pos_player.y -= 50;
+                sfSprite_setPosition(win->player->sprite->sprite, pos_player);
                 win->page = HOUSE1;
             }
         } else {
@@ -485,24 +488,24 @@ void check_drag_and_drop_inv(window_t *win)
     sfVector2f pos;
     int actual_pos = 0;
 
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
+    for (int i = 0; i < win->nb_objects; i++) {
         click_pos = sfMouse_getPositionRenderWindow(win->window);
         move_pos = get_pos_float(click_pos.x, click_pos.y);
-        if (win->scene[win->actual_page].sprite[i].item == 2 && win->scene[win->actual_page].sprite[i].depth == 2) {
-            sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
+        if (win->objects[i].item == 2 && win->objects[i].depth == 2) {
+            sfSprite_setPosition(win->objects[i].sprite, get_inv_pos(win->inv));
             actual_pos = get_actual_pos_inv(win->inv, move_pos);
-            win->inv->items[actual_pos].name = get_name_from_type(win->scene[win->actual_page].sprite[i].type);
-            win->scene[win->actual_page].sprite[i].item = 1;
+            win->inv->items[actual_pos].name = get_name_from_type(win->objects[i].type);
+            win->objects[i].item = 1;
             if (is_item_outside_inv(move_pos, win->inv) == 0) {
                 pos = get_nearest_item_pos(win->inv, move_pos);
                 if (win->inv->items[actual_pos].busy == 0)
-                    sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, pos);
+                    sfSprite_setPosition(win->objects[i].sprite, pos);
                 else
-                    sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, get_inv_pos(win->inv));
+                    sfSprite_setPosition(win->objects[i].sprite, get_inv_pos(win->inv));
                 win->inv->items[actual_pos].busy = 1;
             } else {
-                sfSprite_setPosition(win->scene[win->actual_page].sprite[i].sprite, sfSprite_getPosition(win->player->sprite->sprite));
-                win->scene[win->actual_page].sprite[i].depth = 0;
+                sfSprite_setPosition(win->objects[i].sprite, sfSprite_getPosition(win->player->sprite->sprite));
+                win->objects[i].depth = 0;
                 win->inv->items[actual_pos].name = NULL;
                 save_inventory(win);
             }
@@ -518,19 +521,19 @@ void drag_and_drop_inv(window_t *win)
     int actual_pos = 0;
     int item = -1;
 
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
-        if (win->scene[win->actual_page].sprite[i].item == 2)
+    for (int i = 0; i < win->nb_objects && item == -1; i++) {
+        if (win->objects[i].item == 2)
             item = i;
     }
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
-        if (win->scene[win->actual_page].sprite[i].item == 1 && win->scene[win->actual_page].sprite[i].depth == 2) {
+    for (int i = 0; i < win->nb_objects && item == -1; i++) {
+        if (win->objects[i].item == 1 && win->objects[i].depth == 2) {
             click_pos = sfMouse_getPositionRenderWindow(win->window);
             move_pos = get_pos_float(click_pos.x, click_pos.y);
-            pos_item = sfSprite_getPosition(win->scene[win->actual_page].sprite[i].sprite);
+            pos_item = sfSprite_getPosition(win->objects[i].sprite);
             if (move_pos.x >= pos_item.x - 10 && move_pos.x < pos_item.x + 20) {
                 if (move_pos.y >= pos_item.y - 10 && move_pos.y < pos_item.y + 20) {
                     actual_pos = get_actual_pos_inv(win->inv, move_pos);
-                    win->scene[win->actual_page].sprite[i].item = 2;
+                    win->objects[i].item = 2;
                     win->inv->items[actual_pos].busy = 0;
                     win->inv->items[actual_pos].name = NULL;
                     item = i;
@@ -538,34 +541,33 @@ void drag_and_drop_inv(window_t *win)
             }
         }
     }
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite && item == -1; i++) {
-        if (win->scene[win->actual_page].sprite[i].item == 2)
+    for (int i = 0; i < win->nb_objects && item == -1; i++) {
+        if (win->objects[i].item == 2)
             item = i;
     }
     click_pos = sfMouse_getPositionRenderWindow(win->window);
     move_pos = get_pos_float(click_pos.x, click_pos.y);
     if (item != -1)
-        sfSprite_setPosition(win->scene[win->actual_page].sprite[item].sprite, move_pos);
+        sfSprite_setPosition(win->objects[item].sprite, move_pos);
 }
 
 void check_item_pickup(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfVector2f pos_element;
     int actual_pos = -1;
 
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].item == 1) {
-            pos_element = sfSprite_getPosition(win->scene[CASTLE].sprite[i].sprite);
-            if (pos_player.x > pos_element.x - 60 && pos_player.x <= pos_element.x + 30) {
-                if (pos_player.y >= pos_element.y - 60 && pos_player.y <= pos_element.y + 20) {
-                    sfSprite_setPosition(win->scene[CASTLE].sprite[i].sprite, get_inv_pos(win->inv));
+    if (win->actual_page == TOWN) {
+        if (pos_player.x > 680 && pos_player.x <= 740) {
+            if (pos_player.y >= 730 && pos_player.y <= 730 + 50) {
+                if (win->objects[SWORD].depth == 0) {
+                    printf("ok\n");
+                    sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
                     actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
                     win->inv->items[actual_pos].busy = 1;
-                    win->inv->items[actual_pos].name = get_name_from_type(win->scene[CASTLE].sprite[i].type);
+                    win->inv->items[actual_pos].name = get_name_from_type(win->objects[SWORD].type);
                     win->inv->items->sword = 1;
-                    win->scene[CASTLE].sprite[i].item = 1;
-                    win->scene[CASTLE].sprite[i].depth = 2;
+                    win->objects[SWORD].item = 1;
+                    win->objects[SWORD].depth = 2;
                 }
             }
         }
@@ -587,7 +589,7 @@ void set_text_inv(window_t *win)
         }
     }
     if (ok == 0)
-        sfText_setString(win->inv->text, "\n");
+        sfText_setString(win->inv->text, win->player->name);
 }
 
 void global_event(window_t *win)

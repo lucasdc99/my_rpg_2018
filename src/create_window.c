@@ -16,6 +16,7 @@ window_t *create_window(window_t *win)
     win->window = sfRenderWindow_create(mode, name, sfClose | sfResize, NULL);
     win->page = MAINMENU;
     win->actual_page = win->page;
+    win->nb_objects = 3;
     win->scene = malloc(sizeof(scene_t) * 7);
     win->player = malloc(sizeof(player_t) * 1);
     win->inv = malloc(sizeof(inventory_t) * 1);
@@ -25,6 +26,7 @@ window_t *create_window(window_t *win)
     win->player->sprite->sprite = NULL;
     win->player->sprite->texture = NULL;
     win->inv->items = malloc(sizeof(items_t) * 12);
+    win->objects = malloc(sizeof(sprite_t) * win->nb_objects);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);

@@ -20,9 +20,9 @@ enum direction {
 };
 
 enum type {
-    SWORD,
-    POTION,
     BOOK,
+    POTION,
+    SWORD,
 };
 
 enum type_button {
@@ -128,6 +128,8 @@ typedef struct s_window {
     int seconds;
     int pause;
     int inventory;
+    sprite_t *objects;
+    int nb_objects;
     inventory_t *inv;
 } window_t;
 
@@ -164,6 +166,7 @@ inventory_t *parser_inv(inventory_t *inv, char *filename);
 void change_vsync(window_t *win);
 sfIntRect *init_pos_button(void);
 window_t *init_house(window_t *win);
+void init_objects(sprite_t *sprite, inventory_t *inv);
 void choose_hero(window_t *win);
 void load_background(window_t *win);
 void close_door(window_t *win);

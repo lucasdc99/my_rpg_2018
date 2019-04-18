@@ -85,5 +85,6 @@ void play_game(window_t *win)
     win->player = parser(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
     init_player(win);
+    init_objects(win->objects, win->inv);
     sfMusic_stop(win->music->menu_song);
 }
