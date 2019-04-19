@@ -395,6 +395,12 @@ void pause_game(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
     win->pause = 1;
+    if (win->actual_page == TOWN) {
+        sfSprite_setTexture(win->scene[TOWN].sprite[0].sprite, sfTexture_createFromFile("ressources/town_blur.png", NULL), sfTrue);
+    }
+    if (win->actual_page == CASTLE) {
+        sfSprite_setTexture(win->scene[CASTLE].sprite[0].sprite, sfTexture_createFromFile("ressources/castle_blur.png", NULL), sfTrue);
+    }
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(pos_window.x, pos_window.y));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(pos_window.x, pos_window.y + 200));
 }
@@ -402,6 +408,12 @@ void pause_game(window_t *win)
 void unpause_game(window_t *win)
 {
     win->pause = 0;
+    if (win->actual_page == TOWN) {
+        sfSprite_setTexture(win->scene[TOWN].sprite[0].sprite, sfTexture_createFromFile("ressources/town.png", NULL), sfTrue);
+    }
+    if (win->actual_page == CASTLE) {
+        sfSprite_setTexture(win->scene[CASTLE].sprite[0].sprite, sfTexture_createFromFile("ressources/castle.png", NULL), sfTrue);
+    }
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(-600, -300));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(-600, -100));
 }

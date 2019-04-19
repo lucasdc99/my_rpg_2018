@@ -12,14 +12,24 @@ window_t *draw_scene(window_t *win)
 {
     sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].depth == 0)
+        if (win->scene[win->actual_page].sprite[i].depth == -1)
             sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }
-    if (win->actual_page >= CASTLE)
-        sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
     for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].depth == 1)
+        if (win->scene[win->actual_page].sprite[i].depth == 0 && (win->pause == 0 || win->inventory == 1))
             sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
+    }
+    if (win->actual_page >= CASTLE) {
+        if (win->pause == 0 || win->inventory == 1)
+            sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
+    }
+    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
+        if (win->scene[win->actual_page].sprite[i].depth == 1 && (win->pause == 0 || win->inventory == 1))
+            sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
+    }
+    if (win->actual_page >= CASTLE) {
+        if (win->pause == 0 || win->inventory == 1)
+            sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
     }
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
         sfRenderWindow_drawRectangleShape(win->window,

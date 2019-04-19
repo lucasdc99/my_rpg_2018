@@ -8,6 +8,14 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void move_torch(window_t *win, int offset)
+{
+    win->scene[CASTLE].sprite[5].rect.top = offset * (win->seconds % 4);
+    win->scene[CASTLE].sprite[6].rect.top = offset * (win->seconds % 4);
+    sfSprite_setTextureRect(win->scene[CASTLE].sprite[5].sprite, win->scene[CASTLE].sprite[5].rect);
+    sfSprite_setTextureRect(win->scene[CASTLE].sprite[6].sprite, win->scene[CASTLE].sprite[6].rect);
+}
+
 void move_sprites(window_t *win, int offset)
 {
     win->scene[HEROES].sprite[0].rect.left = offset * (win->seconds % 2);

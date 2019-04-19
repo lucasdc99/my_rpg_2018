@@ -172,6 +172,7 @@ void load_background(window_t *win);
 void close_door(window_t *win);
 void move_player(window_t *win);
 void destroy_all(window_t *win);
+void move_torch(window_t *win, int offset);
 int get_type_from_inv(char *name);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void set_next_buttons(button_t *button, sfIntRect *rect, int type);

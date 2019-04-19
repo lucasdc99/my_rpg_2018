@@ -52,8 +52,12 @@ void display(window_t *win)
                 open_door(win);
                 check_out(win);
             }
-            if (win->actual_page == CASTLE)
+            if (win->actual_page == CASTLE) {
                 check_interaction(win);
+                win->move_time = sfClock_getElapsedTime(win->move);
+                win->seconds = win->move_time.microseconds / 400000.0;
+                move_torch(win, 20);
+            }
             if (win->actual_page == HOUSE1)
                 close_door(win);
         }
