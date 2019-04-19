@@ -240,6 +240,7 @@ void move_player(window_t *win)
         open_door(win);
     if (win->actual_page == HOUSE1)
         close_door(win);
+    check_item_pickup(win);
     close_textbox(win);
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
@@ -486,9 +487,6 @@ void check_keyboard_input_ingame(window_t *win)
         else if (win->inventory == 0 && win->pause == 1 && win->quest == 1)
             close_quest(win);
     }
-    if (sfKeyboard_isKeyPressed(sfKeyE)) {
-        check_item_pickup(win);
-    }
 }
 
 sfVector2f get_nearest_item_pos(inventory_t *inv, sfVector2f move_pos)
@@ -622,11 +620,48 @@ void close_textbox(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (win->quests->sprite[1].depth >= 1) {
-        if (pos_player.x <= 550 || pos_player.x > 610) {
+        if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0 && is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 0) {
             win->quests->sprite[1].depth = -1;
+            sfText_setString(win->text->str, "\n");
         }
-        if (pos_player.y < 700 || pos_player.y > 730 + 50) {
-            win->quests->sprite[1].depth = -1;
+    }
+}
+
+void check_pickup_sword(window_t *win, sfVector2f pos_player)
+{
+    int actual_pos = -1;
+
+    if (win->objects[SWORD].depth == 0) {
+        if (is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 1) {
+            sfText_setString(win->text->str, "Appuyez sur E\n");
+            if (sfKeyboard_isKeyPressed(sfKeyE)) {
+                sfText_setString(win->text->str, "\n");
+                sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
+                actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
+                win->inv->items[actual_pos].busy = 1;
+                win->inv->items[actual_pos].name = get_name_from_type(win->objects[SWORD].type);
+                win->inv->items->sword = 1;
+                win->objects[SWORD].item = 1;
+                win->objects[SWORD].depth = 2;
+                display_text_in_textbox(win->quests, "Vous avez trouve une Epee !\n");
+            }
+        } else if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0) {
+            sfText_setString(win->text->str, "\n");
+        }
+    }
+}
+
+void talk_to_old(window_t *win, sfVector2f pos_player)
+{
+    if (win->quests->sprite[1].depth <= 0) {
+        if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 1) {
+            sfText_setString(win->text->str, "Appuyez sur E\n");
+            if (sfKeyboard_isKeyPressed(sfKeyE)) {
+                sfText_setString(win->text->str, "\n");
+                display_text_in_textbox(win->quests, "Bonjour\n");
+            }
+        } else if (is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 0) {
+            sfText_setString(win->text->str, "\n");
         }
     }
 }
@@ -634,29 +669,10 @@ void close_textbox(window_t *win)
 void check_item_pickup(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    int actual_pos = -1;
 
     if (win->actual_page == TOWN) {
-        if (pos_player.x > 680 && pos_player.x <= 740) {
-            if (pos_player.y >= 730 && pos_player.y <= 730 + 50) {
-                if (win->objects[SWORD].depth == 0) {
-                    sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
-                    actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
-                    win->inv->items[actual_pos].busy = 1;
-                    win->inv->items[actual_pos].name = get_name_from_type(win->objects[SWORD].type);
-                    win->inv->items->sword = 1;
-                    win->objects[SWORD].item = 1;
-                    win->objects[SWORD].depth = 2;
-                }
-            }
-        }
-        if (win->quests->sprite[1].depth <= 0) {
-            if (pos_player.x > 550 && pos_player.x <= 610) {
-                if (pos_player.y >= 700 && pos_player.y <= 730 + 50) {
-                    display_text_in_textbox(win->quests, "Bonjour\n");
-                }
-            }
-        }
+        check_pickup_sword(win, pos_player);
+        talk_to_old(win, pos_player);
     }
 }
 
@@ -683,6 +699,8 @@ void global_event(window_t *win)
     if (win->event.type == sfEvtClosed)
         quit(win);
     if (win->event.type == sfEvtKeyPressed) {
+        if (win->actual_page >= CASTLE)
+            check_keyboard_input_ingame(win);
         if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
             if (win->actual_page == MAINMENU)
                 quit(win);
@@ -712,7 +730,4 @@ void global_event(window_t *win)
         if (win->actual_page >= CASTLE && win->inventory == 1)
             set_text_inv(win);
     }
-    if (win->event.type == sfEvtKeyPressed)
-        if (win->actual_page >= CASTLE)
-            check_keyboard_input_ingame(win);
 }

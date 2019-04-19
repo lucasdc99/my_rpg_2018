@@ -23,6 +23,7 @@ window_t *create_window(window_t *win)
     win->quests->sprite = malloc(sizeof(sprite_t) * 2);
     win->quests->text = malloc(sizeof(text_t) * 2);
     win->inv = malloc(sizeof(inventory_t) * 1);
+    win->text = malloc(sizeof(text_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
@@ -45,7 +46,7 @@ window_t *create_window(window_t *win)
     win->music->menu_song = sfMusic_createFromFile("ressources/music/main_song.ogg");
     win->texture_button = sfTexture_createFromFile("ressources/buttons/buttons.png", NULL);
     win->rect_buttons = init_pos_button();
-    init_sprite(&win->inv->sprite[0], "ressources/inv.png", get_pos_float(1200, 150));
+    init_text(win->text, "\n", get_pos_float(1450, 950));
     sfMusic_play(win->music->menu_song);
     win->pause = 0;
     win->inventory = 0;

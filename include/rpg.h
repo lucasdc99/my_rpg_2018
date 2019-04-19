@@ -139,6 +139,7 @@ typedef struct s_window {
     int nb_objects;
     inventory_t *inv;
     quest_t *quests;
+    text_t *text;
 } window_t;
 
 typedef struct s_button {
@@ -208,6 +209,7 @@ void global_event(window_t *win);
 window_t *destroy_scene(window_t *win);
 void main_menu(window_t *win);
 void heroes_menu(window_t *win);
+int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos);
 void how_to_play(window_t *win);
 window_t *init_game(window_t *win);
 void go_castle(window_t *win);

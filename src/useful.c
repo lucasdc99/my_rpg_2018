@@ -8,6 +8,15 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos)
+{
+    if (pos.x >= limit1.x && pos.x <= limit2.x) {
+        if (pos.y >= limit1.y && pos.y <= limit2.y)
+            return (1);
+    }
+    return (0);
+}
+
 void set_struct(window_t *win, int button, int text, int sprite)
 {
     if (button > 0)

@@ -33,6 +33,7 @@ int get_type_from_inv(char *name)
 
 void init_inventory(inventory_t *inv)
 {
+    init_sprite(&inv->sprite[0], "ressources/inv.png", get_pos_float(1200, 150));
     inv->items[0].pos = get_pos_float(1600, 255);
     inv->items[1].pos = get_pos_float(1700, 255);
     inv->items[2].pos = get_pos_float(1800, 255);
