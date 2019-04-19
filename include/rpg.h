@@ -165,6 +165,7 @@ void init_player(window_t *win);
 void move_player_left(window_t *win);
 void go_forest(window_t *win);
 window_t *init_forest(window_t *win);
+void close_textbox(window_t *win);
 window_t *init_house1(window_t *win);
 void move_player_right(window_t *win);
 sfVector2f get_pos_float(float x, float y);

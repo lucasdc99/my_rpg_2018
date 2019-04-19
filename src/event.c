@@ -236,6 +236,11 @@ void move_player_right(window_t *win)
 
 void move_player(window_t *win)
 {
+    if (win->actual_page == TOWN)
+        open_door(win);
+    if (win->actual_page == HOUSE1)
+        close_door(win);
+    close_textbox(win);
     if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
         move_player_up(win);
     else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
@@ -328,6 +333,10 @@ void open_inventory(window_t *win)
 {
     win->pause = 1;
     win->inventory = 1;
+    if (win->actual_page == TOWN) {
+        for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
+            win->scene[TOWN].sprite[i].depth = -1;
+    }
 }
 
 void close_door(window_t *win)
@@ -405,18 +414,30 @@ void close_inventory(window_t *win)
 {
     win->pause = 0;
     win->inventory = 0;
+    if (win->actual_page == TOWN) {
+        for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
+            win->scene[TOWN].sprite[i].depth = 0;
+    }
 }
 
 void open_quest(window_t *win)
 {
     win->quest = 1;
     win->pause = 1;
+    if (win->actual_page == TOWN) {
+        for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
+            win->scene[TOWN].sprite[i].depth = -1;
+    }
 }
 
 void close_quest(window_t *win)
 {
     win->quest = 0;
     win->pause = 0;
+    if (win->actual_page == TOWN) {
+        for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
+            win->scene[TOWN].sprite[i].depth = 0;
+    }
 }
 
 void pause_game(window_t *win)
@@ -596,6 +617,20 @@ void drag_and_drop_inv(window_t *win)
         sfSprite_setPosition(win->objects[item].sprite, move_pos);
 }
 
+void close_textbox(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+
+    if (win->quests->sprite[1].depth >= 1) {
+        if (pos_player.x <= 550 || pos_player.x > 610) {
+            win->quests->sprite[1].depth = -1;
+        }
+        if (pos_player.y < 700 || pos_player.y > 730 + 50) {
+            win->quests->sprite[1].depth = -1;
+        }
+    }
+}
+
 void check_item_pickup(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
@@ -615,9 +650,11 @@ void check_item_pickup(window_t *win)
                 }
             }
         }
-        if (pos_player.x > 560 && pos_player.x <= 610) {
-            if (pos_player.y >= 730 && pos_player.y <= 730 + 50) {
-                display_text_in_textbox(win->quests, "Bonjour\n");
+        if (win->quests->sprite[1].depth <= 0) {
+            if (pos_player.x > 550 && pos_player.x <= 610) {
+                if (pos_player.y >= 700 && pos_player.y <= 730 + 50) {
+                    display_text_in_textbox(win->quests, "Bonjour\n");
+                }
             }
         }
     }

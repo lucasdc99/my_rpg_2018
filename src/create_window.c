@@ -21,7 +21,7 @@ window_t *create_window(window_t *win)
     win->player = malloc(sizeof(player_t) * 1);
     win->quests = malloc(sizeof(quest_t) * 1);
     win->quests->sprite = malloc(sizeof(sprite_t) * 2);
-    win->quests->text = malloc(sizeof(text_t) * 1);
+    win->quests->text = malloc(sizeof(text_t) * 2);
     win->inv = malloc(sizeof(inventory_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);

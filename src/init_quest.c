@@ -15,4 +15,5 @@ void init_quests(quest_t *quest)
     sfSprite_setScale(quest->sprite[1].sprite, get_pos_float(3, 3));
     quest->sprite[1].depth = -1;
     init_text(&quest->text[0], "QUETE 1:    Aller parler au grand pere\n", get_pos_float(300, 150));
+    init_text(&quest->text[1], "Bonjour\n", get_pos_float(0, 0));
 }

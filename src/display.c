@@ -50,7 +50,6 @@ void display(window_t *win)
         if ((win->actual_page >= CASTLE) && win->pause == 0) {
             move_player(win);
             if (win->actual_page == TOWN) {
-                open_door(win);
                 go_castle(win);
             }
             if (win->actual_page == CASTLE) {
@@ -60,8 +59,6 @@ void display(window_t *win)
                 win->seconds = win->move_time.microseconds / 400000.0;
                 move_torch(win, 20);
             }
-            if (win->actual_page == HOUSE1)
-                close_door(win);
             if (win->actual_page == FOREST)
                 go_castle(win);
         }

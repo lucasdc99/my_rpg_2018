@@ -54,12 +54,12 @@ window_t *draw_scene(window_t *win)
     if (win->actual_page >= CASTLE) {
         if (win->quests->sprite[1].depth >= 0) {
             sfRenderWindow_drawSprite(win->window, win->quests->sprite[1].sprite, NULL);
-            sfRenderWindow_drawText(win->window, win->quests->text->str, NULL);
+            sfRenderWindow_drawText(win->window, win->quests->text[1].str, NULL);
         } 
     }
     if (win->quest == 1) {
         sfRenderWindow_drawSprite(win->window, win->quests->sprite[0].sprite, NULL);
-        sfRenderWindow_drawText(win->window, win->quests->text->str, NULL);
+        sfRenderWindow_drawText(win->window, win->quests->text[0].str, NULL);
     }
     sfRenderWindow_display(win->window);
     return (win);

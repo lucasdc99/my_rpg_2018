@@ -11,8 +11,8 @@
 void display_text_in_textbox(quest_t *quest, char *text)
 {
     quest->sprite[1].depth = 1;
-    sfText_setString(quest->text[0].str, text);
-    sfText_setPosition(quest->text[0].str, sfSprite_getPosition(quest->sprite[1].sprite));
+    sfText_setString(quest->text[1].str, text);
+    sfText_setPosition(quest->text[1].str, sfSprite_getPosition(quest->sprite[1].sprite));
 }
 
 void init_text(text_t *text, char *display, sfVector2f pos)
