@@ -71,6 +71,7 @@ int check_dead_zone(window_t *win, int move)
     static char **tab_castle = NULL;
     static char **tab_town = NULL;
     static char **tab_house1 = NULL;
+    static char **tab_forest = NULL;
     char **tab = NULL;
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
     sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
@@ -81,20 +82,24 @@ int check_dead_zone(window_t *win, int move)
     char *buffer_castle = malloc(sizeof(char) * 8400);
     char *buffer_town = malloc(sizeof(char) * 8400);
     char *buffer_house1 = malloc(sizeof(char) * 8400);
+    char *buffer_forest = malloc(sizeof(char) * 8400);
 
-    if (tab_town == NULL || tab_castle == NULL) {
+    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL || tab_forest == NULL) {
         if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_town", &buffer_town, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_house1", &buffer_house1, 8400) == 84)
             return (84);
-        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL)
+        if (open_buff("ressources/text/pos_forest", &buffer_forest, 8400) == 84)
+            return (84);
+        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL || buffer_forest == NULL)
             return (84);
         tab_castle = transform_2d(buffer_castle, '\n');
         tab_town = transform_2d(buffer_town, '\n');
         tab_house1 = transform_2d(buffer_house1, '\n');
-        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL)
+        tab_forest = transform_2d(buffer_house1, '\n');
+        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_forest == NULL)
             return (84);
     }
     if (win->actual_page == CASTLE)
@@ -103,6 +108,8 @@ int check_dead_zone(window_t *win, int move)
         tab = tab_town;
     if (win->actual_page == HOUSE1)
         tab = tab_house1;
+    if (win->actual_page == FOREST)
+        tab = tab_forest;
     if (move == UP) {
         if (y - 1 >= 0 && tab[y - 1][x] == '2') {
             return (1);
@@ -239,7 +246,21 @@ void move_player(window_t *win)
         move_player_right(win);
 }
 
-void check_interaction(window_t *win)
+void go_forest(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+
+    if (pos_player.x > 630 && pos_player.x < 1280) {
+        if (pos_player.y > 950) {
+            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+            win->player->last_pos.y -= 30;
+            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(pos_player.x, 50));
+            win->page = FOREST;
+        }
+    }
+}
+
+void go_town(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
@@ -281,14 +302,24 @@ void drag_button(window_t *win)
     }
 }
 
-void check_out(window_t *win)
+void go_castle(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (pos_player.x >= 820 && pos_player.x < 1050) {
-        if (pos_player.y >= 955) {
-            win->page = CASTLE;
-            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 380));
+    if (win->actual_page == TOWN) {
+        if (pos_player.x >= 820 && pos_player.x < 1050) {
+            if (pos_player.y >= 955) {
+                win->page = CASTLE;
+                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 380));
+            }
+        }
+    }
+    if (win->actual_page == FOREST) {
+        if (pos_player.x >= 630 && pos_player.x < 1280) {
+            if (pos_player.y <= 20) {
+                win->page = CASTLE;
+                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 900));
+            }
         }
     }
 }
@@ -376,14 +407,16 @@ void close_inventory(window_t *win)
     win->inventory = 0;
 }
 
-void open_quests_menu(window_t *win)
+void open_quest(window_t *win)
 {
-    printf("quests\n");
+    win->quest = 1;
+    win->pause = 1;
 }
 
-void open_characteristics(window_t *win)
+void close_quest(window_t *win)
 {
-    printf("chars\n");
+    win->quest = 0;
+    win->pause = 0;
 }
 
 void pause_game(window_t *win)
@@ -421,16 +454,16 @@ void unpause_game(window_t *win)
 void check_keyboard_input_ingame(window_t *win)
 {
     if (sfKeyboard_isKeyPressed(sfKeyI)) {
-        if (win->inventory == 0)
+        if (win->inventory == 0 && win->pause == 0 && win->quest == 0)
             open_inventory(win);
-        else if (win->inventory == 1)
+        else if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
             close_inventory(win);
     }
     if (sfKeyboard_isKeyPressed(sfKeyO)) {
-        open_quests_menu(win);
-    }
-    if (sfKeyboard_isKeyPressed(sfKeyC)) {
-        open_characteristics(win);
+        if (win->quest == 0 && win->inventory == 0 && win->pause == 0)
+            open_quest(win);
+        else if (win->inventory == 0 && win->pause == 1 && win->quest == 1)
+            close_quest(win);
     }
     if (sfKeyboard_isKeyPressed(sfKeyE)) {
         check_item_pickup(win);
@@ -572,7 +605,6 @@ void check_item_pickup(window_t *win)
         if (pos_player.x > 680 && pos_player.x <= 740) {
             if (pos_player.y >= 730 && pos_player.y <= 730 + 50) {
                 if (win->objects[SWORD].depth == 0) {
-                    printf("ok\n");
                     sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
                     actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
                     win->inv->items[actual_pos].busy = 1;
@@ -581,6 +613,11 @@ void check_item_pickup(window_t *win)
                     win->objects[SWORD].item = 1;
                     win->objects[SWORD].depth = 2;
                 }
+            }
+        }
+        if (pos_player.x > 560 && pos_player.x <= 610) {
+            if (pos_player.y >= 730 && pos_player.y <= 730 + 50) {
+                display_text_in_textbox(win->quests, "Bonjour\n");
             }
         }
     }
@@ -613,9 +650,9 @@ void global_event(window_t *win)
             if (win->actual_page == MAINMENU)
                 quit(win);
             if (win->actual_page >= CASTLE) {
-                if (win->pause == 0 && win->inventory == 0)
+                if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
                     pause_game(win);
-                else if (win->pause == 1)
+                else if (win->inventory == 0 && win->quest == 0 && win->pause == 1)
                     unpause_game(win);
             }
         }

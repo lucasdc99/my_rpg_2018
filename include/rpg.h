@@ -48,6 +48,7 @@ enum page {
     CASTLE,
     TOWN,
     HOUSE1,
+    FOREST,
 };
 
 typedef struct s_text {
@@ -104,6 +105,11 @@ typedef struct s_scene {
     int nb_button;
 } scene_t;
 
+typedef struct s_quest {
+    sprite_t *sprite;
+    text_t *text;
+} quest_t;
+
 typedef struct s_inventory {
     sfText *text;
     sprite_t *sprite;
@@ -128,9 +134,11 @@ typedef struct s_window {
     int seconds;
     int pause;
     int inventory;
+    int quest;
     sprite_t *objects;
     int nb_objects;
     inventory_t *inv;
+    quest_t *quests;
 } window_t;
 
 typedef struct s_button {
@@ -155,6 +163,8 @@ void move_player_up(window_t *win);
 void move_player_down(window_t *win);
 void init_player(window_t *win);
 void move_player_left(window_t *win);
+void go_forest(window_t *win);
+window_t *init_forest(window_t *win);
 window_t *init_house1(window_t *win);
 void move_player_right(window_t *win);
 sfVector2f get_pos_float(float x, float y);
@@ -183,6 +193,7 @@ sfIntRect get_rect(int left, int top, int width, int height);
 window_t *init_menu(window_t *win);
 void open_door(window_t *win);
 window_t *init_choose_heroes(window_t *win);
+void display_text_in_textbox(quest_t *quest, char *text);
 window_t *init_options(window_t *win);
 sfVector2f get_inv_pos(inventory_t *inv);
 void init_inventory(inventory_t *inv);
@@ -198,8 +209,9 @@ void main_menu(window_t *win);
 void heroes_menu(window_t *win);
 void how_to_play(window_t *win);
 window_t *init_game(window_t *win);
-void check_out(window_t *win);
-void check_interaction(window_t *win);
+void go_castle(window_t *win);
+void go_town(window_t *win);
+void init_quests(quest_t *quest);
 void play_game(window_t *win);
 void options(window_t *win);
 void quit(window_t *win);

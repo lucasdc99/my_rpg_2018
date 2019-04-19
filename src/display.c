@@ -18,6 +18,7 @@ ptr_func *init_func(void)
         {CASTLE, &init_game, &draw_scene, &global_event, &destroy_scene},
         {TOWN, &init_house, &draw_scene, &global_event, &destroy_scene},
         {HOUSE1, &init_house1, &draw_scene, &global_event, &destroy_scene},
+        {FOREST, &init_forest, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
 }
@@ -50,16 +51,19 @@ void display(window_t *win)
             move_player(win);
             if (win->actual_page == TOWN) {
                 open_door(win);
-                check_out(win);
+                go_castle(win);
             }
             if (win->actual_page == CASTLE) {
-                check_interaction(win);
+                go_town(win);
+                go_forest(win);
                 win->move_time = sfClock_getElapsedTime(win->move);
                 win->seconds = win->move_time.microseconds / 400000.0;
                 move_torch(win, 20);
             }
             if (win->actual_page == HOUSE1)
                 close_door(win);
+            if (win->actual_page == FOREST)
+                go_castle(win);
         }
     }
 }

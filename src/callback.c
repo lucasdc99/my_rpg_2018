@@ -86,5 +86,6 @@ void play_game(window_t *win)
     win->page = win->player->last_page;
     init_player(win);
     init_objects(win->objects, win->inv);
+    init_quests(win->quests);
     sfMusic_stop(win->music->menu_song);
 }
