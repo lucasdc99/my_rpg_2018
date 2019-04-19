@@ -45,7 +45,7 @@ void display(window_t *win)
         if (win->actual_page == HEROES) {
             win->move_time = sfClock_getElapsedTime(win->move);
             win->seconds = win->move_time.microseconds / 1000000.0;
-            move_sprites(win, 48);
+            animation_choose_heroes(win, 48);
         }
         if ((win->actual_page >= CASTLE) && win->pause == 0) {
             move_player(win);
@@ -57,7 +57,7 @@ void display(window_t *win)
                 go_forest(win);
                 win->move_time = sfClock_getElapsedTime(win->move);
                 win->seconds = win->move_time.microseconds / 400000.0;
-                move_torch(win, 20);
+                animation_torch(win, 20);
             }
             if (win->actual_page == FOREST)
                 go_castle(win);

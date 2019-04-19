@@ -8,18 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-sfVector2f get_pos_text_button(button_t button, char *text)
-{
-    int len = my_strlen(text);
-    sfVector2f size = sfRectangleShape_getSize(button.shape);
-    int text_size = len * 30;
-    sfVector2f new_pos = sfRectangleShape_getPosition(button.shape);
-
-    new_pos.x += (size.x - text_size) / 2 + len * 2;
-    new_pos.y += size.y / 2 - 35;
-    return (new_pos);
-}
-
 int button_is_clicked(button_t button, sfVector2i click_position)
 {
     sfVector2f pos_button = sfRectangleShape_getPosition(button.shape);
