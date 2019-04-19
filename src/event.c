@@ -98,7 +98,7 @@ int check_dead_zone(window_t *win, int move)
         tab_castle = transform_2d(buffer_castle, '\n');
         tab_town = transform_2d(buffer_town, '\n');
         tab_house1 = transform_2d(buffer_house1, '\n');
-        tab_forest = transform_2d(buffer_house1, '\n');
+        tab_forest = transform_2d(buffer_forest, '\n');
         if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_forest == NULL)
             return (84);
     }
