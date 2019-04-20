@@ -2,13 +2,13 @@
 ** EPITECH PROJECT, 2019
 ** MUL_my_rpg_2018
 ** File description:
-** init_game
+** init_castle
 */
 
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-window_t *init_game(window_t *win)
+window_t *init_castle(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};

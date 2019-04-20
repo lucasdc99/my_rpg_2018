@@ -11,7 +11,7 @@ CC		:= gcc
 
 NAME		:= my_rpg
 FILES		:= main create_window display button get init_menu draw callback destroy event parser get_next_line init_sprite transform_2d init_choose_heroes init_options init_how_to\
-                   options init_text move_rect choose_heroes init_game init_house useful init_player init_house1 init_inventory inventory init_objects init_quest init_forest
+                   options init_text move_rect choose_heroes init_castle init_town useful init_player init_house1 init_inventory inventory init_objects init_quest init_forest
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))
@@ -43,8 +43,6 @@ $(NAME):        $(OBJ)
         @gcc $(OBJ) -o $(NAME) $(CINC) $(CFLAGS) $(LDFLAGS)
         @echo "$(GOLD)Compiled !$(WHITE)"
         @echo "$(RED)Delete $(GOLD)$(PWD)/obj/*.o$(WHITE)"
-        @rm -rf $(OBJ)
-        @rmdir obj
 
 clean:
         @echo "$(RED)Delete $(GOLD)$(PWD_PATH)/obj/*.o$(WHITE)"

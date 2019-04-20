@@ -2,13 +2,13 @@
 ** EPITECH PROJECT, 2019
 ** MUL_my_rpg_2018
 ** File description:
-** init_house
+** init_town
 */
 
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-window_t *init_house(window_t *win)
+window_t *init_town(window_t *win)
 {
     int order_button[] = {REPRENDRE, QUITTER};
     sfVector2f size = get_pos_float(400, 100);

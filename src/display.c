@@ -15,8 +15,8 @@ ptr_func *init_func(void)
         {HEROES, &init_choose_heroes, &draw_scene, &global_event, &destroy_scene},
         {HOW_TO_PLAY, &init_how_to_play, &draw_scene, &global_event, &destroy_scene},
         {OPTIONS, &init_options, &draw_scene, &global_event, &destroy_scene},
-        {CASTLE, &init_game, &draw_scene, &global_event, &destroy_scene},
-        {TOWN, &init_house, &draw_scene, &global_event, &destroy_scene},
+        {CASTLE, &init_castle, &draw_scene, &global_event, &destroy_scene},
+        {TOWN, &init_town, &draw_scene, &global_event, &destroy_scene},
         {HOUSE1, &init_house1, &draw_scene, &global_event, &destroy_scene},
         {FOREST, &init_forest, &draw_scene, &global_event, &destroy_scene},
     };

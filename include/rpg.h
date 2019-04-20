@@ -175,11 +175,11 @@ void go_town(window_t *win);
 // INITIALISATION SCENES
 window_t *init_forest(window_t *win);
 window_t *init_house1(window_t *win);
-window_t *init_house(window_t *win);
+window_t *init_town(window_t *win);
 window_t *init_menu(window_t *win);
 window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);
-window_t *init_game(window_t *win);
+window_t *init_castle(window_t *win);
 window_t *init_how_to_play(window_t *win);
 
 // INITIALISATION ELEMENTS
