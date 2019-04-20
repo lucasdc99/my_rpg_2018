@@ -22,6 +22,8 @@ window_t *init_house1(window_t *win)
     init_button(&win->scene[HOUSE1].button[1], get_pos_float(-200, -200), size, win->texture_button);
     sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, get_rect(32, 0, 16, 27));
     sfSprite_setScale(win->scene[HOUSE1].sprite[1].sprite, get_pos_float(3, 3));
+    for (int i = 1; i < win->scene[HOUSE1].nb_sprite; i++)
+        win->scene[HOUSE1].sprite[i].depth = 0;
     win->scene[HOUSE1].button[0].callback = &quit_pause;
     win->scene[HOUSE1].button[1].callback = &main_menu;
     return (win);

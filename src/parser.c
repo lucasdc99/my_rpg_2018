@@ -68,6 +68,8 @@ player_t *parser(player_t *player, char *filename)
     player->last_pos.x = parse_int(get_next_line(fd));
     player->last_pos.y = parse_int(get_next_line(fd));
     player->last_page = parse_int(get_next_line(fd));
+    while (get_next_line(fd) != NULL)
+        get_next_line(fd);
     close(fd);
     return (player);
 }

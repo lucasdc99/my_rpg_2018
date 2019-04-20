@@ -19,6 +19,8 @@ ptr_func *init_func(void)
         {TOWN, &init_town, &draw_scene, &global_event, &destroy_scene},
         {HOUSE1, &init_house1, &draw_scene, &global_event, &destroy_scene},
         {FOREST, &init_forest, &draw_scene, &global_event, &destroy_scene},
+        {FINAL, &init_final, &draw_scene, &global_event, &destroy_scene},
+        {COMBAT1, &init_combat, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
 }
@@ -47,7 +49,7 @@ void display(window_t *win)
             win->seconds = win->move_time.microseconds / 1000000.0;
             animation_choose_heroes(win, 48);
         }
-        if ((win->actual_page >= CASTLE) && win->pause == 0) {
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT1 && win->pause == 0) {
             move_player(win);
             if (win->actual_page == TOWN) {
                 go_castle(win);
@@ -61,6 +63,8 @@ void display(window_t *win)
             }
             if (win->actual_page == FOREST)
                 go_castle(win);
+            if (win->actual_page == FINAL)
+                leave_final(win);
         }
     }
 }

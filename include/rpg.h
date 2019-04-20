@@ -49,6 +49,8 @@ enum page {
     TOWN,
     HOUSE1,
     FOREST,
+    FINAL,
+    COMBAT1,
 };
 
 typedef struct s_text {
@@ -129,7 +131,9 @@ typedef struct s_window {
     int vsync;
     int fps;
     sfClock *move;
+    sfClock *combat;
     sfTime move_time;
+    sfTime combat_time;
     sfIntRect *rect_buttons;
     int seconds;
     int pause;
@@ -172,6 +176,9 @@ int check_dead_zone(window_t *win, int move);
 void go_forest(window_t *win);
 void go_castle(window_t *win);
 void go_town(window_t *win);
+void close_door(window_t *win);
+void open_door(window_t *win);
+void leave_final(window_t *win);
 
 // INITIALISATION SCENES
 window_t *init_forest(window_t *win);
@@ -182,6 +189,8 @@ window_t *init_choose_heroes(window_t *win);
 window_t *init_options(window_t *win);
 window_t *init_castle(window_t *win);
 window_t *init_how_to_play(window_t *win);
+window_t *init_final(window_t *win);
+window_t *init_combat(window_t *win);
 
 // INITIALISATION ELEMENTS
 void init_player(window_t *win);
@@ -211,6 +220,9 @@ void options(window_t *win);
 void quit(window_t *win);
 void choose_hero(window_t *win);
 void unpause_game(window_t *win);
+void basic_attack(window_t *win);
+void special_attack(window_t *win);
+void stats_attack(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);
@@ -266,7 +278,5 @@ int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
 // DETECTION EVENTS
 void close_textbox(window_t *win);
 void check_item_pickup(window_t *win);
-void close_door(window_t *win);
-void open_door(window_t *win);
 
 #endif

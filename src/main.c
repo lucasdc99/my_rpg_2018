@@ -36,7 +36,7 @@ int display_help(void)
 
 int main(int ac, char **av, char **env)
 {
-    window_t *win = malloc(sizeof(window_t));
+    window_t *win = malloc(sizeof(window_t) * 1);
     FILE *fp;
 
     if (win == NULL || env == NULL || env[0] == NULL || check_env(env) == 84)

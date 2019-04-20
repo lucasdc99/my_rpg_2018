@@ -12,6 +12,7 @@ void main_menu(window_t *win)
 {
     FILE *fp;
 
+    init_inventory(win->inv);
     if (win->page >= CASTLE) {
         fp = fopen("ressources/text/config_player", "wb+");
         win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
@@ -62,6 +63,79 @@ void quit(window_t *win)
 void quit_pause(window_t *win)
 {
     unpause_game(win);
+}
+
+void basic_attack(window_t *win)
+{
+    sfIntRect rect;
+
+    for (int i = 0; i < 10; i++) {
+        rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
+        rect.left += 50;
+        if (rect.left >= 400)
+            rect.left = 297;
+        sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, rect);
+        sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
+        sfRenderWindow_drawSprite(win->window, win->scene[COMBAT1].sprite[0].sprite, NULL);
+        sfRenderWindow_display(win->window);
+        sfClock_restart(win->combat);
+        win->combat_time = sfClock_getElapsedTime(win->combat);
+        win->seconds = win->combat_time.microseconds / 1000000.0;
+        while (win->seconds < 1) {
+            win->combat_time = sfClock_getElapsedTime(win->combat);
+            win->seconds = win->combat_time.microseconds / 100000.0;
+        }
+    }
+    sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
+}
+
+void special_attack(window_t *win)
+{
+    sfIntRect rect;
+
+    for (int i = 0; i < 10; i++) {
+        rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
+        rect.top = 8;
+        rect.left += 50;
+        if (rect.left >= 400)
+            rect.left = 297;
+        sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, rect);
+        sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
+        sfRenderWindow_drawSprite(win->window, win->scene[COMBAT1].sprite[0].sprite, NULL);
+        sfRenderWindow_display(win->window);
+        sfClock_restart(win->combat);
+        win->combat_time = sfClock_getElapsedTime(win->combat);
+        win->seconds = win->combat_time.microseconds / 1000000.0;
+        while (win->seconds < 1) {
+            win->combat_time = sfClock_getElapsedTime(win->combat);
+            win->seconds = win->combat_time.microseconds / 100000.0;
+        }
+    }
+    sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
+}
+
+void stats_attack(window_t *win)
+{
+    sfIntRect rect;
+
+    for (int i = 0; i < 10; i++) {
+        rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
+        rect.top = 150;
+        if (i == 7)
+            rect.left += 50;
+        sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, rect);
+        sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
+        sfRenderWindow_drawSprite(win->window, win->scene[COMBAT1].sprite[0].sprite, NULL);
+        sfRenderWindow_display(win->window);
+        sfClock_restart(win->combat);
+        win->combat_time = sfClock_getElapsedTime(win->combat);
+        win->seconds = win->combat_time.microseconds / 1000000.0;
+        while (win->seconds < 1) {
+            win->combat_time = sfClock_getElapsedTime(win->combat);
+            win->seconds = win->combat_time.microseconds / 100000.0;
+        }
+    }
+    sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
 }
 
 void play_game(window_t *win)
