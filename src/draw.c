@@ -83,8 +83,17 @@ window_t *draw_scene(window_t *win)
         } 
     }
     if (win->quest == 1) {
-        sfRenderWindow_drawSprite(win->window, win->quests->sprite[0].sprite, NULL);
-        sfRenderWindow_drawText(win->window, win->quests->text[0].str, NULL);
+        for (int i = 0; i < win->quests->quete_done + 1; i++) {
+            if (i < 1) {
+                sfRenderWindow_drawSprite(win->window, win->quests->sprite[i].sprite, NULL);
+                sfRenderWindow_drawText(win->window, win->quests->text[i].str, NULL);
+            } else {
+                sfRenderWindow_drawSprite(win->window, win->quests->sprite[i + 1].sprite, NULL);
+                sfRenderWindow_drawText(win->window, win->quests->text[i + 1].str, NULL);
+            }
+        }
+        for (int i = 2; i < win->quests->quete_done + 2; i++)
+            sfRenderWindow_drawSprite(win->window, win->quests->sprite[i].sprite, NULL);
     }
     if (win->actual_page == CASTLE && win->no_saves == 1)
         draw_animation_begin(win);

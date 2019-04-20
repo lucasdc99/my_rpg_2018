@@ -12,7 +12,6 @@ void main_menu(window_t *win)
 {
     FILE *fp;
 
-    init_inventory(win->inv);
     if (win->page >= CASTLE) {
         fp = fopen("ressources/text/config_player", "wb+");
         win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
@@ -150,11 +149,12 @@ void play_game(window_t *win)
         fprintf(fp, "HEALTH = %d\n", win->player->health);
         fprintf(fp, "XP = %d\n", win->player->xp);
         fprintf(fp, "STRENGTH = %d\n", win->player->strength);
-        fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);
-        fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
+        fprintf(fp, "POSITION X = %f\n", 500.0);
+        fprintf(fp, "POSITION Y = %f\n", 500.0);
         fprintf(fp, "PAGE = %d\n", CASTLE);
         fclose(fp);
     }
+    init_inventory(win->inv);
     win->player = parser(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
     init_player(win);

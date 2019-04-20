@@ -110,6 +110,7 @@ typedef struct s_scene {
 typedef struct s_quest {
     sprite_t *sprite;
     text_t *text;
+    int quete_done;
 } quest_t;
 
 typedef struct s_inventory {

@@ -247,7 +247,6 @@ void check_combat_zone(window_t *win)
 
     if (win->actual_page == FINAL) {
         if (is_inside_zone(get_pos_float(0, 700), get_pos_float(1800, 720), pos_player) == 1) {
-            printf("%f %f\n", pos_player.x, pos_player.y);
             win->page = COMBAT1;
         }
     }
@@ -439,7 +438,8 @@ void open_door(window_t *win)
     sfIntRect rect;
     sfVector2f pos_door;
 
-    go_final(win);
+    if (win->quests->quete_done == 3)
+        go_final(win);
     for (int i = 1; i < 4; i++) {
         rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[i].sprite);
         pos_door = sfSprite_getPosition(win->scene[TOWN].sprite[i].sprite);
@@ -678,7 +678,7 @@ void close_textbox(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (win->quests->sprite[1].depth >= 1) {
-        if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0 && is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 0) {
+        if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0 && is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 0 && is_inside_zone(get_pos_float(1120, 750), get_pos_float(1210, 800), pos_player) == 0) {
             win->quests->sprite[1].depth = -1;
             sfText_setString(win->text->str, "\n");
         }
@@ -702,6 +702,7 @@ void check_pickup_sword(window_t *win, sfVector2f pos_player)
                 win->objects[SWORD].item = 1;
                 win->objects[SWORD].depth = 2;
                 display_text_in_textbox(win->quests, "Vous avez trouve une Epee !\n");
+                win->quests->quete_done++;
             }
         } else if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0) {
             sfText_setString(win->text->str, "\n");
@@ -717,9 +718,24 @@ void talk_to_old(window_t *win, sfVector2f pos_player)
             if (sfKeyboard_isKeyPressed(sfKeyE)) {
                 sfText_setString(win->text->str, "\n");
                 display_text_in_textbox(win->quests, "Bonjour\n");
+                win->quests->quete_done++;
             }
         } else if (is_inside_zone(get_pos_float(700, 700), get_pos_float(740, 780), pos_player) == 0) {
             sfText_setString(win->text->str, "\n");
+        }
+    }
+}
+
+void check_pickup_armor(window_t *win, sfVector2f pos_player)
+{
+    if (win->quests->sprite[1].depth <= 0) {
+        if (is_inside_zone(get_pos_float(1120, 750), get_pos_float(1210, 800), pos_player) == 1) {
+            sfText_setString(win->text->str, "Appuyez sur E\n");
+            if (sfKeyboard_isKeyPressed(sfKeyE)) {
+                sfText_setString(win->text->str, "\n");
+                display_text_in_textbox(win->quests, "Vous avez trouve une Armure !\n");
+                win->quests->quete_done++;
+            }
         }
     }
 }
@@ -729,8 +745,14 @@ void check_item_pickup(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (win->actual_page == TOWN) {
-        check_pickup_sword(win, pos_player);
-        talk_to_old(win, pos_player);
+        if (win->quests->quete_done == 0)
+            talk_to_old(win, pos_player);
+        if (win->quests->quete_done == 1)
+            check_pickup_sword(win, pos_player);
+    }
+    if (win->actual_page == FOREST) {
+        if (win->quests->quete_done == 2)
+            check_pickup_armor(win, pos_player);
     }
 }
 

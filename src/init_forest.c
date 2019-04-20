@@ -19,8 +19,7 @@ window_t *init_forest(window_t *win)
     set_next_buttons(&win->scene[FOREST].button[1], win->rect_buttons, order_button[1]);
     init_button(&win->scene[FOREST].button[1], get_pos_float(-200, -200), size, win->texture_button);
     init_sprite(&win->scene[FOREST].sprite[0], "ressources/forest.png", get_pos_float(0, 0));
-    for (int i = 1; i < win->scene[FOREST].nb_sprite; i++)
-        win->scene[FOREST].sprite[i].depth = 0;
+    win->scene[FOREST].sprite[0].depth = -1;
     win->scene[FOREST].button[0].callback = &quit_pause;
     win->scene[FOREST].button[1].callback = &main_menu;
     return (win);

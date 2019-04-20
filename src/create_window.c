@@ -23,8 +23,8 @@ window_t *create_window(window_t *win)
     win->player->sprite->sprite = NULL;
     win->player->sprite->texture = NULL;
     win->quests = malloc(sizeof(quest_t) * 1);
-    win->quests->sprite = malloc(sizeof(sprite_t) * 2);
-    win->quests->text = malloc(sizeof(text_t) * 2);
+    win->quests->sprite = malloc(sizeof(sprite_t) * 6);
+    win->quests->text = malloc(sizeof(text_t) * 5);
     win->inv = malloc(sizeof(inventory_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
     win->inv->items = malloc(sizeof(items_t) * 12);
