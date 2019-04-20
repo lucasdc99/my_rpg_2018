@@ -45,5 +45,6 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].sprite[0].rect.height = 50;
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
+    choose_glenys(win);
     return (win);
 }

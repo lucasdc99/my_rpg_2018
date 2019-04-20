@@ -13,7 +13,10 @@ void save_inventory(window_t *win)
     FILE *fp = fopen("ressources/text/inventory", "wb+");
 
     for (int i = 0; i < 12; i++) {
-        fprintf(fp, "%s\n", win->inv->items[i].name);
+        if (win->inv->items[i].name == NULL)
+            fprintf(fp, "(null)\n");
+        else
+            fprintf(fp, "%s\n", win->inv->items[i].name);
     }
     fclose(fp);
 }

@@ -13,7 +13,7 @@ window_t *init_castle(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};
 
-    set_struct(win, 2, 0, 7);
+    set_struct(win, 2, 1, 7);
     set_next_buttons(&win->scene[CASTLE].button[0], win->rect_buttons, order_button[0]);
     init_button(&win->scene[CASTLE].button[0], get_pos_float(-200, -200), size, win->texture_button);
     set_next_buttons(&win->scene[CASTLE].button[1], win->rect_buttons, order_button[1]);
@@ -25,6 +25,9 @@ window_t *init_castle(window_t *win)
     init_sprite(&win->scene[CASTLE].sprite[4], "ressources/tree2.png", get_pos_float(1520, 500));
     init_sprite(&win->scene[CASTLE].sprite[5], "TimeFantasy_TILES_6.24.17/TILESETS/animated/torch.png", get_pos_float(421, 263));
     init_sprite(&win->scene[CASTLE].sprite[6], "TimeFantasy_TILES_6.24.17/TILESETS/animated/torch.png", get_pos_float(1473, 263));
+    init_text(&win->scene[CASTLE].text[0], "TEKZERK", get_pos_float(550, 400));
+    sfText_setCharacterSize(win->scene[CASTLE].text[0].str, 200);
+    sfText_setFillColor(win->scene[CASTLE].text[0].str, sfColor_fromRGBA(255, 255, 255, 0));
     win->scene[CASTLE].sprite[5].rect = get_rect(19, 0, 11, 20);
     win->scene[CASTLE].sprite[6].rect = get_rect(19, 0, 11, 20);
     sfSprite_setTextureRect(win->scene[CASTLE].sprite[5].sprite, win->scene[CASTLE].sprite[5].rect);

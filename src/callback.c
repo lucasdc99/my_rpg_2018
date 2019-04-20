@@ -61,9 +61,7 @@ void quit(window_t *win)
 
 void quit_pause(window_t *win)
 {
-    win->pause = 0;
-    sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(-200, -200));
-    sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(-200, -200));
+    unpause_game(win);
 }
 
 void play_game(window_t *win)
@@ -72,6 +70,7 @@ void play_game(window_t *win)
 
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
+        win->no_saves = 1;
         fp = fopen("ressources/text/config_player", "wb+");
         fprintf(fp, "NAME = %s\n", win->player->name);
         fprintf(fp, "HEALTH = %d\n", win->player->health);

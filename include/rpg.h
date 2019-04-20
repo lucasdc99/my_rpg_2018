@@ -135,6 +135,7 @@ typedef struct s_window {
     int pause;
     int inventory;
     int quest;
+    int no_saves;
     sprite_t *objects;
     int nb_objects;
     inventory_t *inv;
@@ -209,6 +210,7 @@ void play_game(window_t *win);
 void options(window_t *win);
 void quit(window_t *win);
 void choose_hero(window_t *win);
+void unpause_game(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);

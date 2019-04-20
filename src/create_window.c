@@ -52,5 +52,6 @@ window_t *create_window(window_t *win)
     win->inventory = 0;
     init_inventory(win->inv);
     win->move = sfClock_create();
+    win->no_saves = 0;
     return (win);
 }

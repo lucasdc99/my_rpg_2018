@@ -33,7 +33,10 @@ window_t *init_menu(window_t *win)
         init_button(&win->scene[MAINMENU].button[i], get_pos_float(pos_window.x - 600, pos_window.y), size, win->texture_button);
         pos_window.y += size.y + 20;
     }
-    win->scene[MAINMENU].button[0].callback = &play_game;
+    if (win->no_saves == 0)
+        win->scene[MAINMENU].button[0].callback = &play_game;
+    else
+        win->scene[MAINMENU].button[0].callback = NULL;
     win->scene[MAINMENU].button[1].callback = &heroes_menu;
     win->scene[MAINMENU].button[2].callback = &how_to_play;
     win->scene[MAINMENU].button[3].callback = &options;

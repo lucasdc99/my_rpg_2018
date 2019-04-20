@@ -8,6 +8,30 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void draw_animation_begin(window_t *win)
+{
+    static int i = 0;
+    static int part = 0;
+
+    if (part < 2) {
+        if (i < 255 && part == 0)
+            sfText_setFillColor(win->scene[CASTLE].text[0].str, sfColor_fromRGBA(255, 255, 255, ++i));
+        else
+            part = 1;
+        if (i > 0 && part == 1)
+            sfText_setFillColor(win->scene[CASTLE].text[0].str, sfColor_fromRGBA(255, 255, 255, --i));
+        else if (part != 0)
+            part = 2;
+    } else if (part == 2) {
+        win->no_saves = 0;
+        part = 3;
+    }
+    if (part == 3 && win->no_saves == 1) {
+        part = 0;
+        i = 0;
+    }
+}
+
 window_t *draw_scene(window_t *win)
 {
     sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
@@ -62,6 +86,8 @@ window_t *draw_scene(window_t *win)
         sfRenderWindow_drawSprite(win->window, win->quests->sprite[0].sprite, NULL);
         sfRenderWindow_drawText(win->window, win->quests->text[0].str, NULL);
     }
+    if (win->actual_page == CASTLE && win->no_saves == 1)
+        draw_animation_begin(win);
     sfRenderWindow_display(win->window);
     return (win);
 }
