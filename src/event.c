@@ -698,7 +698,6 @@ void check_pickup_sword(window_t *win, sfVector2f pos_player)
                 actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
                 win->inv->items[actual_pos].busy = 1;
                 win->inv->items[actual_pos].name = get_name_from_type(win->objects[SWORD].type);
-                win->inv->items->sword = 1;
                 win->objects[SWORD].item = 1;
                 win->objects[SWORD].depth = 2;
                 display_text_in_textbox(win->quests, "Vous avez trouve une Epee !\n");

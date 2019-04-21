@@ -28,5 +28,4 @@ void init_quests(quest_t *quest)
     init_text(&quest->text[2], "QUETE 2:    Trouver l'epee du grand pere\n", get_pos_float(300, 350));
     init_text(&quest->text[3], "QUETE 3:    Trouver l'armure du grand pere\n", get_pos_float(300, 550));
     init_text(&quest->text[4], "QUETE 4:    Aller combattre le mechant\n", get_pos_float(300, 750));
-    quest->quete_done = 0;
 }

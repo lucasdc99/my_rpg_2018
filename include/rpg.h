@@ -79,7 +79,6 @@ typedef struct s_sprite {
 } sprite_t;
 
 typedef struct s_items {
-    int sword;
     char *name;
     sfVector2f pos;
     int busy;
@@ -194,13 +193,14 @@ window_t *init_final(window_t *win);
 window_t *init_combat(window_t *win);
 
 // INITIALISATION ELEMENTS
-void init_player(window_t *win);
+void init_player(player_t *player);
 void init_objects(sprite_t *sprite, inventory_t *inv);
 void init_inventory(inventory_t *inv);
 void init_text(text_t *text, char *display, sfVector2f pos);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
 void init_quests(quest_t *quest);
+void init_music(music_t *music);
 
 // CSFML BASICS
 window_t *create_window(window_t *win);
@@ -266,15 +266,21 @@ void animation_torch(window_t *win, int offset);
 
 // SAVES
 void save_inventory(window_t *win);
+void save_config_player(window_t *win);
+void save_quests(window_t *win);
 
 // PARSING
 inventory_t *parser_inv(inventory_t *inv, char *filename);
-player_t *parser(player_t *player, char *filename);
+player_t *parser_player(player_t *player, char *filename);
+quest_t *parser_quests(quest_t *quest, char *filename);
 
 // INVENTORY HANDLING
 sfVector2f get_inv_pos(inventory_t *inv);
 int get_type_from_inv(char *name);
 int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
+
+// PLAYER HANDLING
+void set_player(window_t *win);
 
 // DETECTION EVENTS
 void close_textbox(window_t *win);

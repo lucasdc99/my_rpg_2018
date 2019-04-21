@@ -47,7 +47,18 @@ inventory_t *parser_inv(inventory_t *inv, char *filename)
     return (inv);
 }
 
-player_t *parser(player_t *player, char *filename)
+quest_t *parser_quests(quest_t *quest, char *filename)
+{
+    int fd = open(filename, O_RDONLY);
+
+    if (fd < 0)
+        return (0);
+    quest->quete_done = my_getnbr(get_next_line(fd));
+    close(fd);
+    return (quest);
+}
+
+player_t *parser_player(player_t *player, char *filename)
 {
     int fd = open(filename, O_RDONLY);
 

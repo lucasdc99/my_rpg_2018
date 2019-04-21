@@ -42,5 +42,6 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].button[3].callback = &options;
     win->scene[MAINMENU].button[4].callback = &quit;
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite, win->scene[MAINMENU].sprite[0].rect);
+    sfMusic_play(win->music->menu_song);
     return (win);
 }

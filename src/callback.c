@@ -10,24 +10,15 @@
 
 void main_menu(window_t *win)
 {
-    FILE *fp;
-
     if (win->page >= CASTLE) {
-        fp = fopen("ressources/text/config_player", "wb+");
         win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
         if (win->player->last_pos.x <= 20)
             win->player->last_pos.x = 100;
         if (win->player->last_pos.y <= 20)
             win->player->last_pos.y = 100;
-        fprintf(fp, "NAME = %s\n", win->player->name);
-        fprintf(fp, "HEALTH = %d\n", win->player->health);
-        fprintf(fp, "XP = %d\n", win->player->xp);
-        fprintf(fp, "STRENGTH = %d\n", win->player->strength);
-        fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);
-        fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
-        fprintf(fp, "PAGE = %d\n", win->actual_page);
-        fclose(fp);
+        save_config_player(win);
         save_inventory(win);
+        save_quests(win);
     }
     win->pause = 0;
     sfMusic_play(win->music->button_sound);
@@ -139,25 +130,17 @@ void stats_attack(window_t *win)
 
 void play_game(window_t *win)
 {
-    FILE *fp;
-
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
+        win->player->last_pos = get_pos_float(500, 500);
         win->no_saves = 1;
-        fp = fopen("ressources/text/config_player", "wb+");
-        fprintf(fp, "NAME = %s\n", win->player->name);
-        fprintf(fp, "HEALTH = %d\n", win->player->health);
-        fprintf(fp, "XP = %d\n", win->player->xp);
-        fprintf(fp, "STRENGTH = %d\n", win->player->strength);
-        fprintf(fp, "POSITION X = %f\n", 500.0);
-        fprintf(fp, "POSITION Y = %f\n", 500.0);
-        fprintf(fp, "PAGE = %d\n", CASTLE);
-        fclose(fp);
+        save_config_player(win);
     }
-    init_inventory(win->inv);
-    win->player = parser(win->player, "ressources/text/config_player");
+    win->player = parser_player(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
-    init_player(win);
+    init_inventory(win->inv);
+    init_player(win->player);
+    set_player(win);
     init_objects(win->objects, win->inv);
     init_quests(win->quests);
     sfMusic_stop(win->music->menu_song);
