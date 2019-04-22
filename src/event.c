@@ -73,6 +73,7 @@ int check_dead_zone(window_t *win, int move)
     static char **tab_house1 = NULL;
     static char **tab_forest = NULL;
     static char **tab_final = NULL;
+    static char **tab_boss = NULL;
     char **tab = NULL;
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
     sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
@@ -85,8 +86,9 @@ int check_dead_zone(window_t *win, int move)
     char *buffer_house1 = malloc(sizeof(char) * 8400);
     char *buffer_forest = malloc(sizeof(char) * 8400);
     char *buffer_final = malloc(sizeof(char) * 8400);
+    char *buffer_boss = malloc(sizeof(char) * 8400);
 
-    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL) {
+    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss == NULL) {
         if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_town", &buffer_town, 8400) == 84)
@@ -97,14 +99,17 @@ int check_dead_zone(window_t *win, int move)
             return (84);
         if (open_buff("ressources/text/pos_final", &buffer_final, 8400) == 84)
             return (84);
-        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL || buffer_forest == NULL || buffer_final == NULL)
+        if (open_buff("ressources/text/pos_boss", &buffer_boss, 8400) == 84)
+            return (84);
+        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL || buffer_forest == NULL || buffer_final == NULL || buffer_boss == NULL)
             return (84);
         tab_castle = transform_2d(buffer_castle, '\n');
         tab_town = transform_2d(buffer_town, '\n');
         tab_house1 = transform_2d(buffer_house1, '\n');
         tab_forest = transform_2d(buffer_forest, '\n');
         tab_final = transform_2d(buffer_final, '\n');
-        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL)
+        tab_boss = transform_2d(buffer_boss, '\n');
+        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss)
             return (84);
     }
     if (win->actual_page == CASTLE)
@@ -117,6 +122,8 @@ int check_dead_zone(window_t *win, int move)
         tab = tab_forest;
     if (win->actual_page == FINAL)
         tab = tab_final;
+    if (win->actual_page == BOSS)
+        tab = tab_boss;
     if (move == UP) {
         if (y - 1 >= 0 && tab[y - 1][x] == '2') {
             return (1);
@@ -246,8 +253,32 @@ void check_combat_zone(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (win->actual_page == FINAL) {
-        if (is_inside_zone(get_pos_float(0, 700), get_pos_float(1800, 720), pos_player) == 1) {
+        if (is_inside_zone(get_pos_float(1000, 700), get_pos_float(1800, 720), pos_player) == 1) {
             win->page = COMBAT1;
+        }
+    }
+}
+
+void leave_boss(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+
+    if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100), pos_player) == 1) {
+        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+        win->page = FINAL;
+    }
+}
+
+void go_boss(window_t *win)
+{
+    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+
+    if (pos_player.x > 910 && pos_player.x < 1000) {
+        if (pos_player.y < 100) {
+            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+            win->player->last_pos.y += 30;
+            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 950));
+            win->page = BOSS;
         }
     }
 }
@@ -258,6 +289,10 @@ void move_player(window_t *win)
         open_door(win);
     if (win->actual_page == HOUSE1)
         close_door(win);
+    if (win->actual_page == FINAL)
+        go_boss(win);
+    if (win->actual_page == BOSS)
+        leave_boss(win);
     check_item_pickup(win);
     close_textbox(win);
     check_combat_zone(win);
@@ -289,7 +324,7 @@ void leave_final(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (is_inside_zone(get_pos_float(1000, 0), get_pos_float(1100, 100), pos_player) == 1) {
+    if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100), pos_player) == 1) {
         sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
         win->page = TOWN;
     }
@@ -420,8 +455,7 @@ void go_final(window_t *win)
         if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
             win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
             win->player->last_pos.y += 50;
-            pos_player.y += 100;
-            sfSprite_setPosition(win->player->sprite->sprite, pos_player);
+            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(950, 900));
             win->page = FINAL;
         }
     } else {

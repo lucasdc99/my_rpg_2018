@@ -50,6 +50,7 @@ enum page {
     HOUSE1,
     FOREST,
     FINAL,
+    BOSS,
     COMBAT1,
 };
 
@@ -191,6 +192,7 @@ window_t *init_castle(window_t *win);
 window_t *init_how_to_play(window_t *win);
 window_t *init_final(window_t *win);
 window_t *init_combat(window_t *win);
+window_t *init_boss(window_t *win);
 
 // INITIALISATION ELEMENTS
 void init_player(player_t *player);

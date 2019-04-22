@@ -20,6 +20,7 @@ ptr_func *init_func(void)
         {HOUSE1, &init_house1, &draw_scene, &global_event, &destroy_scene},
         {FOREST, &init_forest, &draw_scene, &global_event, &destroy_scene},
         {FINAL, &init_final, &draw_scene, &global_event, &destroy_scene},
+        {BOSS, &init_boss, &draw_scene, &global_event, &destroy_scene},
         {COMBAT1, &init_combat, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
