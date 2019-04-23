@@ -85,6 +85,12 @@ typedef struct s_items {
     int busy;
 } items_t;
 
+typedef struct s_enemy {
+    int health;
+    sprite_t *sprite;
+    text_t *text;
+} enemy_t;
+
 typedef struct s_player {
     sfVector2f last_pos;
     sprite_t *sprite;
@@ -126,6 +132,7 @@ typedef struct s_window {
     sfEvent event;
     scene_t *scene;
     player_t *player;
+    enemy_t *enemy;
     music_t *music;
     enum page page;
     enum page actual_page;
@@ -141,6 +148,7 @@ typedef struct s_window {
     int inventory;
     int quest;
     int no_saves;
+    int turn;
     sprite_t *objects;
     int nb_objects;
     inventory_t *inv;
@@ -226,6 +234,7 @@ void unpause_game(window_t *win);
 void basic_attack(window_t *win);
 void special_attack(window_t *win);
 void stats_attack(window_t *win);
+void enemy_attack(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);

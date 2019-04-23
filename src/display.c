@@ -67,5 +67,16 @@ void display(window_t *win)
             if (win->actual_page == FINAL)
                 leave_final(win);
         }
+        if (win->turn == 1 && win->actual_page == COMBAT1) {
+            sfClock_restart(win->combat);
+            win->combat_time = sfClock_getElapsedTime(win->combat);
+            win->seconds = win->combat_time.microseconds / 1000000.0;
+            while (win->seconds < 2) {
+                win->combat_time = sfClock_getElapsedTime(win->combat);
+                win->seconds = win->combat_time.microseconds / 100000.0;
+            }
+            enemy_attack(win);
+            win->turn = 0;
+        }
     }
 }

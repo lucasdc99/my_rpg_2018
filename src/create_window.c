@@ -17,12 +17,15 @@ window_t *create_window(window_t *win)
     win->page = MAINMENU;
     win->actual_page = win->page;
     win->nb_objects = 3;
-    win->scene = malloc(sizeof(scene_t) * 11);
+    win->scene = malloc(sizeof(scene_t) * 12);
     win->quests = malloc(sizeof(quest_t) * 1);
     win->quests->sprite = malloc(sizeof(sprite_t) * 6);
     win->quests->text = malloc(sizeof(text_t) * 5);
     win->player = malloc(sizeof(player_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
+    win->enemy = malloc(sizeof(enemy_t) * 1);
+    win->enemy->sprite = malloc(sizeof(sprite_t) * 1);
+    win->enemy->text = malloc(sizeof(text_t) * 1);
     win->inv = malloc(sizeof(inventory_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
     win->inv->items = malloc(sizeof(items_t) * 12);
@@ -38,6 +41,7 @@ window_t *create_window(window_t *win)
     win->rect_buttons = init_pos_button();
     init_text(win->text, "\n", get_pos_float(1450, 950));
     win->pause = 0;
+    win->turn = 0;
     win->move = sfClock_create();
     win->no_saves = 0;
     return (win);

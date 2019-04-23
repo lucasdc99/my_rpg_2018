@@ -55,10 +55,39 @@ void quit_pause(window_t *win)
     unpause_game(win);
 }
 
+void enemy_attack(window_t *win)
+{
+    static int switcher = 0;
+    sfVector2f pos = sfSprite_getPosition(win->enemy->sprite->sprite);
+
+    if (switcher == 0) {
+        pos.x += 50;
+        switcher = 1;
+    } else {
+        pos.x -= 50;
+        switcher = 0;
+    }
+    sfSprite_setPosition(win->enemy->sprite->sprite, pos);
+    sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
+    sfRenderWindow_drawSprite(win->window, win->enemy->sprite->sprite, NULL);
+    sfRenderWindow_display(win->window);
+    win->player->health -= 20;
+    sfText_setString(win->scene[COMBAT1].text[0].str, my_itc(win->player->health));
+}
+
 void basic_attack(window_t *win)
 {
     sfIntRect rect;
 
+    if (win->turn == 1)
+        return;
+    sfClock_restart(win->combat);
+    win->combat_time = sfClock_getElapsedTime(win->combat);
+    win->seconds = win->combat_time.microseconds / 1000000.0;
+    while (win->seconds < 10) {
+        win->combat_time = sfClock_getElapsedTime(win->combat);
+        win->seconds = win->combat_time.microseconds / 100000.0;
+    }
     for (int i = 0; i < 10; i++) {
         rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
         rect.left += 50;
@@ -77,12 +106,28 @@ void basic_attack(window_t *win)
         }
     }
     sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
+    win->enemy->health -= 20;
+    if (win->enemy->health <= 0) {
+        sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 700));
+        win->page = FINAL;
+    } else
+        sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));
+    win->turn = 1;
 }
 
 void special_attack(window_t *win)
 {
     sfIntRect rect;
 
+    if (win->turn == 1)
+        return;
+    sfClock_restart(win->combat);
+    win->combat_time = sfClock_getElapsedTime(win->combat);
+    win->seconds = win->combat_time.microseconds / 1000000.0;
+    while (win->seconds < 2) {
+        win->combat_time = sfClock_getElapsedTime(win->combat);
+        win->seconds = win->combat_time.microseconds / 100000.0;
+    }
     for (int i = 0; i < 10; i++) {
         rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
         rect.top = 8;
@@ -102,12 +147,21 @@ void special_attack(window_t *win)
         }
     }
     sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
+    win->enemy->health -= 30;
+    if (win->enemy->health <= 0) {
+        sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 700));
+        win->page = FINAL;
+    } else
+        sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));
+    win->turn = 1;
 }
 
 void stats_attack(window_t *win)
 {
     sfIntRect rect;
 
+    if (win->turn == 1)
+        return;
     for (int i = 0; i < 10; i++) {
         rect = sfSprite_getTextureRect(win->scene[COMBAT1].sprite[0].sprite);
         rect.top = 150;
@@ -126,6 +180,9 @@ void stats_attack(window_t *win)
         }
     }
     sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
+    win->player->health += 20;
+    sfText_setString(win->scene[COMBAT1].text[0].str, my_itc(win->player->health));
+    win->turn = 1;
 }
 
 void play_game(window_t *win)

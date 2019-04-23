@@ -823,7 +823,7 @@ void global_event(window_t *win)
                     unpause_game(win);
             }
             if (win->actual_page == COMBAT1) {
-                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(100, 100));
+                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 700));
                 win->page = FINAL;
             }
         }

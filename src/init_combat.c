@@ -14,7 +14,7 @@ window_t *init_combat(window_t *win)
     int order_button[] = {REPRENDRE, QUITTER, FLECHE};
     char *skin = malloc(sizeof(char) * 80);
 
-    set_struct(win, 5, 0, 1);
+    set_struct(win, 5, 2, 1);
     win->combat = sfClock_create();
     skin = my_strcat("ressources/pack/Pixel_Champions/Magical Heroes/", win->player->name);
     skin = my_strcat(skin, ".png");
@@ -31,6 +31,11 @@ window_t *init_combat(window_t *win)
     init_button(&win->scene[COMBAT1].button[4], get_pos_float(1600, 400), get_pos_float(100, 100), win->texture_button);
     sfSprite_setTextureRect(win->scene[COMBAT1].sprite[0].sprite, get_rect(297, 56, 30, 30));
     sfSprite_setScale(win->scene[COMBAT1].sprite[0].sprite, get_pos_float(4, 4));
+    init_text(&win->scene[COMBAT1].text[0], my_itc(win->player->health), get_pos_float(1500, 10));
+    init_text(&win->scene[COMBAT1].text[1], my_itc(win->player->strength), get_pos_float(1500, 100));
+    init_sprite(&win->enemy->sprite[0], "ressources/tree.png", get_pos_float(400, 500));
+    win->enemy->health = 50;
+    init_text(&win->enemy->text[0], my_itc(win->enemy->health), get_pos_float(400, 100));
     win->scene[COMBAT1].button[0].callback = &quit_pause;
     win->scene[COMBAT1].button[1].callback = &main_menu;
     win->scene[COMBAT1].button[2].callback = &basic_attack;

@@ -91,6 +91,10 @@ window_t *draw_scene(window_t *win)
         for (int i = 2; i < win->quests->quete_done + 2; i++)
             sfRenderWindow_drawSprite(win->window, win->quests->sprite[i].sprite, NULL);
     }
+    if (win->actual_page == COMBAT1) {
+        sfRenderWindow_drawText(win->window, win->enemy->text->str, NULL);
+        sfRenderWindow_drawSprite(win->window, win->enemy->sprite->sprite, NULL);
+    }
     if (win->actual_page == CASTLE && win->no_saves == 1)
         draw_animation_begin(win);
     sfRenderWindow_display(win->window);
