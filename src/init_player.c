@@ -39,6 +39,6 @@ void init_player(player_t *player)
     if (player->last_pos.x >= 0)
         sfSprite_setPosition(player->sprite->sprite, player->last_pos);
     else {
-        sfSprite_setPosition(player->sprite->sprite, get_pos_float(500, 500));
+        sfSprite_setPosition(player->sprite->sprite, get_pos_float(900, 600));
     }
 }

@@ -51,14 +51,20 @@ int main(int ac, char **av, char **env)
         win->no_saves = 1;
         win->player = malloc(sizeof(player_t) * 1);
         win->player->sprite = malloc(sizeof(sprite_t) * 1);
+        win->player->name = NULL;
         win->player->sprite->sprite = NULL;
         win->player->sprite->texture = NULL;
+        win->player->strength = 0;
+        win->player->health = 0;
+        win->player->xp = 0;
         win->player->last_pos = get_pos_float(-100, -100);
         win->player->direction = 1;
         win->player->move_rect = 0;
         win->player->last_page = CASTLE;
         save_config_player(win);
     }
+    if (win->player->last_pos.x < 0)
+        win->no_saves = 1;
     if (win->inv == NULL) {
         win->inv = malloc(sizeof(inventory_t) * 1);
         win->inv->sprite = malloc(sizeof(sprite_t) * 1);

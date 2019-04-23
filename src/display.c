@@ -50,7 +50,7 @@ void display(window_t *win)
             win->seconds = win->move_time.microseconds / 1000000.0;
             animation_choose_heroes(win, 48);
         }
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT1 && win->pause == 0) {
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT1 && win->pause == 0 && win->no_saves == 0) {
             move_player(win);
             if (win->actual_page == TOWN) {
                 go_castle(win);
