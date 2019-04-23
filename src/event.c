@@ -453,8 +453,7 @@ void go_final(window_t *win)
             }
         }
         if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
-            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
-            win->player->last_pos.y += 50;
+            win->player->last_pos = get_pos_float(1025, 150);
             sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(950, 900));
             win->page = FINAL;
         }
