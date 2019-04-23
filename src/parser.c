@@ -50,10 +50,15 @@ inventory_t *parser_inv(inventory_t *inv, char *filename)
 quest_t *parser_quests(quest_t *quest, char *filename)
 {
     int fd = open(filename, O_RDONLY);
+    char *str;
 
     if (fd < 0)
         return (0);
-    quest->quete_done = my_getnbr(get_next_line(fd));
+    str = get_next_line(fd);
+    if (str == NULL)
+        quest->quete_done = 0;
+    else
+        quest->quete_done = my_getnbr(str);
     close(fd);
     return (quest);
 }

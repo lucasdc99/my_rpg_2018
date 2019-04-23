@@ -57,11 +57,23 @@ int main(int ac, char **av, char **env)
         win->player->direction = 1;
         win->player->move_rect = 0;
         win->player->last_page = CASTLE;
+        save_config_player(win);
     }
-    if (win->inv == NULL)
-        return (84);
-    if (win->quests == NULL)
-        return (84);
+    if (win->inv == NULL) {
+        win->inv = malloc(sizeof(inventory_t) * 1);
+        win->inv->sprite = malloc(sizeof(sprite_t) * 1);
+        win->inv->items = malloc(sizeof(items_t) * 12);
+        for (int i = 0; i < 12; i++)
+            win->inv->items[i].name = NULL;
+        save_inventory(win);
+    }
+    if (win->quests == NULL) {
+        win->quests = malloc(sizeof(quest_t) * 1);
+        win->quests->sprite = malloc(sizeof(sprite_t) * 6);
+        win->quests->text = malloc(sizeof(text_t) * 5);
+        win->quests->quete_done = 0;
+        save_quests(win);
+    }
     display(win);
     destroy_all(win);
     return (0);
