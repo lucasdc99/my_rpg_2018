@@ -132,6 +132,11 @@ void play_game(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
+        win->quests->quete_done = 0;
+        save_quests(win);
+        for (int i = 0; i < 12; i++)
+            win->inv->items[i].name = NULL;
+        save_inventory(win);
         win->player->last_pos = get_pos_float(500, 500);
         win->no_saves = 1;
         save_config_player(win);
