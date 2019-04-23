@@ -280,6 +280,9 @@ quest_t *parser_quests(quest_t *quest, char *filename);
 sfVector2f get_inv_pos(inventory_t *inv);
 int get_type_from_inv(char *name);
 int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
+int check_existing_inventory(window_t *win, char *name);
+int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos);
+char *get_name_from_type(int type);
 
 // PLAYER HANDLING
 void set_player(window_t *win);

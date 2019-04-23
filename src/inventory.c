@@ -8,6 +8,15 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+int check_existing_inventory(window_t *win, char *name)
+{
+    for (int i = 0; i < 12; i++) {
+        if (win->inv->items[i].name != NULL && my_strcmp(win->inv->items[i].name, name) == 0)
+            return (1);
+    }
+    return (0);
+}
+
 void save_inventory(window_t *win)
 {
     FILE *fp = fopen("ressources/text/inventory", "wb+");

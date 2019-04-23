@@ -130,6 +130,8 @@ void stats_attack(window_t *win)
 
 void play_game(window_t *win)
 {
+    int actual_pos = 0;
+
     sfMusic_play(win->music->button_sound);
     if (win->page == HEROES) {
         win->quests->quete_done = 0;
@@ -147,6 +149,16 @@ void play_game(window_t *win)
     init_player(win->player);
     set_player(win);
     init_objects(win->objects, win->inv);
+    if (win->quests->quete_done >= 2) {
+        if (check_existing_inventory(win, "Dague") == 0) {
+            sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
+            actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
+            win->inv->items[actual_pos].busy = 1;
+            win->inv->items[actual_pos].name = get_name_from_type(SWORD);
+            win->objects[SWORD].item = 1;
+            win->objects[SWORD].depth = 2;
+        }
+    }
     init_quests(win->quests);
     sfMusic_stop(win->music->menu_song);
 }

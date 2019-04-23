@@ -51,10 +51,6 @@ window_t *draw_scene(window_t *win)
         if (win->scene[win->actual_page].sprite[i].depth == 1 && (win->pause == 0 || win->inventory == 1))
             sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }
-    if (win->actual_page >= CASTLE && win->actual_page < COMBAT1) {
-        if (win->pause == 0 || win->inventory == 1)
-            sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
-    }
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
         sfRenderWindow_drawRectangleShape(win->window,
         win->scene[win->actual_page].button[i].shape, NULL);
