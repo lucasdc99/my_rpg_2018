@@ -20,8 +20,8 @@ enum direction {
 };
 
 enum type {
-    BOOK,
-    POTION,
+    ARMOR,
+    HELMET,
     SWORD,
 };
 

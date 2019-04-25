@@ -19,7 +19,7 @@ window_t *init_boss(window_t *win)
     init_button(&win->scene[BOSS].button[0], get_pos_float(-200, -200), size, win->texture_button);
     set_next_buttons(&win->scene[BOSS].button[1], win->rect_buttons, order_button[1]);
     init_button(&win->scene[BOSS].button[1], get_pos_float(-200, -200), size, win->texture_button);
-    win->scene[BOSS].sprite[0].depth = 0;
+    win->scene[BOSS].sprite[0].depth = -1;
     win->scene[BOSS].button[0].callback = &quit_pause;
     win->scene[BOSS].button[1].callback = &main_menu;
     return (win);

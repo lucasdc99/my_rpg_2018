@@ -547,6 +547,15 @@ void pause_game(window_t *win)
     if (win->actual_page == CASTLE) {
         sfSprite_setTexture(win->scene[CASTLE].sprite[0].sprite, sfTexture_createFromFile("ressources/castle_blur.png", NULL), sfTrue);
     }
+    if (win->actual_page == FOREST) {
+        sfSprite_setTexture(win->scene[FOREST].sprite[0].sprite, sfTexture_createFromFile("ressources/forest_blur.png", NULL), sfTrue);
+    }
+    if (win->actual_page == FINAL) {
+        sfSprite_setTexture(win->scene[FINAL].sprite[0].sprite, sfTexture_createFromFile("ressources/sbire_map_blur.png", NULL), sfTrue);
+    }
+    if (win->actual_page == BOSS) {
+        sfSprite_setTexture(win->scene[BOSS].sprite[0].sprite, sfTexture_createFromFile("ressources/final_boss_blur.png", NULL), sfTrue);
+    }
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(pos_window.x, pos_window.y));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(pos_window.x, pos_window.y + 200));
 }
@@ -559,6 +568,15 @@ void unpause_game(window_t *win)
     }
     if (win->actual_page == CASTLE) {
         sfSprite_setTexture(win->scene[CASTLE].sprite[0].sprite, sfTexture_createFromFile("ressources/castle.png", NULL), sfTrue);
+    }
+    if (win->actual_page == FOREST) {
+        sfSprite_setTexture(win->scene[FOREST].sprite[0].sprite, sfTexture_createFromFile("ressources/forest.png", NULL), sfTrue);
+    }
+    if (win->actual_page == FINAL) {
+        sfSprite_setTexture(win->scene[FINAL].sprite[0].sprite, sfTexture_createFromFile("ressources/sbire_map.png", NULL), sfTrue);
+    }
+    if (win->actual_page == BOSS) {
+        sfSprite_setTexture(win->scene[BOSS].sprite[0].sprite, sfTexture_createFromFile("ressources/final_boss.png", NULL), sfTrue);
     }
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape, get_pos_float(-600, -300));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape, get_pos_float(-600, -100));
@@ -584,7 +602,7 @@ sfVector2f get_nearest_item_pos(inventory_t *inv, sfVector2f move_pos)
 {
     sfVector2f pos = {10, 10};
 
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 15; i++) {
         if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
             if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y < inv->items[i].pos.y + 80) {
                 pos.x = inv->items[i].pos.x;
@@ -600,10 +618,10 @@ char *get_name_from_type(int type)
 {
     if (type == SWORD)
         return ("Dague");
-    if (type == POTION)
-        return ("Potion");
-    if (type == BOOK)
-        return ("Livre");
+    if (type == ARMOR)
+        return ("Armure");
+    if (type == HELMET)
+        return ("Casque");
     return ("\n");
 }
 
@@ -612,7 +630,7 @@ int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos)
 {
     int not_busy = -1;
 
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 15; i++) {
         if (inv->items[i].busy == 0 && not_busy == -1)
             not_busy = i;
         if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
@@ -621,6 +639,7 @@ int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos)
             }
         }
     }
+    printf("%d\n", not_busy);
     return (not_busy);
 }
 
@@ -760,13 +779,25 @@ void talk_to_old(window_t *win, sfVector2f pos_player)
 
 void check_pickup_armor(window_t *win, sfVector2f pos_player)
 {
+    int actual_pos = -1;
+
     if (win->quests->sprite[1].depth <= 0) {
-        if (is_inside_zone(get_pos_float(1120, 750), get_pos_float(1210, 800), pos_player) == 1) {
-            sfText_setString(win->text->str, "Appuyez sur E\n");
-            if (sfKeyboard_isKeyPressed(sfKeyE)) {
+        if (win->objects[ARMOR].depth == 0) {
+            if (is_inside_zone(get_pos_float(1120, 750), get_pos_float(1220, 860), pos_player) == 1) {
+                sfText_setString(win->text->str, "Appuyez sur E\n");
+                if (sfKeyboard_isKeyPressed(sfKeyE)) {
+                    sfText_setString(win->text->str, "\n");
+                    sfSprite_setPosition(win->objects[ARMOR].sprite, get_inv_pos(win->inv));
+                    actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
+                    win->inv->items[actual_pos].busy = 1;
+                    win->inv->items[actual_pos].name = get_name_from_type(win->objects[ARMOR].type);
+                    win->objects[ARMOR].item = 1;
+                    win->objects[ARMOR].depth = 2;
+                    display_text_in_textbox(win->quests, "Vous avez trouve une Armure !\n");
+                    win->quests->quete_done++;
+                }
+            } else if (is_inside_zone(get_pos_float(550, 700), get_pos_float(600, 780), pos_player) == 0) {
                 sfText_setString(win->text->str, "\n");
-                display_text_in_textbox(win->quests, "Vous avez trouve une Armure !\n");
-                win->quests->quete_done++;
             }
         }
     }
@@ -794,7 +825,7 @@ void set_text_inv(window_t *win)
     sfVector2f move_pos = get_pos_float(click_pos.x, click_pos.y);
     int ok = 0;
 
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 15; i++) {
         if (move_pos.x >= win->inv->items[i].pos.x - 10 && move_pos.x < win->inv->items[i].pos.x + 80) {
             if (move_pos.y >= win->inv->items[i].pos.y - 10 && move_pos.y < win->inv->items[i].pos.y + 80) {
                 ok = 1;

@@ -36,7 +36,7 @@ inventory_t *parser_inv(inventory_t *inv, char *filename)
 
     if (fd < 0)
         return (NULL);
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 15; i++) {
         inv->items[i].name = get_next_line(fd);
         if (my_strcmp(inv->items[i].name, "(null)") == 0) {
             inv->items[i].name = NULL;

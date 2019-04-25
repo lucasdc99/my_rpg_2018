@@ -10,7 +10,7 @@
 
 sfVector2f get_inv_pos(inventory_t *inv)
 {
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 15; i++) {
         if (inv->items[i].busy == 0) {
             return (inv->items[i].pos);
         }
@@ -24,10 +24,10 @@ int get_type_from_inv(char *name)
         return (-1);
     if (my_strcmp(name, "Dague") == 0)
         return (SWORD);
-    if (my_strcmp(name, "Potion") == 0)
-        return (POTION);
-    if (my_strcmp(name, "Livre") == 0)
-        return (BOOK);
+    if (my_strcmp(name, "Armure") == 0)
+        return (ARMOR);
+    if (my_strcmp(name, "Casque") == 0)
+        return (HELMET);
     return (-1);
 }
 
@@ -46,7 +46,10 @@ void init_inventory(inventory_t *inv)
     inv->items[9].pos = get_pos_float(1600, 555);
     inv->items[10].pos = get_pos_float(1700, 555);
     inv->items[11].pos = get_pos_float(1800, 555);
-    for (int i = 0; i < 12; i++)
+    inv->items[12].pos = get_pos_float(1260, 260);
+    inv->items[13].pos = get_pos_float(1260, 380);
+    inv->items[14].pos = get_pos_float(1260, 500);
+    for (int i = 0; i < 15; i++)
         inv->items[i].busy = 0;
     inv->text = sfText_create();
     sfText_setPosition(inv->text, get_pos_float(1380, 465));

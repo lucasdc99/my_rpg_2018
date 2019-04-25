@@ -28,7 +28,7 @@ window_t *create_window(window_t *win)
     win->enemy->text = malloc(sizeof(text_t) * 1);
     win->inv = malloc(sizeof(inventory_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
-    win->inv->items = malloc(sizeof(items_t) * 12);
+    win->inv->items = malloc(sizeof(items_t) * 15);
     win->text = malloc(sizeof(text_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->objects = malloc(sizeof(sprite_t) * win->nb_objects);

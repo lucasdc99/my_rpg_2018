@@ -193,7 +193,7 @@ void play_game(window_t *win)
     if (win->page == HEROES) {
         win->quests->quete_done = 0;
         save_quests(win);
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 15; i++)
             win->inv->items[i].name = NULL;
         save_inventory(win);
         win->player->last_pos = get_pos_float(900, 600);
@@ -207,7 +207,7 @@ void play_game(window_t *win)
     set_player(win);
     init_objects(win->objects, win->inv);
     if (win->quests->quete_done >= 2) {
-        if (check_existing_inventory(win, "Dague") == 0) {
+        if (check_existing_inventory(win, "Dague") == 1) {
             sfSprite_setPosition(win->objects[SWORD].sprite, get_inv_pos(win->inv));
             actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
             win->inv->items[actual_pos].busy = 1;

@@ -68,8 +68,8 @@ int main(int ac, char **av, char **env)
     if (win->inv == NULL) {
         win->inv = malloc(sizeof(inventory_t) * 1);
         win->inv->sprite = malloc(sizeof(sprite_t) * 1);
-        win->inv->items = malloc(sizeof(items_t) * 12);
-        for (int i = 0; i < 12; i++)
+        win->inv->items = malloc(sizeof(items_t) * 15);
+        for (int i = 0; i < 15; i++)
             win->inv->items[i].name = NULL;
         save_inventory(win);
     }
