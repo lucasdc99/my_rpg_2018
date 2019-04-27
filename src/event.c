@@ -268,16 +268,19 @@ void check_combat_zone(window_t *win)
 
     if (win->actual_page == FINAL) {
         if (is_inside_zone(get_pos_float(800, 680), get_pos_float(1200, 730), pos_player) == 1 && win->combat == 0) {
+            win->player->last_pos = pos_player;
             win->combat += 1;
             win->page = COMBAT;
         }
         if (is_inside_zone(get_pos_float(800, 280), get_pos_float(1200, 330), pos_player) == 1 && win->combat == 1) {
+            win->player->last_pos = pos_player;
             win->combat += 1;
             win->page = COMBAT;
         }
     }
     if (win->actual_page == BOSS) {
         if (is_inside_zone(get_pos_float(800, 0), get_pos_float(1200, 150), pos_player) == 1 && win->combat == 2) {
+            win->player->last_pos = pos_player;
             win->combat += 1;
             win->page = COMBAT;
         }
@@ -679,6 +682,9 @@ void check_drag_and_drop_inv(window_t *win)
             sfSprite_setPosition(win->objects[i].sprite, get_inv_pos(win->inv));
             actual_pos = get_actual_pos_inv(win->inv, move_pos);
             win->inv->items[actual_pos].name = get_name_from_type(win->objects[i].type);
+            if (actual_pos >= 12 && my_strcmp(win->inv->items[actual_pos].name, "Dague") == 0) {
+                win->player->strength += 20;
+            }
             win->objects[i].item = 1;
             if (is_item_outside_inv(move_pos, win->inv) == 0) {
                 pos = get_nearest_item_pos(win->inv, move_pos);
@@ -834,7 +840,8 @@ void set_text_inv(window_t *win)
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     sfVector2f move_pos = get_pos_float(click_pos.x, click_pos.y);
     int ok = 0;
-
+    char *str = win->player->name;
+    
     for (int i = 0; i < 15; i++) {
         if (move_pos.x >= win->inv->items[i].pos.x - 10 && move_pos.x < win->inv->items[i].pos.x + 80) {
             if (move_pos.y >= win->inv->items[i].pos.y - 10 && move_pos.y < win->inv->items[i].pos.y + 80) {
@@ -843,8 +850,16 @@ void set_text_inv(window_t *win)
             }
         }
     }
-    if (ok == 0)
-        sfText_setString(win->inv->text, win->player->name);
+    if (ok == 0) {
+        str = my_strcat(str, "\n");
+        str = my_strcat(str, "Vie: ");
+        str = my_strcat(str, my_itc(win->player->health));
+        str = my_strcat(str, "\n");
+        str = my_strcat(str, "Puissance: ");
+        str = my_strcat(str, my_itc(win->player->strength));
+        str = my_strcat(str, "\n");
+        sfText_setString(win->inv->text, str);
+    }
 }
 
 void global_event(window_t *win)

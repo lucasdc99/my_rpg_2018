@@ -125,7 +125,7 @@ void basic_attack(window_t *win)
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite, get_rect(297, 56, 30, 30));
     win->enemy->health -= 20;
     if (win->enemy->health <= 0) {
-        sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 650));
+        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
         win->page = FINAL;
     } else {
         sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));
@@ -167,7 +167,7 @@ void special_attack(window_t *win)
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite, get_rect(297, 56, 30, 30));
     win->enemy->health -= 30;
     if (win->enemy->health <= 0) {
-        sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 700));
+        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
         win->page = FINAL;
     } else {
         sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));

@@ -17,6 +17,7 @@ window_t *init_end(window_t *win)
         init_text(&win->scene[END].text[0], "Vous etes morts en fait", get_pos_float(900, 700));
     else
         init_text(&win->scene[END].text[0], "GG", get_pos_float(900, 700));
+    win->no_saves = 1;
     set_next_buttons(&win->scene[END].button[0], win->rect_buttons, QUITTER);
     init_button(&win->scene[END].button[0], get_pos_float(900, 900), size, win->texture_button);
     win->scene[END].button[0].callback = &main_menu;
