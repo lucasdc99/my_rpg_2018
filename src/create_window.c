@@ -17,7 +17,7 @@ window_t *create_window(window_t *win)
     win->page = MAINMENU;
     win->actual_page = win->page;
     win->nb_objects = 3;
-    win->scene = malloc(sizeof(scene_t) * 12);
+    win->scene = malloc(sizeof(scene_t) * 13);
     win->quests = malloc(sizeof(quest_t) * 1);
     win->quests->sprite = malloc(sizeof(sprite_t) * 6);
     win->quests->text = malloc(sizeof(text_t) * 5);

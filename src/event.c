@@ -71,6 +71,8 @@ int check_dead_zone(window_t *win, int move)
     static char **tab_castle = NULL;
     static char **tab_town = NULL;
     static char **tab_house1 = NULL;
+    static char **tab_house2 = NULL;
+    static char **tab_house3 = NULL;
     static char **tab_forest = NULL;
     static char **tab_final = NULL;
     static char **tab_boss = NULL;
@@ -84,16 +86,22 @@ int check_dead_zone(window_t *win, int move)
     char *buffer_castle = malloc(sizeof(char) * 8400);
     char *buffer_town = malloc(sizeof(char) * 8400);
     char *buffer_house1 = malloc(sizeof(char) * 8400);
+    char *buffer_house2 = malloc(sizeof(char) * 8400);
+    char *buffer_house3 = malloc(sizeof(char) * 8400);
     char *buffer_forest = malloc(sizeof(char) * 8400);
     char *buffer_final = malloc(sizeof(char) * 8400);
     char *buffer_boss = malloc(sizeof(char) * 8400);
 
-    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss == NULL) {
+    if (tab_town == NULL || tab_castle == NULL || tab_house1 == NULL || tab_house2 == NULL || tab_house3 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss == NULL) {
         if (open_buff("ressources/text/pos_castle", &buffer_castle, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_town", &buffer_town, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_house1", &buffer_house1, 8400) == 84)
+            return (84);
+        if (open_buff("ressources/text/pos_house2", &buffer_house2, 8400) == 84)
+            return (84);
+        if (open_buff("ressources/text/pos_house3", &buffer_house3, 8400) == 84)
             return (84);
         if (open_buff("ressources/text/pos_forest", &buffer_forest, 8400) == 84)
             return (84);
@@ -101,15 +109,17 @@ int check_dead_zone(window_t *win, int move)
             return (84);
         if (open_buff("ressources/text/pos_boss", &buffer_boss, 8400) == 84)
             return (84);
-        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL || buffer_forest == NULL || buffer_final == NULL || buffer_boss == NULL)
+        if (buffer_town == NULL || buffer_castle == NULL || buffer_house1 == NULL || buffer_house2 == NULL || buffer_house3 == NULL || buffer_forest == NULL || buffer_final == NULL || buffer_boss == NULL)
             return (84);
         tab_castle = transform_2d(buffer_castle, '\n');
         tab_town = transform_2d(buffer_town, '\n');
         tab_house1 = transform_2d(buffer_house1, '\n');
+        tab_house2 = transform_2d(buffer_house2, '\n');
+        tab_house3 = transform_2d(buffer_house3, '\n');
         tab_forest = transform_2d(buffer_forest, '\n');
         tab_final = transform_2d(buffer_final, '\n');
         tab_boss = transform_2d(buffer_boss, '\n');
-        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss)
+        if (tab_castle == NULL || tab_town == NULL || tab_house1 == NULL || tab_house2 == NULL || tab_house3 == NULL || tab_forest == NULL || tab_final == NULL || tab_boss)
             return (84);
     }
     if (win->actual_page == CASTLE)
@@ -118,6 +128,10 @@ int check_dead_zone(window_t *win, int move)
         tab = tab_town;
     if (win->actual_page == HOUSE1)
         tab = tab_house1;
+    if (win->actual_page == HOUSE2)
+        tab = tab_house2;
+    if (win->actual_page == HOUSE3)
+        tab = tab_house3;
     if (win->actual_page == FOREST)
         tab = tab_forest;
     if (win->actual_page == FINAL)
@@ -287,7 +301,7 @@ void move_player(window_t *win)
 {
     if (win->actual_page == TOWN)
         open_door(win);
-    if (win->actual_page == HOUSE1)
+    if (win->actual_page == HOUSE1 || win->actual_page == HOUSE2 || win->actual_page == HOUSE3)
         close_door(win);
     if (win->actual_page == FINAL)
         go_boss(win);
@@ -407,30 +421,10 @@ void open_inventory(window_t *win)
 void close_door(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfIntRect rect;
-    sfVector2f pos_door;
 
-    rect = sfSprite_getTextureRect(win->scene[HOUSE1].sprite[1].sprite);
-    pos_door = sfSprite_getPosition(win->scene[HOUSE1].sprite[1].sprite);
-    if (pos_player.x >= pos_door.x - 20 && pos_player.x <= pos_door.x + 40) {
-        if (pos_player.y >= pos_door.y - 100 && pos_player.y <= pos_door.y) {
-            rect.top = 64;
-            sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
-        } else {
-            if (rect.top >= 64) {
-                rect.top = 0;
-                sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
-            }
-        }
-        if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == DOWN) {
-            win->page = TOWN;
-            sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
-        }
-    } else {
-        if (rect.top >= 64) {
-            rect.top = 0;
-            sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite, rect);
-        }
+    if (is_inside_zone(get_pos_float(880, 750), get_pos_float(935, 850), pos_player) == 1) {
+        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+        win->page = TOWN;
     }
 }
 
@@ -490,8 +484,13 @@ void open_door(window_t *win)
                 win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
                 win->player->last_pos.y += 50;
                 pos_player.y -= 50;
-                sfSprite_setPosition(win->player->sprite->sprite, pos_player);
-                win->page = HOUSE1;
+                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(880, 730));
+                if (i == 1)
+                    win->page = HOUSE1;
+                if (i == 2)
+                    win->page = HOUSE2;
+                if (i == 3)
+                    win->page = HOUSE3;
             }
         } else {
             if (rect.top >= 64) {

@@ -48,6 +48,8 @@ enum page {
     CASTLE,
     TOWN,
     HOUSE1,
+    HOUSE2,
+    HOUSE3,
     FOREST,
     FINAL,
     BOSS,
@@ -191,7 +193,6 @@ void leave_final(window_t *win);
 
 // INITIALISATION SCENES
 window_t *init_forest(window_t *win);
-window_t *init_house1(window_t *win);
 window_t *init_town(window_t *win);
 window_t *init_menu(window_t *win);
 window_t *init_choose_heroes(window_t *win);
@@ -201,6 +202,9 @@ window_t *init_how_to_play(window_t *win);
 window_t *init_final(window_t *win);
 window_t *init_combat(window_t *win);
 window_t *init_boss(window_t *win);
+window_t *init_house_1(window_t *win);
+window_t *init_house_2(window_t *win);
+window_t *init_house_3(window_t *win);
 
 // INITIALISATION ELEMENTS
 void init_player(player_t *player);
@@ -261,11 +265,8 @@ int button_is_hovered(button_t button, sfVector2i mouse_position);
 sfIntRect *init_pos_button(void);
 
 // HERO CHOOSE
-void choose_glenys(window_t *win);
 void choose_hex(window_t *win);
-void choose_ley(window_t *win);
 void choose_linail(window_t *win);
-void choose_oratio(window_t *win);
 void choose_ouzo(window_t *win);
 void choose_prime(window_t *win);
 void choose_wyvera(window_t *win);

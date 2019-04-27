@@ -14,51 +14,26 @@ void choose_hero(window_t *win)
 
     switch (actual) {
     case 0:
-        choose_glenys(win);
-        break;
-    case 1:
         choose_hex(win);
         break;
-    case 2:
-        choose_ley(win);
-        break;
-    case 3:
+    case 1:
         choose_linail(win);
         break;
-    case 4:
-        choose_oratio(win);
-        break;
-    case 5:
+    case 2:
         choose_ouzo(win);
         break;
-    case 6:
+    case 3:
         choose_prime(win);
         break;
-    case 7:
+    case 4:
         choose_wyvera(win);
         break;
     default:
         break;
     }
     actual++;
-    if (actual == 8)
+    if (actual == 5)
         actual = 0;
-}
-
-void choose_glenys(window_t *win)
-{
-    win->player->name = "Glenys-the-Demonswordsman";
-    win->player->health = 150;
-    win->player->strength = 150;
-    sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
-    sfText_setString(win->scene[HEROES].text[3].str, my_itc(win->player->health));
-    sfText_setString(win->scene[HEROES].text[5].str, my_itc(win->player->strength));
-    sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile("ressources/pack/Pixel_Champions/Magical Heroes/Glenys-the-Demonswordsman.png", NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
 }
 
 void choose_hex(window_t *win)
@@ -77,22 +52,6 @@ void choose_hex(window_t *win)
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
 }
 
-void choose_ley(window_t *win)
-{
-    win->player->name = "Ley-the-Monster-Whisperer";
-    win->player->health = 80;
-    win->player->strength = 90;
-    sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
-    sfText_setString(win->scene[HEROES].text[3].str, my_itc(win->player->health));
-    sfText_setString(win->scene[HEROES].text[5].str, my_itc(win->player->strength));
-    sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile("ressources/pack/Pixel_Champions/Magical Heroes/Ley-the-Monster-Whisperer.png", NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-}
-
 void choose_linail(window_t *win)
 {
     win->player->name = "Linail-the-High-Priestess";
@@ -104,22 +63,6 @@ void choose_linail(window_t *win)
     sfMusic_play(win->music->button_sound);
     sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
     win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile("ressources/pack/Pixel_Champions/Magical Heroes/Linail-the-High-Priestess.png", NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
-}
-
-void choose_oratio(window_t *win)
-{
-    win->player->name = "Oratio-the-Mercenary";
-    win->player->health = 100;
-    win->player->strength = 100;
-    sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
-    sfText_setString(win->scene[HEROES].text[3].str, my_itc(win->player->health));
-    sfText_setString(win->scene[HEROES].text[5].str, my_itc(win->player->strength));
-    sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile("ressources/pack/Pixel_Champions/Magical Heroes/Oratio-the-Mercenary.png", NULL);
     sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].texture, sfTrue);
     sfSprite_setScale(win->scene[HEROES].sprite[0].sprite, get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite, win->scene[HEROES].sprite[0].rect);
