@@ -14,11 +14,12 @@ window_t *init_combat(window_t *win)
     int order_button[] = {REPRENDRE, QUITTER, FLECHE};
     char *skin = malloc(sizeof(char) * 80);
 
-    set_struct(win, 5, 2, 1);
+    set_struct(win, 5, 2, 2);
     win->combat_clock = sfClock_create();
     skin = my_strcat("ressources/pack/Pixel_Champions/Magical Heroes/", win->player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&win->scene[COMBAT].sprite[0], skin, get_pos_float(1500, 500));
+    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/background_boss.png", get_pos_float(0, 0));
     set_next_buttons(&win->scene[COMBAT].button[0], win->rect_buttons, order_button[0]);
     init_button(&win->scene[COMBAT].button[0], get_pos_float(-200, -200), size, win->texture_button);
     set_next_buttons(&win->scene[COMBAT].button[1], win->rect_buttons, order_button[1]);
