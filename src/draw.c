@@ -43,7 +43,7 @@ window_t *draw_scene(window_t *win)
         if (win->scene[win->actual_page].sprite[i].depth == 0 && (win->pause == 0 || win->inventory == 1))
             sfRenderWindow_drawSprite(win->window, win->scene[win->actual_page].sprite[i].sprite, NULL);
     }
-    if (win->actual_page >= CASTLE && win->actual_page < COMBAT1) {
+    if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
         if (win->pause == 0 || win->inventory == 1)
             sfRenderWindow_drawSprite(win->window, win->player->sprite->sprite, NULL);
     }
@@ -71,7 +71,7 @@ window_t *draw_scene(window_t *win)
                 sfRenderWindow_drawSprite(win->window, win->objects[i].sprite, NULL);
         }     
     }
-    if (win->actual_page >= CASTLE  && win->actual_page < COMBAT1) {
+    if (win->actual_page >= CASTLE  && win->actual_page < COMBAT) {
         sfRenderWindow_drawText(win->window, win->text->str, NULL);
         if (win->quests->sprite[1].depth >= 0) {
             sfRenderWindow_drawSprite(win->window, win->quests->sprite[1].sprite, NULL);
@@ -91,7 +91,7 @@ window_t *draw_scene(window_t *win)
         for (int i = 2; i < win->quests->quete_done + 2; i++)
             sfRenderWindow_drawSprite(win->window, win->quests->sprite[i].sprite, NULL);
     }
-    if (win->actual_page == COMBAT1) {
+    if (win->actual_page == COMBAT) {
         sfRenderWindow_drawText(win->window, win->enemy->text->str, NULL);
         sfRenderWindow_drawSprite(win->window, win->enemy->sprite->sprite, NULL);
     }

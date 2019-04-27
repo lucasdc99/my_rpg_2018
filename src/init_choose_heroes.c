@@ -38,7 +38,7 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].button[0].callback = &choose_hero;
     win->scene[HEROES].button[1].callback = &play_game;
     win->scene[HEROES].button[2].callback = &main_menu;
-    init_sprite(&win->scene[HEROES].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Hex-the-Time-Witch", get_pos_float(100, 100));
+    init_sprite(&win->scene[HEROES].sprite[0], "ressources/pack/Pixel_Champions/Magical Heroes/Hex-the-Time-Witch.png", get_pos_float(100, 100));
     win->scene[HEROES].sprite[0].rect.top = 100;
     win->scene[HEROES].sprite[0].rect.left = 0;
     win->scene[HEROES].sprite[0].rect.width = 50;

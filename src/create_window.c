@@ -17,7 +17,7 @@ window_t *create_window(window_t *win)
     win->page = MAINMENU;
     win->actual_page = win->page;
     win->nb_objects = 3;
-    win->scene = malloc(sizeof(scene_t) * 13);
+    win->scene = malloc(sizeof(scene_t) * 14);
     win->quests = malloc(sizeof(quest_t) * 1);
     win->quests->sprite = malloc(sizeof(sprite_t) * 6);
     win->quests->text = malloc(sizeof(text_t) * 5);
@@ -42,6 +42,7 @@ window_t *create_window(window_t *win)
     init_text(win->text, "\n", get_pos_float(1450, 950));
     win->pause = 0;
     win->turn = 0;
+    win->combat = 0;
     win->move = sfClock_create();
     win->no_saves = 0;
     return (win);

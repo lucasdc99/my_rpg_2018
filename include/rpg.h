@@ -53,7 +53,8 @@ enum page {
     FOREST,
     FINAL,
     BOSS,
-    COMBAT1,
+    COMBAT,
+    END,
 };
 
 typedef struct s_text {
@@ -141,13 +142,14 @@ typedef struct s_window {
     int vsync;
     int fps;
     sfClock *move;
-    sfClock *combat;
+    sfClock *combat_clock;
     sfTime move_time;
     sfTime combat_time;
     sfIntRect *rect_buttons;
     int seconds;
     int pause;
     int inventory;
+    int combat;
     int quest;
     int no_saves;
     int turn;
@@ -205,6 +207,7 @@ window_t *init_boss(window_t *win);
 window_t *init_house_1(window_t *win);
 window_t *init_house_2(window_t *win);
 window_t *init_house_3(window_t *win);
+window_t *init_end(window_t *win);
 
 // INITIALISATION ELEMENTS
 void init_player(player_t *player);
@@ -215,6 +218,7 @@ void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
 void init_quests(quest_t *quest);
 void init_music(music_t *music);
+void init_enemy(window_t *win);
 
 // CSFML BASICS
 window_t *create_window(window_t *win);

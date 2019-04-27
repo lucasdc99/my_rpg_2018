@@ -23,7 +23,8 @@ ptr_func *init_func(void)
         {FOREST, &init_forest, &draw_scene, &global_event, &destroy_scene},
         {FINAL, &init_final, &draw_scene, &global_event, &destroy_scene},
         {BOSS, &init_boss, &draw_scene, &global_event, &destroy_scene},
-        {COMBAT1, &init_combat, &draw_scene, &global_event, &destroy_scene},
+        {COMBAT, &init_combat, &draw_scene, &global_event, &destroy_scene},
+        {END, &init_end, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
 }
@@ -52,7 +53,7 @@ void display(window_t *win)
             win->seconds = win->move_time.microseconds / 1000000.0;
             animation_choose_heroes(win, 48);
         }
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT1 && win->pause == 0 && win->no_saves == 0) {
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->pause == 0 && win->no_saves == 0) {
             move_player(win);
             if (win->actual_page == TOWN) {
                 go_castle(win);
@@ -69,12 +70,12 @@ void display(window_t *win)
             if (win->actual_page == FINAL)
                 leave_final(win);
         }
-        if (win->turn == 1 && win->actual_page == COMBAT1) {
-            sfClock_restart(win->combat);
-            win->combat_time = sfClock_getElapsedTime(win->combat);
+        if (win->turn == 1 && win->actual_page == COMBAT) {
+            sfClock_restart(win->combat_clock);
+            win->combat_time = sfClock_getElapsedTime(win->combat_clock);
             win->seconds = win->combat_time.microseconds / 1000000.0;
             while (win->seconds < 2) {
-                win->combat_time = sfClock_getElapsedTime(win->combat);
+                win->combat_time = sfClock_getElapsedTime(win->combat_clock);
                 win->seconds = win->combat_time.microseconds / 100000.0;
             }
             enemy_attack(win);

@@ -47,7 +47,7 @@ int main(int ac, char **av, char **env)
     win->player = parser_player(win->player, "ressources/text/config_player");
     win->inv = parser_inv(win->inv, "ressources/text/inventory");
     win->quests = parser_quests(win->quests, "ressources/text/quests");
-    if (win->player == NULL) {
+    if (win->player == NULL || win->player->last_page == END) {
         win->no_saves = 1;
         win->player = malloc(sizeof(player_t) * 1);
         win->player->sprite = malloc(sizeof(sprite_t) * 1);
@@ -61,6 +61,8 @@ int main(int ac, char **av, char **env)
         win->player->direction = 1;
         win->player->move_rect = 0;
         win->player->last_page = CASTLE;
+        win->inv = NULL;
+        win->quests = NULL;
         save_config_player(win);
     }
     if (win->player->last_pos.x < 0)
