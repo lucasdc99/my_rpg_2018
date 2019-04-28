@@ -113,24 +113,16 @@ int check_dead_zone(window_t *win, int move)
     return (0);
 }
 
-char **switch_tab(window_t *win)
-{
-    
-}
-
 void drag_button(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     int get_pos_volume = 800;
-
     win->music->vol_drag_posx = click_pos.x;
     float diff_between_volume = win->music->vol_drag_posx - get_pos_volume; 
     char *str = malloc(sizeof(char) * 5);
 
     sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].shape);
     sfVector2f get_size_four = sfRectangleShape_getSize(win->scene[OPTIONS].button[4].shape);
-
-
     if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
         click_pos.y > get_pos_four.y && click_pos.y < get_pos_four.y + get_size_four.y) {
         if (win->music->vol_drag_posx >= VALUE_FIRST && win->music->vol_drag_posx <= 1056) {
@@ -150,33 +142,9 @@ void close_door(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (is_inside_zone(get_pos_float(880, 750), get_pos_float(935, 850), pos_player) == 1) {
+    if (is_inside_zone(get_pos_float(880, 750), get_pos_float(935, 850),
+    pos_player) == 1) {
         sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
         win->page = TOWN;
-    }
-}
-
-void check_combat_zone(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (win->actual_page == FINAL) {
-        if (is_inside_zone(get_pos_float(800, 680), get_pos_float(1200, 730), pos_player) == 1 && win->combat == 0) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
-        if (is_inside_zone(get_pos_float(800, 280), get_pos_float(1200, 330), pos_player) == 1 && win->combat == 1) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
-    }
-    if (win->actual_page == BOSS) {
-        if (is_inside_zone(get_pos_float(800, 0), get_pos_float(1200, 150), pos_player) == 1 && win->combat == 2) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
     }
 }

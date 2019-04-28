@@ -183,6 +183,7 @@ void move_player_up(window_t *win);
 void move_player_left(window_t *win);
 void move_player_down(window_t *win);
 void move_player(window_t *win);
+void check_combat_zone(window_t *win);
 int check_dead_zone(window_t *win, int move);
 
 // CHANGE SCENE
@@ -192,6 +193,9 @@ void go_town(window_t *win);
 void close_door(window_t *win);
 void open_door(window_t *win);
 void leave_final(window_t *win);
+void go_boss(window_t *win);
+void leave_boss(window_t *win);
+void start_combat(window_t *, sfVector2f);
 
 // INITIALISATION SCENES
 window_t *init_forest(window_t *win);
@@ -255,6 +259,7 @@ char **transform_2d(char *tmp, char sep);
 char *get_next_line(int fd);
 int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos);
 void display_text_in_textbox(quest_t *quest, char *text);
+void drag_button(window_t *win);
 
 // DESTROY
 void destroy_all(window_t *win);
@@ -280,6 +285,7 @@ void animation_mainmenu(window_t *win);
 void animation_choose_heroes(window_t *win);
 void animation_torch(window_t *win, int offset);
 void animation_begin(window_t *win);
+void animate_player_walk(window_t *win);
 
 // SAVES
 void save_inventory(window_t *win);
@@ -298,6 +304,7 @@ int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
 int check_existing_inventory(window_t *win, char *name);
 int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos);
 char *get_name_from_type(int type);
+void open_inventory(window_t *win);
 
 // PLAYER HANDLING
 void set_player(window_t *win);
@@ -332,6 +339,11 @@ void unpause_game(window_t *win);
 // TALK PNJ
 void close_textbox(window_t *win);
 void talk_to_old(window_t *win, sfVector2f pos_player);
+
+// MOUSE EVENTS
+void mouse_pressed_event(window_t *win);
+void mouse_released_event(window_t *win);
+void mouse_moved_event(window_t *win);
 
 
 #endif
