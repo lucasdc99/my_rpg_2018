@@ -41,13 +41,7 @@ static void do_attack(window_t *win, int type)
         sfRenderWindow_drawSprite(win->window,
         win->scene[COMBAT].sprite[0].sprite, NULL);
         sfRenderWindow_display(win->window);
-        sfClock_restart(win->combat_clock);
-        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 1000000.0;
-        while (win->seconds < 1) {
-            win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-            win->seconds = win->combat_time.microseconds / 100000.0;
-        }
+        my_wait(win, 1);
     }
 }
 
@@ -55,13 +49,7 @@ void basic_attack(window_t *win)
 {
     if (win->turn == 1)
         return;
-    sfClock_restart(win->combat_clock);
-    win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-    win->seconds = win->combat_time.microseconds / 1000000.0;
-    while (win->seconds < 10) {
-        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 100000.0;
-    }
+    my_wait(win, 10);
     do_attack(win, 2);
     check_life(win, 20);
 }
@@ -70,13 +58,7 @@ void special_attack(window_t *win)
 {
     if (win->turn == 1)
         return;
-    sfClock_restart(win->combat_clock);
-    win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-    win->seconds = win->combat_time.microseconds / 1000000.0;
-    while (win->seconds < 2) {
-        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 100000.0;
-    }
+    my_wait(win, 2);
     do_attack(win, 1);
     check_life(win, 30);
 }

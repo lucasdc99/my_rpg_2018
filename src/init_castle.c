@@ -8,6 +8,20 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static void set_sprites(window_t *win)
+{
+    win->scene[CASTLE].sprite[5].rect = get_rect(19, 0, 11, 20);
+    win->scene[CASTLE].sprite[6].rect = get_rect(19, 0, 11, 20);
+    sfSprite_setTextureRect(win->scene[CASTLE].sprite[5].sprite,
+    win->scene[CASTLE].sprite[5].rect);
+    sfSprite_setTextureRect(win->scene[CASTLE].sprite[6].sprite,
+    win->scene[CASTLE].sprite[6].rect);
+    sfSprite_setScale(win->scene[CASTLE].sprite[5].sprite,
+    get_pos_float(2, 2));
+    sfSprite_setScale(win->scene[CASTLE].sprite[6].sprite,
+    get_pos_float(2, 2));
+}
+
 static void init_sprites(window_t *win)
 {
     int pos_x[] = {0, 307, 81, 1350, 1520, 421, 1473};
@@ -25,16 +39,7 @@ static void init_sprites(window_t *win)
         win->scene[CASTLE].sprite[i].depth = 1;
     }
     win->scene[CASTLE].sprite[0].depth = -1;
-    win->scene[CASTLE].sprite[5].rect = get_rect(19, 0, 11, 20);
-    win->scene[CASTLE].sprite[6].rect = get_rect(19, 0, 11, 20);
-    sfSprite_setTextureRect(win->scene[CASTLE].sprite[5].sprite,
-    win->scene[CASTLE].sprite[5].rect);
-    sfSprite_setTextureRect(win->scene[CASTLE].sprite[6].sprite,
-    win->scene[CASTLE].sprite[6].rect);
-    sfSprite_setScale(win->scene[CASTLE].sprite[5].sprite,
-    get_pos_float(2, 2));
-    sfSprite_setScale(win->scene[CASTLE].sprite[6].sprite,
-    get_pos_float(2, 2));
+    set_sprites(win);
 }
 
 window_t *init_castle(window_t *win)

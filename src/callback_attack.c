@@ -24,13 +24,7 @@ static void do_attack(window_t *win)
         sfRenderWindow_drawSprite(win->window,
         win->scene[COMBAT].sprite[0].sprite, NULL);
         sfRenderWindow_display(win->window);
-        sfClock_restart(win->combat_clock);
-        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 1000000.0;
-        while (win->seconds < 1) {
-            win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-            win->seconds = win->combat_time.microseconds / 100000.0;
-        }
+        my_wait(win, 1);
     }
 }
 

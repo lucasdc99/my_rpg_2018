@@ -8,6 +8,17 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void my_wait(window_t *win, int seconds)
+{
+    sfClock_restart(win->combat_clock);
+    win->combat_time = sfClock_getElapsedTime(win->combat_clock);
+    win->seconds = win->combat_time.microseconds / 1000000.0;
+    while (win->seconds < seconds) {
+        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
+        win->seconds = win->combat_time.microseconds / 100000.0;
+    }
+}
+
 int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos)
 {
     if (pos.x >= limit1.x && pos.x <= limit2.x) {

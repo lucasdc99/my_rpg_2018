@@ -8,17 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void wait_turn(window_t *win, int seconds)
-{
-    sfClock_restart(win->combat_clock);
-    win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-    win->seconds = win->combat_time.microseconds / 1000000.0;
-    while (win->seconds < seconds) {
-        win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 100000.0;
-    }
-}
-
 static void do_attack(window_t *win)
 {
     sfIntRect rect;
@@ -35,7 +24,7 @@ static void do_attack(window_t *win)
         sfRenderWindow_drawSprite(win->window,
         win->enemy->sprite->sprite, NULL);
         sfRenderWindow_display(win->window);
-        wait_turn(win, 1);
+        my_wait(win, 1);
     }
 }
 
@@ -64,7 +53,7 @@ static void enemy_attack(window_t *win)
 void check_enemy_turn(window_t *win)
 {
     if (win->turn == 1 && win->actual_page == COMBAT) {
-        wait_turn(win, 2);
+        my_wait(win, 2);
         enemy_attack(win);
         win->turn = 0;
     }

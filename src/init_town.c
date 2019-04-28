@@ -8,26 +8,12 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void init_sprites(window_t *win)
+static void set_sprites(window_t *win)
 {
-    char *name[] = {
-        "ressources/town.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "ressources/chars.png"};
-    int pos_x[] = {0, 646, 212, 1380, 1019, 573};
-    int pos_y[] = {0, 645, 645, 645, 37, 683};
     sfIntRect rect[] = {
         get_rect(32, 0, 16, 27), get_rect(32, 0, 16, 27),
         get_rect(32, 0, 16, 27), get_rect(176, 128, 16, 27)};
 
-    for (int i = 0; i < win->scene[TOWN].nb_sprite; i++) {
-        init_sprite(&win->scene[TOWN].sprite[i], name[i],
-        get_pos_float(pos_x[i], pos_y[i]));
-        win->scene[TOWN].sprite[i].depth = 0;
-    }
     for (int i = 1; i < win->scene[TOWN].nb_sprite - 1; i++) {
         sfSprite_setTextureRect(win->scene[TOWN].sprite[i].sprite,
         rect[i - 1]);
@@ -39,6 +25,26 @@ static void init_sprites(window_t *win)
     sfSprite_setScale(win->scene[TOWN].sprite[5].sprite,
     get_pos_float(1.5, 1.5));
     win->scene[TOWN].sprite[0].depth = -1;
+}
+
+static void init_sprites(window_t *win)
+{
+    char *name[] = {
+        "ressources/town.png",
+        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
+        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
+        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
+        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
+        "ressources/chars.png"};
+    int pos_x[] = {0, 646, 212, 1380, 1019, 573};
+    int pos_y[] = {0, 645, 645, 645, 37, 683};
+
+    for (int i = 0; i < win->scene[TOWN].nb_sprite; i++) {
+        init_sprite(&win->scene[TOWN].sprite[i], name[i],
+        get_pos_float(pos_x[i], pos_y[i]));
+        win->scene[TOWN].sprite[i].depth = 0;
+    }
+    set_sprites(win);
 }
 
 window_t *init_town(window_t *win)
