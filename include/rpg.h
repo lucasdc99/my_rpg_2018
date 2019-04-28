@@ -306,4 +306,32 @@ void set_player(window_t *win);
 void close_textbox(window_t *win);
 void check_item_pickup(window_t *win);
 
+// CHECK ITEM INVENTORY
+int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
+void check_pickup_sword(window_t *win, sfVector2f pos_player);
+void check_pickup_armor(window_t *win, sfVector2f pos_player);
+void check_item_pickup(window_t *win);
+
+// CHECK INVENTORY
+sfVector2f get_nearest_item_pos(inventory_t *inv, sfVector2f move_pos);
+void check_drag_and_drop_inv(window_t *win);
+void drag_and_drop_inv(window_t *win);
+int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos);
+char *get_name_from_type(int type);
+
+// INTERACTION PLAYER
+void close_inventory(window_t *win);
+void open_quest(window_t *win);
+void close_quest(window_t *win);
+
+// INTERACTION GAME
+void open_door(window_t *win);
+void pause_game(window_t *win);
+void unpause_game(window_t *win);
+
+// TALK PNJ
+void close_textbox(window_t *win);
+void talk_to_old(window_t *win, sfVector2f pos_player);
+
+
 #endif
