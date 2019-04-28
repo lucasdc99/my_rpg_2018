@@ -11,8 +11,10 @@
 int check_existing_inventory(window_t *win, char *name)
 {
     for (int i = 0; i < 15; i++) {
-        if (win->inv->items[i].name != NULL && my_strcmp(win->inv->items[i].name, name) == 0)
+        if (win->inv->items[i].name != NULL &&
+        my_strcmp(win->inv->items[i].name, name) == 0) {
             return (1);
+        }
     }
     return (0);
 }

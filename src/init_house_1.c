@@ -14,12 +14,18 @@ window_t *init_house_1(window_t *win)
     int order_button[] = {REPRENDRE, QUITTER};
 
     set_struct(win, 2, 0, 1);
-    set_next_buttons(&win->scene[HOUSE1].button[0], win->rect_buttons, order_button[0]);
-    init_button(&win->scene[HOUSE1].button[0], get_pos_float(-200, -200), size, win->texture_button);
-    set_next_buttons(&win->scene[HOUSE1].button[1], win->rect_buttons, order_button[1]);
-    init_button(&win->scene[HOUSE1].button[1], get_pos_float(-200, -200), size, win->texture_button);
-    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png", get_pos_float(0, 0));
-    sfSprite_setPosition(win->scene[HOUSE1].sprite[0].sprite, get_pos_float(670, 300));
+    set_next_buttons(&win->scene[HOUSE1].button[0], win->rect_buttons,
+    order_button[0]);
+    init_button(&win->scene[HOUSE1].button[0], get_pos_float(-200, -200),
+    size, win->texture_button);
+    set_next_buttons(&win->scene[HOUSE1].button[1], win->rect_buttons,
+    order_button[1]);
+    init_button(&win->scene[HOUSE1].button[1], get_pos_float(-200, -200),
+    size, win->texture_button);
+    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png",
+    get_pos_float(0, 0));
+    sfSprite_setPosition(win->scene[HOUSE1].sprite[0].sprite,
+    get_pos_float(670, 300));
     win->scene[HOUSE1].sprite[0].depth = -1;
     win->scene[HOUSE1].button[0].callback = &quit_pause;
     win->scene[HOUSE1].button[1].callback = &main_menu;

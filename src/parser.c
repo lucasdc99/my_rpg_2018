@@ -70,20 +70,17 @@ player_t *parser_player(player_t *player, char *filename)
     if (fd < 0)
         return (NULL);
     player->name = parse_string(get_next_line(fd));
-    if (player->name == NULL)
-        return (NULL);
     player->health = parse_int(get_next_line(fd));
-    if (player->health < 0)
-        return (NULL);
     player->xp = parse_int(get_next_line(fd));
-    if (player->xp < 0)
-        return (NULL);
     player->strength = parse_int(get_next_line(fd));
-    if (player->strength < 0)
-        return (NULL);
     player->last_pos.x = parse_int(get_next_line(fd));
     player->last_pos.y = parse_int(get_next_line(fd));
     player->last_page = parse_int(get_next_line(fd));
+    if (player->name == NULL || player->health < 0 || player->xp < 0 ||
+    player->strength < 0 || player->last_pos.x < 0 || player->last_pos.y < 0 ||
+    player->last_page < 0) {
+        return (NULL);
+    }
     while (get_next_line(fd) != NULL)
         get_next_line(fd);
     close(fd);

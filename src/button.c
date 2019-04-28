@@ -68,11 +68,11 @@ sfIntRect *init_pos_button(void)
     return (rect);
 }
 
-void init_button(button_t *button, sfVector2f position, sfVector2f size, sfTexture *texture)
+void init_button(button_t *but, sfVector2f pos, sfVector2f size, sfTexture *tx)
 {
-    button->shape = sfRectangleShape_create();
-    sfRectangleShape_setPosition(button->shape, position);
-    sfRectangleShape_setSize(button->shape, size);
-    sfRectangleShape_setTexture(button->shape, texture, sfTrue);
-    sfRectangleShape_setTextureRect(button->shape, button->rect_idle);
+    but->shape = sfRectangleShape_create();
+    sfRectangleShape_setPosition(but->shape, pos);
+    sfRectangleShape_setSize(but->shape, size);
+    sfRectangleShape_setTexture(but->shape, tx, sfTrue);
+    sfRectangleShape_setTextureRect(but->shape, but->rect_idle);
 }

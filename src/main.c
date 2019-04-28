@@ -34,37 +34,30 @@ int display_help(void)
     return (0);
 }
 
-int main(int ac, char **av, char **env)
+void reset_player(window_t *win)
 {
-    window_t *win = malloc(sizeof(window_t) * 1);
+    win->no_saves = 1;
+    win->player = malloc(sizeof(player_t) * 1);
+    win->player->sprite = malloc(sizeof(sprite_t) * 1);
+    win->player->name = NULL;
+    win->player->sprite->sprite = NULL;
+    win->player->sprite->texture = NULL;
+    win->player->strength = 0;
+    win->player->health = 0;
+    win->player->xp = 0;
+    win->player->last_pos = get_pos_float(-100, -100);
+    win->player->direction = 1;
+    win->player->move_rect = 0;
+    win->player->last_page = CASTLE;
+    win->inv = NULL;
+    win->quests = NULL;
+    save_config_player(win);
+}
 
-    if (win == NULL || env == NULL || env[0] == NULL || check_env(env) == 84)
-        return (84);
-    if (ac == 2 && my_strcmp(av[1], "-h") == 0)
-        return (display_help());
-    win = create_window(win);
-    init_music(win->music);
-    win->player = parser_player(win->player, "ressources/text/config_player");
-    win->inv = parser_inv(win->inv, "ressources/text/inventory");
-    win->quests = parser_quests(win->quests, "ressources/text/quests");
-    if (win->player == NULL || win->player->last_page == END) {
-        win->no_saves = 1;
-        win->player = malloc(sizeof(player_t) * 1);
-        win->player->sprite = malloc(sizeof(sprite_t) * 1);
-        win->player->name = NULL;
-        win->player->sprite->sprite = NULL;
-        win->player->sprite->texture = NULL;
-        win->player->strength = 0;
-        win->player->health = 0;
-        win->player->xp = 0;
-        win->player->last_pos = get_pos_float(-100, -100);
-        win->player->direction = 1;
-        win->player->move_rect = 0;
-        win->player->last_page = CASTLE;
-        win->inv = NULL;
-        win->quests = NULL;
-        save_config_player(win);
-    }
+void check_error_config(window_t *win)
+{
+    if (win->player == NULL || win->player->last_page == END)
+        reset_player(win);
     if (win->player->last_pos.x < 0)
         win->no_saves = 1;
     if (win->inv == NULL) {
@@ -82,6 +75,22 @@ int main(int ac, char **av, char **env)
         win->quests->quete_done = 0;
         save_quests(win);
     }
+}
+
+int main(int ac, char **av, char **env)
+{
+    window_t *win = malloc(sizeof(window_t) * 1);
+
+    if (win == NULL || env == NULL || env[0] == NULL || check_env(env) == 84)
+        return (84);
+    if (ac == 2 && my_strcmp(av[1], "-h") == 0)
+        return (display_help());
+    win = create_window(win);
+    init_music(win->music);
+    win->player = parser_player(win->player, "ressources/text/config_player");
+    win->inv = parser_inv(win->inv, "ressources/text/inventory");
+    win->quests = parser_quests(win->quests, "ressources/text/quests");
+    check_error_config(win);
     display(win);
     destroy_all(win);
     return (0);

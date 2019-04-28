@@ -12,8 +12,10 @@ ptr_func *init_func(void)
 {
     static ptr_func ptr_choose[] = {
         {MAINMENU, &init_menu, &draw_scene, &global_event, &destroy_scene},
-        {HEROES, &init_choose_heroes, &draw_scene, &global_event, &destroy_scene},
-        {HOW_TO_PLAY, &init_how_to_play, &draw_scene, &global_event, &destroy_scene},
+        {HEROES, &init_choose_heroes, &draw_scene, &global_event,
+            &destroy_scene},
+        {HOW_TO_PLAY, &init_how_to_play, &draw_scene, &global_event,
+            &destroy_scene},
         {OPTIONS, &init_options, &draw_scene, &global_event, &destroy_scene},
         {CASTLE, &init_castle, &draw_scene, &global_event, &destroy_scene},
         {TOWN, &init_town, &draw_scene, &global_event, &destroy_scene},
@@ -27,6 +29,28 @@ ptr_func *init_func(void)
         {END, &init_end, &draw_scene, &global_event, &destroy_scene},
     };
     return (ptr_choose);
+}
+
+void manage_game(window_t *win)
+{
+    if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
+    win->pause == 0 && win->no_saves == 0) {
+        move_player(win);
+        if (win->actual_page == TOWN) {
+            go_castle(win);
+        }
+        if (win->actual_page == CASTLE) {
+            go_town(win);
+            go_forest(win);
+            win->move_time = sfClock_getElapsedTime(win->move);
+            win->seconds = win->move_time.microseconds / 400000.0;
+            animation_torch(win, 20);
+        }
+        if (win->actual_page == FOREST)
+            go_castle(win);
+        if (win->actual_page == FINAL)
+            leave_final(win);
+    }
 }
 
 void display(window_t *win)
@@ -43,43 +67,9 @@ void display(window_t *win)
         while (sfRenderWindow_pollEvent(win->window, &win->event))
             ptr_choose[win->actual_page].event(win);
         win = ptr_choose[win->actual_page].draw(win);
-        if (win->actual_page == MAINMENU) {
-            win->move_time = sfClock_getElapsedTime(win->move);
-            win->seconds = win->move_time.microseconds / 130000.0;
-            animation_mainmenu(win, 1920);
-        }
-        if (win->actual_page == HEROES) {
-            win->move_time = sfClock_getElapsedTime(win->move);
-            win->seconds = win->move_time.microseconds / 1000000.0;
-            animation_choose_heroes(win, 48);
-        }
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->pause == 0 && win->no_saves == 0) {
-            move_player(win);
-            if (win->actual_page == TOWN) {
-                go_castle(win);
-            }
-            if (win->actual_page == CASTLE) {
-                go_town(win);
-                go_forest(win);
-                win->move_time = sfClock_getElapsedTime(win->move);
-                win->seconds = win->move_time.microseconds / 400000.0;
-                animation_torch(win, 20);
-            }
-            if (win->actual_page == FOREST)
-                go_castle(win);
-            if (win->actual_page == FINAL)
-                leave_final(win);
-        }
-        if (win->turn == 1 && win->actual_page == COMBAT) {
-            sfClock_restart(win->combat_clock);
-            win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-            win->seconds = win->combat_time.microseconds / 1000000.0;
-            while (win->seconds < 2) {
-                win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-                win->seconds = win->combat_time.microseconds / 100000.0;
-            }
-            enemy_attack(win);
-            win->turn = 0;
-        }
+        animation_mainmenu(win);
+        animation_choose_heroes(win);
+        manage_game(win);
+        check_enemy_turn(win);
     }
 }

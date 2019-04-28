@@ -8,15 +8,8 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-window_t *create_window(window_t *win)
+static void malloc_struct(window_t *win)
 {
-    sfVideoMode mode = {1920, 1080, 32};
-    char *name = {"TEKZERK"};
-
-    win->window = sfRenderWindow_create(mode, name, sfClose | sfResize, NULL);
-    win->page = MAINMENU;
-    win->actual_page = win->page;
-    win->nb_objects = 3;
     win->scene = malloc(sizeof(scene_t) * 14);
     win->quests = malloc(sizeof(quest_t) * 1);
     win->quests->sprite = malloc(sizeof(sprite_t) * 6);
@@ -32,12 +25,14 @@ window_t *create_window(window_t *win)
     win->text = malloc(sizeof(text_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->objects = malloc(sizeof(sprite_t) * win->nb_objects);
-    sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
-    win->vsync = 1;
-    sfRenderWindow_setFramerateLimit(win->window, 60);
-    win->fps = 60;
+}
+
+static void init_win_variable(window_t *win)
+{
+    char *name = {"ressources/buttons/buttons.png"};
+
     win->inventory = 0;
-    win->texture_button = sfTexture_createFromFile("ressources/buttons/buttons.png", NULL);
+    win->texture_button = sfTexture_createFromFile(name, NULL);
     win->rect_buttons = init_pos_button();
     init_text(win->text, "\n", get_pos_float(1450, 950));
     win->pause = 0;
@@ -45,5 +40,22 @@ window_t *create_window(window_t *win)
     win->combat = 0;
     win->move = sfClock_create();
     win->no_saves = 0;
+}
+
+window_t *create_window(window_t *win)
+{
+    sfVideoMode mode = {1920, 1080, 32};
+    char *name = {"TEKZERK"};
+
+    win->window = sfRenderWindow_create(mode, name, sfClose, NULL);
+    win->page = MAINMENU;
+    win->actual_page = win->page;
+    win->nb_objects = 3;
+    malloc_struct(win);
+    sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
+    win->vsync = 1;
+    sfRenderWindow_setFramerateLimit(win->window, 60);
+    win->fps = 60;
+    init_win_variable(win);
     return (win);
 }

@@ -242,7 +242,7 @@ void unpause_game(window_t *win);
 void basic_attack(window_t *win);
 void special_attack(window_t *win);
 void stats_attack(window_t *win);
-void enemy_attack(window_t *win);
+void check_enemy_turn(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);
@@ -276,9 +276,10 @@ void choose_prime(window_t *win);
 void choose_wyvera(window_t *win);
 
 // ANIMATIONS
-void animation_mainmenu(window_t *win, int offset);
-void animation_choose_heroes(window_t *win, int offset);
+void animation_mainmenu(window_t *win);
+void animation_choose_heroes(window_t *win);
 void animation_torch(window_t *win, int offset);
+void animation_begin(window_t *win);
 
 // SAVES
 void save_inventory(window_t *win);

@@ -12,12 +12,10 @@ window_t *init_how_to_play(window_t *win)
 {
     sfVector2f size = get_pos_float(500, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
-    sfVector2f pos_window = get_pos_float(10, 10);
+    sfVector2f pos_window = {(size_window.x - size.x + 250) / 2, 50};
     char *buff = get_buffer("ressources/text/help");
 
     set_struct(win, 1, 2, 0);
-    pos_window.y = 50;
-    pos_window.x = (size_window.x - size.x + 250) / 2;
     init_text(&win->scene[HOW_TO_PLAY].text[0], "How to Play", pos_window);
     pos_window.x = 100;
     pos_window.y += 150;
