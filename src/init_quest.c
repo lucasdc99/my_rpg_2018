@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void init_quests(quest_t *quest)
+static void init_sprites(quest_t *quest)
 {
     init_sprite(&quest->sprite[0], "ressources/old_paper.png",
     get_pos_float(240, 50));
@@ -30,6 +30,11 @@ void init_quests(quest_t *quest)
     sfSprite_setScale(quest->sprite[5].sprite, get_pos_float(0.2, 0.2));
     quest->sprite[1].depth = -1;
     quest->sprite[2].depth = -1;
+}
+
+void init_quests(quest_t *quest)
+{
+    init_sprites(quest);
     init_text(&quest->text[0], "QUETE 1:    Aller parler au grand pere\n",
     get_pos_float(300, 150));
     init_text(&quest->text[1], "Bonjour\n", get_pos_float(0, 0));

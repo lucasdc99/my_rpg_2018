@@ -19,14 +19,12 @@ static void init_texts(window_t *win)
         "Choose Player", "Hex-the-Time-Witch", "Life: ",
         my_itc(70), "Strength: ", my_itc(70), "Description"};
     int pos_x[] = {
-        pos_window.x + 40, pos_window.x / 2,
-        (pos_window.x - 100) / 2, (pos_window.x + 250) / 2,
-        (pos_window.x - 200) / 2, (pos_window.x + 250) / 2,
-        (pos_window.x - 200) / 2};
+        pos_window.x + 40, pos_window.x / 2, (pos_window.x - 100) / 2,
+        (pos_window.x + 250) / 2, (pos_window.x - 200) / 2,
+        (pos_window.x + 250) / 2, (pos_window.x - 200) / 2};
     int pos_y[] = {
         10, 100, (size_window.y - 450), (size_window.y - 450),
-        (size_window.y - 350), (size_window.y - 350),
-        (size_window.y - 250)};
+        (size_window.y - 350), (size_window.y - 350), (size_window.y - 250)};
 
     for (int i = 0; i < win->scene[HEROES].nb_text; i++) {
         init_text(&win->scene[HEROES].text[i], name[i],
@@ -46,21 +44,16 @@ static void init_buttons(window_t *win)
     init_button(&win->scene[HEROES].button[0], get_pos_float(pos_window.x + 40,
     (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
     win->texture_button);
-    pos_window.y += size.y + 10;
     pos_window.x = (size_window.x - size.x - 10);
     pos_window.y = (size_window.y - (size.y + 50) * 2);
-    set_next_buttons(&win->scene[HEROES].button[5], win->rect_buttons, JOUER);
-    init_button(&win->scene[HEROES].button[5], pos_window, size,
+    set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, JOUER);
+    init_button(&win->scene[HEROES].button[1], pos_window, size,
     win->texture_button);
     pos_window.y += size.y + 10;
-    set_next_buttons(&win->scene[HEROES].button[6], win->rect_buttons,
+    set_next_buttons(&win->scene[HEROES].button[2], win->rect_buttons,
     QUITTER);
-    init_button(&win->scene[HEROES].button[6], pos_window, size,
+    init_button(&win->scene[HEROES].button[2], pos_window, size,
     win->texture_button);
-    pos_window.y += size.y + 10;
-    win->scene[HEROES].button[0].callback = &choose_hero;
-    win->scene[HEROES].button[1].callback = &play_game;
-    win->scene[HEROES].button[2].callback = &main_menu;
 }
 
 window_t *init_choose_heroes(window_t *win)
@@ -79,6 +72,9 @@ window_t *init_choose_heroes(window_t *win)
     get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
     win->scene[HEROES].sprite[0].rect);
+    win->scene[HEROES].button[0].callback = &choose_hero;
+    win->scene[HEROES].button[1].callback = &play_game;
+    win->scene[HEROES].button[2].callback = &main_menu;
     choose_hex(win);
     return (win);
 }

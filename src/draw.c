@@ -87,10 +87,13 @@ void draw_sprites(window_t *win)
 
 void draw_others(window_t *win)
 {
+    printf("ok\n");
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
+    printf("%d\n", win->scene[win->actual_page].nb_button);
         sfRenderWindow_drawRectangleShape(win->window,
         win->scene[win->actual_page].button[i].shape, NULL);
     }
+    printf("ok3\n");
     for (int i = 0; i < win->scene[win->actual_page].nb_text; i++) {
         sfRenderWindow_drawText(win->window,
         win->scene[win->actual_page].text[i].str, NULL);

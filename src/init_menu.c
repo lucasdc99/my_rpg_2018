@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void init_buttons(window_t *win)
+static void loop_buttons(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
@@ -25,6 +25,11 @@ static void init_buttons(window_t *win)
         size, win->texture_button);
         pos_window.y += size.y + 20;
     }
+}
+
+static void init_buttons(window_t *win)
+{
+    loop_buttons(win);
     if (win->no_saves == 0)
         win->scene[MAINMENU].button[0].callback = &play_game;
     else
@@ -37,15 +42,9 @@ static void init_buttons(window_t *win)
 
 window_t *init_menu(window_t *win)
 {
-    sfVector2f size = get_pos_float(400, 100);
-    sfVector2u size_window = sfRenderWindow_getSize(win->window);
-    sfVector2f pos_window = {
-        (size_window.x - size.x) / 2,
-        (size_window.y - size.y) / 4};
-
     set_struct(win, 5, 1, 1);
     init_text(&win->scene[MAINMENU].text[0], "Tekzerk",
-    get_pos_float(pos_window.x - 70, 10));
+    get_pos_float(700, 10));
     sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
     win->scene[MAINMENU].text[0].font =

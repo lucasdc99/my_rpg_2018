@@ -25,10 +25,7 @@ void init_player(player_t *player)
 
     player->sprite->sprite = NULL;
     player->sprite->texture = NULL;
-    player->sprite->rect.top = 15;
-    player->sprite->rect.left = 15;
-    player->sprite->rect.width = 18;
-    player->sprite->rect.height = 18;
+    player->sprite->rect = get_rect(15, 15, 18, 18);
     player->direction = 1;
     player->move_rect = 0;
     player->last_page = CASTLE;
