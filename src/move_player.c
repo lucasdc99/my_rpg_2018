@@ -12,7 +12,8 @@ void move_player(window_t *win)
 {
     if (win->actual_page == TOWN)
         open_door(win);
-    if (win->actual_page == HOUSE1 || win->actual_page == HOUSE2 || win->actual_page == HOUSE3)
+    if (win->actual_page == HOUSE1 || win->actual_page == HOUSE2 ||
+    win->actual_page == HOUSE3)
         close_door(win);
     if (win->actual_page == FINAL)
         go_boss(win);
@@ -21,14 +22,7 @@ void move_player(window_t *win)
     check_item_pickup(win);
     close_textbox(win);
     check_combat_zone(win);
-    if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        move_player_up(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        move_player_left(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue || sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
-        move_player_down(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue || sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        move_player_right(win);
+    get_good_move_call(win);
 }
 
 void move_player_up(window_t *win)
@@ -116,6 +110,5 @@ void move_player_right(window_t *win)
         sfSprite_setPosition(win->player->sprite->sprite, pos);
         win->player->sprite->rect.top = 110;
         animate_player_walk(win);
-
     }
 }

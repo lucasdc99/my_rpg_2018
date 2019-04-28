@@ -8,6 +8,7 @@
 #ifndef RPG_H_
 #define RPG_H_
 #define VALUE_FIRST 674
+#define VOL_POS win->music->vol_posx
 
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
@@ -66,7 +67,7 @@ typedef struct s_text {
 typedef struct s_music {
     sfMusic *menu_song;
     sfMusic *button_sound;
-    int vol_drag_posx;
+    int vol_posx;
     int drag_value;
     int vol_register;
     int volume;

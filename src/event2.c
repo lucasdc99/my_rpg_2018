@@ -116,26 +116,52 @@ int check_dead_zone(window_t *win, int move)
 void drag_button(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    int get_pos_volume = 800;
-    win->music->vol_drag_posx = click_pos.x;
-    float diff_between_volume = win->music->vol_drag_posx - get_pos_volume; 
-    char *str = malloc(sizeof(char) * 5);
+    int pos_volume = 800;
+    VOL_POS = click_pos.x;
+    float diff = win->music->vol_posx - pos_volume; 
 
-    sfVector2f get_pos_four = sfRectangleShape_getPosition(win->scene[OPTIONS].button[4].shape);
-    sfVector2f get_size_four = sfRectangleShape_getSize(win->scene[OPTIONS].button[4].shape);
-    if (win->page == OPTIONS && click_pos.x > get_pos_four.x && click_pos.x < get_pos_four.x + get_size_four.x &&
-        click_pos.y > get_pos_four.y && click_pos.y < get_pos_four.y + get_size_four.y) {
-        if (win->music->vol_drag_posx >= VALUE_FIRST && win->music->vol_drag_posx <= 1056) {
-            win->music->volume = (diff_between_volume + (get_pos_volume - VALUE_FIRST)) * 0.264;
-            sfMusic_setVolume(win->music->menu_song, win->music->volume);
-            sfMusic_setVolume(win->music->button_sound, win->music->volume);
-            str = my_itc(win->music->volume);
-            str = my_strcat(str, "%");
-            sfText_setString(win->scene[OPTIONS].text[4].str, str);
-            win->music->vol_drag_posx = click_pos.x - get_size_four.x / 2;
-            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape, get_pos_float(win->music->vol_drag_posx, 800 - 250));
+    sfVector2f pos = sfRectangleShape_getPosition(win->
+    scene[OPTIONS].button[4].shape);
+    sfVector2f size = sfRectangleShape_getSize(win->
+    scene[OPTIONS].button[4].shape);
+    if (win->page == OPTIONS && click_pos.x > pos.x && 
+        click_pos.x < pos.x + size.x &&
+        click_pos.y > pos.y && click_pos.y < pos.y + size.y) {
+        if (VOL_POS >= VALUE_FIRST && VOL_POS <= 1056) {
+            win->music->volume = (diff + (pos_volume - VALUE_FIRST)) * 0.264;
+            change_volume_string(win);
+            win->music->vol_posx = click_pos.x - size.x / 2;
+            sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape,
+            get_pos_float(win->music->vol_posx, 800 - 250));
         }
     }
+}
+
+void change_volume_string(window_t *win)
+{
+    char *str = malloc(sizeof(char) * 5);
+
+    sfMusic_setVolume(win->music->menu_song, win->music->volume);
+    sfMusic_setVolume(win->music->button_sound, win->music->volume);
+    str = my_itc(win->music->volume);
+    str = my_strcat(str, "%");
+    sfText_setString(win->scene[OPTIONS].text[4].str, str);
+}
+
+void get_good_move_call(window_t *win)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue ||
+    sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
+        move_player_up(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue ||
+    sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
+        move_player_left(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue ||
+    sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
+        move_player_down(win);
+    else if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue ||
+    sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
+        move_player_right(win);
 }
 
 void close_door(window_t *win)
@@ -144,7 +170,8 @@ void close_door(window_t *win)
 
     if (is_inside_zone(get_pos_float(880, 750), get_pos_float(935, 850),
     pos_player) == 1) {
-        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
+        sfSprite_setPosition(win->player->sprite->sprite,
+        win->player->last_pos);
         win->page = TOWN;
     }
 }

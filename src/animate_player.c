@@ -12,7 +12,8 @@ void animate_player_walk(window_t *win)
 {
     if (win->player->sprite->rect.left > 111)
         win->player->sprite->rect.left = 15;
-    sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
+    sfSprite_setTextureRect(win->player->sprite->sprite,
+    win->player->sprite->rect);
     if ((win->player->move_rect % 5) == 0)
         win->player->sprite->rect.left += 48;
 }
