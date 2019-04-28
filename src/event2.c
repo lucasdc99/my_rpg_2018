@@ -8,51 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void mouse_pressed_event(window_t *win)
-{
-    sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    sfRectangleShape *rect;
-
-    printf("[x: %d, y: %d]\n", click_pos.x, click_pos.y);
-    for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].shape;
-        if (button_is_clicked(win->scene[win->actual_page].button[i], click_pos)) {
-            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_pressed);
-        }
-    }
-}
-
-void mouse_released_event(window_t *win)
-{
-    sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    sfRectangleShape *rect;
-
-    for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].shape;
-        if (button_is_clicked(win->scene[win->actual_page].button[i], click_pos)) {
-            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_idle);
-            if (win->scene[win->actual_page].button[i].callback != NULL)
-                win->scene[win->actual_page].button[i].callback(win);
-        }
-    }
-}
-
-void mouse_moved_event(window_t *win)
-{
-    sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    sfRectangleShape *rect;
-
-    for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
-        rect = win->scene[win->actual_page].button[i].shape;
-        if (button_is_hovered(win->scene[win->actual_page].button[i],
-        click_pos)) {
-            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_hovered);
-        } else {
-            sfRectangleShape_setTextureRect(rect, win->scene[win->actual_page].button[i].rect_idle);
-        }
-    }
-}
-
 int open_buff(char *filename, char **buffer, int size)
 {
     int fd = open(filename, O_RDONLY);
@@ -158,218 +113,9 @@ int check_dead_zone(window_t *win, int move)
     return (0);
 }
 
-void move_player_up(window_t *win)
+char **switch_tab(window_t *win)
 {
-    if (check_dead_zone(win, UP) == 1) {
-        if (win->player->direction != UP) {
-            if (win->player->direction == DOWN)
-                win->player->speed.y -= 5;
-            if (win->player->direction == LEFT)
-                win->player->speed.x += 5;
-            if (win->player->direction == RIGHT)
-                win->player->speed.x -= 5;
-            win->player->direction = UP;
-            win->player->sprite->rect.left = 15;
-        }
-        win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
-        pos.y -= 5;
-        sfSprite_setPosition(win->player->sprite->sprite, pos);
-        win->player->sprite->rect.top = 159;
-        if (win->player->sprite->rect.left > 111)
-            win->player->sprite->rect.left = 15;
-        sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((win->player->move_rect % 5) == 0)
-            win->player->sprite->rect.left += 48;
-    }
-}
-
-void move_player_down(window_t *win)
-{
-    if (check_dead_zone(win, DOWN) == 1) {
-        if (win->player->direction != DOWN) {
-            if (win->player->direction == UP)
-                win->player->speed.y += 5;
-            if (win->player->direction == LEFT)
-                win->player->speed.x += 5;
-            if (win->player->direction == RIGHT)
-                win->player->speed.x -= 5;
-            win->player->direction = DOWN;
-            win->player->sprite->rect.left = 15;
-        }
-        win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
-        pos.y += 5;
-        sfSprite_setPosition(win->player->sprite->sprite, pos);
-        win->player->sprite->rect.top = 15;
-        if (win->player->sprite->rect.left > 111)
-            win->player->sprite->rect.left = 15;
-        sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((win->player->move_rect % 5) == 0)
-            win->player->sprite->rect.left += 48;
-    }
-}
-
-void move_player_left(window_t *win)
-{
-    if (check_dead_zone(win, LEFT) == 1) {
-        if (win->player->direction != LEFT) {
-            if (win->player->direction == RIGHT)
-                win->player->speed.x -= 5;
-            if (win->player->direction == UP)
-                win->player->speed.y += 5;
-            if (win->player->direction == DOWN)
-                win->player->speed.y -= 5;
-            win->player->direction = LEFT;
-            win->player->sprite->rect.left = 15;
-        }
-        win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
-        pos.x -= 5;
-        sfSprite_setPosition(win->player->sprite->sprite, pos);
-        win->player->sprite->rect.top = 62;
-        if (win->player->sprite->rect.left > 111)
-            win->player->sprite->rect.left = 15;
-        sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((win->player->move_rect % 5) == 0)
-            win->player->sprite->rect.left += 48;
-    }
-}
-
-void move_player_right(window_t *win)
-{
-    if (check_dead_zone(win, RIGHT) == 1) {
-        if (win->player->direction != RIGHT) {
-            if (win->player->direction == LEFT)
-                win->player->speed.x += 5;
-            if (win->player->direction == UP)
-                win->player->speed.y += 5;
-            if (win->player->direction == DOWN)
-                win->player->speed.y -= 5;
-            win->player->direction = RIGHT;
-            win->player->sprite->rect.left = 15;
-        }
-        win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
-        pos.x += 5;
-        sfSprite_setPosition(win->player->sprite->sprite, pos);
-        win->player->sprite->rect.top = 110;
-        if (win->player->sprite->rect.left > 111)
-            win->player->sprite->rect.left = 15;
-        sfSprite_setTextureRect(win->player->sprite->sprite, win->player->sprite->rect);
-        if ((win->player->move_rect % 5) == 0)
-            win->player->sprite->rect.left += 48;
-    }
-}
-
-void check_combat_zone(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (win->actual_page == FINAL) {
-        if (is_inside_zone(get_pos_float(800, 680), get_pos_float(1200, 730), pos_player) == 1 && win->combat == 0) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
-        if (is_inside_zone(get_pos_float(800, 280), get_pos_float(1200, 330), pos_player) == 1 && win->combat == 1) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
-    }
-    if (win->actual_page == BOSS) {
-        if (is_inside_zone(get_pos_float(800, 0), get_pos_float(1200, 150), pos_player) == 1 && win->combat == 2) {
-            win->player->last_pos = pos_player;
-            win->combat += 1;
-            win->page = COMBAT;
-        }
-    }
-}
-
-void leave_boss(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100), pos_player) == 1) {
-        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
-        win->page = FINAL;
-    }
-}
-
-void go_boss(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (pos_player.x > 910 && pos_player.x < 1000) {
-        if (pos_player.y < 100) {
-            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
-            win->player->last_pos.y += 30;
-            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 950));
-            win->page = BOSS;
-        }
-    }
-}
-
-void move_player(window_t *win)
-{
-    if (win->actual_page == TOWN)
-        open_door(win);
-    if (win->actual_page == HOUSE1 || win->actual_page == HOUSE2 || win->actual_page == HOUSE3)
-        close_door(win);
-    if (win->actual_page == FINAL)
-        go_boss(win);
-    if (win->actual_page == BOSS)
-        leave_boss(win);
-    check_item_pickup(win);
-    close_textbox(win);
-    check_combat_zone(win);
-    if (sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        move_player_up(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue || sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        move_player_left(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyS) == sfTrue || sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
-        move_player_down(win);
-    else if (sfKeyboard_isKeyPressed(sfKeyD) == sfTrue || sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        move_player_right(win);
-}
-
-void go_forest(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (pos_player.x > 630 && pos_player.x < 1280) {
-        if (pos_player.y > 950) {
-            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
-            win->player->last_pos.y -= 30;
-            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(pos_player.x, 50));
-            win->page = FOREST;
-        }
-    }
-}
-
-void leave_final(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100), pos_player) == 1) {
-        sfSprite_setPosition(win->player->sprite->sprite, win->player->last_pos);
-        win->page = TOWN;
-    }
-}
-
-void go_town(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (pos_player.x > 825 && pos_player.x < 1050) {
-        if (pos_player.y < 360) {
-            win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
-            win->player->last_pos.y += 30;
-            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 950));
-            win->page = TOWN;
-        }
-    }
+    
 }
 
 void drag_button(window_t *win)
@@ -400,38 +146,6 @@ void drag_button(window_t *win)
     }
 }
 
-void go_castle(window_t *win)
-{
-    sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-
-    if (win->actual_page == TOWN) {
-        if (pos_player.x >= 820 && pos_player.x < 1050) {
-            if (pos_player.y >= 955) {
-                win->page = CASTLE;
-                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 380));
-            }
-        }
-    }
-    if (win->actual_page == FOREST) {
-        if (pos_player.x >= 630 && pos_player.x < 1280) {
-            if (pos_player.y <= 20) {
-                win->page = CASTLE;
-                sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(900, 900));
-            }
-        }
-    }
-}
-
-void open_inventory(window_t *win)
-{
-    win->pause = 1;
-    win->inventory = 1;
-    if (win->actual_page == TOWN) {
-        for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
-            win->scene[TOWN].sprite[i].depth = -1;
-    }
-}
-
 void close_door(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
@@ -442,33 +156,27 @@ void close_door(window_t *win)
     }
 }
 
-void go_final(window_t *win)
+void check_combat_zone(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
-    sfIntRect rect;
-    sfVector2f pos_door;
 
-    rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[4].sprite);
-    pos_door = sfSprite_getPosition(win->scene[TOWN].sprite[4].sprite);
-    if (pos_player.x >= pos_door.x - 20 && pos_player.x <= pos_door.x + 40) {
-        if (pos_player.y >= pos_door.y && pos_player.y <= pos_door.y + 100) {
-            rect.top = 192;
-            sfSprite_setTextureRect(win->scene[TOWN].sprite[4].sprite, rect);
-        } else {
-            if (rect.top >= 64) {
-                rect.top = 128;
-                sfSprite_setTextureRect(win->scene[TOWN].sprite[4].sprite, rect);
-            }
+    if (win->actual_page == FINAL) {
+        if (is_inside_zone(get_pos_float(800, 680), get_pos_float(1200, 730), pos_player) == 1 && win->combat == 0) {
+            win->player->last_pos = pos_player;
+            win->combat += 1;
+            win->page = COMBAT;
         }
-        if (pos_player.y >= pos_door.y - 50 && pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
-            win->player->last_pos = get_pos_float(1025, 150);
-            sfSprite_setPosition(win->player->sprite->sprite, get_pos_float(950, 900));
-            win->page = FINAL;
+        if (is_inside_zone(get_pos_float(800, 280), get_pos_float(1200, 330), pos_player) == 1 && win->combat == 1) {
+            win->player->last_pos = pos_player;
+            win->combat += 1;
+            win->page = COMBAT;
         }
-    } else {
-        if (rect.top >= 64) {
-            rect.top = 128;
-            sfSprite_setTextureRect(win->scene[TOWN].sprite[4].sprite, rect);
+    }
+    if (win->actual_page == BOSS) {
+        if (is_inside_zone(get_pos_float(800, 0), get_pos_float(1200, 150), pos_player) == 1 && win->combat == 2) {
+            win->player->last_pos = pos_player;
+            win->combat += 1;
+            win->page = COMBAT;
         }
     }
 }
