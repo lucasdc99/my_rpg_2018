@@ -24,51 +24,8 @@ void check_keyboard_input_ingame(window_t *win)
     }
 }
 
-void set_text_inv(window_t *win)
+void global_event_condition(window_t *win)
 {
-    sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    sfVector2f move_pos = get_pos_float(click_pos.x, click_pos.y);
-    int ok = 0;
-    char *str = win->player->name;
-    
-    for (int i = 0; i < 15; i++) {
-        if (move_pos.x >= win->inv->items[i].pos.x - 10 && move_pos.x < win->inv->items[i].pos.x + 80) {
-            if (move_pos.y >= win->inv->items[i].pos.y - 10 && move_pos.y < win->inv->items[i].pos.y + 80) {
-                ok = 1;
-                sfText_setString(win->inv->text, win->inv->items[i].name);
-            }
-        }
-    }
-    if (ok == 0) {
-        str = my_strcat(str, "\n");
-        str = my_strcat(str, "Vie: ");
-        str = my_strcat(str, my_itc(win->player->health));
-        str = my_strcat(str, "\n");
-        str = my_strcat(str, "Puissance: ");
-        str = my_strcat(str, my_itc(win->player->strength));
-        str = my_strcat(str, "\n");
-        sfText_setString(win->inv->text, str);
-    }
-}
-
-void global_event(window_t *win)
-{
-    if (win->event.type == sfEvtClosed)
-        quit(win);
-    if (win->event.type == sfEvtKeyPressed) {
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT)
-            check_keyboard_input_ingame(win);
-        if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue) {
-            if (win->actual_page == MAINMENU)
-                quit(win);
-            if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
-                if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
-                    pause_game(win);
-                else if (win->inventory == 0 && win->quest == 0 && win->pause == 1)
-                    unpause_game(win);
-            }
-        }
-    }
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
             drag_button(win);
@@ -87,4 +44,29 @@ void global_event(window_t *win)
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->inventory == 1)
             set_text_inv(win);
     }
+}
+
+void global_event_condition_escape(window_t *win)
+{
+    if (win->actual_page == MAINMENU)
+        quit(win);
+    if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
+        if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
+            pause_game(win);
+        else if (win->inventory == 0 && win->quest == 0 && win->pause == 1)
+            unpause_game(win);
+    }
+}
+
+void global_event(window_t *win)
+{
+    if (win->event.type == sfEvtClosed)
+        quit(win);
+    if (win->event.type == sfEvtKeyPressed) {
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT)
+            check_keyboard_input_ingame(win);
+        if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
+            global_event_condition_escape(win);
+    }
+    global_event_condition(win);
 }

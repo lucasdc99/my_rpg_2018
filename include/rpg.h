@@ -345,5 +345,9 @@ void mouse_pressed_event(window_t *win);
 void mouse_released_event(window_t *win);
 void mouse_moved_event(window_t *win);
 
+// SET TXT
+void set_text_ok(window_t *win);
+void set_text_inv(window_t *win);
+
 
 #endif

@@ -13,8 +13,10 @@ sfVector2f get_nearest_item_pos(inventory_t *inv, sfVector2f move_pos)
     sfVector2f pos = {10, 10};
 
     for (int i = 0; i < 15; i++) {
-        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
-            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y < inv->items[i].pos.y + 80) {
+        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x <
+                inv->items[i].pos.x + 80) {
+            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y <
+                    inv->items[i].pos.y + 80) {
                 pos.x = inv->items[i].pos.x;
                 pos.y = inv->items[i].pos.y;
                 return (pos);
@@ -104,8 +106,10 @@ int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos)
     for (int i = 0; i < 15; i++) {
         if (inv->items[i].busy == 0 && not_busy == -1)
             not_busy = i;
-        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x < inv->items[i].pos.x + 80) {
-            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y < inv->items[i].pos.y + 80) {
+        if (move_pos.x >= inv->items[i].pos.x - 10 && move_pos.x <
+                inv->items[i].pos.x + 80) {
+            if (move_pos.y >= inv->items[i].pos.y - 10 && move_pos.y <
+                    inv->items[i].pos.y + 80) {
                 return (i);
             }
         }
