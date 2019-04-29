@@ -8,23 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void move_player(window_t *win)
-{
-    if (win->actual_page == TOWN)
-        open_door(win);
-    if (win->actual_page == HOUSE1 || win->actual_page == HOUSE2 ||
-    win->actual_page == HOUSE3)
-        close_door(win);
-    if (win->actual_page == FINAL)
-        go_boss(win);
-    if (win->actual_page == BOSS)
-        leave_boss(win);
-    check_item_pickup(win);
-    close_textbox(win);
-    check_combat_zone(win);
-    get_good_move_call(win);
-}
-
 void move_player_up(window_t *win)
 {
     if (check_dead_zone(win, UP) == 1) {
@@ -61,7 +44,7 @@ void move_player_down(window_t *win)
             win->player->sprite->rect.left = 15;
         }
         win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
+        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
         pos.y += 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
         win->player->sprite->rect.top = 15;
@@ -83,7 +66,7 @@ void move_player_left(window_t *win)
             win->player->sprite->rect.left = 15;
         }
         win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
+        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
         pos.x -= 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
         win->player->sprite->rect.top = 62;
@@ -105,10 +88,11 @@ void move_player_right(window_t *win)
             win->player->sprite->rect.left = 15;
         }
         win->player->move_rect++;
-        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);        
+        sfVector2f pos = sfSprite_getPosition(win->player->sprite->sprite);
         pos.x += 5;
         sfSprite_setPosition(win->player->sprite->sprite, pos);
         win->player->sprite->rect.top = 110;
         animate_player_walk(win);
+
     }
 }

@@ -36,29 +36,22 @@ void manage_game(window_t *win)
     if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
     win->pause == 0 && win->no_saves == 0) {
         move_player(win);
-        if (win->actual_page == TOWN) {
-            go_castle(win);
-        }
         if (win->actual_page == CASTLE) {
-            go_town(win);
-            go_forest(win);
             win->move_time = sfClock_getElapsedTime(win->move);
             win->seconds = win->move_time.microseconds / 400000.0;
             animation_torch(win, 20);
         }
-        if (win->actual_page == FOREST)
-            go_castle(win);
-        if (win->actual_page == FINAL)
-            leave_final(win);
     }
 }
 
-void display(window_t *win)
+int display(window_t *win)
 {
     ptr_func *ptr_choose = init_func();
     win = ptr_choose[win->actual_page].start(win);
 
     while (sfRenderWindow_isOpen(win->window)) {
+        if (win->error == 84)
+            return (84);
         if (win->page != win->actual_page) {
             win = ptr_choose[win->actual_page].end(win);
             win = ptr_choose[win->page].start(win);
@@ -72,4 +65,5 @@ void display(window_t *win)
         manage_game(win);
         check_enemy_turn(win);
     }
+    return (0);
 }

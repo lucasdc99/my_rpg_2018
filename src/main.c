@@ -91,7 +91,10 @@ int main(int ac, char **av, char **env)
     win->inv = parser_inv(win->inv, "ressources/text/inventory");
     win->quests = parser_quests(win->quests, "ressources/text/quests");
     check_error_config(win);
-    display(win);
+    if (display(win) == 84) {
+        destroy_all(win);
+        return (84);
+    }
     destroy_all(win);
     return (0);
 }

@@ -8,7 +8,6 @@
 #ifndef RPG_H_
 #define RPG_H_
 #define VALUE_FIRST 674
-#define VOL_POS win->music->vol_posx
 
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
@@ -58,6 +57,17 @@ enum page {
     END,
 };
 
+typedef struct s_pos {
+    char **tab_castle;
+    char **tab_town;
+    char **tab_house1;
+    char **tab_house2;
+    char **tab_house3;
+    char **tab_forest;
+    char **tab_final;
+    char **tab_boss;
+} pos_t;
+
 typedef struct s_text {
     sfFont *font;
     sfText *str;
@@ -67,7 +77,7 @@ typedef struct s_text {
 typedef struct s_music {
     sfMusic *menu_song;
     sfMusic *button_sound;
-    int vol_posx;
+    int vol_pos;
     int drag_value;
     int vol_register;
     int volume;
@@ -138,10 +148,12 @@ typedef struct s_window {
     player_t *player;
     enemy_t *enemy;
     music_t *music;
+    pos_t *positions;
     enum page page;
     enum page actual_page;
     int vsync;
     int fps;
+    int error;
     sfClock *move;
     sfClock *combat_clock;
     sfTime move_time;
@@ -197,6 +209,7 @@ void leave_final(window_t *win);
 void go_boss(window_t *win);
 void leave_boss(window_t *win);
 void start_combat(window_t *, sfVector2f);
+void go_final(window_t *win);
 
 // INITIALISATION SCENES
 window_t *init_forest(window_t *win);
@@ -227,7 +240,7 @@ void init_enemy(window_t *win);
 
 // CSFML BASICS
 window_t *create_window(window_t *win);
-void display(window_t *win);
+int display(window_t *win);
 void global_event(window_t *win);
 ptr_func *init_func(void);
 
@@ -261,6 +274,8 @@ char *get_next_line(int fd);
 int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos);
 void display_text_in_textbox(quest_t *quest, char *text);
 void drag_button(window_t *win);
+void my_wait(window_t *win, int seconds);
+char *open_buff(char *filename);
 
 // DESTROY
 void destroy_all(window_t *win);
@@ -268,6 +283,7 @@ window_t *destroy_scene(window_t *win);
 
 // DRAW
 window_t *draw_scene(window_t *win);
+void draw_sprites(window_t *win);
 
 // BUTTONS HANDLING
 int button_is_clicked(button_t button, sfVector2i click_position);
@@ -308,11 +324,13 @@ char *get_name_from_type(int type);
 void open_inventory(window_t *win);
 
 // PLAYER HANDLING
-void set_player(window_t *win);
+int set_player(window_t *win);
 
 // DETECTION EVENTS
 void close_textbox(window_t *win);
 void check_item_pickup(window_t *win);
+void pick_armor(window_t *win);
+void pick_sword(window_t *win);
 
 // CHECK ITEM INVENTORY
 int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
@@ -333,7 +351,6 @@ void open_quest(window_t *win);
 void close_quest(window_t *win);
 
 // INTERACTION GAME
-void open_door(window_t *win);
 void pause_game(window_t *win);
 void unpause_game(window_t *win);
 

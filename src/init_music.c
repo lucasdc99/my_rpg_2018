@@ -11,7 +11,7 @@
 void init_music(music_t *music)
 {
     music->volume = 100;
-    music->vol_posx = 800;
+    music->vol_pos = 800;
     music->button_sound = sfMusic_createFromFile("ressources/music/button.ogg");
     music->menu_song = sfMusic_createFromFile("ressources/music/main_song.ogg");
 }

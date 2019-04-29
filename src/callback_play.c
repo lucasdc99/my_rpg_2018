@@ -47,7 +47,8 @@ void play_game(window_t *win)
     win->page = win->player->last_page;
     init_inventory(win->inv);
     init_player(win->player);
-    set_player(win);
+    if (set_player(win) == 84)
+        win->error = 84;
     init_objects(win->objects, win->inv);
     check_error_inv(win);
     init_quests(win->quests);

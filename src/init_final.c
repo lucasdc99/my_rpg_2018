@@ -8,15 +8,15 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void init_sprites(window_t *win)
+static void init_sprites(window_t *win)
 {
     init_sprite(&win->scene[FINAL].sprite[0], "ressources/sbire_map.png",
     get_pos_float(600, 0));
     init_sprite(&win->scene[FINAL].sprite[1],
-    "ressources/pack/Pixel_Champions/Magical Heroes/Ley-the-Monster-Whisperer.png",
+    "ressources/images/sprites/Ley-the-Monster-Whisperer.png",
     get_pos_float(600, 0));
     init_sprite(&win->scene[FINAL].sprite[2],
-    "ressources/pack/Pixel_Champions/Magical Heroes/Oratio-the-Mercenary.png",
+    "ressources/images/sprites/Oratio-the-Mercenary.png",
     get_pos_float(600, 0));
     sfSprite_setScale(win->scene[FINAL].sprite[1].sprite, get_pos_float(3, 3));
     sfSprite_setTextureRect(win->scene[FINAL].sprite[1].sprite,
@@ -28,9 +28,6 @@ void init_sprites(window_t *win)
     get_rect(60, 56, 32, 32));
     sfSprite_setPosition(win->scene[FINAL].sprite[2].sprite,
     get_pos_float(1030, 280));
-    win->scene[FINAL].sprite[0].depth = -1;
-    win->scene[FINAL].sprite[1].depth = 0;
-    win->scene[FINAL].sprite[2].depth = 0;
 }
 
 window_t *init_final(window_t *win)
@@ -48,6 +45,9 @@ window_t *init_final(window_t *win)
     order_button[1]);
     init_button(&win->scene[FINAL].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
+    win->scene[FINAL].sprite[0].depth = -1;
+    win->scene[FINAL].sprite[1].depth = 0;
+    win->scene[FINAL].sprite[2].depth = 0;
     win->scene[FINAL].button[0].callback = &quit_pause;
     win->scene[FINAL].button[1].callback = &main_menu;
     return (win);

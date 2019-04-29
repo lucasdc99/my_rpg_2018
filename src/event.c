@@ -24,25 +24,36 @@ void check_keyboard_input_ingame(window_t *win)
     }
 }
 
-void global_event_condition(window_t *win)
+void check_mouse_left(window_t *win)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
             drag_button(win);
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->inventory == 1)
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
+        win->inventory == 1) {
             drag_and_drop_inv(win);
+        }
     }
+}
+
+void global_event_condition(window_t *win)
+{
+    check_mouse_left(win);
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);
     if (win->event.type == sfEvtMouseButtonReleased) {
         mouse_released_event(win);
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->inventory == 1)
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
+        win->inventory == 1) {
             check_drag_and_drop_inv(win);
+        }
     }
     if (win->event.type == sfEvtMouseMoved) {
         mouse_moved_event(win);
-        if (win->actual_page >= CASTLE && win->actual_page < COMBAT && win->inventory == 1)
+        if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
+        win->inventory == 1) {
             set_text_inv(win);
+        }
     }
 }
 

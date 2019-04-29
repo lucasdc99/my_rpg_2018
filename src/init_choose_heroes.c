@@ -62,7 +62,7 @@ window_t *init_choose_heroes(window_t *win)
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
-    "ressources/pack/Pixel_Champions/Magical Heroes/Hex-the-Time-Witch.png",
+    "ressources/images/sprites/Hex-the-Time-Witch.png",
     get_pos_float(100, 100));
     win->scene[HEROES].sprite[0].rect.top = 100;
     win->scene[HEROES].sprite[0].rect.left = 0;

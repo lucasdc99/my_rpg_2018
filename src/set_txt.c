@@ -27,13 +27,12 @@ void set_text_inv(window_t *win)
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     sfVector2f move_pos = get_pos_float(click_pos.x, click_pos.y);
     int ok = 0;
-    char *str = win->player->name;
 
     for (int i = 0; i < 15; i++) {
-        if (move_pos.x >= win->inv->items[i].pos.x - 10 && move_pos.x <
-                win->inv->items[i].pos.x + 80) {
-            if (move_pos.y >= win->inv->items[i].pos.y - 10 && move_pos.y <
-                    win->inv->items[i].pos.y + 80) {
+        if (move_pos.x >= win->inv->items[i].pos.x - 10 &&
+        move_pos.x < win->inv->items[i].pos.x + 80) {
+            if (move_pos.y >= win->inv->items[i].pos.y - 10 &&
+            move_pos.y < win->inv->items[i].pos.y + 80) {
                 ok = 1;
                 sfText_setString(win->inv->text, win->inv->items[i].name);
             }

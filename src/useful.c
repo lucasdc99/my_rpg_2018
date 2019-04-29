@@ -40,3 +40,20 @@ void set_struct(window_t *win, int button, int text, int sprite)
     win->scene[win->page].nb_button = button;
     win->scene[win->page].nb_sprite = sprite;
 }
+
+char *open_buff(char *filename)
+{
+    int fd = open(filename, O_RDONLY);
+    char *buffer = NULL;
+
+    if (fd < 0)
+        return (NULL);
+    buffer = malloc(sizeof(char) * 8400);
+    if (buffer == NULL)
+        return (NULL);
+    if (read(fd, buffer, 8400) <= 0)
+        return (NULL);
+    buffer[8399] = '\0';
+    close(fd);
+    return (buffer);
+}

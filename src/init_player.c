@@ -8,15 +8,17 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void set_player(window_t *win)
+int set_player(window_t *win)
 {
-    check_dead_zone(win, -1);
+    if (check_dead_zone(win, -1) == 84)
+        return (84);
     win->inv->player = sfSprite_create();
     sfSprite_setTexture(win->inv->player, win->player->sprite->texture,
     sfTrue);
     sfSprite_setScale(win->inv->player, get_pos_float(3, 3));
     sfSprite_setTextureRect(win->inv->player, win->player->sprite->rect);
     sfSprite_setPosition(win->inv->player, get_pos_float(1440, 305));
+    return (0);
 }
 
 void init_player(player_t *player)
@@ -29,8 +31,7 @@ void init_player(player_t *player)
     player->direction = 1;
     player->move_rect = 0;
     player->last_page = CASTLE;
-    skin = my_strcat("ressources/pack/Pixel_Champions/Magical Heroes/",
-    player->name);
+    skin = my_strcat("ressources/images/sprites/", player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&player->sprite[0], skin, get_pos_float(player->speed.x,
     player->speed.y));

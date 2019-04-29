@@ -51,36 +51,6 @@ void draw_quests(window_t *win)
     }
 }
 
-void draw_sprites(window_t *win)
-{
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].depth == -1) {
-            sfRenderWindow_drawSprite(win->window,
-            win->scene[win->actual_page].sprite[i].sprite, NULL);
-        }
-    }
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].depth == 0 &&
-        (win->pause == 0 || win->inventory == 1)) {
-            sfRenderWindow_drawSprite(win->window,
-            win->scene[win->actual_page].sprite[i].sprite, NULL);
-        }
-    }
-    if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
-        if (win->pause == 0 || win->inventory == 1) {
-            sfRenderWindow_drawSprite(win->window,
-            win->player->sprite->sprite, NULL);
-        }
-    }
-    for (int i = 0; i < win->scene[win->actual_page].nb_sprite; i++) {
-        if (win->scene[win->actual_page].sprite[i].depth == 1 &&
-        (win->pause == 0 || win->inventory == 1)) {
-            sfRenderWindow_drawSprite(win->window,
-            win->scene[win->actual_page].sprite[i].sprite, NULL);
-        }
-    }
-}
-
 void draw_others(window_t *win)
 {
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {

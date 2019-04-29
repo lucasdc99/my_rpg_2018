@@ -10,8 +10,11 @@
 
 void main_menu(window_t *win)
 {
+    sfVector2f pos;
+
     if (win->page >= CASTLE) {
-        win->player->last_pos = sfSprite_getPosition(win->player->sprite->sprite);
+        pos = sfSprite_getPosition(win->player->sprite->sprite);
+        win->player->last_pos = pos;
         if (win->player->last_pos.x <= 20)
             win->player->last_pos.x = 100;
         if (win->player->last_pos.y <= 20)

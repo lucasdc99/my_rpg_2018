@@ -14,16 +14,19 @@ void check_combat_zone(window_t *win)
 
     if (win->actual_page == FINAL) {
         if (is_inside_zone(get_pos_float(800, 680), get_pos_float(1200, 730),
-        pos_player) == 1 && win->combat == 0)
+        pos_player) == 1 && win->combat == 0) {
             start_combat(win, pos_player);
+        }
         if (is_inside_zone(get_pos_float(800, 280), get_pos_float(1200, 330),
-        pos_player) == 1 && win->combat == 1)
-            start_combat(win, pos_player);    
+        pos_player) == 1 && win->combat == 1) {
+            start_combat(win, pos_player);
+        }
     }
     if (win->actual_page == BOSS) {
         if (is_inside_zone(get_pos_float(800, 0), get_pos_float(1200, 150),
-        pos_player) == 1 && win->combat == 2)
+        pos_player) == 1 && win->combat == 2) {
             start_combat(win, pos_player);
+        }
     }
 }
 

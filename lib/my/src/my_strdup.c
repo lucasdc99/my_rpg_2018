@@ -11,9 +11,13 @@
 char *my_strdup(char const *src)
 {
     int i;
-    int length = my_strlen(src);
-    char *str = malloc(sizeof(char) * (length + 1));
+    int length;
+    char *str;
 
+    if (src == NULL)
+        return (NULL);
+    length = my_strlen(src);
+    str = malloc(sizeof(char) * (length + 1));
     for (i = 0; src[i] != '\0'; i++)
         str[i] = src[i];
     str[i] = '\0';

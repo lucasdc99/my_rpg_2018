@@ -10,7 +10,7 @@
 
 void init_enemy(window_t *win)
 {
-    char *name = "ressources/pack/Pixel_Champions/Magical Heroes/";
+    char *name = "ressources/images/sprites/";
 
     if (win->combat == 1) {
         name = my_strcat(name, "Ley-the-Monster-Whisperer.png");

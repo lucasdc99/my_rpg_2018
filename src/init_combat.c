@@ -37,8 +37,7 @@ static void init_sprites(window_t *win)
 {
     char *skin = NULL;
 
-    skin = my_strcat("ressources/pack/Pixel_Champions/Magical Heroes/",
-    win->player->name);
+    skin = my_strcat("ressources/images/sprites/", win->player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&win->scene[COMBAT].sprite[0], skin, get_pos_float(1500, 500));
     init_sprite(&win->scene[COMBAT].sprite[1], "ressources/test_fight.png",

@@ -25,6 +25,7 @@ static void malloc_struct(window_t *win)
     win->text = malloc(sizeof(text_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->objects = malloc(sizeof(sprite_t) * win->nb_objects);
+    win->positions = malloc(sizeof(pos_t) * 1);
 }
 
 static void init_win_variable(window_t *win)
@@ -40,6 +41,7 @@ static void init_win_variable(window_t *win)
     win->combat = 0;
     win->move = sfClock_create();
     win->no_saves = 0;
+    win->error = 0;
 }
 
 window_t *create_window(window_t *win)
