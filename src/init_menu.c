@@ -53,10 +53,7 @@ window_t *init_menu(window_t *win)
     win->scene[MAINMENU].text[0].font);
     init_sprite(&win->scene[MAINMENU].sprite[0],
     "ressources/pack/background/frame2.png", get_pos_float(0, 0));
-    win->scene[MAINMENU].sprite[0].rect.top = 0;
-    win->scene[MAINMENU].sprite[0].rect.left = 0;
-    win->scene[MAINMENU].sprite[0].rect.width = 1920;
-    win->scene[MAINMENU].sprite[0].rect.height = 1080;
+    win->scene[MAINMENU].sprite[0].rect = get_rect(0, 0, 1920, 1080);
     init_buttons(win);
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite,
     win->scene[MAINMENU].sprite[0].rect);

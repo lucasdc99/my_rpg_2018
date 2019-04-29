@@ -64,6 +64,8 @@ static char **switcher_tab(window_t *win)
 
 static int choose_move(char **tab, int move, sfVector2i scale, sfVector2i pos)
 {
+    printf("ok2\n");
+
     if (move == UP) {
         if (pos.y - 1 >= 0 && tab[pos.y - 1][pos.x] == '2') {
             return (1);
@@ -81,25 +83,34 @@ static int choose_move(char **tab, int move, sfVector2i scale, sfVector2i pos)
         if (pos.x + 1 < scale.x - 2 && tab[pos.y][pos.x + 1] == '2')
             return (1);
     }
+    printf("ok2a\n");
     return (84);
 }
 
 int check_dead_zone(window_t *win, int move)
 {
+    printf("oka1\n");
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
+    printf("oka2\n");
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    printf("oka3\n");
     sfVector2i scale = {size_win.x / 16, size_win.y / 15};
     sfVector2i pos = {pos_player.x / 16, pos_player.y / 15};
     static int ok = 0;
     char **tab = NULL;
+    printf("ok1aha\n");
 
     if (ok == 0) {
         if (set_pos_tab(win) == 84)
             return (84);
         ok = 1;
     }
+    printf("okay1\n");
     tab = switcher_tab(win);
-    if (tab == NULL)
+    printf("okay2\n");
+    if (tab == NULL) {
+    printf("ok2\n");
         return (0);
+    }
     return (choose_move(tab, move, scale, pos));
 }

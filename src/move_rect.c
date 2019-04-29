@@ -8,18 +8,18 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static int do_first_part(window_t *win, int i, int part)
+static int do_first_part(window_t *win, int *i, int part)
 {
-    if (i < 255 && part == 0) {
+    if (i[0] < 255 && part == 0) {
         sfText_setFillColor(win->scene[CASTLE].text[0].str,
-        sfColor_fromRGBA(255, 255, 255, ++i));
+        sfColor_fromRGBA(255, 255, 255, ++i[0]));
     } else
-        return (1);
-    if (i > 0 && part == 1) {
+        part = 1;
+    if (i[0] > 0 && part == 1) {
         sfText_setFillColor(win->scene[CASTLE].text[0].str,
-        sfColor_fromRGBA(255, 255, 255, --i));
+        sfColor_fromRGBA(255, 255, 255, --i[0]));
     } else if (part != 0)
-        return (2);
+        part = 2;
     return (part);
 }
 
@@ -29,7 +29,7 @@ void animation_begin(window_t *win)
     static int part = 0;
 
     if (part < 2) {
-        part = do_first_part(win, i, part);
+        part = do_first_part(win, &i, part);
     } else if (part == 2) {
         win->no_saves = 0;
         part = 3;
