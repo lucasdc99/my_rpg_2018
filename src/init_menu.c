@@ -60,6 +60,7 @@ window_t *init_menu(window_t *win)
     init_buttons(win);
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite,
     win->scene[MAINMENU].sprite[0].rect);
-    sfMusic_play(win->music->menu_song);
+    if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
+        sfMusic_play(win->music->menu_song);
     return (win);
 }
