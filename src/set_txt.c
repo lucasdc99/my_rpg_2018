@@ -14,7 +14,7 @@ void set_text_ok(window_t *win)
 
     str = my_strcat(str, "\n");
     str = my_strcat(str, "Vie: ");
-    str = my_strcat(str, my_itc(win->player->health));
+    str = my_strcat(str, my_itc(win->player->actual_health));
     str = my_strcat(str, "\n");
     str = my_strcat(str, "Puissance: ");
     str = my_strcat(str, my_itc(win->player->strength));

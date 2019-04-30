@@ -57,7 +57,7 @@ window_t *init_combat(window_t *win)
     win->combat_clock = sfClock_create();
     init_buttons(win);
     init_sprites(win);
-    init_text(&win->scene[COMBAT].text[0], my_itc(win->player->health),
+    init_text(&win->scene[COMBAT].text[0], my_itc(win->player->actual_health),
     get_pos_float(1500, 10));
     init_text(&win->scene[COMBAT].text[1], my_itc(win->player->strength),
     get_pos_float(1500, 100));

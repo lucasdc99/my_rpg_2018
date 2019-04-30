@@ -35,8 +35,9 @@ void stats_attack(window_t *win)
     do_attack(win);
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
-    win->player->health += 30;
+    if ((win->player->actual_health + 30 + win->player->strength / 10) <= win->player->health)
+        win->player->actual_health += 30 + (win->player->strength / 10);
     sfText_setString(win->scene[COMBAT].text[0].str,
-    my_itc(win->player->health));
+    my_itc(win->player->actual_health));
     win->turn = 1;
 }

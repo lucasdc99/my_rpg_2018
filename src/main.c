@@ -44,6 +44,7 @@ void reset_player(window_t *win)
     win->player->sprite->texture = NULL;
     win->player->strength = 0;
     win->player->health = 0;
+    win->player->actual_health = 0;
     win->player->xp = 0;
     win->player->last_pos = get_pos_float(-100, -100);
     win->player->direction = 1;

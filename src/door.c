@@ -19,6 +19,7 @@ static void get_inside_house(window_t *win, sfVector2f pos_door, int i)
         pos_player.y -= 50;
         sfSprite_setPosition(win->player->sprite->sprite,
         get_pos_float(880, 730));
+        sfMusic_play(win->music->door_open);
         if (i == 1)
             win->page = HOUSE1;
         if (i == 2)
@@ -60,6 +61,7 @@ void close_door(window_t *win)
     pos_player) == 1) {
         sfSprite_setPosition(win->player->sprite->sprite,
         win->player->last_pos);
+        sfMusic_play(win->music->door_close);
         win->page = TOWN;
     }
 }

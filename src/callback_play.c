@@ -42,6 +42,7 @@ static void check_error_inv(window_t *win)
 void play_game(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
+    sfMusic_play(win->music->town_song);
     check_new_game(win);
     win->player = parser_player(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
@@ -52,5 +53,6 @@ void play_game(window_t *win)
     init_objects(win->objects, win->inv);
     check_error_inv(win);
     init_quests(win->quests);
+    win->player->actual_health = win->player->health;
     sfMusic_stop(win->music->menu_song);
 }

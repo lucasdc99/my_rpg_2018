@@ -35,6 +35,11 @@ void destroy_all(window_t *win)
 {
     sfMusic_destroy(win->music->menu_song);
     sfMusic_destroy(win->music->button_sound);
+    sfMusic_destroy(win->music->boss_song);
+    sfMusic_destroy(win->music->town_song);
+    sfMusic_destroy(win->music->door_open);
+    sfMusic_destroy(win->music->door_close);
+    sfMusic_destroy(win->music->stone_door);
     free(win->music);
     if (win->player->sprite->texture != NULL)
         sfTexture_destroy(win->player->sprite->texture);

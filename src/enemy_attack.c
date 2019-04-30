@@ -40,12 +40,13 @@ static void enemy_attack(window_t *win)
     do_attack(win);
     sfSprite_setTextureRect(win->enemy->sprite->sprite,
     get_rect(297, 56, 30, 30));
-    win->player->health -= 20;
-    if (win->player->health <= 0) {
+    win->player->actual_health -= 20;
+    if (win->player->actual_health <= 0) {
+        win->player->health = 0;
         win->page = END;
     } else {
         sfText_setString(win->scene[COMBAT].text[0].str,
-        my_itc(win->player->health));
+        my_itc(win->player->actual_health));
     }
     win->turn = 0;
 }

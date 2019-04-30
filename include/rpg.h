@@ -77,6 +77,11 @@ typedef struct s_text {
 typedef struct s_music {
     sfMusic *menu_song;
     sfMusic *button_sound;
+    sfMusic *town_song;
+    sfMusic *boss_song;
+    sfMusic *door_close;
+    sfMusic *door_open;
+    sfMusic *stone_door;
     int vol_pos;
     int drag_value;
     int vol_register;
@@ -110,6 +115,7 @@ typedef struct s_player {
     sprite_t *sprite;
     char *name;
     int health;
+    int actual_health;
     int xp;
     int strength;
     sfVector2f speed;
