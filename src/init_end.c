@@ -12,7 +12,8 @@ window_t *init_end(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
 
-    set_struct(win, 1, 1, 0);
+    set_struct(win, 1, 1, 1);
+    init_sprite(&win->scene[END].sprite[0], "ressources/pack/background.png", get_pos_float(0, 0));
     if (win->player->health <= 0) {
         init_text(&win->scene[END].text[0], "Vous etes morts en fait",
         get_pos_float(900, 700));

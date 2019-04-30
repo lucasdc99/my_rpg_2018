@@ -44,6 +44,7 @@ static void enemy_attack(window_t *win)
     win->player->actual_health -= 20;
     if (win->player->actual_health <= 0) {
         win->player->health = 0;
+        win->player->actual_health = 0;
         win->page = END;
     } else {
         sfText_setString(win->scene[COMBAT].text[0].str,

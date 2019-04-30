@@ -16,7 +16,10 @@ static void check_life(window_t *win, int damage)
     if (win->enemy->health <= 0) {
         sfSprite_setPosition(win->player->sprite->sprite,
         win->player->last_pos);
-        win->page = FINAL;
+        if (win->combat == 3)
+            win->page = END;
+        else
+            win->page = FINAL;
     } else {
         sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));
         win->turn = 1;
