@@ -60,10 +60,18 @@ void basic_attack(window_t *win)
 
 void special_attack(window_t *win)
 {
+    char *str = NULL;
+
     if (win->turn == 1)
         return;
     my_wait(win, 2);
     sfMusic_play(win->music->special_attack);
     do_attack(win, 1);
+    win->player->health -= win->player->strength / 10;
+    if (win->player->health < win->player->actual_health)
+        win->player->actual_health = win->player->health;
+    str = my_strcat(my_itc(win->player->actual_health), "/");
+    str = my_strcat(str, my_itc(win->player->health));
+    sfText_setString(win->scene[COMBAT].text[0].str, str);
     check_life(win, 30 + (win->player->strength / 10));
 }

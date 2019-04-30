@@ -38,14 +38,6 @@ void go_town(window_t *win)
             win->page = TOWN;
         }
     }
-    if (win->actual_page == FINAL && win->page == FINAL) {
-        if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100),
-        pos_player) == 1) {
-            sfSprite_setPosition(win->player->sprite->sprite,
-            win->player->last_pos);
-            win->page = TOWN;
-        }
-    }
 }
 
 void go_castle(window_t *win)

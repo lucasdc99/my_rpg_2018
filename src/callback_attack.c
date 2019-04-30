@@ -30,15 +30,19 @@ static void do_attack(window_t *win)
 
 void stats_attack(window_t *win)
 {
+    char *str = NULL;
+
     if (win->turn == 1)
         return;
     sfMusic_play(win->music->heal);
     do_attack(win);
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
-    if ((win->player->actual_health + 30 + win->player->strength / 10) <= win->player->health)
-        win->player->actual_health += 30 + (win->player->strength / 10);
-    sfText_setString(win->scene[COMBAT].text[0].str,
-    my_itc(win->player->actual_health));
+    win->player->actual_health += 30 + (win->player->strength / 10);
+    if (win->player->actual_health > win->player->health)
+        win->player->actual_health = win->player->health;
+    str = my_strcat(my_itc(win->player->actual_health), "/");
+    str = my_strcat(str, my_itc(win->player->health));
+    sfText_setString(win->scene[COMBAT].text[0].str, str);
     win->turn = 1;
 }

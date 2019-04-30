@@ -113,6 +113,7 @@ typedef struct s_items {
 
 typedef struct s_enemy {
     int health;
+    int strength;
     sprite_t *sprite;
     text_t *text;
 } enemy_t;
@@ -219,7 +220,6 @@ void go_castle(window_t *win);
 void go_town(window_t *win);
 void close_door(window_t *win);
 void open_door(window_t *win);
-void leave_final(window_t *win);
 void go_boss(window_t *win);
 void leave_boss(window_t *win);
 void start_combat(window_t *, sfVector2f);

@@ -12,8 +12,8 @@ static void malloc_struct(window_t *win)
 {
     win->scene = malloc(sizeof(scene_t) * 14);
     win->quests = malloc(sizeof(quest_t) * 1);
-    win->quests->sprite = malloc(sizeof(sprite_t) * 6);
-    win->quests->text = malloc(sizeof(text_t) * 5);
+    win->quests->sprite = malloc(sizeof(sprite_t) * 8);
+    win->quests->text = malloc(sizeof(text_t) * 7);
     win->player = malloc(sizeof(player_t) * 1);
     win->player->sprite = malloc(sizeof(sprite_t) * 1);
     win->enemy = malloc(sizeof(enemy_t) * 1);

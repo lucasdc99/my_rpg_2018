@@ -30,6 +30,7 @@ static void do_attack(window_t *win)
 
 static void enemy_attack(window_t *win)
 {
+    char *str = NULL;
     sfClock_restart(win->combat_clock);
     win->combat_time = sfClock_getElapsedTime(win->combat_clock);
     win->seconds = win->combat_time.microseconds / 1000000.0;
@@ -41,14 +42,15 @@ static void enemy_attack(window_t *win)
     do_attack(win);
     sfSprite_setTextureRect(win->enemy->sprite->sprite,
     get_rect(297, 56, 30, 30));
-    win->player->actual_health -= 20;
+    win->player->actual_health -= 20 + (win->enemy->strength / 10);
     if (win->player->actual_health <= 0) {
         win->player->health = 0;
         win->player->actual_health = 0;
         win->page = END;
     } else {
-        sfText_setString(win->scene[COMBAT].text[0].str,
-        my_itc(win->player->actual_health));
+        str = my_strcat(my_itc(win->player->actual_health), "/");
+        str = my_strcat(str, my_itc(win->player->health));
+        sfText_setString(win->scene[COMBAT].text[0].str, str);
     }
     win->turn = 0;
 }

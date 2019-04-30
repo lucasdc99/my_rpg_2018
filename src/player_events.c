@@ -42,7 +42,6 @@ void move_player(window_t *win)
     go_boss(win);
     leave_boss(win);
     check_item_pickup(win);
-    leave_final(win);
     go_castle(win);
     go_forest(win);
     go_town(win);

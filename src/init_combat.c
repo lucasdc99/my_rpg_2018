@@ -22,7 +22,7 @@ static void init_buttons(window_t *win)
         get_pos_float(pos_x[i], pos_y[i]),
         size, win->texture_button);
     }
-    for (int i = 3; i < win->scene[COMBAT].nb_button; i++) {
+    for (int i = 2; i < win->scene[COMBAT].nb_button; i++) {
         sfRectangleShape_setSize(win->scene[COMBAT].button[i].shape,
         get_pos_float(100, 100));
     }
@@ -53,12 +53,15 @@ static void init_sprites(window_t *win)
 
 window_t *init_combat(window_t *win)
 {
+    char *str = NULL;
+
     set_struct(win, 5, 2, 2);
     win->combat_clock = sfClock_create();
     init_buttons(win);
     init_sprites(win);
-    init_text(&win->scene[COMBAT].text[0], my_itc(win->player->actual_health),
-    get_pos_float(1500, 10));
+    str = my_strcat(my_itc(win->player->actual_health), "/");
+    str = my_strcat(str, my_itc(win->player->health));
+    init_text(&win->scene[COMBAT].text[0], str, get_pos_float(1500, 10));
     init_text(&win->scene[COMBAT].text[1], my_itc(win->player->strength),
     get_pos_float(1500, 100));
     init_enemy(win);

@@ -19,6 +19,10 @@ void main_menu(window_t *win)
             win->player->last_pos.x = 100;
         if (win->player->last_pos.y <= 20)
             win->player->last_pos.y = 100;
+        if (win->actual_page >= FINAL) {
+            win->player->last_pos.x = 1020.0;
+            win->player->last_pos.y = 200.0;
+        }
         save_config_player(win);
         save_inventory(win);
         save_quests(win);

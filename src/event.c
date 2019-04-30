@@ -31,6 +31,10 @@ void check_keyboard_input_ingame(window_t *win)
             actual_quest = win->quests->quete_done;
             win->quests->sprite[1].depth = -1;
             sfText_setString(win->text->str, "\n");
+            if (win->quests->quete_done >= 6) {
+                actual_quest = 5;
+                win->quests->quete_done = 5;
+            }
             win->talking = 0;
             win->pause = 0;
         }
