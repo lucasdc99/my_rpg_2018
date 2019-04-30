@@ -32,6 +32,8 @@ static void init_sprites(quest_t *quest)
     sfSprite_setScale(quest->sprite[3].sprite, get_pos_float(0.2, 0.2));
     sfSprite_setScale(quest->sprite[4].sprite, get_pos_float(0.2, 0.2));
     sfSprite_setScale(quest->sprite[5].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[6].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[7].sprite, get_pos_float(0.2, 0.2));
     quest->sprite[1].depth = -1;
     quest->sprite[2].depth = -1;
 }
