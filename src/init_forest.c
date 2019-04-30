@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void initialisation_sprite_forest(window_t *win)
+static void initialisation_sprite_forest(window_t *win)
 {
     init_sprite(&win->scene[FOREST].sprite[0], "ressources/forest.png", get_pos_float(0, 0));
     init_sprite(&win->scene[FOREST].sprite[1], "ressources/sprite_contraste/tree.png", get_pos_float(30, 245));
@@ -29,7 +29,7 @@ void initialisation_sprite_forest(window_t *win)
     init_sprite(&win->scene[FOREST].sprite[16], "ressources/sprite_contraste/tree.png", get_pos_float(1635, 700));
 }
 
-void depth_sprite_forest(window_t *win)
+static void depth_sprite_forest(window_t *win)
 {
     win->scene[FOREST].sprite[0].depth = -1;
     for (int i = 1; i < win->scene[FOREST].nb_sprite; i++)
