@@ -58,7 +58,7 @@ static void init_buttons(window_t *win)
 
 window_t *init_choose_heroes(window_t *win)
 {
-    set_struct(win, 3, 7, 1);
+    set_struct(win, 3, 7, 2);
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
@@ -72,6 +72,8 @@ window_t *init_choose_heroes(window_t *win)
     get_pos_float(15, 15));
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
     win->scene[HEROES].sprite[0].rect);
+    init_sprite(&win->scene[HEROES].sprite[1], "ressources/menu.png", get_pos_float(0, 0));
+    win->scene[HEROES].sprite[1].depth = -1;
     win->scene[HEROES].button[0].callback = &choose_hero;
     win->scene[HEROES].button[1].callback = &play_game;
     win->scene[HEROES].button[2].callback = &main_menu;

@@ -12,8 +12,10 @@ void display_text_in_textbox(quest_t *quest)
 {
     static int fd = 0;
     char *str = NULL;
+    sfUint32 *unistr = NULL;
     sfVector2f pos = sfSprite_getPosition(quest->sprite[1].sprite);
     int actual = 0;
+    int a = 0;
 
     if (fd == 0) {
         fd = open("ressources/text/script_paroles", O_RDONLY);
@@ -27,16 +29,49 @@ void display_text_in_textbox(quest_t *quest)
     sfText_setCharacterSize(quest->text[1].str, 30);
     str = get_next_line(fd);
     if (str != NULL) {
+        unistr = malloc(sizeof(sfUint32) * my_strlen(str));
         for (int i = 0; str[i] != '\0'; i++) {
-            if (str[i] == '&')
-                str[i] = '\n';
+            switch (str[i])
+            {
+            case '&':
+                unistr[a++] = '\n';
+                break;
+            case '8':
+                unistr[a++] = 0x00E9;
+                i += 2;
+                break;
+            case '7':
+                unistr[a++] = 0x00E0;
+                i += 2;
+                break;
+            case '6':
+                unistr[a++] = 0x00EA;
+                i += 2;
+                break;
+            case '5':
+                unistr[a++] = 0x00F9;
+                i += 2;
+                break;
+            case '4':
+                unistr[a++] = 0x00FB;
+                i += 2;
+                break;
+            case '3':
+                unistr[a++] = 0x00E2;
+                i += 2;
+                break;
+            default:
+                unistr[a++] = str[i];
+                break;
+            }
         }
+        unistr[a] = '\0';
     }
     if (str == NULL || str[0] == '\0') {
         quest->quete_done++;
     }
     else {
-        sfText_setString(quest->text[1].str, str);
+        sfText_setUnicodeString(quest->text[1].str, unistr);
     }
     sfText_setPosition(quest->text[1].str, get_pos_float(pos.x + 20, pos.y + 20));
 }
