@@ -22,24 +22,18 @@ void initialisation_sprite_forest(window_t *win)
     init_sprite(&win->scene[FOREST].sprite[9], "ressources/sprite_contraste/tree.png", get_pos_float(265, 640));
     init_sprite(&win->scene[FOREST].sprite[10], "ressources/tree2.png", get_pos_float(25, 775));
     init_sprite(&win->scene[FOREST].sprite[11], "ressources/sprite_contraste/tree.png", get_pos_float(485, 810));
-    init_sprite(&win->scene[FOREST].sprite[12], "ressources/sprite_contraste/tombe.png", get_pos_float(1112, 615));
+    init_sprite(&win->scene[FOREST].sprite[12], "ressources/sprite_contraste/tombe.png", get_pos_float(1112, 610));
+    init_sprite(&win->scene[FOREST].sprite[13], "ressources/sprite_contraste/tree.png", get_pos_float(1625, 45));
+    init_sprite(&win->scene[FOREST].sprite[14], "ressources/tree2.png", get_pos_float(1180, 40));
+    init_sprite(&win->scene[FOREST].sprite[15], "ressources/tree2.png", get_pos_float(1575, 255));
+    init_sprite(&win->scene[FOREST].sprite[16], "ressources/sprite_contraste/tree.png", get_pos_float(1635, 700));
 }
 
 void depth_sprite_forest(window_t *win)
 {
     win->scene[FOREST].sprite[0].depth = -1;
-    win->scene[FOREST].sprite[1].depth = 1;
-    win->scene[FOREST].sprite[2].depth = 1;
-    win->scene[FOREST].sprite[3].depth = 1;
-    win->scene[FOREST].sprite[4].depth = 1;
-    win->scene[FOREST].sprite[5].depth = 1;
-    win->scene[FOREST].sprite[6].depth = 1;
-    win->scene[FOREST].sprite[7].depth = 1;
-    win->scene[FOREST].sprite[8].depth = 1;
-    win->scene[FOREST].sprite[9].depth = 1;
-    win->scene[FOREST].sprite[10].depth = 1;
-    win->scene[FOREST].sprite[11].depth = 1;
-    win->scene[FOREST].sprite[12].depth = 1;
+    for (int i = 1; i < win->scene[FOREST].nb_sprite; i++)
+        win->scene[FOREST].sprite[i].depth = 1;
 }
 
 window_t *init_forest(window_t *win)
@@ -47,7 +41,7 @@ window_t *init_forest(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};
 
-    set_struct(win, 2, 0, 13);
+    set_struct(win, 2, 0, 17);
     set_next_buttons(&win->scene[FOREST].button[0], win->rect_buttons,
     order_button[0]);
     init_button(&win->scene[FOREST].button[0], get_pos_float(-200, -200),
