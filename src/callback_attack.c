@@ -32,6 +32,7 @@ void stats_attack(window_t *win)
 {
     if (win->turn == 1)
         return;
+    sfMusic_play(win->music->heal);
     do_attack(win);
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));

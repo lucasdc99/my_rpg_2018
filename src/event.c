@@ -10,6 +10,8 @@
 
 void check_keyboard_input_ingame(window_t *win)
 {
+    static int actual_quest = 0;
+
     if (sfKeyboard_isKeyPressed(sfKeyI)) {
         if (win->inventory == 0 && win->pause == 0 && win->quest == 0)
             open_inventory(win);
@@ -21,6 +23,17 @@ void check_keyboard_input_ingame(window_t *win)
             open_quest(win);
         else if (win->inventory == 0 && win->pause == 1 && win->quest == 1)
             close_quest(win);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyReturn)) {
+        if (win->quest == 0 && win->inventory == 0 && win->pause == 1 && win->talking == 1)
+            display_text_in_textbox(win->quests);
+        if (win->quests->quete_done != actual_quest) {
+            actual_quest = win->quests->quete_done;
+            win->quests->sprite[1].depth = -1;
+            sfText_setString(win->text->str, "\n");
+            win->talking = 0;
+            win->pause = 0;
+        }
     }
 }
 

@@ -42,8 +42,6 @@ void go_final(window_t *win)
             win->player->last_pos = get_pos_float(1025, 150);
             sfSprite_setPosition(win->player->sprite->sprite,
             get_pos_float(950, 900));
-            sfMusic_play(win->music->boss_song);
-            sfMusic_stop(win->music->town_song);
             win->page = FINAL;
         }
     } else if (rect.top >= 64) {

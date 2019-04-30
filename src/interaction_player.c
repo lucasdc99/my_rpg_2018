@@ -26,6 +26,7 @@ void open_quest(window_t *win)
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = -1;
     }
+    sfMusic_play(win->music->open_menus);
 }
 
 void close_quest(window_t *win)

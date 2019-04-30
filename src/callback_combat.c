@@ -50,6 +50,7 @@ void basic_attack(window_t *win)
     if (win->turn == 1)
         return;
     my_wait(win, 10);
+    sfMusic_play(win->music->basic_attack);
     do_attack(win, 2);
     check_life(win, 20 + (win->player->strength / 10));
 }
@@ -59,6 +60,7 @@ void special_attack(window_t *win)
     if (win->turn == 1)
         return;
     my_wait(win, 2);
+    sfMusic_play(win->music->special_attack);
     do_attack(win, 1);
     check_life(win, 30 + (win->player->strength / 10));
 }

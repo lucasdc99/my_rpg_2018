@@ -15,7 +15,8 @@ window_t *init_how_to_play(window_t *win)
     sfVector2f pos_window = {(size_window.x - size.x + 250) / 2, 50};
     char *buff = get_buffer("ressources/text/help");
 
-    set_struct(win, 1, 2, 0);
+    set_struct(win, 1, 2, 1);
+    init_sprite(&win->scene[HOW_TO_PLAY].sprite[0], "ressources/menu.png", get_pos_float(0, 0));
     init_text(&win->scene[HOW_TO_PLAY].text[0], "How to Play", pos_window);
     pos_window.x = 100;
     pos_window.y += 150;

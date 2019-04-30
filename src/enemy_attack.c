@@ -37,6 +37,7 @@ static void enemy_attack(window_t *win)
         win->combat_time = sfClock_getElapsedTime(win->combat_clock);
         win->seconds = win->combat_time.microseconds / 100000.0;
     }
+    sfMusic_play(win->music->enemy_attack);
     do_attack(win);
     sfSprite_setTextureRect(win->enemy->sprite->sprite,
     get_rect(297, 56, 30, 30));

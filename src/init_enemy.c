@@ -15,14 +15,20 @@ void init_enemy(window_t *win)
     if (win->combat == 1) {
         name = my_strcat(name, "Ley-the-Monster-Whisperer.png");
         win->enemy->health = 50;
+        sfMusic_stop(win->music->boss_song);
+        sfMusic_play(win->music->boss_battle);
     }
     if (win->combat == 2) {
         name = my_strcat(name, "Oratio-the-Mercenary.png");
         win->enemy->health = 80;
+        sfMusic_stop(win->music->boss_song);
+        sfMusic_play(win->music->boss_battle);
     }
     if (win->combat == 3) {
         name = my_strcat(name, "Glenys-the-Demonswordsman.png");
         win->enemy->health = 150;
+        sfMusic_stop(win->music->boss_song);
+        sfMusic_play(win->music->boss_final);
     }
     init_sprite(&win->enemy->sprite[0], name, get_pos_float(400, 500));
     sfSprite_setTextureRect(win->enemy->sprite->sprite,

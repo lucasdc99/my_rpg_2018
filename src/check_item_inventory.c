@@ -56,13 +56,13 @@ void check_item_pickup(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
     if (win->actual_page == TOWN) {
-        if (win->quests->quete_done == 0)
+        if (win->quests->quete_done == 0 || win->quests->quete_done == 2 || win->quests->quete_done == 4)
             talk_to_old(win, pos_player);
         if (win->quests->quete_done == 1)
             check_pickup_sword(win, pos_player);
     }
     if (win->actual_page == FOREST) {
-        if (win->quests->quete_done == 2 && win->quests->sprite[1].depth <= 0)
+        if (win->quests->quete_done == 3 && win->quests->sprite[1].depth <= 0)
             check_pickup_armor(win, pos_player);
     }
 }

@@ -21,8 +21,9 @@ void pick_sword(window_t *win)
     win->inv->items[actual_pos].name = get_name_from_type(type);
     win->objects[SWORD].item = 1;
     win->objects[SWORD].depth = 2;
-    display_text_in_textbox(win->quests, "Vous avez trouve une Epee !\n");
-    win->quests->quete_done++;
+    display_text_in_textbox(win->quests);
+    win->pause = 1;
+    win->talking = 1;
 }
 
 void pick_armor(window_t *win)
@@ -38,6 +39,7 @@ void pick_armor(window_t *win)
     win->inv->items[actual_pos].name = get_name_from_type(type);
     win->objects[ARMOR].item = 1;
     win->objects[ARMOR].depth = 2;
-    display_text_in_textbox(win->quests, "Vous avez trouve une Armure !\n");
-    win->quests->quete_done++;
+    display_text_in_textbox(win->quests);
+    win->pause = 1;
+    win->talking = 1;
 }

@@ -22,6 +22,10 @@ window_t *destroy_scene(window_t *win)
     for (int i = 0; i < win->scene[page].nb_text; i++) {
         sfText_destroy(win->scene[page].text[i].str);
     }
+    if (page >= CASTLE && win->page == MAINMENU) {
+        sfTexture_destroy(win->player->sprite->texture);
+        sfSprite_destroy(win->player->sprite->sprite);
+    }
     if (win->scene[page].nb_button > 0)
         free(win->scene[page].button);
     if (win->scene[page].nb_sprite > 0)
@@ -35,16 +39,19 @@ void destroy_all(window_t *win)
 {
     sfMusic_destroy(win->music->menu_song);
     sfMusic_destroy(win->music->button_sound);
-    sfMusic_destroy(win->music->boss_song);
     sfMusic_destroy(win->music->town_song);
-    sfMusic_destroy(win->music->door_open);
+    sfMusic_destroy(win->music->boss_song);
     sfMusic_destroy(win->music->door_close);
+    sfMusic_destroy(win->music->door_open);
     sfMusic_destroy(win->music->stone_door);
+    sfMusic_destroy(win->music->boss_battle);
+    sfMusic_destroy(win->music->boss_final);
+    sfMusic_destroy(win->music->special_attack);
+    sfMusic_destroy(win->music->heal);
+    sfMusic_destroy(win->music->enemy_attack);
+    sfMusic_destroy(win->music->basic_attack);
+    sfMusic_destroy(win->music->open_menus);
     free(win->music);
-    if (win->player->sprite->texture != NULL)
-        sfTexture_destroy(win->player->sprite->texture);
-    if (win->player->sprite->sprite != NULL)
-        sfSprite_destroy(win->player->sprite->sprite);
     free(win->player->sprite);
     free(win->player);
     free(win->scene);

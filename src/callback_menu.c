@@ -27,5 +27,9 @@ void main_menu(window_t *win)
     sfMusic_play(win->music->button_sound);
     if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
         sfMusic_play(win->music->menu_song);
+    if (sfMusic_getStatus(win->music->town_song) == sfPlaying)
+        sfMusic_stop(win->music->town_song);
+    if (sfMusic_getStatus(win->music->boss_final) == sfPlaying)
+        sfMusic_stop(win->music->boss_final);
     win->page = MAINMENU;
 }

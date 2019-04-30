@@ -35,7 +35,7 @@ void open_door(window_t *win)
     sfIntRect rect;
     sfVector2f pos_door;
 
-    if (win->quests->quete_done == 3)
+    if (win->quests->quete_done == 5)
         go_final(win);
     for (int i = 1; i < 4; i++) {
         rect = sfSprite_getTextureRect(win->scene[TOWN].sprite[i].sprite);

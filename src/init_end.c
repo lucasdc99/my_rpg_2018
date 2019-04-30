@@ -23,5 +23,7 @@ window_t *init_end(window_t *win)
     init_button(&win->scene[END].button[0], get_pos_float(900, 900), size,
     win->texture_button);
     win->scene[END].button[0].callback = &main_menu;
+    if (sfMusic_getStatus(win->music->boss_battle) == sfPlaying)
+        sfMusic_stop(win->music->boss_battle);
     return (win);
 }

@@ -38,6 +38,7 @@ static void init_win_variable(window_t *win)
     init_text(win->text, "\n", get_pos_float(1450, 950));
     win->pause = 0;
     win->turn = 0;
+    win->talking = 0;
     win->combat = 0;
     win->move = sfClock_create();
     win->no_saves = 0;

@@ -82,6 +82,13 @@ typedef struct s_music {
     sfMusic *door_close;
     sfMusic *door_open;
     sfMusic *stone_door;
+    sfMusic *boss_battle;
+    sfMusic *boss_final;
+    sfMusic *special_attack;
+    sfMusic *heal;
+    sfMusic *enemy_attack;
+    sfMusic *basic_attack;
+    sfMusic *open_menus;
     int vol_pos;
     int drag_value;
     int vol_register;
@@ -168,6 +175,7 @@ typedef struct s_window {
     int seconds;
     int pause;
     int inventory;
+    int talking;
     int combat;
     int quest;
     int no_saves;
@@ -278,7 +286,7 @@ void set_struct(window_t *win, int button, int text, int sprite);
 char **transform_2d(char *tmp, char sep);
 char *get_next_line(int fd);
 int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos);
-void display_text_in_textbox(quest_t *quest, char *text);
+void display_text_in_textbox(quest_t *quest);
 void drag_button(window_t *win);
 void my_wait(window_t *win, int seconds);
 char *open_buff(char *filename);
@@ -333,7 +341,6 @@ void open_inventory(window_t *win);
 int set_player(window_t *win);
 
 // DETECTION EVENTS
-void close_textbox(window_t *win);
 void check_item_pickup(window_t *win);
 void pick_armor(window_t *win);
 void pick_sword(window_t *win);
@@ -361,7 +368,6 @@ void pause_game(window_t *win);
 void unpause_game(window_t *win);
 
 // TALK PNJ
-void close_textbox(window_t *win);
 void talk_to_old(window_t *win, sfVector2f pos_player);
 
 // MOUSE EVENTS

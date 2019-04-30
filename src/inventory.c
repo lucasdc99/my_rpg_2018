@@ -40,6 +40,7 @@ void open_inventory(window_t *win)
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = -1;
     }
+    sfMusic_play(win->music->open_menus);
 }
 
 static void put_position_in_inv(window_t *win, sfVector2f m_p, int a_p, int i)
