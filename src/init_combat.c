@@ -40,22 +40,27 @@ static void init_sprites(window_t *win)
     skin = my_strcat("ressources/images/sprites/", win->player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&win->scene[COMBAT].sprite[0], skin, get_pos_float(1500, 500));
-    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/test_fight.png",
+    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/heart.png",
+    get_pos_float(1450, 20));
+    init_sprite(&win->scene[COMBAT].sprite[2], "ressources/test_fight.png",
     get_pos_float(0, 0));
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
     sfSprite_setScale(win->scene[COMBAT].sprite[0].sprite,
     get_pos_float(4, 4));
-    win->scene[COMBAT].nb_sprite = 1;
+    sfSprite_setScale(win->scene[COMBAT].sprite[1].sprite,
+    get_pos_float(0.2, 0.2));
+    win->scene[COMBAT].nb_sprite = 2;
     win->scene[COMBAT].sprite[0].depth = 1;
-    win->scene[COMBAT].sprite[1].depth = -1;
+    win->scene[COMBAT].sprite[1].depth = 1;
+    win->scene[COMBAT].sprite[2].depth = -1;
 }
 
 window_t *init_combat(window_t *win)
 {
     char *str = NULL;
 
-    set_struct(win, 5, 2, 2);
+    set_struct(win, 5, 2, 3);
     win->combat_clock = sfClock_create();
     init_buttons(win);
     init_sprites(win);

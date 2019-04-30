@@ -76,7 +76,7 @@ player_t *parser_player(player_t *player, char *filename)
     player->last_pos.x = parse_int(get_next_line(fd));
     player->last_pos.y = parse_int(get_next_line(fd));
     player->last_page = parse_int(get_next_line(fd));
-    if (player->name == NULL || player->health < 0 || player->xp < 0 ||
+    if (player->name == NULL || player->health <= 0 || player->xp < 0 ||
     player->strength < 0 || player->last_pos.x < 0 || player->last_pos.y < 0 ||
     player->last_page < 0) {
         return (NULL);
