@@ -8,6 +8,20 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static void initialisation_sprite_house_one(window_t *win)
+{
+    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png",
+                get_pos_float(0, 0));
+    sfSprite_setPosition(win->scene[HOUSE1].sprite[0].sprite,
+                         get_pos_float(670, 300));
+    init_sprite(&win->scene[HOUSE1].sprite[1], "ressources/chars.png",
+                get_pos_float(1120, 435));
+    sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite,
+                            get_rect(129, 54, 32, 43));
+    sfSprite_setScale(win->scene[HOUSE1].sprite[1].sprite,
+                      get_pos_float(1.5, 1.5));
+}
+
 window_t *init_house_1(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
@@ -22,16 +36,7 @@ window_t *init_house_1(window_t *win)
     order_button[1]);
     init_button(&win->scene[HOUSE1].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
-    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png",
-    get_pos_float(0, 0));
-    sfSprite_setPosition(win->scene[HOUSE1].sprite[0].sprite,
-    get_pos_float(670, 300));
-    init_sprite(&win->scene[HOUSE1].sprite[1], "ressources/chars.png",
-    get_pos_float(1120, 435));
-    sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite,
-    get_rect(129, 54, 32, 43));
-    sfSprite_setScale(win->scene[HOUSE1].sprite[1].sprite,
-    get_pos_float(1.5, 1.5));
+   initialisation_sprite_house_one(win);
     win->scene[HOUSE1].sprite[0].depth = -1;
     win->scene[HOUSE1].button[0].callback = &quit_pause;
     win->scene[HOUSE1].button[1].callback = &main_menu;
