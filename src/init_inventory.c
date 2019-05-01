@@ -43,8 +43,9 @@ void init_inventory(inventory_t *inv)
     inv->items[12].pos = get_pos_float(1260, 260);
     inv->items[13].pos = get_pos_float(1260, 380);
     inv->items[14].pos = get_pos_float(1260, 500);
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 15; i++) {
         inv->items[i].busy = 0;
+    }
     inv->text = sfText_create();
     sfText_setPosition(inv->text, get_pos_float(1380, 465));
     sfText_setFont(inv->text,

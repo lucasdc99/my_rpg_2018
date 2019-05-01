@@ -62,6 +62,7 @@ void check_error_config(window_t *win)
     if (win->player->last_pos.x < 0)
         win->no_saves = 1;
     if (win->inv == NULL) {
+        win->no_saves = 1;        
         win->inv = malloc(sizeof(inventory_t) * 1);
         win->inv->sprite = malloc(sizeof(sprite_t) * 1);
         win->inv->items = malloc(sizeof(items_t) * 15);
@@ -70,6 +71,7 @@ void check_error_config(window_t *win)
         save_inventory(win);
     }
     if (win->quests == NULL) {
+        win->no_saves = 1;
         win->quests = malloc(sizeof(quest_t) * 1);
         win->quests->sprite = malloc(sizeof(sprite_t) * 6);
         win->quests->text = malloc(sizeof(text_t) * 5);

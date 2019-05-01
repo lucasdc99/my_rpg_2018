@@ -62,6 +62,7 @@ int display(window_t *win)
         win = ptr_choose[win->actual_page].draw(win);
         animation_mainmenu(win);
         animation_choose_heroes(win);
+        animation_end(win);
         manage_game(win);
         check_enemy_turn(win);
     }

@@ -14,8 +14,7 @@ static void check_life(window_t *win, int damage)
 
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
-    win->enemy->actual_health -= damage;
-    if (win->enemy->actual_health <= 0) {
+    if (win->enemy->actual_health - damage <= 0) {
         win->enemy->health = 0;
         sfSprite_setPosition(win->player->sprite->sprite,
         win->player->last_pos);
@@ -24,9 +23,13 @@ static void check_life(window_t *win, int damage)
         else
             win->page = FINAL;
     } else {
-        str = my_strcat(my_itc(win->enemy->actual_health), "/");
-        str = my_strcat(str, my_itc(win->enemy->health));
-        sfText_setString(win->enemy->text->str, str);
+        for (int i = 0; i < damage; i++) {
+            draw_scene(win);
+            win->enemy->actual_health--;
+            str = my_strcat(my_itc(win->enemy->actual_health), "/");
+            str = my_strcat(str, my_itc(win->enemy->health));
+            sfText_setString(win->enemy->text->str, str);
+        }
         win->turn = 1;
     }
 }
@@ -67,6 +70,7 @@ void basic_attack(window_t *win)
 void special_attack(window_t *win)
 {
     char *str = NULL;
+    int tmp = 0;
 
     if (win->turn == 1)
         return;
@@ -74,11 +78,15 @@ void special_attack(window_t *win)
     my_wait(win, 2);
     sfMusic_play(win->music->special_attack);
     do_attack(win, 1);
-    win->player->health -= win->player->strength / 10;
-    if (win->player->health < win->player->actual_health)
-        win->player->actual_health = win->player->health;
-    str = my_strcat(my_itc(win->player->actual_health), "/");
-    str = my_strcat(str, my_itc(win->player->health));
-    sfText_setString(win->scene[COMBAT].text[0].str, str);
+    tmp = win->player->strength / 10;
+    for (int i = 0; i < tmp; i++) {
+        draw_scene(win);
+        win->player->health--;
+        if (win->player->health < win->player->actual_health)
+            win->player->actual_health = win->player->health;
+        str = my_strcat(my_itc(win->player->actual_health), "/");
+        str = my_strcat(str, my_itc(win->player->health));
+        sfText_setString(win->scene[COMBAT].text[0].str, str);
+    }
     check_life(win, 30 + (win->player->strength / 10));
 }

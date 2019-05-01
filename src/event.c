@@ -19,12 +19,16 @@ void check_keyboard_input_ingame(window_t *win)
             close_inventory(win);
     }
     if (sfKeyboard_isKeyPressed(sfKeyO)) {
-        if (win->quest == 0 && win->inventory == 0 && win->pause == 0)
+        if (win->quest == 0 && win->inventory == 0 && win->pause == 0) {
             open_quest(win);
-        else if (win->inventory == 0 && win->pause == 1 && win->quest == 1)
+            sfText_setString(win->text->str, "\n");
+        }
+        else if (win->inventory == 0 && win->pause == 1 && win->quest == 1) {
             close_quest(win);
+            sfText_setString(win->text->str, "\n");
+        }
     }
-    if (actual_quest == 0) {
+    if (actual_quest == 0 || actual_quest == 5) {
         actual_quest = win->quests->quete_done;
     }
     if (sfKeyboard_isKeyPressed(sfKeyReturn)) {
@@ -84,7 +88,7 @@ void global_event_condition_escape(window_t *win)
     if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
         if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
             pause_game(win);
-        else if (win->inventory == 0 && win->quest == 0 && win->pause == 1)
+        else if (win->inventory == 0 && win->quest == 0 && win->talking == 0 && win->pause == 1)
             unpause_game(win);
         if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
             close_inventory(win);

@@ -14,7 +14,7 @@ void go_boss(window_t *win)
     static int ok = 0;
 
     if (win->actual_page == FINAL && win->page == FINAL) {
-        if (is_inside_zone(get_pos_float(910, 90), get_pos_float(940, 140),
+        if (is_inside_zone(get_pos_float(910, 90), get_pos_float(950, 140),
         pos_player) == 1 && win->player->direction == UP && ok == 0) {
             display_text_in_textbox(win->quests);
             win->pause = 1;

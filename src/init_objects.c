@@ -14,14 +14,26 @@ static void set_inv(sprite_t *sprite, inventory_t *inv)
         if (get_type_from_inv(inv->items[i].name) == SWORD) {
             sfSprite_setPosition(sprite[SWORD].sprite, inv->items[i].pos);
             sprite[SWORD].depth = 2;
+            if (i >= 12)
+                sprite[SWORD].equiped = 1;
+            else
+                sprite[SWORD].equiped = 0;
         }
         if (get_type_from_inv(inv->items[i].name) == ARMOR) {
             sfSprite_setPosition(sprite[ARMOR].sprite, inv->items[i].pos);
             sprite[ARMOR].depth = 2;
+            if (i >= 12)
+                sprite[ARMOR].equiped = 1;
+            else
+                sprite[ARMOR].equiped = 0;
         }
         if (get_type_from_inv(inv->items[i].name) == HELMET) {
             sfSprite_setPosition(sprite[HELMET].sprite, inv->items[i].pos);
             sprite[HELMET].depth = 2;
+            if (i >= 12)
+                sprite[HELMET].equiped = 1;
+            else
+                sprite[HELMET].equiped = 0;
         }
     }
 }

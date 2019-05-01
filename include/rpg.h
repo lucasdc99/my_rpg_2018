@@ -99,6 +99,7 @@ typedef struct s_sprite {
     int depth;
     int item;
     int type;
+    int equiped;
     sfIntRect rect;
     sfSprite *sprite;
     sfTexture *texture;
@@ -321,6 +322,7 @@ void animation_choose_heroes(window_t *win);
 void animation_torch(window_t *win, int offset);
 void animation_begin(window_t *win);
 void animate_player_walk(window_t *win);
+void animation_end(window_t *win);
 
 // SAVES
 void save_inventory(window_t *win);

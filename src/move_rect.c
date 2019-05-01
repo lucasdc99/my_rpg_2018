@@ -32,6 +32,8 @@ void animation_begin(window_t *win)
         part = do_first_part(win, &i, part);
     } else if (part == 2) {
         win->no_saves = 0;
+        sfText_setString(win->text->str, "Appuyez sur O\n");
+        sfText_setPosition(win->text->str, get_pos_float(1450, 950));
         part = 3;
     }
     if (part == 3 && win->no_saves == 1) {
@@ -48,6 +50,17 @@ void animation_torch(window_t *win, int offset)
     win->scene[CASTLE].sprite[5].rect);
     sfSprite_setTextureRect(win->scene[CASTLE].sprite[6].sprite,
     win->scene[CASTLE].sprite[6].rect);
+}
+
+void animation_end(window_t *win)
+{
+    if (win->actual_page == END) {
+        win->move_time = sfClock_getElapsedTime(win->move);
+        win->seconds = win->move_time.microseconds / 150000.0;
+        win->scene[END].sprite[0].rect.left = 1416 * (win->seconds % 10);
+        sfSprite_setTextureRect(win->scene[END].sprite[0].sprite,
+        win->scene[END].sprite[0].rect);
+    }
 }
 
 void animation_choose_heroes(window_t *win)

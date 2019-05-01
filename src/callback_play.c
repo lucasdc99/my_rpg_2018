@@ -26,23 +26,6 @@ static void check_new_game(window_t *win)
     }
 }
 
-static void check_error_inv(window_t *win)
-{
-    int actual_pos = 0;
-
-    if (win->quests->quete_done >= 2) {
-        if (check_existing_inventory(win, "Dague") == 1) {
-            sfSprite_setPosition(win->objects[SWORD].sprite,
-            get_inv_pos(win->inv));
-            actual_pos = get_actual_pos_inv(win->inv, get_pos_float(0, 0));
-            win->inv->items[actual_pos].busy = 1;
-            win->inv->items[actual_pos].name = get_name_from_type(SWORD);
-            win->objects[SWORD].item = 1;
-            win->objects[SWORD].depth = 2;
-        }
-    }
-}
-
 void play_game(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
@@ -55,7 +38,6 @@ void play_game(window_t *win)
     if (set_player(win) == 84)
         win->error = 84;
     init_objects(win->objects, win->inv);
-    check_error_inv(win);
     init_quests(win->quests);
     if (win->quests->quete_done < 5)
         win->quests->combat = 0;

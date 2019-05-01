@@ -43,6 +43,46 @@ void open_inventory(window_t *win)
     sfMusic_play(win->music->open_menus);
 }
 
+void check_equip_stuff(window_t *win, int actual_pos, int i)
+{
+    int type = -1;
+
+    type = my_strcmp(win->inv->items[actual_pos].name, "Dague");
+    if (actual_pos >= 12 && type == 0) {
+        if (win->objects[SWORD].equiped == 0)
+            win->player->strength += 20;
+        win->objects[i].equiped = 1;
+    }
+    type = my_strcmp(win->inv->items[actual_pos].name, "Armure");
+    if (actual_pos >= 12 && type == 0) {
+        if (win->objects[ARMOR].equiped == 0) {
+            win->player->health += 20;
+            win->player->actual_health += 20;
+        }
+        win->objects[i].equiped = 1;
+    }
+}
+
+void check_desequip_stuff(window_t *win, int actual_pos, int i)
+{
+    int type = -1;
+
+    type = my_strcmp(win->inv->items[actual_pos].name, "Dague");
+    if (actual_pos < 12 && type == 0) {
+        if (win->objects[SWORD].equiped == 1)
+            win->player->strength -= 20;
+        win->objects[i].equiped = 0;
+    }
+    type = my_strcmp(win->inv->items[actual_pos].name, "Armure");
+    if (actual_pos < 12 && type == 0) {
+        if (win->objects[ARMOR].equiped == 1) {
+            win->player->health -= 20;
+            win->player->actual_health -= 20;
+        }
+        win->objects[i].equiped = 0;
+    }
+}
+
 static void put_position_in_inv(window_t *win, sfVector2f m_p, int a_p, int i)
 {
     sfVector2f pos;
@@ -56,11 +96,9 @@ static void put_position_in_inv(window_t *win, sfVector2f m_p, int a_p, int i)
             get_inv_pos(win->inv));
         win->inv->items[a_p].busy = 1;
     } else {
-        sfSprite_setPosition(win->objects[i].sprite,
-        sfSprite_getPosition(win->player->sprite->sprite));
-        win->objects[i].depth = 0;
-        win->inv->items[a_p].name = NULL;
-        save_inventory(win);
+        pos = get_inv_pos(win->inv);
+        sfSprite_setPosition(win->objects[i].sprite, pos);
+        win->inv->items[a_p].busy = 1;
     }
 }
 
@@ -80,13 +118,9 @@ void check_drag_and_drop_inv(window_t *win)
             actual_pos = get_actual_pos_inv(win->inv, move_pos);
             type = win->objects[i].type;
             win->inv->items[actual_pos].name = get_name_from_type(type);
-            type = my_strcmp(win->inv->items[actual_pos].name, "Dague");
-            if (actual_pos >= 12 && type == 0)
-                win->player->strength += 20;
-            type = my_strcmp(win->inv->items[actual_pos].name, "Armure");
-            if (actual_pos >= 12 && type == 0)
-                win->player->health += 20;
             win->objects[i].item = 1;
+            check_equip_stuff(win, actual_pos, i);
+            check_desequip_stuff(win, actual_pos, i);
             put_position_in_inv(win, move_pos, actual_pos, i);
         }
     }
