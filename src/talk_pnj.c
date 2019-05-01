@@ -20,6 +20,9 @@ void talk_to_old(window_t *win, sfVector2f pos_player)
                 win->talking = 1;
                 display_text_in_textbox(win->quests);
             }
+            if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
+                sfText_setString(win->text->str, "\n");
+            }
         } else if (is_inside_zone(get_pos_float(700, 700),
         get_pos_float(740, 780), pos_player) == 0) {
             sfText_setString(win->text->str, "\n");

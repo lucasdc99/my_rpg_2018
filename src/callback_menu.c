@@ -11,6 +11,7 @@
 void main_menu(window_t *win)
 {
     sfVector2f pos;
+    int tmp = 0;
 
     if (win->page >= CASTLE) {
         pos = sfSprite_getPosition(win->player->sprite->sprite);
@@ -26,6 +27,11 @@ void main_menu(window_t *win)
         save_config_player(win);
         save_inventory(win);
         save_quests(win);
+        tmp = win->quests->quete_done;
+        win->quests->quete_done = 15;
+        display_text_in_textbox(win->quests);
+        win->quests->sprite[1].depth = -1;
+        win->quests->quete_done = tmp;
     }
     win->pause = 0;
     sfMusic_play(win->music->button_sound);

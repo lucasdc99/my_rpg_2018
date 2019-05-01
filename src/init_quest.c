@@ -43,7 +43,7 @@ void init_quests(quest_t *quest)
     init_sprites(quest);
     init_text(&quest->text[0], "QUETE 1:    Aller parler au grand pere\n",
     get_pos_float(300, 100));
-    init_text(&quest->text[1], "Bonjour\n", get_pos_float(0, 0));
+    init_text(&quest->text[1], "bonjour\n", get_pos_float(0, 0));
     init_text(&quest->text[2], "QUETE 2:    Trouver l'epee du grand pere\n",
     get_pos_float(300, 200));
     init_text(&quest->text[3], "QUETE 3:    Aller parler au grand pere\n",
