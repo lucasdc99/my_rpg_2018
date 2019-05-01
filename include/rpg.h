@@ -146,6 +146,7 @@ typedef struct s_quest {
     sprite_t *sprite;
     text_t *text;
     int quete_done;
+    int combat;    
 } quest_t;
 
 typedef struct s_inventory {
@@ -178,7 +179,6 @@ typedef struct s_window {
     int pause;
     int inventory;
     int talking;
-    int combat;
     int quest;
     int no_saves;
     int turn;
@@ -222,7 +222,7 @@ void go_town(window_t *win);
 void close_door(window_t *win);
 void open_door(window_t *win);
 void go_boss(window_t *win);
-void leave_boss(window_t *win);
+void leave_final(window_t *win);
 void start_combat(window_t *, sfVector2f);
 void go_final(window_t *win);
 

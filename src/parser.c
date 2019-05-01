@@ -57,8 +57,11 @@ quest_t *parser_quests(quest_t *quest, char *filename)
     str = get_next_line(fd);
     if (str == NULL)
         quest->quete_done = 0;
-    else
+    else {
         quest->quete_done = my_getnbr(str);
+        str = get_next_line(fd);
+        quest->combat = my_getnbr(str);
+    }
     close(fd);
     return (quest);
 }

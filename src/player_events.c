@@ -40,7 +40,7 @@ void move_player(window_t *win)
     }
     check_movement(win);
     go_boss(win);
-    leave_boss(win);
+    leave_final(win);
     check_item_pickup(win);
     go_castle(win);
     go_forest(win);

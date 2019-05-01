@@ -39,7 +39,7 @@ static void init_win_variable(window_t *win)
     win->pause = 0;
     win->turn = 0;
     win->talking = 0;
-    win->combat = 0;
+    win->quests->combat = 0;
     win->move = sfClock_create();
     win->no_saves = 0;
     win->error = 0;

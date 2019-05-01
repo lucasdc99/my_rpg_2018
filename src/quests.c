@@ -13,5 +13,6 @@ void save_quests(window_t *win)
     FILE *fp = fopen("ressources/text/quests", "wb+");
 
     fprintf(fp, "%d\n", win->quests->quete_done);
+    fprintf(fp, "%d\n", win->quests->combat);
     fclose(fp);
 }

@@ -11,8 +11,16 @@
 void go_boss(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
+    static int ok = 0;
 
     if (win->actual_page == FINAL && win->page == FINAL) {
+        if (is_inside_zone(get_pos_float(910, 90), get_pos_float(940, 140),
+        pos_player) == 1 && win->player->direction == UP && ok == 0) {
+            display_text_in_textbox(win->quests);
+            win->pause = 1;
+            win->talking = 1;
+            ok = 1;
+        }
         if (is_inside_zone(get_pos_float(910, 0), get_pos_float(940, 90),
         pos_player) == 1 && win->player->direction == UP) {
             win->player->last_pos = pos_player;
@@ -30,7 +38,6 @@ void go_final(window_t *win)
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
     sfIntRect rect = sfSprite_getTextureRect(sprite);
     sfVector2f pos_door = sfSprite_getPosition(sprite);
-    static int ok = 0;
 
     if (is_inside_zone(get_pos_float(pos_door.x - 30, pos_door.y),
     get_pos_float(pos_door.x + 40, pos_door.y + 100), pos_player) == 1) {
@@ -38,12 +45,6 @@ void go_final(window_t *win)
         sfSprite_setTextureRect(win->scene[TOWN].sprite[4].sprite, rect);
         if (sfMusic_getStatus(win->music->stone_door) == sfStopped)
             sfMusic_play(win->music->stone_door);
-        if (ok == 0) {
-            display_text_in_textbox(win->quests);
-            win->pause = 1;
-            win->talking = 1;
-            ok = 1;
-        }
         if (pos_player.y >= pos_door.y - 60 &&
         pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
             win->player->last_pos = get_pos_float(1025, 150);
@@ -58,16 +59,16 @@ void go_final(window_t *win)
     }
 }
 
-void leave_boss(window_t *win)
+void leave_final(window_t *win)
 {
     sfVector2f pos_player = sfSprite_getPosition(win->player->sprite->sprite);
 
-    if (win->actual_page == BOSS && win->page == BOSS) {
-        if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1100, 1100),
+    if (win->actual_page == FINAL && win->page == FINAL) {
+        if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1020, 1100),
         pos_player) == 1 && win->player->direction == DOWN) {
             sfSprite_setPosition(win->player->sprite->sprite,
             win->player->last_pos);
-            win->page = FINAL;
+            win->page = TOWN;
         }
     }
 }

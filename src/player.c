@@ -18,9 +18,9 @@ void save_config_player(window_t *win)
     fprintf(fp, "STRENGTH = %d\n", win->player->strength);
     fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);
     fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
-    if (win->actual_page >= CASTLE && win->actual_page < FINAL)
+    if (win->actual_page >= CASTLE && win->actual_page < BOSS)
         fprintf(fp, "PAGE = %d\n", win->actual_page);
-    else if (win->actual_page >= FINAL)
+    else if (win->actual_page >= BOSS)
         fprintf(fp, "PAGE = %d\n", TOWN);
     else
         fprintf(fp, "PAGE = %d\n", CASTLE);

@@ -10,11 +10,9 @@
 
 void choose_hero(window_t *win)
 {
-
     win->player->hero++;
     if (win->player->hero >= 5)
         win->player->hero = 0;
-    printf("=>%d\n", win->player->hero);
     if (win->player->hero == 0)
         choose_hex(win);
     if (win->player->hero == 1)
@@ -32,7 +30,6 @@ void choose_hero_reverse(window_t *win)
     win->player->hero--;
     if (win->player->hero < 0)
         win->player->hero = 4;
-    printf("=>%d\n", win->player->hero);
     if (win->player->hero == 0)
         choose_hex(win);
     if (win->player->hero == 1)
