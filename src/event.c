@@ -24,7 +24,7 @@ void check_keyboard_input_ingame(window_t *win)
         else if (win->inventory == 0 && win->pause == 1 && win->quest == 1)
             close_quest(win);
     }
-    if (win->quests->quete_done == 0) {
+    if (actual_quest == 0) {
         actual_quest = win->quests->quete_done;
     }
     if (sfKeyboard_isKeyPressed(sfKeyReturn)) {

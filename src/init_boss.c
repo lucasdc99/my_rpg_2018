@@ -77,7 +77,7 @@ window_t *init_boss(window_t *win)
     init_sprite(&win->scene[BOSS].sprite[0], "ressources/final_boss.png",
     get_pos_float(600, 0));
     init_sprite(&win->scene[BOSS].sprite[1],
-    "ressources/images/sprites/Glenys-the-Demonswordsman.png",
+    "ressources/images/sprites/Glenys.png",
     get_pos_float(920, 80));
     initialisation_depth_sprite_boss(win);
     init_buttons(win);

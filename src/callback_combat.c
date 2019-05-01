@@ -10,10 +10,13 @@
 
 static void check_life(window_t *win, int damage)
 {
+    char *str = NULL;
+
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
-    win->enemy->health -= damage;
-    if (win->enemy->health <= 0) {
+    win->enemy->actual_health -= damage;
+    if (win->enemy->actual_health <= 0) {
+        win->enemy->health = 0;
         sfSprite_setPosition(win->player->sprite->sprite,
         win->player->last_pos);
         if (win->quests->combat == 3)
@@ -21,7 +24,9 @@ static void check_life(window_t *win, int damage)
         else
             win->page = FINAL;
     } else {
-        sfText_setString(win->enemy->text->str, my_itc(win->enemy->health));
+        str = my_strcat(my_itc(win->enemy->actual_health), "/");
+        str = my_strcat(str, my_itc(win->enemy->health));
+        sfText_setString(win->enemy->text->str, str);
         win->turn = 1;
     }
 }
@@ -40,7 +45,7 @@ static void do_attack(window_t *win, int type)
         sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite, rect);
         sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
         sfRenderWindow_drawSprite(win->window,
-        win->scene[COMBAT].sprite[3].sprite, NULL);
+        win->scene[COMBAT].sprite[6].sprite, NULL);
         sfRenderWindow_drawSprite(win->window,
         win->scene[COMBAT].sprite[0].sprite, NULL);
         sfRenderWindow_display(win->window);
@@ -52,6 +57,7 @@ void basic_attack(window_t *win)
 {
     if (win->turn == 1)
         return;
+    sfText_setString(win->text->str, "\n");    
     my_wait(win, 10);
     sfMusic_play(win->music->basic_attack);
     do_attack(win, 2);
@@ -64,6 +70,7 @@ void special_attack(window_t *win)
 
     if (win->turn == 1)
         return;
+    sfText_setString(win->text->str, "\n");
     my_wait(win, 2);
     sfMusic_play(win->music->special_attack);
     do_attack(win, 1);

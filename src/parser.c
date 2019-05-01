@@ -74,6 +74,7 @@ player_t *parser_player(player_t *player, char *filename)
         return (NULL);
     player->name = parse_string(get_next_line(fd));
     player->health = parse_int(get_next_line(fd));
+    player->actual_health = parse_int(get_next_line(fd));
     player->xp = parse_int(get_next_line(fd));
     player->strength = parse_int(get_next_line(fd));
     player->last_pos.x = parse_int(get_next_line(fd));

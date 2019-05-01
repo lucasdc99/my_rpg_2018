@@ -15,6 +15,7 @@ static void check_new_game(window_t *win)
         display_text_in_textbox(win->quests);
         win->quests->sprite[1].depth = -1;
         win->quests->quete_done = 0;
+        win->quests->combat = 0;
         save_quests(win);
         for (int i = 0; i < 15; i++)
             win->inv->items[i].name = NULL;
@@ -56,7 +57,8 @@ void play_game(window_t *win)
     init_objects(win->objects, win->inv);
     check_error_inv(win);
     init_quests(win->quests);
+    if (win->quests->quete_done < 5)
+        win->quests->combat = 0;
     sfText_setString(win->text->str, "\n");
-    win->player->actual_health = win->player->health;
     sfMusic_stop(win->music->menu_song);
 }

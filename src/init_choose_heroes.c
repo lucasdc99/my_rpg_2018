@@ -83,6 +83,7 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].button[2].callback = &play_game;
     win->scene[HEROES].button[3].callback = &main_menu;
     win->player->hero = 0;
+    win->quests->combat = 0;
     choose_hex(win);
     return (win);
 }

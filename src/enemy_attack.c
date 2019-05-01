@@ -20,7 +20,7 @@ static void do_attack(window_t *win)
         sfSprite_setTextureRect(win->enemy->sprite->sprite, rect);
         sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
         sfRenderWindow_drawSprite(win->window,
-        win->scene[COMBAT].sprite[2].sprite, NULL);
+        win->scene[COMBAT].sprite[6].sprite, NULL);
         sfRenderWindow_drawSprite(win->window,
         win->enemy->sprite->sprite, NULL);
         sfRenderWindow_display(win->window);
@@ -31,6 +31,7 @@ static void do_attack(window_t *win)
 static void enemy_attack(window_t *win)
 {
     char *str = NULL;
+    sfText_setString(win->text->str, "\n");
     sfClock_restart(win->combat_clock);
     win->combat_time = sfClock_getElapsedTime(win->combat_clock);
     win->seconds = win->combat_time.microseconds / 1000000.0;
@@ -42,7 +43,14 @@ static void enemy_attack(window_t *win)
     do_attack(win);
     sfSprite_setTextureRect(win->enemy->sprite->sprite,
     get_rect(297, 56, 30, 30));
-    win->player->actual_health -= 20 + (win->enemy->strength / 10);
+    win->move_time = sfClock_getElapsedTime(win->move);
+    win->seconds = win->move_time.microseconds / 100000.0;
+    if ((win->seconds % 4) != 0) {
+        win->player->actual_health -= 20 + (win->enemy->strength / 10);
+    } else {
+        sfText_setString(win->text->str, "Rate\n");
+        sfText_setPosition(win->text->str, get_pos_float(500, 500));
+    }
     if (win->player->actual_health <= 0) {
         win->player->health = 0;
         win->player->actual_health = 0;

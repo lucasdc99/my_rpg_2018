@@ -61,9 +61,9 @@ void draw_others(window_t *win)
         sfRenderWindow_drawText(win->window,
         win->scene[win->actual_page].text[i].str, NULL);
     }
-    if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
+    if (win->actual_page >= CASTLE) {
         sfRenderWindow_drawText(win->window, win->text->str, NULL);
-        if (win->quests->sprite[1].depth >= 0) {
+        if (win->quests->sprite[1].depth >= 0 && win->actual_page < COMBAT) {
             sfRenderWindow_drawSprite(win->window,
             win->quests->sprite[1].sprite, NULL);
             sfRenderWindow_drawText(win->window,

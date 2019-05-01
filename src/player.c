@@ -14,6 +14,7 @@ void save_config_player(window_t *win)
 
     fprintf(fp, "NAME = %s\n", win->player->name);
     fprintf(fp, "HEALTH = %d\n", win->player->health);
+    fprintf(fp, "ACTUAL HEALTH = %d\n", win->player->actual_health);
     fprintf(fp, "XP = %d\n", win->player->xp);
     fprintf(fp, "STRENGTH = %d\n", win->player->strength);
     fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);

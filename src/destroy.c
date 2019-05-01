@@ -37,8 +37,6 @@ window_t *destroy_scene(window_t *win)
 
 void destroy_all(window_t *win)
 {
-    // win->quests->quete_done = 15;
-    // display_text_in_textbox(win->quests);
     sfMusic_destroy(win->music->menu_song);
     sfMusic_destroy(win->music->button_sound);
     sfMusic_destroy(win->music->town_song);

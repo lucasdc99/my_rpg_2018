@@ -113,6 +113,7 @@ typedef struct s_items {
 
 typedef struct s_enemy {
     int health;
+    int actual_health;
     int strength;
     sprite_t *sprite;
     text_t *text;
