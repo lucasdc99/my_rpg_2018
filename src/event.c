@@ -83,6 +83,8 @@ void global_event_condition_escape(window_t *win)
             pause_game(win);
         else if (win->inventory == 0 && win->quest == 0 && win->pause == 1)
             unpause_game(win);
+        if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
+            close_inventory(win);
     }
 }
 
