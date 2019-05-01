@@ -10,7 +10,7 @@
 
 void str_to_unicode(char *str, sfUint32 *unistr[])
 {
-    sfUint32 tmp[200];
+    sfUint32 tmp[300];
     int a = 0;
 
     unistr[0] = tmp;
