@@ -10,7 +10,7 @@
 
 void choose_hex(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Hex-the-Time-Witch.png"};
+    char *name = {"ressources/images/sprites/Hex.png"};
 
     win->player->name = "Hex";
     win->player->health = 70;
@@ -34,7 +34,7 @@ void choose_hex(window_t *win)
 
 void choose_linail(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Linail-the-High-Priestess.png"};
+    char *name = {"ressources/images/sprites/Linail.png"};
 
     win->player->name = "Linail";
     win->player->health = 110;
@@ -58,7 +58,7 @@ void choose_linail(window_t *win)
 
 void choose_ouzo(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Ouzo-the-Wolf-Bard.png"};
+    char *name = {"ressources/images/sprites/Ouzo.png"};
 
     win->player->name = "Ouzo";
     win->player->health = 70;
@@ -82,7 +82,7 @@ void choose_ouzo(window_t *win)
 
 void choose_prime(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Prime-the-Great-Sage.png"};
+    char *name = {"ressources/images/sprites/Prime.png"};
 
     win->player->name = "Prime";
     win->player->health = 150;
@@ -106,7 +106,7 @@ void choose_prime(window_t *win)
 
 void choose_wyvera(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Wyvera-the-Queen-Dragoon.png"};
+    char *name = {"ressources/images/sprites/Wyvera.png"};
 
     win->player->name = "Wyvera";
     win->player->health = 110;

@@ -16,7 +16,7 @@ static void init_texts(window_t *win)
         (size_window.x - size.x) / 2,
         (size_window.y - size.y) / 8};
     char *name[] = {
-        "Choisissez votre personnage", "Hex-the-Time-Witch", "Vie: ",
+        "Choisissez votre personnage", "Hex", "Vie: ",
         my_itc(70), "Force: ", my_itc(70), "Description"};
     int pos_x[] = {
         pos_window.x + 40, pos_window.x / 2, (pos_window.x - 100) / 2,
@@ -66,7 +66,7 @@ window_t *init_choose_heroes(window_t *win)
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
-    "ressources/images/sprites/Hex-the-Time-Witch.png",
+    "ressources/images/sprites/Hex.png",
     get_pos_float(100, 100));
     win->scene[HEROES].sprite[0].rect.top = 100;
     win->scene[HEROES].sprite[0].rect.left = 0;
