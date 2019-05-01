@@ -14,6 +14,14 @@ static void initialisation_house_three_depth_sprite(window_t *win)
             "ressources/sprite_contraste/horloge.png", get_pos_float(638, 412));
     init_sprite(&win->scene[HOUSE3].sprite[2],
             "ressources/sprite_contraste/mirror.png", get_pos_float(1083, 513));
+    init_sprite(&win->scene[HOUSE3].sprite[3],
+            "ressources/sprite_contraste/table_blanche.png",
+            get_pos_float(798, 502));
+    init_sprite(&win->scene[HOUSE3].sprite[4],
+            "ressources/sprite_contraste/bout_chaise.png",
+            get_pos_float(735, 505));
+    init_sprite(&win->scene[HOUSE3].sprite[5],
+    "ressources/sprite_contraste/bout_chaise.png", get_pos_float(863, 505));
     sfSprite_setPosition(win->scene[HOUSE3].sprite[0].sprite,
                          get_pos_float(670, 300));
     win->scene[HOUSE3].sprite[0].depth = -1;
@@ -26,7 +34,7 @@ window_t *init_house_3(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};
 
-    set_struct(win, 2, 0, 3);
+    set_struct(win, 2, 0, 6);
     set_next_buttons(&win->scene[HOUSE3].button[0], win->rect_buttons,
     order_button[0]);
     init_button(&win->scene[HOUSE3].button[0], get_pos_float(-200, -200),

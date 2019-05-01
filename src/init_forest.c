@@ -25,29 +25,29 @@ static void initialisation_sprite_forest_one(window_t *win)
     init_sprite(&win->scene[FOREST].sprite[6],
             "ressources/tree2.png", get_pos_float(632, 342));
     init_sprite(&win->scene[FOREST].sprite[7],
-                "ressources/sprite_contraste/tree.png", get_pos_float(505, 595));
+            "ressources/sprite_contraste/tree.png", get_pos_float(505, 595));
     init_sprite(&win->scene[FOREST].sprite[8],
-                "ressources/sprite_contraste/tree.png", get_pos_float(220, 465));
+            "ressources/sprite_contraste/tree.png", get_pos_float(220, 465));
     init_sprite(&win->scene[FOREST].sprite[9],
-                "ressources/sprite_contraste/tree.png", get_pos_float(265, 640));
+            "ressources/sprite_contraste/tree.png", get_pos_float(265, 640));
 }
 
 static void initialisation_sprite_forest_two(window_t *win)
 {
     init_sprite(&win->scene[FOREST].sprite[10],
-                "ressources/tree2.png", get_pos_float(25, 775));
+            "ressources/tree2.png", get_pos_float(25, 775));
     init_sprite(&win->scene[FOREST].sprite[11],
-                "ressources/sprite_contraste/tree.png", get_pos_float(485, 810));
+            "ressources/sprite_contraste/tree.png", get_pos_float(485, 810));
     init_sprite(&win->scene[FOREST].sprite[12],
-                "ressources/sprite_contraste/tombe.png", get_pos_float(1112, 610));
+            "ressources/sprite_contraste/tombe.png", get_pos_float(1112, 610));
     init_sprite(&win->scene[FOREST].sprite[13],
-                "ressources/sprite_contraste/tree.png", get_pos_float(1625, 45));
+            "ressources/sprite_contraste/tree.png", get_pos_float(1625, 45));
     init_sprite(&win->scene[FOREST].sprite[14],
-                "ressources/tree2.png", get_pos_float(1180, 40));
+            "ressources/tree2.png", get_pos_float(1180, 40));
     init_sprite(&win->scene[FOREST].sprite[15],
-                "ressources/tree2.png", get_pos_float(1575, 255));
+            "ressources/tree2.png", get_pos_float(1575, 255));
     init_sprite(&win->scene[FOREST].sprite[16],
-                "ressources/sprite_contraste/tree.png", get_pos_float(1635, 700));
+            "ressources/sprite_contraste/tree.png", get_pos_float(1635, 700));
     initialisation_sprite_forest_one(win);
 }
 
