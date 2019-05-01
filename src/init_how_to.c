@@ -14,13 +14,16 @@ window_t *init_how_to_play(window_t *win)
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window = {(size_window.x - size.x + 250) / 2, 50};
     char *buff = get_buffer("ressources/text/help");
+    sfUint32 *tmp;
 
     set_struct(win, 1, 2, 1);
     init_sprite(&win->scene[HOW_TO_PLAY].sprite[0], "ressources/menu.png", get_pos_float(0, 0));
-    init_text(&win->scene[HOW_TO_PLAY].text[0], "How to Play", pos_window);
+    init_text(&win->scene[HOW_TO_PLAY].text[0], "Tutoriel", pos_window);
     pos_window.x = 100;
     pos_window.y += 150;
     init_text(&win->scene[HOW_TO_PLAY].text[1], buff, pos_window);
+    str_to_unicode(buff, &tmp);
+    sfText_setUnicodeString(win->scene[HOW_TO_PLAY].text[1].str, tmp);
     win->scene[HOW_TO_PLAY].button[0].callback = &main_menu;
     pos_window.x = (size_window.x - size.x - 20);
     pos_window.y = 900;
