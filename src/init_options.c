@@ -13,7 +13,7 @@ static void init_texts(window_t *win)
     sfVector2f size = get_pos_float(500, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window;
-    char *str = {"OPTIONS\nFPS\nVSYNC\nMusic\n100%\n30\n60\n"};
+    char *str = {"OPTIONS\nFPS\nVSYNC\nVolume\n100%\n30\n60\n"};
     char **text = transform_2d(str, '\n');
 
     pos_window.x = (size_window.x - size.x) / 2;

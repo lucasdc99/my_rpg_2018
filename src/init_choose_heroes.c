@@ -16,8 +16,8 @@ static void init_texts(window_t *win)
         (size_window.x - size.x) / 2,
         (size_window.y - size.y) / 8};
     char *name[] = {
-        "Choose Player", "Hex-the-Time-Witch", "Life: ",
-        my_itc(70), "Strength: ", my_itc(70), "Description"};
+        "Choisissez votre personnage", "Hex-the-Time-Witch", "Vie: ",
+        my_itc(70), "Force: ", my_itc(70), "Description"};
     int pos_x[] = {
         pos_window.x + 40, pos_window.x / 2, (pos_window.x - 100) / 2,
         (pos_window.x + 250) / 2, (pos_window.x - 200) / 2,
