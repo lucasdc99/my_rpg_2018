@@ -17,14 +17,14 @@ static void init_texts(window_t *win)
         (size_window.y - size.y) / 8};
     char *name[] = {
         "Choisissez votre personnage", "Hex", "Vie: ",
-        my_itc(70), "Force: ", my_itc(70), "Description"};
+        my_itc(70), "Force: ", my_itc(70), "Description", "\n"};
     int pos_x[] = {
         pos_window.x + 40, pos_window.x / 2, (pos_window.x - 100) / 2,
         (pos_window.x + 250) / 2, (pos_window.x - 200) / 2,
-        (pos_window.x + 250) / 2, (pos_window.x - 200) / 2};
+        (pos_window.x + 250) / 2, (pos_window.x + 900) / 2, 650};
     int pos_y[] = {
         10, 100, (size_window.y - 450), (size_window.y - 450),
-        (size_window.y - 350), (size_window.y - 350), (size_window.y - 250)};
+        (size_window.y - 350), (size_window.y - 350), (size_window.y - 900), 350};
 
     for (int i = 0; i < win->scene[HEROES].nb_text; i++) {
         init_text(&win->scene[HEROES].text[i], name[i],
@@ -41,12 +41,12 @@ static void init_buttons(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 8;
     set_next_buttons(&win->scene[HEROES].button[0], win->rect_buttons, FLECHE);
-    init_button(&win->scene[HEROES].button[0], get_pos_float(pos_window.x + 40,
-    (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
+    init_button(&win->scene[HEROES].button[0], get_pos_float(pos_window.x + 225,
+    (size_window.y / 2) + 300), get_pos_float(size.x / 2, size.y),
     win->texture_button);
     set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, FLECHE_REVERSE);
-    init_button(&win->scene[HEROES].button[1], get_pos_float(pos_window.x - 200,
-    (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
+    init_button(&win->scene[HEROES].button[1], get_pos_float(pos_window.x - 75,
+    (size_window.y / 2) + 300), get_pos_float(size.x / 2, size.y),
     win->texture_button);
     pos_window.x = (size_window.x - size.x - 10);
     pos_window.y = (size_window.y - (size.y + 50) * 2);
@@ -62,7 +62,7 @@ static void init_buttons(window_t *win)
 
 window_t *init_choose_heroes(window_t *win)
 {
-    set_struct(win, 4, 7, 2);
+    set_struct(win, 4, 8, 2);
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
