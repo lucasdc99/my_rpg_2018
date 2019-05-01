@@ -44,21 +44,25 @@ static void init_buttons(window_t *win)
     init_button(&win->scene[HEROES].button[0], get_pos_float(pos_window.x + 40,
     (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
     win->texture_button);
+    set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, FLECHE);
+    init_button(&win->scene[HEROES].button[1], get_pos_float(pos_window.x - 200,
+    (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
+    win->texture_button);
     pos_window.x = (size_window.x - size.x - 10);
     pos_window.y = (size_window.y - (size.y + 50) * 2);
-    set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, JOUER);
-    init_button(&win->scene[HEROES].button[1], pos_window, size,
+    set_next_buttons(&win->scene[HEROES].button[2], win->rect_buttons, JOUER);
+    init_button(&win->scene[HEROES].button[2], pos_window, size,
     win->texture_button);
     pos_window.y += size.y + 10;
-    set_next_buttons(&win->scene[HEROES].button[2], win->rect_buttons,
+    set_next_buttons(&win->scene[HEROES].button[3], win->rect_buttons,
     QUITTER);
-    init_button(&win->scene[HEROES].button[2], pos_window, size,
+    init_button(&win->scene[HEROES].button[3], pos_window, size,
     win->texture_button);
 }
 
 window_t *init_choose_heroes(window_t *win)
 {
-    set_struct(win, 3, 7, 2);
+    set_struct(win, 4, 7, 2);
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
@@ -75,8 +79,9 @@ window_t *init_choose_heroes(window_t *win)
     init_sprite(&win->scene[HEROES].sprite[1], "ressources/menu.png", get_pos_float(0, 0));
     win->scene[HEROES].sprite[1].depth = -1;
     win->scene[HEROES].button[0].callback = &choose_hero;
-    win->scene[HEROES].button[1].callback = &play_game;
-    win->scene[HEROES].button[2].callback = &main_menu;
+    win->scene[HEROES].button[1].callback = &choose_hero_reverse;
+    win->scene[HEROES].button[2].callback = &play_game;
+    win->scene[HEROES].button[3].callback = &main_menu;
     choose_hex(win);
     return (win);
 }

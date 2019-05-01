@@ -38,6 +38,7 @@ enum type_button {
     PAUSE,
     TUTORIEL,
     FLECHE,
+    FLECHE_REVERSE,
 };
 
 enum page {
@@ -270,6 +271,7 @@ void play_game(window_t *win);
 void options(window_t *win);
 void quit(window_t *win);
 void choose_hero(window_t *win);
+void choose_hero_reverse(window_t *win);
 void unpause_game(window_t *win);
 void basic_attack(window_t *win);
 void special_attack(window_t *win);
