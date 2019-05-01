@@ -45,6 +45,10 @@ void str_to_unicode(char *str, sfUint32 *unistr[])
                 unistr[0][a++] = 0x00E2;
                 i += 2;
                 break;
+            case '2':
+                unistr[0][a++] = 0x00E8;
+                i += 2;
+                break;
             default:
                 unistr[0][a++] = str[i];
                 break;

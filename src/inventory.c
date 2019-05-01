@@ -83,6 +83,9 @@ void check_drag_and_drop_inv(window_t *win)
             type = my_strcmp(win->inv->items[actual_pos].name, "Dague");
             if (actual_pos >= 12 && type == 0)
                 win->player->strength += 20;
+            type = my_strcmp(win->inv->items[actual_pos].name, "Armure");
+            if (actual_pos >= 12 && type == 0)
+                win->player->health += 20;
             win->objects[i].item = 1;
             put_position_in_inv(win, move_pos, actual_pos, i);
         }
