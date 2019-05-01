@@ -31,6 +31,7 @@ void init_player(player_t *player)
     player->direction = 1;
     player->move_rect = 0;
     player->last_page = CASTLE;
+    player->hero = 0;
     skin = my_strcat("ressources/images/sprites/", player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&player->sprite[0], skin, get_pos_float(player->speed.x,

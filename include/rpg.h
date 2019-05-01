@@ -33,12 +33,11 @@ enum type_button {
     RETOUR,
     NOUVEAU,
     SAUVEGARDER,
-    SON,
+    FLECHE_REVERSE,
     CURSEUR,
     PAUSE,
     TUTORIEL,
     FLECHE,
-    FLECHE_REVERSE,
 };
 
 enum page {
@@ -131,6 +130,7 @@ typedef struct s_player {
     int direction;
     int move_rect;
     int last_page;
+    int hero;
 } player_t;
 
 typedef struct s_scene {

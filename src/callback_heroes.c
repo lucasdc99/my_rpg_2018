@@ -10,38 +10,37 @@
 
 void choose_hero(window_t *win)
 {
-    static int actual = 1;
 
-    if (actual == 0)
+    win->player->hero++;
+    if (win->player->hero >= 5)
+        win->player->hero = 0;
+    printf("=>%d\n", win->player->hero);
+    if (win->player->hero == 0)
         choose_hex(win);
-    if (actual == 1)
+    if (win->player->hero == 1)
         choose_linail(win);
-    if (actual == 2)
+    if (win->player->hero == 2)
         choose_ouzo(win);
-    if (actual == 3)
+    if (win->player->hero == 3)
         choose_prime(win);
-    if (actual == 4)
+    if (win->player->hero == 4)
         choose_wyvera(win);
-    actual++;
-    if (actual == 5)
-        actual = 0;
 }
 
 void choose_hero_reverse(window_t *win)
 {
-    static int actual = 1;
-
-    if (actual == 0)
+    win->player->hero--;
+    if (win->player->hero < 0)
+        win->player->hero = 4;
+    printf("=>%d\n", win->player->hero);
+    if (win->player->hero == 0)
         choose_hex(win);
-    if (actual == 1)
+    if (win->player->hero == 1)
         choose_linail(win);
-    if (actual == 2)
+    if (win->player->hero == 2)
         choose_ouzo(win);
-    if (actual == 3)
+    if (win->player->hero == 3)
         choose_prime(win);
-    if (actual == 4)
+    if (win->player->hero == 4)
         choose_wyvera(win);
-    actual--;
-    if (actual < 0)
-        actual = 5;
 }

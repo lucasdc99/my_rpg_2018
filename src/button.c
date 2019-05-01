@@ -60,7 +60,7 @@ sfIntRect *init_pos_button(void)
     rect[RETOUR] = get_rect(270, 0, 259, 76);
     rect[NOUVEAU] = get_rect(270, 720, 259, 76);
     rect[SAUVEGARDER] = get_rect(537, 0, 259, 76);
-    rect[SON] = get_rect(569, 282, 112, 74);
+    rect[FLECHE_REVERSE] = get_rect(543, 241, 112, 74);
     rect[CURSEUR] = get_rect(668, 243, 112, 74);
     rect[PAUSE] = get_rect(539, 483, 112, 74);
     rect[TUTORIEL] = get_rect(535, 723, 259, 76);

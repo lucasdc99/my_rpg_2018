@@ -44,7 +44,7 @@ static void init_buttons(window_t *win)
     init_button(&win->scene[HEROES].button[0], get_pos_float(pos_window.x + 40,
     (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
     win->texture_button);
-    set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, FLECHE);
+    set_next_buttons(&win->scene[HEROES].button[1], win->rect_buttons, FLECHE_REVERSE);
     init_button(&win->scene[HEROES].button[1], get_pos_float(pos_window.x - 200,
     (size_window.y / 2)), get_pos_float(size.x / 2, size.y),
     win->texture_button);
@@ -82,6 +82,7 @@ window_t *init_choose_heroes(window_t *win)
     win->scene[HEROES].button[1].callback = &choose_hero_reverse;
     win->scene[HEROES].button[2].callback = &play_game;
     win->scene[HEROES].button[3].callback = &main_menu;
+    win->player->hero = 0;
     choose_hex(win);
     return (win);
 }
