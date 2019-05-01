@@ -8,14 +8,59 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void str_to_unicode(char *str, sfUint32 *unistr[])
+{
+    sfUint32 tmp[200];
+    int a = 0;
+
+    unistr[0] = tmp;
+    if (str != NULL && str[0] != '\0') {
+        for (int i = 0; str[i] != '\0'; i++) {
+            switch (str[i])
+            {
+            case '&':
+                unistr[0][a++] = '\n';
+                break;
+            case '8':
+                unistr[0][a++] = 0x00E9;
+                i += 2;
+                break;
+            case '7':
+                unistr[0][a++] = 0x00E0;
+                i += 2;
+                break;
+            case '6':
+                unistr[0][a++] = 0x00EA;
+                i += 2;
+                break;
+            case '5':
+                unistr[0][a++] = 0x00F9;
+                i += 2;
+                break;
+            case '4':
+                unistr[0][a++] = 0x00FB;
+                i += 2;
+                break;
+            case '3':
+                unistr[0][a++] = 0x00E2;
+                i += 2;
+                break;
+            default:
+                unistr[0][a++] = str[i];
+                break;
+            }
+        }
+        unistr[0][a] = '\0';
+    }
+}
+
 void display_text_in_textbox(quest_t *quest)
 {
     static int fd = 0;
     char *str = NULL;
-    sfUint32 unistr[200];
+    sfUint32 *unistr;
     sfVector2f pos;
     int actual = 0;
-    int a = 0;
     static int opened = 0;
 
     if (quest->quete_done == 15) {
@@ -41,44 +86,7 @@ void display_text_in_textbox(quest_t *quest)
         opened = 0;
     quest->sprite[1].depth = 1;
     sfText_setCharacterSize(quest->text[1].str, 30);
-    if (str != NULL && str[0] != '\0') {
-        for (int i = 0; str[i] != '\0'; i++) {
-            switch (str[i])
-            {
-            case '&':
-                unistr[a++] = '\n';
-                break;
-            case '8':
-                unistr[a++] = 0x00E9;
-                i += 2;
-                break;
-            case '7':
-                unistr[a++] = 0x00E0;
-                i += 2;
-                break;
-            case '6':
-                unistr[a++] = 0x00EA;
-                i += 2;
-                break;
-            case '5':
-                unistr[a++] = 0x00F9;
-                i += 2;
-                break;
-            case '4':
-                unistr[a++] = 0x00FB;
-                i += 2;
-                break;
-            case '3':
-                unistr[a++] = 0x00E2;
-                i += 2;
-                break;
-            default:
-                unistr[a++] = str[i];
-                break;
-            }
-        }
-        unistr[a] = '\0';
-    }
+    str_to_unicode(str, &unistr);
     if (str == NULL || str[0] == '\0' || unistr == NULL || unistr[0] == '\0') {
         quest->quete_done++;
     } else {

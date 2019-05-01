@@ -293,6 +293,7 @@ void display_text_in_textbox(quest_t *quest);
 void drag_button(window_t *win);
 void my_wait(window_t *win, int seconds);
 char *open_buff(char *filename);
+void str_to_unicode(char *str, sfUint32 *unistr[]);
 
 // DESTROY
 void destroy_all(window_t *win);
