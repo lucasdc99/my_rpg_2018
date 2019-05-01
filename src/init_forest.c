@@ -30,7 +30,6 @@ static void initialisation_sprite_forest_one(window_t *win)
                 "ressources/sprite_contraste/tree.png", get_pos_float(220, 465));
     init_sprite(&win->scene[FOREST].sprite[9],
                 "ressources/sprite_contraste/tree.png", get_pos_float(265, 640));
-
 }
 
 static void initialisation_sprite_forest_two(window_t *win)

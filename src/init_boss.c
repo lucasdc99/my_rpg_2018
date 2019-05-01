@@ -25,27 +25,32 @@ static void init_buttons(window_t *win)
     win->scene[BOSS].button[1].callback = &main_menu;
 }
 
-static void initialisation_depth_sprite_boss(window_t *win)
+static void initialisation_depth_sprite_boss_one(window_t *win)
 {
     init_sprite(&win->scene[BOSS].sprite[2],
-            "ressources/sprite_contraste/statue.png", get_pos_float(582, 372));
+                "ressources/sprite_contraste/statue.png", get_pos_float(582, 372));
     init_sprite(&win->scene[BOSS].sprite[3],
-            "ressources/sprite_contraste/statue_shield.png",
-            get_pos_float(590, 621));
+                "ressources/sprite_contraste/statue_shield.png",
+                get_pos_float(590, 621));
     init_sprite(&win->scene[BOSS].sprite[4],
-            "ressources/sprite_contraste/statue.png", get_pos_float(585, 830));
+                "ressources/sprite_contraste/statue.png", get_pos_float(585, 830));
     init_sprite(&win->scene[BOSS].sprite[5],
-            "ressources/sprite_contraste/statue_shield.png",
-            get_pos_float(1205, 376));
+                "ressources/sprite_contraste/statue_shield.png",
+                get_pos_float(1205, 376));
     init_sprite(&win->scene[BOSS].sprite[6],
-            "ressources/sprite_contraste/statue.png", get_pos_float(1200, 625));
+                "ressources/sprite_contraste/statue.png", get_pos_float(1200, 625));
     init_sprite(&win->scene[BOSS].sprite[7],
-            "ressources/sprite_contraste/statue_shield.png",
-            get_pos_float(1202, 833));
+                "ressources/sprite_contraste/statue_shield.png",
+                get_pos_float(1202, 833));
     init_sprite(&win->scene[BOSS].sprite[8],
-            "ressources/sprite_contraste/colomn.png", get_pos_float(731, 335));
+                "ressources/sprite_contraste/colomn.png", get_pos_float(731, 335));
     init_sprite(&win->scene[BOSS].sprite[9],
-            "ressources/sprite_contraste/colomn.png", get_pos_float(1048, 337));
+                "ressources/sprite_contraste/colomn.png", get_pos_float(1048, 337));
+}
+
+static void initialisation_depth_sprite_boss(window_t *win)
+{
+    initialisation_depth_sprite_boss_one(win);
     init_sprite(&win->scene[BOSS].sprite[10],
             "ressources/sprite_contraste/colomn.png", get_pos_float(732, 530));
     init_sprite(&win->scene[BOSS].sprite[11],
