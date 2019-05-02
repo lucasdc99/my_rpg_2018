@@ -24,26 +24,25 @@ static void get_player_last_pos(window_t *win)
     }
 }
 
-void function_castle(window_t *win)
+static void save_data(window_t *win, int tmp)
 {
     get_player_last_pos(win);
     save_config_player(win);
     save_inventory(win);
     save_quests(win);
+    tmp = win->quests->quete_done;
+    win->quests->quete_done = 15;
+    display_text_in_textbox(win->quests);
+    win->quests->sprite[1].depth = -1;
+    win->quests->quete_done = tmp;
 }
 
 void main_menu(window_t *win)
 {
     int tmp = 0;
 
-    if (win->page >= CASTLE) {
-        function_castle(win);
-        tmp = win->quests->quete_done;
-        win->quests->quete_done = 15;
-        display_text_in_textbox(win->quests);
-        win->quests->sprite[1].depth = -1;
-        win->quests->quete_done = tmp;
-    }
+    if (win->page >= CASTLE)
+        save_data(win, tmp);
     win->pause = 0;
     sfMusic_play(win->music->button_sound);
     if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
@@ -52,5 +51,7 @@ void main_menu(window_t *win)
         sfMusic_stop(win->music->town_song);
     if (sfMusic_getStatus(win->music->boss_song) == sfPlaying)
         sfMusic_stop(win->music->boss_song);
+    if (sfMusic_getStatus(win->music->boss_final) == sfPlaying)
+        sfMusic_stop(win->music->boss_final);
     win->page = MAINMENU;
 }
