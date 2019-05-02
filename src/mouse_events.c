@@ -40,6 +40,16 @@ void mouse_released_event(window_t *win)
     }
 }
 
+void draw_description_two(window_t *win, char *str,
+int hit, sfUint32 *tmp)
+{
+    hit = 30 + (win->player->strength / 10);
+    str = my_strcat("R_ég_énaration: +", my_itc(hit));
+    str = my_strcat(str, " PV");
+    str_to_unicode(str, &tmp);
+    sfText_setUnicodeString(win->text->str, tmp);
+}
+
 static void draw_description(window_t *win, int i)
 {
     sfUint32 *tmp;
@@ -61,13 +71,8 @@ static void draw_description(window_t *win, int i)
         str_to_unicode(str, &tmp);
         sfText_setUnicodeString(win->text->str, tmp);
     }
-    if (i == 2) {
-        hit = 30 + (win->player->strength / 10);
-        str = my_strcat("R_ég_énaration: +", my_itc(hit));
-        str = my_strcat(str, " PV");
-        str_to_unicode(str, &tmp);
-        sfText_setUnicodeString(win->text->str, tmp);
-    }
+    if (i == 2)
+        draw_description_two(win, str, hit, tmp);
 }
 
 void mouse_moved_event(window_t *win)
