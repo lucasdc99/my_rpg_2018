@@ -55,7 +55,7 @@ window_t *init_final(window_t *win)
         sfMusic_stop(win->music->town_song);
     if (sfMusic_getStatus(win->music->boss_battle) == sfPlaying)
         sfMusic_stop(win->music->boss_battle);
-    if (sfMusic_getStatus(win->music->boss_final) == sfPlaying)
+    if (sfMusic_getStatus(win->music->boss_final) == sfStopped)
         sfMusic_play(win->music->boss_final);
     return (win);
 }
