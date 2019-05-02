@@ -23,7 +23,7 @@ static void initialisation_house_three_depth_sprite(window_t *win)
     init_sprite(&win->scene[HOUSE3].sprite[5],
     "ressources/sprite_contraste/bout_chaise.png", get_pos_float(863, 505));
     sfSprite_setPosition(win->scene[HOUSE3].sprite[0].sprite,
-                         get_pos_float(670, 300));
+            get_pos_float(670, 300));
     win->scene[HOUSE3].sprite[0].depth = -1;
     for (int i = 1; i < win->scene[HOUSE3].nb_sprite; i++)
         win->scene[HOUSE3].sprite[i].depth = 1;

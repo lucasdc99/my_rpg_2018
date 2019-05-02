@@ -85,7 +85,7 @@ void mouse_moved_event(window_t *win)
             win->scene[win->actual_page].button[i].rect_hovered);
             ok = 1;
             if (win->actual_page == COMBAT)
-                draw_description(win,i);
+                draw_description(win, i);
         } else {
             sfRectangleShape_setTextureRect(rect,
             win->scene[win->actual_page].button[i].rect_idle);
