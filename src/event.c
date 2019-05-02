@@ -8,16 +8,39 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static int handle_skip_textbox(window_t *win, int actual_quest)
+{
+    if (win->quest == 0 && win->inventory == 0 &&
+    win->pause == 1 && win->talking == 1)
+        display_text_in_textbox(win->quests);
+    if (win->quests->quete_done != actual_quest) {
+        actual_quest = win->quests->quete_done;
+        win->quests->sprite[1].depth = -1;
+        sfText_setString(win->text->str, "\n");
+        if (win->quests->quete_done >= 6) {
+            actual_quest = 5;
+            win->quests->quete_done = 5;
+        }
+        win->talking = 0;
+        win->pause = 0;
+    }
+    return (actual_quest);
+}
+
+static void handle_inventory_key(window_t *win)
+{
+    if (win->inventory == 0 && win->pause == 0 && win->quest == 0)
+        open_inventory(win);
+    else if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
+        close_inventory(win);
+}
+
 void check_keyboard_input_ingame(window_t *win)
 {
     static int actual_quest = 0;
 
-    if (sfKeyboard_isKeyPressed(sfKeyI)) {
-        if (win->inventory == 0 && win->pause == 0 && win->quest == 0)
-            open_inventory(win);
-        else if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
-            close_inventory(win);
-    }
+    if (sfKeyboard_isKeyPressed(sfKeyI))
+        handle_inventory_key(win);
     if (sfKeyboard_isKeyPressed(sfKeyO)) {
         if (win->quest == 0 && win->inventory == 0 && win->pause == 0) {
             open_quest(win);
@@ -28,24 +51,10 @@ void check_keyboard_input_ingame(window_t *win)
             sfText_setString(win->text->str, "\n");
         }
     }
-    if (actual_quest == 0 || actual_quest == 5) {
+    if (actual_quest == 0 || actual_quest == 5)
         actual_quest = win->quests->quete_done;
-    }
-    if (sfKeyboard_isKeyPressed(sfKeyReturn)) {
-        if (win->quest == 0 && win->inventory == 0 && win->pause == 1 && win->talking == 1)
-            display_text_in_textbox(win->quests);
-        if (win->quests->quete_done != actual_quest) {
-            actual_quest = win->quests->quete_done;
-            win->quests->sprite[1].depth = -1;
-            sfText_setString(win->text->str, "\n");
-            if (win->quests->quete_done >= 6) {
-                actual_quest = 5;
-                win->quests->quete_done = 5;
-            }
-            win->talking = 0;
-            win->pause = 0;
-        }
-    }
+    if (sfKeyboard_isKeyPressed(sfKeyReturn))
+        actual_quest = handle_skip_textbox(win, actual_quest);
 }
 
 void check_mouse_left(window_t *win)
@@ -88,7 +97,8 @@ void global_event_condition_escape(window_t *win)
     if (win->actual_page >= CASTLE && win->actual_page < COMBAT) {
         if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
             pause_game(win);
-        else if (win->inventory == 0 && win->quest == 0 && win->talking == 0 && win->pause == 1)
+        else if (win->inventory == 0 && win->quest == 0 &&
+        win->talking == 0 && win->pause == 1)
             unpause_game(win);
         if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
             close_inventory(win);

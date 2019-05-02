@@ -18,7 +18,8 @@ void talk_to_old(window_t *win, sfVector2f pos_player)
                 sfText_setString(win->text->str, "\n");
                 win->pause = 1;
                 win->talking = 1;
-                sfText_setString(win->text->str, "Appuyez sur Enter pour continuer");
+                sfText_setString(win->text->str,
+                "Appuyez sur Enter pour continuer");
                 display_text_in_textbox(win->quests);
             }
             if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
