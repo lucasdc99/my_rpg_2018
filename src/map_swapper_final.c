@@ -47,7 +47,6 @@ void go_final(window_t *win)
             sfMusic_play(win->music->stone_door);
         if (pos_player.y >= pos_door.y - 60 &&
         pos_player.y <= pos_door.y + 20 && win->player->direction == UP) {
-            win->player->last_pos = get_pos_float(1025, 150);
             sfSprite_setPosition(win->player->sprite->sprite,
             get_pos_float(950, 900));
             win->page = FINAL;
@@ -66,8 +65,10 @@ void leave_final(window_t *win)
     if (win->actual_page == FINAL && win->page == FINAL) {
         if (is_inside_zone(get_pos_float(890, 950), get_pos_float(1020, 1100),
         pos_player) == 1 && win->player->direction == DOWN) {
+            printf("pos = %f\n", win->player->last_pos.x);
             sfSprite_setPosition(win->player->sprite->sprite,
-            win->player->last_pos);
+            get_pos_float(1025, 150));
+            sfMusic_stop(win->music->boss_final);
             win->page = TOWN;
         }
     }
