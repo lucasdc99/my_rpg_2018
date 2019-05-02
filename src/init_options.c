@@ -42,8 +42,8 @@ static void init_texts(window_t *win)
 static void init_buttons(window_t *win)
 {
     int order_button[] = {SAUVEGARDER, CURSEUR, CURSEUR, CURSEUR, CURSEUR};
-    int pos_x_pos[] = {700, 800, 1300, 1000, 1400};
-    int pos_y_pos[] = {800, 200, 200, 450, 550};
+    int pos_x_pos[] = {900, 910, 1115, 1000, 1400};
+    int pos_y_pos[] = {800, 200, 200, 350, 550};
     int pos_x_size[] = {500, 80, 80, 100, 150};
     int pos_y_size[] = {100, 80, 80, 100, 100};
 
