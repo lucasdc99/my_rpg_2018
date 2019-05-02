@@ -47,10 +47,6 @@ window_t *init_menu(window_t *win)
     get_pos_float(700, 10), win->font_title);
     sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
-    win->scene[MAINMENU].text[0].font =
-    sfFont_createFromFile("ressources/font/font.ttf");
-    sfText_setFont(win->scene[MAINMENU].text[0].str,
-    win->scene[MAINMENU].text[0].font);
     init_sprite(&win->scene[MAINMENU].sprite[0],
     "ressources/pack/background/frame2.png", get_pos_float(0, 0));
     win->scene[MAINMENU].sprite[0].rect = get_rect(0, 0, 1920, 1080);

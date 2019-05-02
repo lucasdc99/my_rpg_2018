@@ -8,6 +8,11 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+// void check_unicode()
+// {
+//     int x = {}
+// }
+
 void str_to_unicode(char *str, sfUint32 *unistr[])
 {
     sfUint32 tmp[300];
@@ -16,8 +21,7 @@ void str_to_unicode(char *str, sfUint32 *unistr[])
     unistr[0] = tmp;
     if (str != NULL && str[0] != '\0') {
         for (int i = 0; str[i] != '\0'; i++) {
-            switch (str[i])
-            {
+            switch (str[i]) {
             case '&':
                 unistr[0][a++] = '\n';
                 break;
@@ -102,8 +106,7 @@ void display_text_in_textbox(quest_t *quest)
 void init_text(text_t *text, char *display, sfVector2f pos, sfFont *font)
 {
     text->str = sfText_create();
-    text->font = font;
-    sfText_setFont(text->str, text->font);
+    sfText_setFont(text->str, font);
     sfText_setColor(text->str, sfWhite);
     sfText_setCharacterSize(text->str, 50);
     sfText_setString(text->str, display);

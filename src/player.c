@@ -14,7 +14,10 @@ void save_config_player(window_t *win)
     char *str = NULL;
 
     str = my_strcat("NAME = ", win->player->name);
-    fwrite(str, sizeof(char), my_strlen(str), fp);
+    if (str == NULL)
+        fwrite("Name = ", sizeof(char), 7, fp);
+    else
+        fwrite(str, sizeof(char), my_strlen(str), fp);
     fwrite("\n", sizeof(char), 1, fp);
     str = my_strcat("HEALTH = ", my_itc(win->player->health));
     fwrite(str, sizeof(char), my_strlen(str), fp);

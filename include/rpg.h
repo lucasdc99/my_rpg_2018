@@ -69,7 +69,6 @@ typedef struct s_pos {
 } pos_t;
 
 typedef struct s_text {
-    sfFont *font;
     sfText *str;
     sfVector2f pos_text;
 } text_t;

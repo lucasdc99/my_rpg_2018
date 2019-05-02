@@ -90,6 +90,6 @@ void mouse_moved_event(window_t *win)
             win->scene[win->actual_page].button[i].rect_idle);
         }
     }
-    if (ok == 0)
+    if (ok == 0 && win->actual_page == COMBAT)
         sfText_setString(win->text->str, "\n");
 }

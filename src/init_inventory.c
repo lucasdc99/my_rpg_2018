@@ -46,6 +46,8 @@ void init_inventory(inventory_t *inv, sfFont *font)
     for (int i = 0; i < 15; i++) {
         inv->items[i].busy = 0;
     }
+    if (inv->text == NULL)
+        inv->text = malloc(sizeof(text_t) * 1);
     init_text(&inv->text[0], "\n", get_pos_float(1180, 465), font);
     sfText_setCharacterSize(inv->text->str, 20);
 }
