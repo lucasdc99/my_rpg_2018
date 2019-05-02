@@ -8,6 +8,27 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void reset_player(window_t *win)
+{
+    win->no_saves = 1;
+    win->player = malloc(sizeof(player_t) * 1);
+    win->player->sprite = malloc(sizeof(sprite_t) * 1);
+    win->player->name = NULL;
+    win->player->sprite->sprite = NULL;
+    win->player->sprite->texture = NULL;
+    win->player->strength = 0;
+    win->player->health = 0;
+    win->player->actual_health = 0;
+    win->player->xp = 0;
+    win->player->last_pos = get_pos_float(-100, -100);
+    win->player->direction = 1;
+    win->player->move_rect = 0;
+    win->player->last_page = CASTLE;
+    win->inv = NULL;
+    win->quests = NULL;
+    save_config_player(win);
+}
+
 static void save_page_player(window_t *win, FILE *fp)
 {
     char *str = NULL;

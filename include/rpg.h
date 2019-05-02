@@ -279,6 +279,7 @@ void basic_attack(window_t *win);
 void special_attack(window_t *win);
 void stats_attack(window_t *win);
 void check_enemy_turn(window_t *win);
+void enemy_attack(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);
@@ -345,11 +346,14 @@ void open_inventory(window_t *win);
 
 // PLAYER HANDLING
 int set_player(window_t *win);
+void reset_player(window_t *win);
 
 // DETECTION EVENTS
 void check_item_pickup(window_t *win);
 void pick_armor(window_t *win);
 void pick_sword(window_t *win);
+void check_keyboard_input_ingame(window_t *win);
+void global_event_condition(window_t *win);
 
 // CHECK ITEM INVENTORY
 int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
@@ -383,6 +387,9 @@ void mouse_moved_event(window_t *win);
 
 // SET TXT
 void set_text_inv(window_t *win);
+void draw_description(window_t *win, int i);
 
+// OPTIONS
+void set_vsync(window_t *win);
 
 #endif

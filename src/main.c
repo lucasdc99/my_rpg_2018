@@ -34,27 +34,6 @@ int display_help(void)
     return (0);
 }
 
-void reset_player(window_t *win)
-{
-    win->no_saves = 1;
-    win->player = malloc(sizeof(player_t) * 1);
-    win->player->sprite = malloc(sizeof(sprite_t) * 1);
-    win->player->name = NULL;
-    win->player->sprite->sprite = NULL;
-    win->player->sprite->texture = NULL;
-    win->player->strength = 0;
-    win->player->health = 0;
-    win->player->actual_health = 0;
-    win->player->xp = 0;
-    win->player->last_pos = get_pos_float(-100, -100);
-    win->player->direction = 1;
-    win->player->move_rect = 0;
-    win->player->last_page = CASTLE;
-    win->inv = NULL;
-    win->quests = NULL;
-    save_config_player(win);
-}
-
 static void define_inv(window_t *win)
 {
     win->inv = malloc(sizeof(inventory_t) * 1);
@@ -85,13 +64,6 @@ void check_error_config(window_t *win)
     }
 }
 
-static void parse_all(window_t *win)
-{
-    win->player = parser_player(win->player, "ressources/text/config_player");
-    win->inv = parser_inv(win->inv, "ressources/text/inventory");
-    win->quests = parser_quests(win->quests, "ressources/text/quests");
-}
-
 int main(int ac, char **av, char **env)
 {
     window_t *win = malloc(sizeof(window_t) * 1);
@@ -102,7 +74,9 @@ int main(int ac, char **av, char **env)
         return (display_help());
     win = create_window(win);
     init_music(win->music);
-    parse_all(win);
+    win->player = parser_player(win->player, "ressources/text/config_player");
+    win->inv = parser_inv(win->inv, "ressources/text/inventory");
+    win->quests = parser_quests(win->quests, "ressources/text/quests");
     check_error_config(win);
     if (display(win) == 84) {
         destroy_all(win);

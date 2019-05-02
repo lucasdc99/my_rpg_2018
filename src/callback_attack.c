@@ -57,3 +57,12 @@ void stats_attack(window_t *win)
     }
     win->turn = 1;
 }
+
+void check_enemy_turn(window_t *win)
+{
+    if (win->turn == 1 && win->actual_page == COMBAT) {
+        my_wait(win, 2);
+        enemy_attack(win);
+        win->turn = 0;
+    }
+}

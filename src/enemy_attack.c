@@ -73,7 +73,7 @@ static int check_fail(window_t *win)
     return (tmp);
 }
 
-static void enemy_attack(window_t *win)
+void enemy_attack(window_t *win)
 {
     int tmp = 0;
 
@@ -95,13 +95,4 @@ static void enemy_attack(window_t *win)
     if (win->objects[ARMOR].equiped == 1)
         do_regeneration(win);
     win->turn = 0;
-}
-
-void check_enemy_turn(window_t *win)
-{
-    if (win->turn == 1 && win->actual_page == COMBAT) {
-        my_wait(win, 2);
-        enemy_attack(win);
-        win->turn = 0;
-    }
 }
