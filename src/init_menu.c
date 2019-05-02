@@ -44,7 +44,7 @@ window_t *init_menu(window_t *win)
 {
     set_struct(win, 5, 1, 1);
     init_text(&win->scene[MAINMENU].text[0], "Tekzerk",
-    get_pos_float(700, 10));
+    get_pos_float(700, 10), win->font_title);
     sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
     win->scene[MAINMENU].text[0].font =

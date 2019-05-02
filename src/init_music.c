@@ -8,20 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void init_music(music_t *music)
-{
-    music->volume = 100;
-    music->vol_pos = 800;
-    music->button_sound = sfMusic_createFromFile(
-    "ressources/music/button.ogg");
-    music->menu_song = sfMusic_createFromFile(
-    "ressources/music/main_song.ogg");
-    music->town_song = sfMusic_createFromFile("ressources/music/town.ogg");
-    music->boss_song = sfMusic_createFromFile("ressources/music/boss.ogg");
-    init_music_two(music);
-}
-
-void init_music_two(music_t *music)
+static void init_music_two(music_t *music)
 {
     music->door_open = sfMusic_createFromFile(
     "ressources/music/door_open.ogg");
@@ -42,4 +29,17 @@ void init_music_two(music_t *music)
     "ressources/music/mega-attack.ogg");
     music->open_menus = sfMusic_createFromFile(
     "ressources/music/inventory.ogg");
+}
+
+void init_music(music_t *music)
+{
+    music->volume = 100;
+    music->vol_pos = 800;
+    music->button_sound = sfMusic_createFromFile(
+    "ressources/music/button.ogg");
+    music->menu_song = sfMusic_createFromFile(
+    "ressources/music/main_song.ogg");
+    music->town_song = sfMusic_createFromFile("ressources/music/town.ogg");
+    music->boss_song = sfMusic_createFromFile("ressources/music/boss.ogg");
+    init_music_two(music);
 }

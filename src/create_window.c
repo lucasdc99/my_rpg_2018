@@ -22,6 +22,7 @@ static void malloc_struct(window_t *win)
     win->inv = malloc(sizeof(inventory_t) * 1);
     win->inv->sprite = malloc(sizeof(sprite_t) * 1);
     win->inv->items = malloc(sizeof(items_t) * 15);
+    win->inv->text = malloc(sizeof(text_t) * 1);
     win->text = malloc(sizeof(text_t) * 1);
     win->music = malloc(sizeof(music_t) * 1);
     win->objects = malloc(sizeof(sprite_t) * win->nb_objects);
@@ -33,9 +34,11 @@ static void init_win_variable(window_t *win)
     char *name = {"ressources/buttons/buttons.png"};
 
     win->inventory = 0;
+    win->font_berlin = sfFont_createFromFile("ressources/font/berlin.ttf");
+    win->font_title = sfFont_createFromFile("ressources/font/font.ttf");
     win->texture_button = sfTexture_createFromFile(name, NULL);
     win->rect_buttons = init_pos_button();
-    init_text(win->text, "\n", get_pos_float(1150, 950));
+    init_text(win->text, "\n", get_pos_float(1150, 950), win->font_berlin);
     win->pause = 0;
     win->turn = 0;
     win->talking = 0;

@@ -57,8 +57,7 @@ window_t *init_castle(window_t *win)
     init_button(&win->scene[CASTLE].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
     init_sprites(win);
-    init_text(&win->scene[CASTLE].text[0], "TEKZERK", get_pos_float(550, 400));
-    sfText_setFont(win->scene[CASTLE].text[0].str, sfFont_createFromFile("ressources/font/font.ttf"));
+    init_text(&win->scene[CASTLE].text[0], "TEKZERK", get_pos_float(550, 400), win->font_title);
     sfText_setCharacterSize(win->scene[CASTLE].text[0].str, 200);
     sfText_setFillColor(win->scene[CASTLE].text[0].str,
     sfColor_fromRGBA(255, 255, 255, 0));

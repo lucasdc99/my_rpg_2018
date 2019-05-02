@@ -38,20 +38,20 @@ static void init_sprites(quest_t *quest)
     quest->sprite[2].depth = -1;
 }
 
-void init_quests(quest_t *quest)
+void init_quests(quest_t *quest, sfFont *font)
 {
     init_sprites(quest);
     init_text(&quest->text[0], "QUETE 1:    Aller parler au grand pere\n",
-    get_pos_float(300, 100));
-    init_text(&quest->text[1], "bonjour\n", get_pos_float(0, 0));
+    get_pos_float(300, 100), font);
+    init_text(&quest->text[1], "bonjour\n", get_pos_float(0, 0), font);
     init_text(&quest->text[2], "QUETE 2:    Trouver l'epee du grand pere\n",
-    get_pos_float(300, 200));
+    get_pos_float(300, 200), font);
     init_text(&quest->text[3], "QUETE 3:    Aller parler au grand pere\n",
-    get_pos_float(300, 300));
+    get_pos_float(300, 300), font);
     init_text(&quest->text[4], "QUETE 4:    Trouver l'armure du grand pere\n",
-    get_pos_float(300, 400));
+    get_pos_float(300, 400), font);
     init_text(&quest->text[5], "QUETE 5:    Aller parler au grand pere\n",
-    get_pos_float(300, 500));
+    get_pos_float(300, 500), font);
     init_text(&quest->text[6], "QUETE 6:    Aller combattre le mechant\n",
-    get_pos_float(300, 600));
+    get_pos_float(300, 600), font);
 }

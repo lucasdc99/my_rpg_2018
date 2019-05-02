@@ -33,12 +33,12 @@ void play_game(window_t *win)
     check_new_game(win);
     win->player = parser_player(win->player, "ressources/text/config_player");
     win->page = win->player->last_page;
-    init_inventory(win->inv);
+    init_inventory(win->inv, win->font_berlin);
     init_player(win->player);
     if (set_player(win) == 84)
         win->error = 84;
     init_objects(win->objects, win->inv);
-    init_quests(win->quests);
+    init_quests(win->quests, win->font_berlin);
     if (win->quests->quete_done < 5)
         win->quests->combat = 0;
     sfText_setString(win->text->str, "\n");

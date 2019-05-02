@@ -51,6 +51,8 @@ void destroy_all(window_t *win)
     sfMusic_destroy(win->music->enemy_attack);
     sfMusic_destroy(win->music->basic_attack);
     sfMusic_destroy(win->music->open_menus);
+    sfFont_destroy(win->font_berlin);
+    sfFont_destroy(win->font_title);
     free(win->music);
     free(win->player->sprite);
     free(win->player);

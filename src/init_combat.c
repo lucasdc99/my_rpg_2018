@@ -81,9 +81,9 @@ window_t *init_combat(window_t *win)
     init_sprites(win);
     str = my_strcat(my_itc(win->player->actual_health), "/");
     str = my_strcat(str, my_itc(win->player->health));
-    init_text(&win->scene[COMBAT].text[0], str, get_pos_float(1500, 10));
+    init_text(&win->scene[COMBAT].text[0], str, get_pos_float(1500, 10), win->font_berlin);
     init_text(&win->scene[COMBAT].text[1], my_itc(win->player->strength),
-    get_pos_float(1500, 100));
+    get_pos_float(1500, 100), win->font_berlin);
     init_enemy(win);
     return (win);
 }

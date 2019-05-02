@@ -13,7 +13,6 @@ void mouse_pressed_event(window_t *win)
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
     sfRectangleShape *rect;
 
-    printf("[x: %d, y: %d]\n", click_pos.x, click_pos.y);
     for (int i = 0; i < win->scene[win->actual_page].nb_button; i++) {
         rect = win->scene[win->actual_page].button[i].shape;
         if (button_is_clicked(win->scene[win->actual_page].button[i],

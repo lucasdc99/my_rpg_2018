@@ -21,7 +21,7 @@ void set_text_ok(window_t *win)
     str = my_strcat(str, "Puissance: ");
     str = my_strcat(str, my_itc(win->player->strength));
     str = my_strcat(str, "\n");
-    sfText_setString(win->inv->text, str);
+    sfText_setString(win->inv->text->str, str);
 }
 
 void set_text_inv(window_t *win)
@@ -43,9 +43,9 @@ void set_text_inv(window_t *win)
                         str = my_strcat(str, "Puissance + 20");
                     if (my_strcmp(win->inv->items[i].name, "Armure") == 0)
                         str = my_strcat(str, "Vie + 20");
-                    sfText_setString(win->inv->text, str);
+                    sfText_setString(win->inv->text->str, str);
                 } else
-                    sfText_setString(win->inv->text, "\n");
+                    sfText_setString(win->inv->text->str, "\n");
             }
         }
     }

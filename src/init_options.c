@@ -19,17 +19,17 @@ static void init_texts(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = 800;
     init_text(&win->scene[OPTIONS].text[0], text[0],
-    get_pos_float(pos_window.x + 150, 10));
+    get_pos_float(pos_window.x + 150, 10), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[1], text[1],
-    get_pos_float(pos_window.x, 210));
+    get_pos_float(pos_window.x, 210), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[2], text[2],
-    get_pos_float(pos_window.x, pos_window.y - 430));
+    get_pos_float(pos_window.x, pos_window.y - 430), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[3], text[3],
-    get_pos_float(pos_window.x, pos_window.y - 230));
+    get_pos_float(pos_window.x, pos_window.y - 230), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[4], text[4],
-    get_pos_float(pos_window.x + 400, pos_window.y - 250));
-    init_text(&win->scene[OPTIONS].text[5], text[5], get_pos_float(925, 130));
-    init_text(&win->scene[OPTIONS].text[6], text[6], get_pos_float(1125, 130));
+    get_pos_float(pos_window.x + 400, pos_window.y - 250), win->font_berlin);
+    init_text(&win->scene[OPTIONS].text[5], text[5], get_pos_float(925, 130), win->font_berlin);
+    init_text(&win->scene[OPTIONS].text[6], text[6], get_pos_float(1125, 130), win->font_berlin);
 }
 
 static void init_buttons(window_t *win)

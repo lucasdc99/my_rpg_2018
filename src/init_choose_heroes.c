@@ -28,7 +28,7 @@ static void init_texts(window_t *win)
 
     for (int i = 0; i < win->scene[HEROES].nb_text; i++) {
         init_text(&win->scene[HEROES].text[i], name[i],
-        get_pos_float(pos_x[i], pos_y[i]));
+        get_pos_float(pos_x[i], pos_y[i]), win->font_berlin);
     }
 }
 

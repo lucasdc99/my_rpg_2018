@@ -31,7 +31,7 @@ int get_type_from_inv(char *name)
     return (-1);
 }
 
-void init_inventory(inventory_t *inv)
+void init_inventory(inventory_t *inv, sfFont *font)
 {
     int pos_x[] = {1420, 1510, 1600};
     int pos_y[] = {275, 365, 455, 550};
@@ -46,10 +46,6 @@ void init_inventory(inventory_t *inv)
     for (int i = 0; i < 15; i++) {
         inv->items[i].busy = 0;
     }
-    inv->text = sfText_create();
-    sfText_setPosition(inv->text, get_pos_float(1180, 465));
-    sfText_setFont(inv->text,
-    sfFont_createFromFile("ressources/font/berlin.ttf"));
-    sfText_setCharacterSize(inv->text, 20);
-    sfText_setString(inv->text, "\n");
+    init_text(&inv->text[0], "\n", get_pos_float(1180, 465), font);
+    sfText_setCharacterSize(inv->text->str, 20);
 }

@@ -18,10 +18,10 @@ window_t *init_how_to_play(window_t *win)
 
     set_struct(win, 1, 2, 1);
     init_sprite(&win->scene[HOW_TO_PLAY].sprite[0], "ressources/menu.png", get_pos_float(0, 0));
-    init_text(&win->scene[HOW_TO_PLAY].text[0], "Tutoriel", pos_window);
+    init_text(&win->scene[HOW_TO_PLAY].text[0], "Tutoriel", pos_window, win->font_berlin);
     pos_window.x = 100;
     pos_window.y += 150;
-    init_text(&win->scene[HOW_TO_PLAY].text[1], buff, pos_window);
+    init_text(&win->scene[HOW_TO_PLAY].text[1], buff, pos_window, win->font_berlin);
     str_to_unicode(buff, &tmp);
     sfText_setUnicodeString(win->scene[HOW_TO_PLAY].text[1].str, tmp);
     win->scene[HOW_TO_PLAY].button[0].callback = &main_menu;

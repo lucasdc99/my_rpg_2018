@@ -99,10 +99,10 @@ void display_text_in_textbox(quest_t *quest)
     sfText_setPosition(quest->text[1].str, get_pos_float(pos.x + 20, pos.y + 20));
 }
 
-void init_text(text_t *text, char *display, sfVector2f pos)
+void init_text(text_t *text, char *display, sfVector2f pos, sfFont *font)
 {
     text->str = sfText_create();
-    text->font = sfFont_createFromFile("ressources/font/berlin.ttf");
+    text->font = font;
     sfText_setFont(text->str, text->font);
     sfText_setColor(text->str, sfWhite);
     sfText_setCharacterSize(text->str, 50);

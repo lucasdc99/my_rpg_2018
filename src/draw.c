@@ -14,8 +14,8 @@ void draw_inventory(window_t *win)
 
     sfRenderWindow_drawSprite(win->window, win->inv->sprite->sprite, NULL);
     sfRenderWindow_drawSprite(win->window, win->inv->player, NULL);
-    if (sfText_getString(win->inv->text) != NULL)
-        sfRenderWindow_drawText(win->window, win->inv->text, NULL);
+    if (sfText_getString(win->inv->text->str) != NULL)
+        sfRenderWindow_drawText(win->window, win->inv->text->str, NULL);
     for (int i = 0; i < win->nb_objects; i++) {
         pos = sfSprite_getPosition(win->objects[i].sprite);
         if (win->objects[i].item == 1 &&

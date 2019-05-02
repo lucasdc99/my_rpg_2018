@@ -152,7 +152,7 @@ typedef struct s_quest {
 } quest_t;
 
 typedef struct s_inventory {
-    sfText *text;
+    text_t *text;
     sprite_t *sprite;
     sfSprite *player;
     items_t *items;
@@ -162,6 +162,8 @@ typedef struct s_window {
     sfTexture *texture_button;
     sfRenderWindow *window;
     sfEvent event;
+    sfFont *font_berlin;
+    sfFont *font_title;
     scene_t *scene;
     player_t *player;
     enemy_t *enemy;
@@ -247,11 +249,11 @@ window_t *init_end(window_t *win);
 // INITIALISATION ELEMENTS
 void init_player(player_t *player);
 void init_objects(sprite_t *sprite, inventory_t *inv);
-void init_inventory(inventory_t *inv);
-void init_text(text_t *text, char *display, sfVector2f pos);
+void init_inventory(inventory_t *inv, sfFont *font);
+void init_text(text_t *text, char *display, sfVector2f pos, sfFont *font);
 void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
 void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
-void init_quests(quest_t *quest);
+void init_quests(quest_t *quest, sfFont *font);
 void init_music(music_t *music);
 void init_enemy(window_t *win);
 

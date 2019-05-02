@@ -95,7 +95,6 @@ int main(int ac, char **av, char **env)
     win->quests = parser_quests(win->quests, "ressources/text/quests");
     check_error_config(win);
     if (display(win) == 84) {
-
         destroy_all(win);
         return (84);
     }

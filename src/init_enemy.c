@@ -44,5 +44,5 @@ void init_enemy(window_t *win)
     str = my_strcat(my_itc(win->enemy->actual_health), "/");
     str = my_strcat(str, my_itc(win->enemy->health));
     init_text(&win->enemy->text[0], str,
-    get_pos_float(400, 10));
+    get_pos_float(400, 10), win->font_berlin);
 }
