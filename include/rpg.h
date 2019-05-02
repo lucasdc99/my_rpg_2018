@@ -372,7 +372,6 @@ void close_quest(window_t *win);
 
 // INTERACTION GAME
 void pause_game(window_t *win);
-void unpause_game(window_t *win);
 
 // TALK PNJ
 void talk_to_old(window_t *win, sfVector2f pos_player);
@@ -383,7 +382,6 @@ void mouse_released_event(window_t *win);
 void mouse_moved_event(window_t *win);
 
 // SET TXT
-void set_text_ok(window_t *win);
 void set_text_inv(window_t *win);
 
 
