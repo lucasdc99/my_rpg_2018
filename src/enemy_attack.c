@@ -56,6 +56,7 @@ static void enemy_attack(window_t *win)
     if (win->player->actual_health - tmp <= 0) {
         win->player->health = 0;
         win->player->actual_health = 0;
+        sfText_setString(win->text->str, "\n");
         win->page = END;
     } else {
         for (int i = 0; i < tmp; i++) {

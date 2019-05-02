@@ -94,7 +94,5 @@ char *get_name_from_type(int type)
         return ("Dague");
     if (type == ARMOR)
         return ("Armure");
-    if (type == HELMET)
-        return ("Casque");
     return ("\n");
 }

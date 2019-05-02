@@ -21,7 +21,6 @@ enum direction {
 
 enum type {
     ARMOR,
-    HELMET,
     SWORD,
 };
 

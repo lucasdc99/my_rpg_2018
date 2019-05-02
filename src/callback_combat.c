@@ -16,6 +16,7 @@ static void check_life(window_t *win, int damage)
     get_rect(297, 56, 30, 30));
     if (win->enemy->actual_health - damage <= 0) {
         win->enemy->health = 0;
+        sfText_setString(win->text->str, "\n");
         sfSprite_setPosition(win->player->sprite->sprite,
         win->player->last_pos);
         if (win->quests->combat == 3)

@@ -26,8 +26,6 @@ int get_type_from_inv(char *name)
         return (SWORD);
     if (my_strcmp(name, "Armure") == 0)
         return (ARMOR);
-    if (my_strcmp(name, "Casque") == 0)
-        return (HELMET);
     return (-1);
 }
 

@@ -56,7 +56,7 @@ window_t *create_window(window_t *win)
     win->window = sfRenderWindow_create(mode, name, sfClose, NULL);
     win->page = MAINMENU;
     win->actual_page = win->page;
-    win->nb_objects = 3;
+    win->nb_objects = 2;
     malloc_struct(win);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
     win->vsync = 1;

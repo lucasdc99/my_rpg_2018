@@ -93,9 +93,10 @@ static void put_position_in_inv(window_t *win, sfVector2f m_p, int a_p, int i)
         pos = get_nearest_item_pos(win->inv, m_p);
         if (win->inv->items[a_p].busy == 0)
             sfSprite_setPosition(win->objects[i].sprite, pos);
-        else
+        else {
             sfSprite_setPosition(win->objects[i].sprite,
             get_inv_pos(win->inv));
+        }
         win->inv->items[a_p].busy = 1;
     } else {
         pos = get_inv_pos(win->inv);
