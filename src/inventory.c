@@ -27,7 +27,8 @@ void save_inventory(window_t *win)
         if (win->inv->items[i].name == NULL)
             fwrite("(null)", sizeof(char), 6, fp);
         else
-            fwrite(win->inv->items[i].name, sizeof(char), my_strlen(win->inv->items[i].name), fp);
+            fwrite(win->inv->items[i].name, sizeof(char),
+            my_strlen(win->inv->items[i].name), fp);
         fwrite("\n", sizeof(char), 1, fp);
     }
     fclose(fp);
