@@ -53,6 +53,9 @@ void init_objects(sprite_t *sprite, inventory_t *inv)
     sprite[HELMET].item = 1;
     sprite[ARMOR].item = 1;
     sprite[SWORD].item = 1;
+    sprite[HELMET].equiped = 0;
+    sprite[ARMOR].equiped = 0;
+    sprite[SWORD].equiped = 0;
     sprite[HELMET].type = HELMET;
     sprite[ARMOR].type = ARMOR;
     sprite[SWORD].type = SWORD;
