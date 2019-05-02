@@ -8,16 +8,10 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void get_texture_pause(window_t *win)
+static sfTexture *get_texture_pause_two(window_t *win)
 {
     sfTexture *texture;
 
-    if (win->actual_page == TOWN)
-        texture = sfTexture_createFromFile("ressources/town_blur.png", NULL);
-    if (win->actual_page == CASTLE)
-        texture = sfTexture_createFromFile("ressources/castle_blur.png", NULL);
-    if (win->actual_page == FOREST)
-        texture = sfTexture_createFromFile("ressources/forest_blur.png", NULL);
     if (win->actual_page == HOUSE1)
         texture = sfTexture_createFromFile("ressources/house_1_blur.png", NULL);
     if (win->actual_page == HOUSE2)
@@ -32,6 +26,21 @@ static void get_texture_pause(window_t *win)
         texture = sfTexture_createFromFile("ressources/final_boss_blur.png",
         NULL);
     }
+    return (texture);
+}
+
+static void get_texture_pause(window_t *win)
+{
+    sfTexture *texture = NULL;
+
+    if (win->actual_page == TOWN)
+        texture = sfTexture_createFromFile("ressources/town_blur.png", NULL);
+    if (win->actual_page == CASTLE)
+        texture = sfTexture_createFromFile("ressources/castle_blur.png", NULL);
+    if (win->actual_page == FOREST)
+        texture = sfTexture_createFromFile("ressources/forest_blur.png", NULL);
+    if (texture == NULL)
+        texture = get_texture_pause_two(win);
     sfSprite_setTexture(win->scene[win->actual_page].sprite[0].sprite,
     texture, sfTrue);
 }
