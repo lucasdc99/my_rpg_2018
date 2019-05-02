@@ -80,7 +80,7 @@ window_t *init_choose_heroes(window_t *win)
     init_texts(win);
     init_buttons(win);
     init_sprite(&win->scene[HEROES].sprite[0],
-    "ressources/images/sprites/Hex.png",
+    "ressources/images/Hex.png",
     get_pos_float(100, 100));
     win->scene[HEROES].sprite[0].rect.top = 100;
     win->scene[HEROES].sprite[0].rect.left = 0;
@@ -91,7 +91,7 @@ window_t *init_choose_heroes(window_t *win)
     sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
     win->scene[HEROES].sprite[0].rect);
     init_sprite(&win->scene[HEROES].sprite[1],
-    "ressources/menu.png", get_pos_float(0, 0));
+    "ressources/images/menu.png", get_pos_float(0, 0));
     win->scene[HEROES].sprite[1].depth = -1;
     win->player->hero = 0;
     choose_hex(win);

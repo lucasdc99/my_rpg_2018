@@ -12,13 +12,13 @@ static void disp_win_or_lose(window_t *win)
 {
     if (win->player->health <= 0) {
         win->scene[END].sprite[0].rect = get_rect(0, 0, 881, 1080);
-        init_sprite(&win->scene[END].sprite[0], "ressources/lose.png",
+        init_sprite(&win->scene[END].sprite[0], "ressources/images/lose.png",
         get_pos_float(519, 0));
         init_text(&win->scene[END].text[0], "Mort",
         get_pos_float(905, 20), win->font_berlin);
     } else {
         win->scene[END].sprite[0].rect = get_rect(0, 0, 1428, 1080);
-        init_sprite(&win->scene[END].sprite[0], "ressources/victory.png",
+        init_sprite(&win->scene[END].sprite[0], "ressources/images/victory.png",
         get_pos_float(252, 0));
         init_text(&win->scene[END].text[0], "Victoire",
         get_pos_float(880, 20), win->font_berlin);

@@ -76,7 +76,7 @@ window_t *init_options(window_t *win)
     set_struct(win, 5, 7, 1);
     win->music->vol_register = (win->music->volume + VALUE_FIRST) * 1.284;
     init_sprite(&win->scene[OPTIONS].sprite[0],
-    "ressources/menu.png", get_pos_float(0, 0));
+    "ressources/images/menu.png", get_pos_float(0, 0));
     init_texts(win);
     init_buttons(win);
     set_fps(win);

@@ -27,11 +27,11 @@ static void init_sprites(window_t *win)
     int pos_x[] = {0, 307, 81, 1350, 1520, 421, 1473};
     int pos_y[] = {0, 560, 461, 508, 500, 263, 263};
     char *name[] = {
-        "ressources/castle.png", "ressources/tree.png",
-        "ressources/tree.png", "ressources/tree.png",
-        "ressources/tree2.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/torch.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/torch.png"};
+        "ressources/images/castle.png", "ressources/images/tree3.png",
+        "ressources/images/tree3.png", "ressources/images/tree3.png",
+        "ressources/images/tree2.png",
+        "ressources/images/torch.png",
+        "ressources/images/torch.png"};
 
     for (int i = 0; i < win->scene[CASTLE].nb_sprite; i++) {
         init_sprite(&win->scene[CASTLE].sprite[i], name[i],

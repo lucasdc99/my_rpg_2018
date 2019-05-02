@@ -25,10 +25,10 @@ static void init_sprites_two(quest_t *quest)
 
 static void init_sprites(quest_t *quest)
 {
-    init_sprite(&quest->sprite[0], "ressources/old_paper.png",
+    init_sprite(&quest->sprite[0], "ressources/images/old_paper.png",
     get_pos_float(240, 50));
     init_sprite(&quest->sprite[1],
-    "ressources/pack/rpg-pack/UI/generic-rpg-ui-text-box.png",
+    "ressources/images/generic-rpg-ui-text-box.png",
     get_pos_float(600, 50));
     init_sprite(&quest->sprite[2], "ressources/buttons/Checkbox.png",
     get_pos_float(1400, 100));

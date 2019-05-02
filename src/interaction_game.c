@@ -13,17 +13,17 @@ static sfTexture *get_texture_pause_two(window_t *win)
     sfTexture *texture;
 
     if (win->actual_page == HOUSE1)
-        texture = sfTexture_createFromFile("ressources/house_1_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_1_blur.png", NULL);
     if (win->actual_page == HOUSE2)
-        texture = sfTexture_createFromFile("ressources/house_2_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_2_blur.png", NULL);
     if (win->actual_page == HOUSE3)
-        texture = sfTexture_createFromFile("ressources/house_3_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_3_blur.png", NULL);
     if (win->actual_page == FINAL) {
-        texture = sfTexture_createFromFile("ressources/sbire_map_blur.png",
+        texture = sfTexture_createFromFile("ressources/images/sbire_map_blur.png",
         NULL);
     }
     if (win->actual_page == BOSS) {
-        texture = sfTexture_createFromFile("ressources/final_boss_blur.png",
+        texture = sfTexture_createFromFile("ressources/images/final_boss_blur.png",
         NULL);
     }
     return (texture);
@@ -34,11 +34,11 @@ static void get_texture_pause(window_t *win)
     sfTexture *texture = NULL;
 
     if (win->actual_page == TOWN)
-        texture = sfTexture_createFromFile("ressources/town_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/town_blur.png", NULL);
     if (win->actual_page == CASTLE)
-        texture = sfTexture_createFromFile("ressources/castle_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/castle_blur.png", NULL);
     if (win->actual_page == FOREST)
-        texture = sfTexture_createFromFile("ressources/forest_blur.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/forest_blur.png", NULL);
     if (texture == NULL)
         texture = get_texture_pause_two(win);
     sfSprite_setTexture(win->scene[win->actual_page].sprite[0].sprite,
@@ -66,21 +66,21 @@ static void get_texture_unpause(window_t *win)
     sfTexture *texture;
 
     if (win->actual_page == TOWN)
-        texture = sfTexture_createFromFile("ressources/town.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/town.png", NULL);
     if (win->actual_page == CASTLE)
-        texture = sfTexture_createFromFile("ressources/castle.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/castle.png", NULL);
     if (win->actual_page == FOREST)
-        texture = sfTexture_createFromFile("ressources/forest.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/forest.png", NULL);
     if (win->actual_page == HOUSE1)
-        texture = sfTexture_createFromFile("ressources/house_1.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_1.png", NULL);
     if (win->actual_page == HOUSE2)
-        texture = sfTexture_createFromFile("ressources/house_2.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_2.png", NULL);
     if (win->actual_page == HOUSE3)
-        texture = sfTexture_createFromFile("ressources/house_3.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/house_3.png", NULL);
     if (win->actual_page == FINAL)
-        texture = sfTexture_createFromFile("ressources/sbire_map.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/sbire_map.png", NULL);
     if (win->actual_page == BOSS)
-        texture = sfTexture_createFromFile("ressources/final_boss.png", NULL);
+        texture = sfTexture_createFromFile("ressources/images/final_boss.png", NULL);
     sfSprite_setTexture(win->scene[win->actual_page].sprite[0].sprite,
     texture, sfTrue);
 }

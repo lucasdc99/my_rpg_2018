@@ -34,7 +34,7 @@ void init_inventory(inventory_t *inv, sfFont *font)
     int pos_x[] = {1420, 1510, 1600};
     int pos_y[] = {275, 365, 455, 550};
 
-    init_sprite(&inv->sprite[0], "ressources/inv.png",
+    init_sprite(&inv->sprite[0], "ressources/images/inv.png",
     get_pos_float(1000, 150));
     for (int i = 0; i < 12; i++)
         inv->items[i].pos = get_pos_float(pos_x[i % 3], pos_y[i / 3]);

@@ -10,7 +10,7 @@
 
 static char *init_ley_and_oratio(window_t *win)
 {
-    char *name = "ressources/images/sprites/";
+    char *name = "ressources/images/";
 
     if (win->quests->combat == 1) {
         name = my_strcat(name, "Ley.png");
@@ -34,7 +34,7 @@ static char *init_ley_and_oratio(window_t *win)
 void init_enemy(window_t *win)
 {
     char *str = NULL;
-    char *name = "ressources/images/sprites/";
+    char *name = "ressources/images/";
 
     name = init_ley_and_oratio(win);
     if (win->quests->combat == 3) {

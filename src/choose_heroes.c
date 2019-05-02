@@ -10,7 +10,7 @@
 
 void choose_hex(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Hex.png"};
+    char *name = {"ressources/images/Hex.png"};
     char *desc_file = {"ressources/text/description/Hex_des"};
     char *buffer = get_buffer(desc_file);
 
@@ -33,7 +33,7 @@ void choose_hex(window_t *win)
 
 void choose_linail(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Linail.png"};
+    char *name = {"ressources/images/Linail.png"};
     char *desc_file = {"ressources/text/description/Linail_des"};
     char *buffer = get_buffer(desc_file);
 
@@ -56,7 +56,7 @@ void choose_linail(window_t *win)
 
 void choose_ouzo(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Ouzo.png"};
+    char *name = {"ressources/images/Ouzo.png"};
     char *desc_file = {"ressources/text/description/Ouzo_des"};
     char *buffer = get_buffer(desc_file);
 
@@ -79,7 +79,7 @@ void choose_ouzo(window_t *win)
 
 void choose_prime(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Prime.png"};
+    char *name = {"ressources/images/Prime.png"};
     char *desc_file = {"ressources/text/description/Prime_des"};
     char *buffer = get_buffer(desc_file);
 
@@ -102,7 +102,7 @@ void choose_prime(window_t *win)
 
 void choose_wyvera(window_t *win)
 {
-    char *name = {"ressources/images/sprites/Wyvera.png"};
+    char *name = {"ressources/images/Wyvera.png"};
     char *desc_file = {"ressources/text/description/Wyvera_des"};
     char *buffer = get_buffer(desc_file);
 

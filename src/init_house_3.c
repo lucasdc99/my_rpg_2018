@@ -11,17 +11,17 @@
 static void initialisation_house_three_depth_sprite(window_t *win)
 {
     init_sprite(&win->scene[HOUSE3].sprite[1],
-    "ressources/sprite_contraste/horloge.png", get_pos_float(638, 412));
+    "ressources/images/horloge.png", get_pos_float(638, 412));
     init_sprite(&win->scene[HOUSE3].sprite[2],
-    "ressources/sprite_contraste/mirror.png", get_pos_float(1083, 513));
+    "ressources/images/mirror.png", get_pos_float(1083, 513));
     init_sprite(&win->scene[HOUSE3].sprite[3],
-    "ressources/sprite_contraste/table_blanche.png",
+    "ressources/images/table_blanche.png",
     get_pos_float(798, 502));
     init_sprite(&win->scene[HOUSE3].sprite[4],
-    "ressources/sprite_contraste/bout_chaise.png",
+    "ressources/images/bout_chaise.png",
     get_pos_float(735, 505));
     init_sprite(&win->scene[HOUSE3].sprite[5],
-    "ressources/sprite_contraste/bout_chaise.png", get_pos_float(863, 505));
+    "ressources/images/bout_chaise.png", get_pos_float(863, 505));
     sfSprite_setPosition(win->scene[HOUSE3].sprite[0].sprite,
     get_pos_float(670, 300));
     win->scene[HOUSE3].sprite[0].depth = -1;
@@ -43,7 +43,7 @@ window_t *init_house_3(window_t *win)
     order_button[1]);
     init_button(&win->scene[HOUSE3].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
-    init_sprite(&win->scene[HOUSE3].sprite[0], "ressources/house_3.png",
+    init_sprite(&win->scene[HOUSE3].sprite[0], "ressources/images/house_3.png",
     get_pos_float(0, 0));
     initialisation_house_three_depth_sprite(win);
     win->scene[HOUSE3].button[0].callback = &quit_pause;

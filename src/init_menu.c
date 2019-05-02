@@ -48,7 +48,7 @@ window_t *init_menu(window_t *win)
     sfText_setColor(win->scene[MAINMENU].text[0].str, sfWhite);
     sfText_setCharacterSize(win->scene[MAINMENU].text[0].str, 150);
     init_sprite(&win->scene[MAINMENU].sprite[0],
-    "ressources/pack/background/frame2.png", get_pos_float(0, 0));
+    "ressources/images/frame2.png", get_pos_float(0, 0));
     win->scene[MAINMENU].sprite[0].rect = get_rect(0, 0, 1920, 1080);
     init_buttons(win);
     sfSprite_setTextureRect(win->scene[MAINMENU].sprite[0].sprite,

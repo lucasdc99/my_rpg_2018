@@ -10,12 +10,12 @@
 
 static void initialisation_sprite_house_one(window_t *win)
 {
-    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png",
+    init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/images/house_1.png",
     get_pos_float(670, 300));
-    init_sprite(&win->scene[HOUSE1].sprite[1], "ressources/chars.png",
+    init_sprite(&win->scene[HOUSE1].sprite[1], "ressources/images/chars.png",
     get_pos_float(1120, 435));
     init_sprite(&win->scene[HOUSE1].sprite[2],
-    "ressources/sprite_contraste/table_basse.png",
+    "ressources/images/table_basse.png",
     get_pos_float(961, 511));
     sfSprite_setTextureRect(win->scene[HOUSE1].sprite[1].sprite,
     get_rect(129, 54, 32, 43));

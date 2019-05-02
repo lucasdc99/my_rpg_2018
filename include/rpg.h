@@ -316,6 +316,7 @@ void choose_linail(window_t *win);
 void choose_ouzo(window_t *win);
 void choose_prime(window_t *win);
 void choose_wyvera(window_t *win);
+void set_description_text(window_t *win, char *buffer);
 
 // ANIMATIONS
 void animation_mainmenu(window_t *win);

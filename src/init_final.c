@@ -10,13 +10,13 @@
 
 static void init_sprites(window_t *win)
 {
-    init_sprite(&win->scene[FINAL].sprite[0], "ressources/sbire_map.png",
+    init_sprite(&win->scene[FINAL].sprite[0], "ressources/images/sbire_map.png",
     get_pos_float(600, 0));
     init_sprite(&win->scene[FINAL].sprite[1],
-    "ressources/images/sprites/Ley.png",
+    "ressources/images/Ley.png",
     get_pos_float(600, 0));
     init_sprite(&win->scene[FINAL].sprite[2],
-    "ressources/images/sprites/Oratio.png",
+    "ressources/images/Oratio.png",
     get_pos_float(600, 0));
     sfSprite_setScale(win->scene[FINAL].sprite[1].sprite, get_pos_float(3, 3));
     sfSprite_setTextureRect(win->scene[FINAL].sprite[1].sprite,

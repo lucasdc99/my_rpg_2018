@@ -11,7 +11,7 @@
 static void init_text_and_sprite(window_t *win, sfVector2f pos_window)
 {
     init_sprite(&win->scene[HOW_TO_PLAY].sprite[0],
-    "ressources/menu.png", get_pos_float(0, 0));
+    "ressources/images/menu.png", get_pos_float(0, 0));
     init_text(&win->scene[HOW_TO_PLAY].text[0],
     "Tutoriel", pos_window, win->font_berlin);
 }

@@ -30,12 +30,12 @@ static void set_sprites(window_t *win)
 static void init_sprites(window_t *win)
 {
     char *name[] = {
-        "ressources/town.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "TimeFantasy_TILES_6.24.17/TILESETS/animated/doors.png",
-        "ressources/chars.png"};
+        "ressources/images/town.png",
+        "ressources/images/doors.png",
+        "ressources/images/doors.png",
+        "ressources/images/doors.png",
+        "ressources/images/doors.png",
+        "ressources/images/chars.png"};
     int pos_x[] = {0, 646, 212, 1380, 1019, 573};
     int pos_y[] = {0, 645, 645, 645, 37, 683};
 

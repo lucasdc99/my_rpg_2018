@@ -22,7 +22,7 @@ window_t *init_house_2(window_t *win)
     order_button[1]);
     init_button(&win->scene[HOUSE2].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
-    init_sprite(&win->scene[HOUSE2].sprite[0], "ressources/house_2.png",
+    init_sprite(&win->scene[HOUSE2].sprite[0], "ressources/images/house_2.png",
     get_pos_float(0, 0));
     sfSprite_setPosition(win->scene[HOUSE2].sprite[0].sprite,
     get_pos_float(670, 300));

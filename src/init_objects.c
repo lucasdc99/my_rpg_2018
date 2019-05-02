@@ -33,10 +33,10 @@ static void set_inv(sprite_t *sprite, inventory_t *inv)
 void init_objects(sprite_t *sprite, inventory_t *inv)
 {
     init_sprite(&sprite[ARMOR],
-    "ressources/pack/rpg-pack/decorations/armor.png",
+    "ressources/images/armor.png",
     get_pos_float(600, 400));
     init_sprite(&sprite[SWORD],
-    "ressources/pack/rpg-pack/decorations/sword.png",
+    "ressources/images/sword.png",
     get_pos_float(400, 400));
     sprite[ARMOR].equiped = 0;
     sprite[SWORD].equiped = 0;

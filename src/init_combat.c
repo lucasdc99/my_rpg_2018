@@ -56,22 +56,22 @@ static void init_sprites(window_t *win)
 {
     char *skin = NULL;
 
-    skin = my_strcat("ressources/images/sprites/", win->player->name);
+    skin = my_strcat("ressources/images/", win->player->name);
     skin = my_strcat(skin, ".png");
     init_sprite(&win->scene[COMBAT].sprite[0], skin, get_pos_float(1500, 500));
-    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/heart.png",
+    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/images/heart.png",
     get_pos_float(1440, 20));
-    init_sprite(&win->scene[COMBAT].sprite[2], "ressources/heart.png",
+    init_sprite(&win->scene[COMBAT].sprite[2], "ressources/images/heart.png",
     get_pos_float(340, 20));
     init_sprite(&win->scene[COMBAT].sprite[3],
-    "ressources/background_fight.png", get_pos_float(0, 0));
-    init_sprite(&win->scene[COMBAT].sprite[4], "ressources/platform_fight.png",
+    "ressources/images/background_fight.png", get_pos_float(0, 0));
+    init_sprite(&win->scene[COMBAT].sprite[4], "ressources/images/platform_fight.png",
     get_pos_float(260, 570));
-    init_sprite(&win->scene[COMBAT].sprite[5], "ressources/platform_fight.png",
+    init_sprite(&win->scene[COMBAT].sprite[5], "ressources/images/platform_fight.png",
     get_pos_float(1490, 570));
     init_sprite(&win->scene[COMBAT].sprite[6],
-    "ressources/pack/rpg-pack/decorations/sword.png", get_pos_float(1440, 100));
-    init_sprite(&win->scene[COMBAT].sprite[7], "ressources/test_fight.png",
+    "ressources/images/sword.png", get_pos_float(1440, 100));
+    init_sprite(&win->scene[COMBAT].sprite[7], "ressources/images/test_fight.png",
     get_pos_float(0, 0));
     init_sprites_two(win);
 }
