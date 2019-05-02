@@ -1,9 +1,8 @@
-HOTKEYS:
-Move up : Z
-Move down : S
-Move left : Q
-Move Right : D
-Interact : E
-Open Inventory : I
-Open Character Statistics : C
-Open Quests Menu : O
+Touches:
+Aller vers le haut : Z
+Aller vers le bas: S
+Aller #à gauche : Q
+Aller #à droite : D
+Int_éragir : E
+Inventaire : I
+Afficher les qu{êtes : O
