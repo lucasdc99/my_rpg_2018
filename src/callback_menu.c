@@ -24,15 +24,20 @@ static void get_player_last_pos(window_t *win)
     }
 }
 
+void function_castle(window_t *win)
+{
+    get_player_last_pos(win);
+    save_config_player(win);
+    save_inventory(win);
+    save_quests(win);
+}
+
 void main_menu(window_t *win)
 {
     int tmp = 0;
 
     if (win->page >= CASTLE) {
-        get_player_last_pos(win);
-        save_config_player(win);
-        save_inventory(win);
-        save_quests(win);
+        function_castle(win);
         tmp = win->quests->quete_done;
         win->quests->quete_done = 15;
         display_text_in_textbox(win->quests);
