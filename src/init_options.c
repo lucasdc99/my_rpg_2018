@@ -71,21 +71,6 @@ static void set_fps(window_t *win)
     }
 }
 
-static void set_vsync(window_t *win)
-{
-    sfTexture *texture;
-
-    if (win->vsync == 0) {
-        texture = sfTexture_createFromFile("ressources/buttons/Checkbox2.png",
-        NULL);
-    } else {
-        texture = sfTexture_createFromFile("ressources/buttons/Checkbox.png",
-        NULL);
-    }
-    sfRectangleShape_setTexture(win->scene[OPTIONS].button[3].shape,
-    texture, sfTrue);
-}
-
 window_t *init_options(window_t *win)
 {
     set_struct(win, 5, 7, 1);
