@@ -54,7 +54,6 @@ void go_final(window_t *win)
     } else if (rect.top >= 64) {
         rect.top = 128;
         sfSprite_setTextureRect(win->scene[TOWN].sprite[4].sprite, rect);
-        sfMusic_play(win->music->stone_door);
     }
 }
 
