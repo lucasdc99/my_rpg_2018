@@ -8,20 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void set_description_text(window_t *win, char *buffer)
-{
-    sfUint32 *tmp;
-
-    sfText_setString(win->scene[HEROES].text[1].str, win->player->name);
-    sfText_setString(win->scene[HEROES].text[3].str,
-    my_itc(win->player->health));
-    sfText_setString(win->scene[HEROES].text[5].str,
-    my_itc(win->player->strength));
-    if (buffer != NULL)
-        str_to_unicode(buffer, &tmp);
-    sfText_setUnicodeString(win->scene[HEROES].text[7].str, tmp);
-}
-
 void choose_hex(window_t *win)
 {
     char *name = {"ressources/images/sprites/Hex.png"};
