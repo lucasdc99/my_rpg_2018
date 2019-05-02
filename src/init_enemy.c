@@ -8,9 +8,8 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void init_enemy(window_t *win)
+static char *init_ley_and_oratio(window_t *win)
 {
-    char *str = NULL;
     char *name = "ressources/images/sprites/";
 
     if (win->quests->combat == 1) {
@@ -29,6 +28,15 @@ void init_enemy(window_t *win)
         sfMusic_stop(win->music->boss_song);
         sfMusic_play(win->music->boss_battle);
     }
+    return (name);
+}
+
+void init_enemy(window_t *win)
+{
+    char *str = NULL;
+    char *name = "ressources/images/sprites/";
+
+    name = init_ley_and_oratio(win);
     if (win->quests->combat == 3) {
         name = my_strcat(name, "Glenys.png");
         win->enemy->health = 150;

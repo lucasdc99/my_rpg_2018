@@ -30,13 +30,11 @@ static void init_sprites(window_t *win)
     get_pos_float(1030, 280));
 }
 
-window_t *init_final(window_t *win)
+static void init_buttons_final(window_t *win)
 {
-    sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};
+    sfVector2f size = get_pos_float(400, 100);
 
-    set_struct(win, 2, 0, 3);
-    init_sprites(win);
     set_next_buttons(&win->scene[FINAL].button[0], win->rect_buttons,
     order_button[0]);
     init_button(&win->scene[FINAL].button[0], get_pos_float(-200, -200),
@@ -45,6 +43,13 @@ window_t *init_final(window_t *win)
     order_button[1]);
     init_button(&win->scene[FINAL].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
+}
+
+window_t *init_final(window_t *win)
+{
+    set_struct(win, 2, 0, 3);
+    init_sprites(win);
+    init_buttons_final(win);
     win->scene[FINAL].sprite[0].depth = -1;
     win->scene[FINAL].sprite[1].depth = 0;
     win->scene[FINAL].sprite[2].depth = 0;

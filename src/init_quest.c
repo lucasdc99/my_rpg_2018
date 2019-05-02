@@ -8,6 +8,21 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static void init_sprites_two(quest_t *quest)
+{
+    init_sprite(&quest->sprite[6], "ressources/buttons/Checkbox.png",
+    get_pos_float(1400, 500));
+    init_sprite(&quest->sprite[7], "ressources/buttons/Checkbox.png",
+    get_pos_float(1400, 600));
+    sfSprite_setScale(quest->sprite[1].sprite, get_pos_float(6, 6));
+    sfSprite_setScale(quest->sprite[2].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[3].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[4].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[5].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[6].sprite, get_pos_float(0.2, 0.2));
+    sfSprite_setScale(quest->sprite[7].sprite, get_pos_float(0.2, 0.2));
+}
+
 static void init_sprites(quest_t *quest)
 {
     init_sprite(&quest->sprite[0], "ressources/old_paper.png",
@@ -23,17 +38,7 @@ static void init_sprites(quest_t *quest)
     get_pos_float(1400, 300));
     init_sprite(&quest->sprite[5], "ressources/buttons/Checkbox.png",
     get_pos_float(1400, 400));
-    init_sprite(&quest->sprite[6], "ressources/buttons/Checkbox.png",
-    get_pos_float(1400, 500));
-    init_sprite(&quest->sprite[7], "ressources/buttons/Checkbox.png",
-    get_pos_float(1400, 600));
-    sfSprite_setScale(quest->sprite[1].sprite, get_pos_float(6, 6));
-    sfSprite_setScale(quest->sprite[2].sprite, get_pos_float(0.2, 0.2));
-    sfSprite_setScale(quest->sprite[3].sprite, get_pos_float(0.2, 0.2));
-    sfSprite_setScale(quest->sprite[4].sprite, get_pos_float(0.2, 0.2));
-    sfSprite_setScale(quest->sprite[5].sprite, get_pos_float(0.2, 0.2));
-    sfSprite_setScale(quest->sprite[6].sprite, get_pos_float(0.2, 0.2));
-    sfSprite_setScale(quest->sprite[7].sprite, get_pos_float(0.2, 0.2));
+    init_sprites_two(quest);
     quest->sprite[1].depth = -1;
     quest->sprite[2].depth = -1;
 }
