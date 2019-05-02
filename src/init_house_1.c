@@ -11,8 +11,6 @@
 static void initialisation_sprite_house_one(window_t *win)
 {
     init_sprite(&win->scene[HOUSE1].sprite[0], "ressources/house_1.png",
-    get_pos_float(0, 0));
-    sfSprite_setPosition(win->scene[HOUSE1].sprite[0].sprite,
     get_pos_float(670, 300));
     init_sprite(&win->scene[HOUSE1].sprite[1], "ressources/chars.png",
     get_pos_float(1120, 435));

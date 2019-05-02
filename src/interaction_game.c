@@ -62,6 +62,12 @@ static void get_texture_unpause(window_t *win)
         texture = sfTexture_createFromFile("ressources/castle.png", NULL);
     if (win->actual_page == FOREST)
         texture = sfTexture_createFromFile("ressources/forest.png", NULL);
+    if (win->actual_page == HOUSE1)
+        texture = sfTexture_createFromFile("ressources/house_1.png", NULL);
+    if (win->actual_page == HOUSE2)
+        texture = sfTexture_createFromFile("ressources/house_2.png", NULL);
+    if (win->actual_page == HOUSE3)
+        texture = sfTexture_createFromFile("ressources/house_3.png", NULL);
     if (win->actual_page == FINAL)
         texture = sfTexture_createFromFile("ressources/sbire_map.png", NULL);
     if (win->actual_page == BOSS)
