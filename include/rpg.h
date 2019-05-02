@@ -363,6 +363,7 @@ void check_drag_and_drop_inv(window_t *win);
 void drag_and_drop_inv(window_t *win);
 int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos);
 char *get_name_from_type(int type);
+void set_text_basic(window_t *win);
 
 // INTERACTION PLAYER
 void close_inventory(window_t *win);

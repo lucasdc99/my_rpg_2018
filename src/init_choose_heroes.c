@@ -31,6 +31,28 @@ static void init_texts(window_t *win)
     }
 }
 
+static void init_buttons_other(window_t *win)
+{
+    sfVector2f size = get_pos_float(400, 100);
+    sfVector2u size_win = sfRenderWindow_getSize(win->window);
+    sfVector2f pos_win;
+
+    pos_win.x = (size_win.x - size.x - 10);
+    pos_win.y = (size_win.y - (size.y + 50) * 2);
+    set_next_buttons(&win->scene[HEROES].button[2], win->rect_buttons, JOUER);
+    init_button(&win->scene[HEROES].button[2], pos_win, size,
+    win->texture_button);
+    pos_win.y += size.y + 10;
+    set_next_buttons(&win->scene[HEROES].button[3], win->rect_buttons,
+    QUITTER);
+    init_button(&win->scene[HEROES].button[3], pos_win, size,
+    win->texture_button);
+    win->scene[HEROES].button[0].callback = &choose_hero;
+    win->scene[HEROES].button[1].callback = &choose_hero_reverse;
+    win->scene[HEROES].button[2].callback = &play_game;
+    win->scene[HEROES].button[3].callback = &main_menu;
+}
+
 static void init_buttons(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
@@ -48,16 +70,8 @@ static void init_buttons(window_t *win)
     init_button(&win->scene[HEROES].button[1], get_pos_float(pos_win.x - 75,
     (size_win.y / 2) + 300), get_pos_float(size.x / 2, size.y),
     win->texture_button);
-    pos_win.x = (size_win.x - size.x - 10);
-    pos_win.y = (size_win.y - (size.y + 50) * 2);
-    set_next_buttons(&win->scene[HEROES].button[2], win->rect_buttons, JOUER);
-    init_button(&win->scene[HEROES].button[2], pos_win, size,
-    win->texture_button);
-    pos_win.y += size.y + 10;
-    set_next_buttons(&win->scene[HEROES].button[3], win->rect_buttons,
-    QUITTER);
-    init_button(&win->scene[HEROES].button[3], pos_win, size,
-    win->texture_button);
+    win->quests->combat = 0;
+    init_buttons_other(win);
 }
 
 window_t *init_choose_heroes(window_t *win)
@@ -79,12 +93,7 @@ window_t *init_choose_heroes(window_t *win)
     init_sprite(&win->scene[HEROES].sprite[1],
     "ressources/menu.png", get_pos_float(0, 0));
     win->scene[HEROES].sprite[1].depth = -1;
-    win->scene[HEROES].button[0].callback = &choose_hero;
-    win->scene[HEROES].button[1].callback = &choose_hero_reverse;
-    win->scene[HEROES].button[2].callback = &play_game;
-    win->scene[HEROES].button[3].callback = &main_menu;
     win->player->hero = 0;
-    win->quests->combat = 0;
     choose_hex(win);
     return (win);
 }

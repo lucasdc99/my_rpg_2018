@@ -8,10 +8,21 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void check_life(window_t *win, int damage)
+static void do_animation(window_t *win, int damage)
 {
     char *str = NULL;
 
+    for (int i = 0; i < damage; i++) {
+        draw_scene(win);
+        win->enemy->actual_health--;
+        str = my_strcat(my_itc(win->enemy->actual_health), "/");
+        str = my_strcat(str, my_itc(win->enemy->health));
+        sfText_setString(win->enemy->text->str, str);
+    }
+}
+
+static void check_life(window_t *win, int damage)
+{
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
     if (win->enemy->actual_health - damage <= 0) {
@@ -24,13 +35,7 @@ static void check_life(window_t *win, int damage)
         else
             win->page = FINAL;
     } else {
-        for (int i = 0; i < damage; i++) {
-            draw_scene(win);
-            win->enemy->actual_health--;
-            str = my_strcat(my_itc(win->enemy->actual_health), "/");
-            str = my_strcat(str, my_itc(win->enemy->health));
-            sfText_setString(win->enemy->text->str, str);
-        }
+        do_animation(win, damage);
         win->turn = 1;
     }
 }

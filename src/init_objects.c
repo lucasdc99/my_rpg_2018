@@ -38,11 +38,11 @@ void init_objects(sprite_t *sprite, inventory_t *inv)
     init_sprite(&sprite[SWORD],
     "ressources/pack/rpg-pack/decorations/sword.png",
     get_pos_float(400, 400));
+    sprite[ARMOR].equiped = 0;
+    sprite[SWORD].equiped = 0;
     set_inv(sprite, inv);
     sprite[ARMOR].item = 1;
     sprite[SWORD].item = 1;
-    sprite[ARMOR].equiped = 0;
-    sprite[SWORD].equiped = 0;
     sprite[ARMOR].type = ARMOR;
     sprite[SWORD].type = SWORD;
     sfSprite_setScale(sprite[ARMOR].sprite, get_pos_float(2, 2));
