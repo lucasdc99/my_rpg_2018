@@ -147,7 +147,7 @@ typedef struct s_quest {
     sprite_t *sprite;
     text_t *text;
     int quete_done;
-    int combat;    
+    int combat;
 } quest_t;
 
 typedef struct s_inventory {

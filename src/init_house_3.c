@@ -11,19 +11,19 @@
 static void initialisation_house_three_depth_sprite(window_t *win)
 {
     init_sprite(&win->scene[HOUSE3].sprite[1],
-            "ressources/sprite_contraste/horloge.png", get_pos_float(638, 412));
+    "ressources/sprite_contraste/horloge.png", get_pos_float(638, 412));
     init_sprite(&win->scene[HOUSE3].sprite[2],
-            "ressources/sprite_contraste/mirror.png", get_pos_float(1083, 513));
+    "ressources/sprite_contraste/mirror.png", get_pos_float(1083, 513));
     init_sprite(&win->scene[HOUSE3].sprite[3],
-            "ressources/sprite_contraste/table_blanche.png",
-            get_pos_float(798, 502));
+    "ressources/sprite_contraste/table_blanche.png",
+    get_pos_float(798, 502));
     init_sprite(&win->scene[HOUSE3].sprite[4],
-            "ressources/sprite_contraste/bout_chaise.png",
-            get_pos_float(735, 505));
+    "ressources/sprite_contraste/bout_chaise.png",
+    get_pos_float(735, 505));
     init_sprite(&win->scene[HOUSE3].sprite[5],
     "ressources/sprite_contraste/bout_chaise.png", get_pos_float(863, 505));
     sfSprite_setPosition(win->scene[HOUSE3].sprite[0].sprite,
-            get_pos_float(670, 300));
+    get_pos_float(670, 300));
     win->scene[HOUSE3].sprite[0].depth = -1;
     for (int i = 1; i < win->scene[HOUSE3].nb_sprite; i++)
         win->scene[HOUSE3].sprite[i].depth = 1;
