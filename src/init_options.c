@@ -11,7 +11,7 @@
 static void init_texts_two(window_t *win, char **text, sfVector2f pos_window)
 {
     init_text(&win->scene[OPTIONS].text[4], text[4],
-    get_pos_float(pos_window.x + 400, pos_window.y - 250), win->font_berlin);
+    get_pos_float(pos_window.x + 50, pos_window.y - 150), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[5], text[5],
     get_pos_float(925, 130), win->font_berlin);
     init_text(&win->scene[OPTIONS].text[6], text[6],
@@ -42,7 +42,7 @@ static void init_texts(window_t *win)
 static void init_buttons(window_t *win)
 {
     int order_button[] = {SAUVEGARDER, CURSEUR, CURSEUR, CURSEUR, CURSEUR};
-    int pos_x_pos[] = {900, 1100, 1300, 1000, 1000};
+    int pos_x_pos[] = {900, 1100, 1300, 1000, 1400};
     int pos_y_pos[] = {800, 200, 200, 450, 550};
     int pos_x_size[] = {500, 80, 80, 100, 150};
     int pos_y_size[] = {100, 80, 80, 100, 100};

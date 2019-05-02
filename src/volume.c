@@ -22,7 +22,7 @@ void change_volume_string(window_t *win)
 void drag_button(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
-    int pos_volume = 800;
+    int pos_volume = 1118;
     win->music->vol_pos = click_pos.x;
     float diff = win->music->vol_pos - pos_volume;
 
@@ -33,8 +33,8 @@ void drag_button(window_t *win)
     if (win->page == OPTIONS && click_pos.x > pos.x &&
     click_pos.x < pos.x + size.x &&
     click_pos.y > pos.y && click_pos.y < pos.y + size.y) {
-        if (win->music->vol_pos >= VALUE_FIRST && win->music->vol_pos <= 1056) {
-            win->music->volume = (diff + (pos_volume - VALUE_FIRST)) * 0.264;
+        if (win->music->vol_pos >= 1118 && win->music->vol_pos <= 1500) {
+            win->music->volume = (diff) * 0.264;
             change_volume_string(win);
             win->music->vol_pos = click_pos.x - size.x / 2;
             sfRectangleShape_setPosition(win->scene[OPTIONS].button[4].shape,
