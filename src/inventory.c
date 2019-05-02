@@ -25,9 +25,10 @@ void save_inventory(window_t *win)
 
     for (int i = 0; i < 15; i++) {
         if (win->inv->items[i].name == NULL)
-            fprintf(fp, "(null)\n");
+            fwrite("(null)", sizeof(char), 6, fp);
         else
-            fprintf(fp, "%s\n", win->inv->items[i].name);
+            fwrite(win->inv->items[i].name, sizeof(char), my_strlen(win->inv->items[i].name), fp);
+        fwrite("\n", sizeof(char), 1, fp);
     }
     fclose(fp);
 }

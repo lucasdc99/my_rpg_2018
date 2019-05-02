@@ -11,19 +11,41 @@
 void save_config_player(window_t *win)
 {
     FILE *fp = fopen("ressources/text/config_player", "wb+");
+    char *str = NULL;
 
-    fprintf(fp, "NAME = %s\n", win->player->name);
-    fprintf(fp, "HEALTH = %d\n", win->player->health);
-    fprintf(fp, "ACTUAL HEALTH = %d\n", win->player->actual_health);
-    fprintf(fp, "XP = %d\n", win->player->xp);
-    fprintf(fp, "STRENGTH = %d\n", win->player->strength);
-    fprintf(fp, "POSITION X = %f\n", win->player->last_pos.x);
-    fprintf(fp, "POSITION Y = %f\n", win->player->last_pos.y);
-    if (win->actual_page >= CASTLE && win->actual_page < BOSS)
-        fprintf(fp, "PAGE = %d\n", win->actual_page);
-    else if (win->actual_page >= BOSS)
-        fprintf(fp, "PAGE = %d\n", TOWN);
-    else
-        fprintf(fp, "PAGE = %d\n", CASTLE);
+    str = my_strcat("NAME = ", win->player->name);
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("HEALTH = ", my_itc(win->player->health));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("ACTUAL HEALTH = ", my_itc(win->player->actual_health));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("XP = ", my_itc(win->player->xp));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("STRENGTH = ", my_itc(win->player->strength));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("POSITION X = ", my_itc(win->player->last_pos.x));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    str = my_strcat("POSITION Y = ", my_itc(win->player->last_pos.y));
+    fwrite(str, sizeof(char), my_strlen(str), fp);
+    fwrite("\n", sizeof(char), 1, fp);
+    if (win->actual_page >= CASTLE && win->actual_page < BOSS) {
+        str = my_strcat("PAGE = ", my_itc(win->actual_page));
+        fwrite(str, sizeof(char), my_strlen(str), fp);
+        fwrite("\n", sizeof(char), 1, fp);
+    } else if (win->actual_page >= BOSS) {
+        str = my_strcat("PAGE = ", my_itc(TOWN));
+        fwrite(str, sizeof(char), my_strlen(str), fp);
+        fwrite("\n", sizeof(char), 1, fp);
+    } else {
+        str = my_strcat("PAGE = ", my_itc(CASTLE));
+        fwrite(str, sizeof(char), my_strlen(str), fp);
+        fwrite("\n", sizeof(char), 1, fp);
+    }
     fclose(fp);
 }
