@@ -11,7 +11,7 @@
 static sfUint32 check_unicode(char c, int *i)
 {
     sfUint32 code[] = {'\n', 0x00E9, 0x00E0, 0x00EA, 0x00F9, 0x00FB,
-    0x00E2, 0x00E8};
+        0x00E2, 0x00E8};
     char str[] = {'&', '_', '#', '{', '[', '@', '|', ']', '\0'};
 
     for (int a = 0; str[a] != '\0'; a++) {

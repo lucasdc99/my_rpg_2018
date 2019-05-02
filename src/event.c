@@ -11,8 +11,9 @@
 static int handle_skip_textbox(window_t *win, int actual_quest)
 {
     if (win->quest == 0 && win->inventory == 0 &&
-    win->pause == 1 && win->talking == 1)
+    win->pause == 1 && win->talking == 1) {
         display_text_in_textbox(win->quests);
+    }
     if (win->quests->quete_done != actual_quest) {
         actual_quest = win->quests->quete_done;
         win->quests->sprite[1].depth = -1;
@@ -98,8 +99,9 @@ void global_event_condition_escape(window_t *win)
         if (win->pause == 0 && win->inventory == 0 && win->quest == 0)
             pause_game(win);
         else if (win->inventory == 0 && win->quest == 0 &&
-        win->talking == 0 && win->pause == 1)
+        win->talking == 0 && win->pause == 1) {
             unpause_game(win);
+        }
         if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
             close_inventory(win);
     }

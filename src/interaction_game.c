@@ -18,6 +18,12 @@ static void get_texture_pause(window_t *win)
         texture = sfTexture_createFromFile("ressources/castle_blur.png", NULL);
     if (win->actual_page == FOREST)
         texture = sfTexture_createFromFile("ressources/forest_blur.png", NULL);
+    if (win->actual_page == HOUSE1)
+        texture = sfTexture_createFromFile("ressources/house_1_blur.png", NULL);
+    if (win->actual_page == HOUSE2)
+        texture = sfTexture_createFromFile("ressources/house_2_blur.png", NULL);
+    if (win->actual_page == HOUSE3)
+        texture = sfTexture_createFromFile("ressources/house_3_blur.png", NULL);
     if (win->actual_page == FINAL) {
         texture = sfTexture_createFromFile("ressources/sbire_map_blur.png",
         NULL);

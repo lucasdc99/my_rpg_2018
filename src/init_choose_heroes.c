@@ -13,7 +13,7 @@ static void init_texts(window_t *win)
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_win = sfRenderWindow_getSize(win->window);
     sfVector2f pos_window = {(size_win.x - size.x) / 2,
-    (size_win.y - size.y) / 8};
+        (size_win.y - size.y) / 8};
     char *name[] = {
         "Choisissez votre personnage", "Hex", "Vie: ",
         my_itc(70), "Force: ", my_itc(70), "Description", "\n"};
