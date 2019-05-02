@@ -1,12 +1,12 @@
 /*
-** event_inventory.c for event in /home/wloic/repos/MUL_my_rpg_2018/src
-**
-** Made by loic.weiss@epitech.eu
-** Login   <loic>
-**
-** Started on  Thu May 2 19:51:12 2019 loic.weiss@epitech.eu
-** Last update Fri May 2 19:51:26 2019 loic.weiss@epitech.eu
+** EPITECH PROJECT, 2019
+** MUL_my_rpg_2018
+** File description:
+** event_inventory
 */
+
+#include "../include/rpg.h"
+#include "../include/my.h"
 
 void global_event_condition_escape(window_t *win)
 {
