@@ -58,25 +58,29 @@ void check_keyboard_input_ingame(window_t *win)
         actual_quest = handle_skip_textbox(win, actual_quest);
 }
 
-void check_mouse_left(window_t *win)
+static int check_mouse_left(window_t *win)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (win->actual_page == OPTIONS)
-            drag_button(win);
+            if (drag_button(win) == 84)
+                return (84);
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
         win->inventory == 1) {
             drag_and_drop_inv(win);
         }
     }
+    return (0);
 }
 
-void global_event_condition(window_t *win)
+int global_event_condition(window_t *win)
 {
-    check_mouse_left(win);
+    if (check_mouse_left(win) == 84)
+        return (84);
     if (win->event.type == sfEvtMouseButtonPressed)
         mouse_pressed_event(win);
     if (win->event.type == sfEvtMouseButtonReleased) {
-        mouse_released_event(win);
+        if (mouse_released_event(win) == 84)
+            return (84);
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
         win->inventory == 1) {
             check_drag_and_drop_inv(win);
@@ -89,4 +93,5 @@ void global_event_condition(window_t *win)
             set_text_inv(win);
         }
     }
+    return (0);
 }

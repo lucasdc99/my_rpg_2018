@@ -55,6 +55,7 @@ char *get_buffer(char *filename)
         buff = my_strcat(buff, "\n");
         tmp = get_next_line(fd);
     }
-    close(fd);
+    if (close(fd) < 0)
+        return (NULL);
     return (buff);
 }

@@ -62,24 +62,25 @@ static void do_attack(window_t *win, int type)
     }
 }
 
-void basic_attack(window_t *win)
+int basic_attack(window_t *win)
 {
     if (win->turn == 1)
-        return;
+        return (-1);
     sfText_setString(win->text->str, "Attaque Basique\n");
     my_wait(win, 10);
     sfMusic_play(win->music->basic_attack);
     do_attack(win, 2);
     check_life(win, 20 + (win->player->strength / 10));
+    return (0);
 }
 
-void special_attack(window_t *win)
+int special_attack(window_t *win)
 {
     char *str = NULL;
     int tmp = 0;
 
     if (win->turn == 1)
-        return;
+        return (-1);
     sfText_setString(win->text->str, "Attaque Speciale\n");
     my_wait(win, 2);
     sfMusic_play(win->music->special_attack);
@@ -95,4 +96,5 @@ void special_attack(window_t *win)
         sfText_setString(win->scene[COMBAT].text[0].str, str);
     }
     check_life(win, 30 + (win->player->strength / 10));
+    return (0);
 }

@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void init_buttons(window_t *win)
+static int init_buttons(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {FLECHE, FLECHE, FLECHE};
@@ -18,15 +18,17 @@ static void init_buttons(window_t *win)
     for (int i = 0; i < win->scene[COMBAT].nb_button; i++) {
         set_next_buttons(&win->scene[COMBAT].button[i], win->rect_buttons,
         order_button[i]);
-        init_button(&win->scene[COMBAT].button[i],
+        if (init_button(&win->scene[COMBAT].button[i],
         get_pos_float(pos_x[i], pos_y[i]),
-        size, win->texture_button);
+        size, win->texture_button) == 84)
+            return (84);
         sfRectangleShape_setSize(win->scene[COMBAT].button[i].shape,
         get_pos_float(100, 100));
     }
     win->scene[COMBAT].button[0].callback = &basic_attack;
     win->scene[COMBAT].button[1].callback = &special_attack;
     win->scene[COMBAT].button[2].callback = &stats_attack;
+    return (0);
 }
 
 static void init_sprites_basic(window_t *win)
@@ -52,44 +54,67 @@ static void init_sprites_basic(window_t *win)
     win->scene[COMBAT].sprite[7].depth = -1;
 }
 
-static void init_sprites(window_t *win)
+static int init_sprites_other(window_t *win)
+{
+    if (init_sprite(&win->scene[COMBAT].sprite[3],
+    "ressources/images/background_fight.png", get_pos_float(0, 0)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[4],
+    "ressources/images/platform_fight.png", get_pos_float(260, 570)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[5],
+    "ressources/images/platform_fight.png", get_pos_float(1490, 570)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[6],
+    "ressources/images/sword.png", get_pos_float(1440, 100)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[7],
+    "ressources/images/test_fight.png", get_pos_float(0, 0)) == 84)
+        return (84);
+    return (0);
+}
+
+static int init_sprites(window_t *win)
 {
     char *skin = NULL;
 
     skin = my_strcat("ressources/images/", win->player->name);
     skin = my_strcat(skin, ".png");
-    init_sprite(&win->scene[COMBAT].sprite[0], skin, get_pos_float(1500, 500));
-    init_sprite(&win->scene[COMBAT].sprite[1], "ressources/images/heart.png",
-    get_pos_float(1440, 20));
-    init_sprite(&win->scene[COMBAT].sprite[2], "ressources/images/heart.png",
-    get_pos_float(340, 20));
-    init_sprite(&win->scene[COMBAT].sprite[3],
-    "ressources/images/background_fight.png", get_pos_float(0, 0));
-    init_sprite(&win->scene[COMBAT].sprite[4],
-    "ressources/images/platform_fight.png", get_pos_float(260, 570));
-    init_sprite(&win->scene[COMBAT].sprite[5],
-    "ressources/images/platform_fight.png", get_pos_float(1490, 570));
-    init_sprite(&win->scene[COMBAT].sprite[6],
-    "ressources/images/sword.png", get_pos_float(1440, 100));
-    init_sprite(&win->scene[COMBAT].sprite[7],
-    "ressources/images/test_fight.png", get_pos_float(0, 0));
+    if (init_sprite(&win->scene[COMBAT].sprite[0], skin,
+    get_pos_float(1500, 500)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[1],
+    "ressources/images/heart.png", get_pos_float(1440, 20)) == 84)
+        return (84);
+    if (init_sprite(&win->scene[COMBAT].sprite[2],
+    "ressources/images/heart.png", get_pos_float(340, 20)) == 84)
+        return (84);
+    if (init_sprites_other(win) == 84)
+        return (84);
     init_sprites_basic(win);
+    return (0);
 }
 
 window_t *init_combat(window_t *win)
 {
     char *str = NULL;
 
-    set_struct(win, 3, 2, 8);
+    if (set_struct(win, 3, 2, 8) == 84)
+        return (NULL);
     win->combat_clock = sfClock_create();
-    init_buttons(win);
-    init_sprites(win);
+    if (init_buttons(win) == 84)
+        return (NULL);
+    if (init_sprites(win) == 84)
+        return (NULL);
     str = my_strcat(my_itc(win->player->actual_health), "/");
     str = my_strcat(str, my_itc(win->player->health));
-    init_text(&win->scene[COMBAT].text[0], str,
-    get_pos_float(1500, 10), win->font_berlin);
-    init_text(&win->scene[COMBAT].text[1], my_itc(win->player->strength),
-    get_pos_float(1500, 100), win->font_berlin);
-    init_enemy(win);
+    if (init_text(&win->scene[COMBAT].text[0], str,
+    get_pos_float(1500, 10), win->font_berlin) == 84)
+        return (NULL);
+    if (init_text(&win->scene[COMBAT].text[1], my_itc(win->player->strength),
+    get_pos_float(1500, 100), win->font_berlin) == 84)
+        return (NULL);
+    if (init_enemy(win) == 84)
+        return (NULL);
     return (win);
 }

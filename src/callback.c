@@ -8,30 +8,35 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void heroes_menu(window_t *win)
+int heroes_menu(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     win->page = HEROES;
+    return (0);
 }
 
-void how_to_play(window_t *win)
+int how_to_play(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     win->page = HOW_TO_PLAY;
+    return (0);
 }
 
-void options(window_t *win)
+int options(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     win->page = OPTIONS;
+    return (0);
 }
 
-void quit(window_t *win)
+int quit(window_t *win)
 {
     sfRenderWindow_close(win->window);
+    return (0);
 }
 
-void quit_pause(window_t *win)
+int quit_pause(window_t *win)
 {
     unpause_game(win);
+    return (0);
 }

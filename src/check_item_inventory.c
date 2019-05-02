@@ -12,8 +12,11 @@ int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv)
 {
     sfVector2f pos_inv = sfSprite_getPosition(inv->sprite->sprite);
     const sfTexture *texture = sfSprite_getTexture(inv->sprite->sprite);
-    sfVector2u size_inv = sfTexture_getSize(texture);
+    sfVector2u size_inv;
 
+    if (texture == NULL)
+        return (-1);
+    size_inv = sfTexture_getSize(texture);
     if (move_pos.x < pos_inv.x || move_pos.x > pos_inv.x + size_inv.x)
         return (1);
     if (move_pos.y < pos_inv.y || move_pos.y > pos_inv.y + size_inv.y)

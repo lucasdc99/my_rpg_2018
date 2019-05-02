@@ -28,17 +28,27 @@ int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos)
     return (0);
 }
 
-void set_struct(window_t *win, int button, int text, int sprite)
+int set_struct(window_t *win, int button, int text, int sprite)
 {
-    if (button > 0)
+    if (button > 0) {
         win->scene[win->page].button = malloc(sizeof(button_t) * button);
-    if (text > 0)
+        if (win->scene[win->page].button == NULL)
+            return (84);
+    }
+    if (text > 0) {
         win->scene[win->page].text = malloc(sizeof(text_t) * text);
-    if (sprite > 0)
+        if (win->scene[win->page].text == NULL)
+            return (84);
+    }
+    if (sprite > 0) {
         win->scene[win->page].sprite = malloc(sizeof(sprite_t) * sprite);
+        if (win->scene[win->page].sprite == NULL)
+            return (84);
+    }
     win->scene[win->page].nb_text = text;
     win->scene[win->page].nb_button = button;
     win->scene[win->page].nb_sprite = sprite;
+    return (0);
 }
 
 char *open_buff(char *filename)

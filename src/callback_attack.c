@@ -35,13 +35,13 @@ static void increase_health(window_t *win)
         win->player->actual_health = win->player->health;
 }
 
-void stats_attack(window_t *win)
+int stats_attack(window_t *win)
 {
     char *str = NULL;
     int tmp = 0;
 
     if (win->turn == 1)
-        return;
+        return (-1);
     sfText_setString(win->text->str, "\n");
     sfMusic_play(win->music->heal);
     do_attack(win);
@@ -56,6 +56,7 @@ void stats_attack(window_t *win)
         sfText_setString(win->scene[COMBAT].text[0].str, str);
     }
     win->turn = 1;
+    return (0);
 }
 
 void check_enemy_turn(window_t *win)

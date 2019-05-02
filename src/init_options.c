@@ -8,17 +8,25 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void init_texts_two(window_t *win, char **text, sfVector2f pos_window)
+static int init_texts_two(window_t *win, char **text, sfVector2f pos_window)
 {
-    init_text(&win->scene[OPTIONS].text[4], text[4],
-    get_pos_float(pos_window.x + 50, pos_window.y - 150), win->font_berlin);
-    init_text(&win->scene[OPTIONS].text[5], text[5],
-    get_pos_float(925, 130), win->font_berlin);
-    init_text(&win->scene[OPTIONS].text[6], text[6],
-    get_pos_float(1125, 130), win->font_berlin);
+    if (init_text(&win->scene[OPTIONS].text[3], text[3],
+    get_pos_float(pos_window.x, pos_window.y - 230), win->font_berlin) == 84)
+        return (84);
+    if (init_text(&win->scene[OPTIONS].text[4], text[4],
+    get_pos_float(pos_window.x + 50, pos_window.y - 150),
+    win->font_berlin) == 84)
+        return (84);
+    if (init_text(&win->scene[OPTIONS].text[5], text[5],
+    get_pos_float(925, 130), win->font_berlin) == 84)
+        return (84);
+    if (init_text(&win->scene[OPTIONS].text[6], text[6],
+    get_pos_float(1125, 130), win->font_berlin) == 84)
+        return (84);
+    return (0);
 }
 
-static void init_texts(window_t *win)
+static int init_texts(window_t *win)
 {
     sfVector2f size = get_pos_float(500, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
@@ -28,18 +36,21 @@ static void init_texts(window_t *win)
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = 800;
-    init_text(&win->scene[OPTIONS].text[0], text[0],
-    get_pos_float(pos_window.x + 150, 10), win->font_berlin);
-    init_text(&win->scene[OPTIONS].text[1], text[1],
-    get_pos_float(pos_window.x, 210), win->font_berlin);
-    init_text(&win->scene[OPTIONS].text[2], text[2],
-    get_pos_float(pos_window.x, pos_window.y - 430), win->font_berlin);
-    init_text(&win->scene[OPTIONS].text[3], text[3],
-    get_pos_float(pos_window.x, pos_window.y - 230), win->font_berlin);
-    init_texts_two(win, text, pos_window);
+    if (init_text(&win->scene[OPTIONS].text[0], text[0],
+    get_pos_float(pos_window.x + 150, 10), win->font_berlin) == 84)
+        return (84);
+    if (init_text(&win->scene[OPTIONS].text[1], text[1],
+    get_pos_float(pos_window.x, 210), win->font_berlin) == 84)
+        return (84);
+    if (init_text(&win->scene[OPTIONS].text[2], text[2],
+    get_pos_float(pos_window.x, pos_window.y - 430), win->font_berlin) == 84)
+        return (84);
+    if (init_texts_two(win, text, pos_window) == 84)
+        return (84);
+    return (0);
 }
 
-static void init_buttons(window_t *win)
+static int init_buttons(window_t *win)
 {
     int order_button[] = {SAUVEGARDER, CURSEUR, CURSEUR, CURSEUR, CURSEUR};
     int pos_x_pos[] = {900, 910, 1115, 1000, 1400};
@@ -50,10 +61,12 @@ static void init_buttons(window_t *win)
     for (int i = 0; i < win->scene[OPTIONS].nb_button; i++) {
         set_next_buttons(&win->scene[OPTIONS].button[i],
         win->rect_buttons, order_button[i]);
-        init_button(&win->scene[OPTIONS].button[i],
+        if (init_button(&win->scene[OPTIONS].button[i],
         get_pos_float(pos_x_pos[i], pos_y_pos[i]),
-        get_pos_float(pos_x_size[i], pos_y_size[i]), win->texture_button);
+        get_pos_float(pos_x_size[i], pos_y_size[i]), win->texture_button) == 84)
+            return (84);
     }
+    return (0);
 }
 
 static void set_fps(window_t *win)
@@ -73,14 +86,19 @@ static void set_fps(window_t *win)
 
 window_t *init_options(window_t *win)
 {
-    set_struct(win, 5, 7, 1);
+    if (set_struct(win, 5, 7, 1) == 84)
+        return (NULL);
     win->music->vol_register = (win->music->volume + VALUE_FIRST) * 1.284;
-    init_sprite(&win->scene[OPTIONS].sprite[0],
-    "ressources/images/menu.png", get_pos_float(0, 0));
-    init_texts(win);
-    init_buttons(win);
+    if (init_sprite(&win->scene[OPTIONS].sprite[0],
+    "ressources/images/menu.png", get_pos_float(0, 0)) == 84)
+        return (NULL);
+    if (init_texts(win) == 84)
+        return (NULL);
+    if (init_buttons(win) == 84)
+        return (NULL);
     set_fps(win);
-    set_vsync(win);
+    if (set_vsync(win) == 84)
+        return (NULL);
     win->scene[OPTIONS].button[0].callback = &main_menu;
     win->scene[OPTIONS].button[1].callback = &change_fps;
     win->scene[OPTIONS].button[2].callback = &change_fps;

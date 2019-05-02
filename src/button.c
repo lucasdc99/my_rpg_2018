@@ -53,6 +53,8 @@ sfIntRect *init_pos_button(void)
 {
     sfIntRect *rect = malloc(sizeof(sfIntRect) * 12);
 
+    if (rect == NULL)
+        return (NULL);
     rect[JOUER] = get_rect(3, 0, 259, 76);
     rect[PARAM] = get_rect(3, 240, 259, 76);
     rect[QUITTER] = get_rect(3, 720, 259, 76);
@@ -68,11 +70,16 @@ sfIntRect *init_pos_button(void)
     return (rect);
 }
 
-void init_button(button_t *but, sfVector2f pos, sfVector2f size, sfTexture *tx)
+int init_button(button_t *but, sfVector2f pos, sfVector2f size, sfTexture *tx)
 {
+    if (but == NULL || tx == NULL)
+        return (84);
     but->shape = sfRectangleShape_create();
+    if (but->shape == NULL)
+        return (84);
     sfRectangleShape_setPosition(but->shape, pos);
     sfRectangleShape_setSize(but->shape, size);
     sfRectangleShape_setTexture(but->shape, tx, sfTrue);
     sfRectangleShape_setTextureRect(but->shape, but->rect_idle);
+    return (0);
 }

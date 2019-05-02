@@ -31,9 +31,23 @@ static char *init_ley_and_oratio(window_t *win)
     return (name);
 }
 
-void init_enemy(window_t *win)
+static int set_sprite(window_t *win)
 {
     char *str = NULL;
+
+    sfSprite_setTextureRect(win->enemy->sprite->sprite,
+    get_rect(297, 56, 30, 30));
+    sfSprite_setScale(win->enemy->sprite->sprite, get_pos_float(-4.f, 4.f));
+    str = my_strcat(my_itc(win->enemy->actual_health), "/");
+    str = my_strcat(str, my_itc(win->enemy->health));
+    if (init_text(&win->enemy->text[0], str,
+    get_pos_float(400, 10), win->font_berlin) == 84)
+        return (84);
+    return (0);
+}
+
+int init_enemy(window_t *win)
+{
     char *name = "ressources/images/";
 
     name = init_ley_and_oratio(win);
@@ -45,12 +59,10 @@ void init_enemy(window_t *win)
         sfMusic_stop(win->music->boss_song);
         sfMusic_play(win->music->boss_final);
     }
-    init_sprite(&win->enemy->sprite[0], name, get_pos_float(400, 500));
-    sfSprite_setTextureRect(win->enemy->sprite->sprite,
-    get_rect(297, 56, 30, 30));
-    sfSprite_setScale(win->enemy->sprite->sprite, get_pos_float(-4.f, 4.f));
-    str = my_strcat(my_itc(win->enemy->actual_health), "/");
-    str = my_strcat(str, my_itc(win->enemy->health));
-    init_text(&win->enemy->text[0], str,
-    get_pos_float(400, 10), win->font_berlin);
+    if (init_sprite(&win->enemy->sprite[0], name,
+    get_pos_float(400, 500)) == 84)
+        return (84);
+    if (set_sprite(win) == 84)
+        return (84);
+    return (0);
 }

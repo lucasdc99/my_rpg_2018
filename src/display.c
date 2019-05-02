@@ -49,16 +49,22 @@ int display(window_t *win)
     ptr_func *ptr_choose = init_func();
     win = ptr_choose[win->actual_page].start(win);
 
+    if (win == NULL)
+        return (84);
     while (sfRenderWindow_isOpen(win->window)) {
-        if (win->error == 84)
-            return (84);
         if (win->page != win->actual_page) {
             win = ptr_choose[win->actual_page].end(win);
+            if (win == NULL)
+                return (84);
             win = ptr_choose[win->page].start(win);
+            if (win == NULL)
+                return (84);
             win->actual_page = win->page;
         }
-        while (sfRenderWindow_pollEvent(win->window, &win->event))
-            ptr_choose[win->actual_page].event(win);
+        while (sfRenderWindow_pollEvent(win->window, &win->event)) {
+            if (ptr_choose[win->actual_page].event(win) == 84)
+                return (84);
+        }
         win = ptr_choose[win->actual_page].draw(win);
         animation_mainmenu(win);
         animation_choose_heroes(win);

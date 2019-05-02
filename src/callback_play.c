@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void check_new_game(window_t *win)
+static int check_new_game(window_t *win)
 {
     if (win->page == HEROES) {
         win->quests->quete_done = 15;
@@ -19,28 +19,45 @@ static void check_new_game(window_t *win)
         save_quests(win);
         for (int i = 0; i < 15; i++)
             win->inv->items[i].name = NULL;
-        save_inventory(win);
+        if (save_inventory(win) == 84)
+            return (84);
         win->player->last_pos = get_pos_float(930, 600);
         win->no_saves = 1;
         save_config_player(win);
     }
+    return (0);
 }
 
-void play_game(window_t *win)
+static int check_inv_quests(window_t *win)
 {
-    sfMusic_play(win->music->button_sound);
-    sfMusic_play(win->music->town_song);
-    check_new_game(win);
-    win->player = parser_player(win->player, "ressources/text/config_player");
-    win->page = win->player->last_page;
-    init_inventory(win->inv, win->font_berlin);
-    init_player(win->player);
+    if (init_inventory(win->inv, win->font_berlin) == 84)
+        return (84);
+    if (init_player(win->player) == 84)
+        return (84);
     if (set_player(win) == 84)
-        win->error = 84;
-    init_objects(win->objects, win->inv);
-    init_quests(win->quests, win->font_berlin);
+        return (84);
+    if (init_objects(win->objects, win->inv) == 84)
+        return (84);
+    if (init_quests(win->quests, win->font_berlin) == 84)
+        return (84);
     if (win->quests->quete_done < 5)
         win->quests->combat = 0;
     sfText_setString(win->text->str, "\n");
     sfMusic_stop(win->music->menu_song);
+    return (0);
+}
+
+int play_game(window_t *win)
+{
+    sfMusic_play(win->music->button_sound);
+    sfMusic_play(win->music->town_song);
+    if (check_new_game(win) == 84)
+        return (84);
+    win->player = parser_player(win->player, "ressources/text/config_player");
+    if (win->player == NULL)
+        return (84);
+    win->page = win->player->last_page;
+    if (check_inv_quests(win) == 84)
+        return (84);
+    return (0);
 }

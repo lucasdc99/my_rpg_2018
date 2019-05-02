@@ -8,25 +8,30 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void change_vsync(window_t *win)
+int change_vsync(window_t *win)
 {
+    sfTexture *texture = NULL;
+
     sfMusic_play(win->music->button_sound);
     if (win->vsync == 0) {
-        sfRectangleShape_setTexture(win->scene[OPTIONS].button[3].shape,
-        sfTexture_createFromFile("ressources/buttons/Checkbox.png", NULL),
-        sfTrue);
-        sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
-        win->vsync = 1;
+        texture = sfTexture_createFromFile("ressources/buttons/Checkbox.png",
+        NULL);
+        if (texture == NULL)
+            return (84);
     } else {
-        sfRectangleShape_setTexture(win->scene[OPTIONS].button[3].shape,
-        sfTexture_createFromFile("ressources/buttons/Checkbox2.png", NULL),
-        sfTrue);
-        sfRenderWindow_setVerticalSyncEnabled(win->window, sfFalse);
-        win->vsync = 0;
+        texture = sfTexture_createFromFile("ressources/buttons/Checkbox2.png",
+        NULL);
+        if (texture == NULL)
+            return (84);
     }
+    sfRectangleShape_setTexture(win->scene[OPTIONS].button[3].shape,
+    texture, sfTrue);
+    sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
+    win->vsync = 1;
+    return (0);
 }
 
-void change_fps(window_t *win)
+int change_fps(window_t *win)
 {
     sfMusic_play(win->music->button_sound);
     if (win->fps == 30) {
@@ -44,4 +49,5 @@ void change_fps(window_t *win)
         sfRenderWindow_setFramerateLimit(win->window, 30);
         win->fps = 30;
     }
+    return (0);
 }

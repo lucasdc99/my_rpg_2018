@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void pause_game(window_t *win)
+int pause_game(window_t *win)
 {
     sfVector2f size = get_pos_float(400, 100);
     sfVector2u size_window = sfRenderWindow_getSize(win->window);
@@ -17,11 +17,13 @@ void pause_game(window_t *win)
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
     win->pause = 1;
-    get_texture_pause(win);
+    if (get_texture_pause(win) == 84)
+        return (84);
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape,
     get_pos_float(pos_window.x, pos_window.y));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape,
     get_pos_float(pos_window.x, pos_window.y + 200));
+    return (0);
 }
 
 static sfTexture *get_texture_unpause_final(window_t *win)
@@ -83,7 +85,7 @@ static void get_texture_unpause(window_t *win)
     texture, sfTrue);
 }
 
-void unpause_game(window_t *win)
+int unpause_game(window_t *win)
 {
     win->pause = 0;
     get_texture_unpause(win);
@@ -91,4 +93,5 @@ void unpause_game(window_t *win)
     get_pos_float(-600, -300));
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[1].shape,
     get_pos_float(-600, -100));
+    return (0);
 }

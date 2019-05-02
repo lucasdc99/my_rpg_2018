@@ -30,14 +30,16 @@ static void set_inv(sprite_t *sprite, inventory_t *inv)
     }
 }
 
-void init_objects(sprite_t *sprite, inventory_t *inv)
+int init_objects(sprite_t *sprite, inventory_t *inv)
 {
-    init_sprite(&sprite[ARMOR],
+    if (init_sprite(&sprite[ARMOR],
     "ressources/images/armor.png",
-    get_pos_float(600, 400));
-    init_sprite(&sprite[SWORD],
+    get_pos_float(600, 400)) == 84)
+        return (84);
+    if (init_sprite(&sprite[SWORD],
     "ressources/images/sword.png",
-    get_pos_float(400, 400));
+    get_pos_float(400, 400)) == 84)
+        return (84);
     sprite[ARMOR].equiped = 0;
     sprite[SWORD].equiped = 0;
     set_inv(sprite, inv);
@@ -47,4 +49,5 @@ void init_objects(sprite_t *sprite, inventory_t *inv)
     sprite[SWORD].type = SWORD;
     sfSprite_setScale(sprite[ARMOR].sprite, get_pos_float(2, 2));
     sfSprite_setScale(sprite[SWORD].sprite, get_pos_float(2, 2));
+    return (0);
 }

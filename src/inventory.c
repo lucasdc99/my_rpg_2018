@@ -19,7 +19,7 @@ int check_existing_inventory(window_t *win, char *name)
     return (0);
 }
 
-void save_inventory(window_t *win)
+int save_inventory(window_t *win)
 {
     FILE *fp = fopen("ressources/text/inventory", "wb+");
 
@@ -31,7 +31,9 @@ void save_inventory(window_t *win)
             my_strlen(win->inv->items[i].name), fp);
         fwrite("\n", sizeof(char), 1, fp);
     }
-    fclose(fp);
+    if (fclose(fp) < 0)
+        return (84);
+    return (0);
 }
 
 void open_inventory(window_t *win)

@@ -10,7 +10,7 @@
 
 static sfTexture *get_texture_final(window_t *win)
 {
-    sfTexture *texture;
+    sfTexture *texture = NULL;
     char *str = NULL;
 
     if (win->actual_page == FINAL) {
@@ -46,7 +46,7 @@ static sfTexture *get_texture_pause_houses(window_t *win)
     return (texture);
 }
 
-void get_texture_pause(window_t *win)
+static sfTexture *get_texture_pause_final(window_t *win)
 {
     sfTexture *texture = NULL;
     char *str = NULL;
@@ -65,6 +65,16 @@ void get_texture_pause(window_t *win)
     }
     if (texture == NULL)
         texture = get_texture_pause_houses(win);
+    return (texture);
+}
+
+int get_texture_pause(window_t *win)
+{
+    sfTexture *texture = get_texture_pause_final(win);
+
+    if (texture == NULL)
+        return (84);
     sfSprite_setTexture(win->scene[win->actual_page].sprite[0].sprite,
     texture, sfTrue);
+    return (0);
 }

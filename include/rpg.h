@@ -171,7 +171,6 @@ typedef struct s_window {
     enum page actual_page;
     int vsync;
     int fps;
-    int error;
     sfClock *move;
     sfClock *combat_clock;
     sfTime move_time;
@@ -193,7 +192,7 @@ typedef struct s_window {
 
 typedef struct s_button {
     sfRectangleShape *shape;
-    void (*callback)(struct s_window *window);
+    int (*callback)(struct s_window *window);
     sfIntRect rect_idle;
     sfIntRect rect_hovered;
     sfIntRect rect_pressed;
@@ -204,7 +203,7 @@ typedef struct ptr_func
     enum page step;
     window_t *(*start)(window_t *);
     window_t *(*draw)(window_t *);
-    void (*event)(window_t *);
+    int (*event)(window_t *);
     window_t *(*end)(window_t *);
 } ptr_func;
 
@@ -245,42 +244,40 @@ window_t *init_house_3(window_t *win);
 window_t *init_end(window_t *win);
 
 // INITIALISATION ELEMENTS
-void init_player(player_t *player);
-void init_objects(sprite_t *sprite, inventory_t *inv);
-void init_inventory(inventory_t *inv, sfFont *font);
-void init_text(text_t *text, char *display, sfVector2f pos, sfFont *font);
-void init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
-void init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
-void init_quests(quest_t *quest, sfFont *font);
-void init_music(music_t *music);
-void init_enemy(window_t *win);
+int init_player(player_t *player);
+int init_objects(sprite_t *sprite, inventory_t *inv);
+int init_inventory(inventory_t *inv, sfFont *font);
+int init_text(text_t *text, char *display, sfVector2f pos, sfFont *font);
+int init_sprite(sprite_t *sprite, char *filename, sfVector2f position);
+int init_button(button_t *, sfVector2f, sfVector2f, sfTexture *);
+int init_quests(quest_t *quest, sfFont *font);
+int init_music(music_t *music);
+int init_enemy(window_t *win);
 
 // CSFML BASICS
 window_t *create_window(window_t *win);
 int display(window_t *win);
-void global_event(window_t *win);
+int global_event(window_t *win);
 ptr_func *init_func(void);
 
 // CALLBACK
-void change_music(window_t *win);
-void change_fps(window_t *win);
-void change_vsync(window_t *win);
-void quit_pause(window_t *win);
-void main_menu(window_t *win);
-void heroes_menu(window_t *win);
-void how_to_play(window_t *win);
-void play_game(window_t *win);
-void options(window_t *win);
-void quit(window_t *win);
-void choose_hero(window_t *win);
-void choose_hero_reverse(window_t *win);
-void unpause_game(window_t *win);
-void basic_attack(window_t *win);
-void special_attack(window_t *win);
-void stats_attack(window_t *win);
+int change_fps(window_t *win);
+int change_vsync(window_t *win);
+int quit_pause(window_t *win);
+int main_menu(window_t *win);
+int heroes_menu(window_t *win);
+int how_to_play(window_t *win);
+int play_game(window_t *win);
+int options(window_t *win);
+int quit(window_t *win);
+int choose_hero(window_t *win);
+int choose_hero_reverse(window_t *win);
+int unpause_game(window_t *win);
+int basic_attack(window_t *win);
+int special_attack(window_t *win);
+int stats_attack(window_t *win);
 void check_enemy_turn(window_t *win);
 void enemy_attack(window_t *win);
-void get_texture_pause(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);
@@ -288,15 +285,16 @@ sfVector2i get_pos_int(int x, int y);
 char *get_buffer(char *filename);
 sfIntRect get_rect(int left, int top, int width, int height);
 void set_next_buttons(button_t *button, sfIntRect *rect, int type);
-void set_struct(window_t *win, int button, int text, int sprite);
+int set_struct(window_t *win, int button, int text, int sprite);
 char **transform_2d(char *tmp, char sep);
 char *get_next_line(int fd);
 int is_inside_zone(sfVector2f limit1, sfVector2f limit2, sfVector2f pos);
 void display_text_in_textbox(quest_t *quest);
-void drag_button(window_t *win);
+int drag_button(window_t *win);
 void my_wait(window_t *win, int seconds);
 char *open_buff(char *filename);
 void str_to_unicode(char *str, sfUint32 *unistr[]);
+int get_texture_pause(window_t *win);
 
 // DESTROY
 void destroy_all(window_t *win);
@@ -312,11 +310,11 @@ int button_is_hovered(button_t button, sfVector2i mouse_position);
 sfIntRect *init_pos_button(void);
 
 // HERO CHOOSE
-void choose_hex(window_t *win);
-void choose_linail(window_t *win);
-void choose_ouzo(window_t *win);
-void choose_prime(window_t *win);
-void choose_wyvera(window_t *win);
+int choose_hex(window_t *win);
+int choose_linail(window_t *win);
+int choose_ouzo(window_t *win);
+int choose_prime(window_t *win);
+int choose_wyvera(window_t *win);
 void set_description_text(window_t *win, char *buffer);
 
 // ANIMATIONS
@@ -328,7 +326,7 @@ void animate_player_walk(window_t *win);
 void animation_end(window_t *win);
 
 // SAVES
-void save_inventory(window_t *win);
+int save_inventory(window_t *win);
 void save_config_player(window_t *win);
 void save_quests(window_t *win);
 
@@ -350,14 +348,14 @@ void check_equip_stuff(window_t *win, int actual_pos);
 
 // PLAYER HANDLING
 int set_player(window_t *win);
-void reset_player(window_t *win);
+int reset_player(window_t *win);
 
 // DETECTION EVENTS
 void check_item_pickup(window_t *win);
 void pick_armor(window_t *win);
 void pick_sword(window_t *win);
 void check_keyboard_input_ingame(window_t *win);
-void global_event_condition(window_t *win);
+int global_event_condition(window_t *win);
 
 // CHECK ITEM INVENTORY
 int is_item_outside_inv(sfVector2f move_pos, inventory_t *inv);
@@ -379,14 +377,14 @@ void open_quest(window_t *win);
 void close_quest(window_t *win);
 
 // INTERACTION GAME
-void pause_game(window_t *win);
+int pause_game(window_t *win);
 
 // TALK PNJ
 void talk_to_old(window_t *win, sfVector2f pos_player);
 
 // MOUSE EVENTS
 void mouse_pressed_event(window_t *win);
-void mouse_released_event(window_t *win);
+int mouse_released_event(window_t *win);
 void mouse_moved_event(window_t *win);
 
 // SET TXT
@@ -394,6 +392,6 @@ void set_text_inv(window_t *win);
 void draw_description(window_t *win, int i);
 
 // OPTIONS
-void set_vsync(window_t *win);
+int set_vsync(window_t *win);
 
 #endif

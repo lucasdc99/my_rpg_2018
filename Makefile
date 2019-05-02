@@ -21,7 +21,7 @@ SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))
 
 CINC		:= -I include/
-CFLAGS		:= -W -Wextra -Wall -g
+CFLAGS		:= -W -Wextra -Wall -pedantic -g
 LDFLAGS		:= -L./lib/my -lmy -L./lib/printf -lprintf -lcsfml-graphics -lcsfml-audio -lcsfml-window -lcsfml-system
 
 OBJ             := $(SRC:src/%.c=obj/%.o)

@@ -27,7 +27,7 @@ static void set_sprites(window_t *win)
     win->scene[TOWN].sprite[0].depth = -1;
 }
 
-static void init_sprites(window_t *win)
+static int init_sprites(window_t *win)
 {
     char *name[] = {
         "ressources/images/town.png",
@@ -40,11 +40,13 @@ static void init_sprites(window_t *win)
     int pos_y[] = {0, 645, 645, 645, 37, 683};
 
     for (int i = 0; i < win->scene[TOWN].nb_sprite; i++) {
-        init_sprite(&win->scene[TOWN].sprite[i], name[i],
-        get_pos_float(pos_x[i], pos_y[i]));
+        if (init_sprite(&win->scene[TOWN].sprite[i], name[i],
+        get_pos_float(pos_x[i], pos_y[i])) == 84)
+            return (84);
         win->scene[TOWN].sprite[i].depth = 0;
     }
     set_sprites(win);
+    return (0);
 }
 
 window_t *init_town(window_t *win)
@@ -52,16 +54,20 @@ window_t *init_town(window_t *win)
     int order_button[] = {REPRENDRE, QUITTER};
     sfVector2f size = get_pos_float(400, 100);
 
-    set_struct(win, 2, 0, 6);
-    init_sprites(win);
+    if (set_struct(win, 2, 0, 6) == 84)
+        return (NULL);
+    if (init_sprites(win) == 84)
+        return (NULL);
     set_next_buttons(&win->scene[TOWN].button[0], win->rect_buttons,
     order_button[0]);
-    init_button(&win->scene[TOWN].button[0], get_pos_float(-200, -200),
-    size, win->texture_button);
+    if (init_button(&win->scene[TOWN].button[0], get_pos_float(-200, -200),
+    size, win->texture_button) == 84)
+        return (NULL);
     set_next_buttons(&win->scene[TOWN].button[1], win->rect_buttons,
     order_button[1]);
-    init_button(&win->scene[TOWN].button[1], get_pos_float(-200, -200),
-    size, win->texture_button);
+    if (init_button(&win->scene[TOWN].button[1], get_pos_float(-200, -200),
+    size, win->texture_button) == 84)
+        return (NULL);
     win->scene[TOWN].button[0].callback = &quit_pause;
     win->scene[TOWN].button[1].callback = &main_menu;
     if (sfMusic_getStatus(win->music->boss_song) == sfPlaying)

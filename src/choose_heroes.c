@@ -8,7 +8,23 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void choose_hex(window_t *win)
+static int set_texture(window_t *win, char *name)
+{
+    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
+    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
+    NULL);
+    if (win->scene[HEROES].sprite[0].texture == NULL)
+        return (84);
+    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
+    win->scene[HEROES].sprite[0].texture, sfTrue);
+    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
+    get_pos_float(15, 15));
+    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
+    win->scene[HEROES].sprite[0].rect);
+    return (0);
+}
+
+int choose_hex(window_t *win)
 {
     char *name = {"ressources/images/Hex.png"};
     char *desc_file = {"ressources/text/description/Hex_des"};
@@ -20,18 +36,12 @@ void choose_hex(window_t *win)
     win->player->strength = 70;
     set_description_text(win, buffer);
     sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
+    if (set_texture(win, name) == 84)
+        return (84);
+    return (0);
 }
 
-void choose_linail(window_t *win)
+int choose_linail(window_t *win)
 {
     char *name = {"ressources/images/Linail.png"};
     char *desc_file = {"ressources/text/description/Linail_des"};
@@ -43,18 +53,12 @@ void choose_linail(window_t *win)
     win->player->strength = 70;
     set_description_text(win, buffer);
     sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
+    if (set_texture(win, name) == 84)
+        return (84);
+    return (0);
 }
 
-void choose_ouzo(window_t *win)
+int choose_ouzo(window_t *win)
 {
     char *name = {"ressources/images/Ouzo.png"};
     char *desc_file = {"ressources/text/description/Ouzo_des"};
@@ -66,18 +70,12 @@ void choose_ouzo(window_t *win)
     win->player->strength = 120;
     set_description_text(win, buffer);
     sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
+    if (set_texture(win, name) == 84)
+        return (84);
+    return (0);
 }
 
-void choose_prime(window_t *win)
+int choose_prime(window_t *win)
 {
     char *name = {"ressources/images/Prime.png"};
     char *desc_file = {"ressources/text/description/Prime_des"};
@@ -89,18 +87,12 @@ void choose_prime(window_t *win)
     win->player->strength = 70;
     set_description_text(win, buffer);
     sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
+    if (set_texture(win, name) == 84)
+        return (84);
+    return (0);
 }
 
-void choose_wyvera(window_t *win)
+int choose_wyvera(window_t *win)
 {
     char *name = {"ressources/images/Wyvera.png"};
     char *desc_file = {"ressources/text/description/Wyvera_des"};
@@ -112,13 +104,7 @@ void choose_wyvera(window_t *win)
     win->player->strength = 90;
     set_description_text(win, buffer);
     sfMusic_play(win->music->button_sound);
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
+    if (set_texture(win, name) == 84)
+        return (84);
+    return (0);
 }

@@ -8,13 +8,15 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-void choose_hero(window_t *win)
+int choose_hero(window_t *win)
 {
     win->player->hero++;
     if (win->player->hero >= 5)
         win->player->hero = 0;
-    if (win->player->hero == 0)
-        choose_hex(win);
+    if (win->player->hero == 0) {
+        if (choose_hex(win) == 84)
+            return (84);
+    }
     if (win->player->hero == 1)
         choose_linail(win);
     if (win->player->hero == 2)
@@ -23,9 +25,10 @@ void choose_hero(window_t *win)
         choose_prime(win);
     if (win->player->hero == 4)
         choose_wyvera(win);
+    return (0);
 }
 
-void choose_hero_reverse(window_t *win)
+int choose_hero_reverse(window_t *win)
 {
     win->player->hero--;
     if (win->player->hero < 0)
@@ -40,4 +43,5 @@ void choose_hero_reverse(window_t *win)
         choose_prime(win);
     if (win->player->hero == 4)
         choose_wyvera(win);
+    return (0);
 }

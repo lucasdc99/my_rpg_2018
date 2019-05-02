@@ -36,7 +36,8 @@ static char *get_str(quest_t *quest)
 
     if (quest->quete_done == 15) {
         if (fd != 0) {
-            close(fd);
+            if (close(fd) < 0)
+                return (NULL);
             fd = 0;
         }
         return ("special");
@@ -65,12 +66,17 @@ void display_text_in_textbox(quest_t *quest)
     pos.y + 20));
 }
 
-void init_text(text_t *text, char *display, sfVector2f pos, sfFont *font)
+int init_text(text_t *text, char *display, sfVector2f pos, sfFont *font)
 {
+    if (text == NULL || font == NULL)
+        return (84);
     text->str = sfText_create();
+    if (text->str == NULL)
+        return (84);
     sfText_setFont(text->str, font);
     sfText_setColor(text->str, sfWhite);
     sfText_setCharacterSize(text->str, 50);
     sfText_setString(text->str, display);
     sfText_setPosition(text->str, pos);
+    return (0);
 }
