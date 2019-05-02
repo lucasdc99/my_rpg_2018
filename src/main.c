@@ -62,7 +62,7 @@ void check_error_config(window_t *win)
     if (win->player->last_pos.x < 0)
         win->no_saves = 1;
     if (win->inv == NULL) {
-        win->no_saves = 1;        
+        win->no_saves = 1;
         win->inv = malloc(sizeof(inventory_t) * 1);
         win->inv->sprite = malloc(sizeof(sprite_t) * 1);
         win->inv->items = malloc(sizeof(items_t) * 15);

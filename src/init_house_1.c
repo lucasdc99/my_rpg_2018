@@ -39,7 +39,7 @@ window_t *init_house_1(window_t *win)
     order_button[1]);
     init_button(&win->scene[HOUSE1].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
-   initialisation_sprite_house_one(win);
+    initialisation_sprite_house_one(win);
     win->scene[HOUSE1].sprite[0].depth = -1;
     win->scene[HOUSE1].sprite[2].depth = 1;
     win->scene[HOUSE1].button[0].callback = &quit_pause;
