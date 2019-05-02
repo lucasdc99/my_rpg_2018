@@ -8,7 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-
 static void disp_win_or_lose(window_t *win)
 {
     if (win->player->health <= 0) {

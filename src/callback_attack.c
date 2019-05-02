@@ -28,6 +28,13 @@ static void do_attack(window_t *win)
     }
 }
 
+static void increase_health(window_t *win)
+{
+    win->player->actual_health++;
+    if (win->player->actual_health > win->player->health)
+        win->player->actual_health = win->player->health;
+}
+
 void stats_attack(window_t *win)
 {
     char *str = NULL;
@@ -43,9 +50,7 @@ void stats_attack(window_t *win)
     tmp = 30 + (win->player->strength / 10);
     for (int i = 0; i < tmp; i++) {
         draw_scene(win);
-        win->player->actual_health++;
-        if (win->player->actual_health > win->player->health)
-            win->player->actual_health = win->player->health;
+        increase_health(win);
         str = my_strcat(my_itc(win->player->actual_health), "/");
         str = my_strcat(str, my_itc(win->player->health));
         sfText_setString(win->scene[COMBAT].text[0].str, str);

@@ -42,12 +42,10 @@ static void init_sprites(window_t *win)
     set_sprites(win);
 }
 
-window_t *init_castle(window_t *win)
+static void init_buttons(window_t *win, sfVector2f size)
 {
-    sfVector2f size = get_pos_float(400, 100);
     int order_button[] = {REPRENDRE, QUITTER};
 
-    set_struct(win, 2, 1, 7);
     set_next_buttons(&win->scene[CASTLE].button[0], win->rect_buttons,
     order_button[0]);
     init_button(&win->scene[CASTLE].button[0], get_pos_float(-200, -200),
@@ -56,8 +54,17 @@ window_t *init_castle(window_t *win)
     order_button[1]);
     init_button(&win->scene[CASTLE].button[1], get_pos_float(-200, -200),
     size, win->texture_button);
+}
+
+window_t *init_castle(window_t *win)
+{
+    sfVector2f size = get_pos_float(400, 100);
+
+    set_struct(win, 2, 1, 7);
+    init_buttons(win, size);
     init_sprites(win);
-    init_text(&win->scene[CASTLE].text[0], "TEKZERK", get_pos_float(550, 400), win->font_title);
+    init_text(&win->scene[CASTLE].text[0], "TEKZERK",
+    get_pos_float(550, 400), win->font_title);
     sfText_setCharacterSize(win->scene[CASTLE].text[0].str, 200);
     sfText_setFillColor(win->scene[CASTLE].text[0].str,
     sfColor_fromRGBA(255, 255, 255, 0));

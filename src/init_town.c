@@ -64,5 +64,9 @@ window_t *init_town(window_t *win)
     size, win->texture_button);
     win->scene[TOWN].button[0].callback = &quit_pause;
     win->scene[TOWN].button[1].callback = &main_menu;
+    if (sfMusic_getStatus(win->music->boss_song) == sfPlaying)
+        sfMusic_stop(win->music->boss_song);
+    if (sfMusic_getStatus(win->music->town_song) == sfStopped)
+        sfMusic_play(win->music->town_song);
     return (win);
 }

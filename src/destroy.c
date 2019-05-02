@@ -8,6 +8,16 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static void free_button_sprite_text(window_t *win, int page)
+{
+    if (win->scene[page].nb_button > 0)
+        free(win->scene[page].button);
+    if (win->scene[page].nb_sprite > 0)
+        free(win->scene[page].sprite);
+    if (win->scene[page].nb_text > 0)
+        free(win->scene[page].text);
+}
+
 window_t *destroy_scene(window_t *win)
 {
     int page = win->actual_page;
@@ -26,13 +36,17 @@ window_t *destroy_scene(window_t *win)
         sfTexture_destroy(win->player->sprite->texture);
         sfSprite_destroy(win->player->sprite->sprite);
     }
-    if (win->scene[page].nb_button > 0)
-        free(win->scene[page].button);
-    if (win->scene[page].nb_sprite > 0)
-        free(win->scene[page].sprite);
-    if (win->scene[page].nb_text > 0)
-        free(win->scene[page].text);
+    free_button_sprite_text(win, page);
     return (win);
+}
+
+static void free_struct(window_t *win)
+{
+    free(win->music);
+    free(win->player->sprite);
+    free(win->player);
+    free(win->scene);
+    free(win);
 }
 
 void destroy_all(window_t *win)
@@ -53,9 +67,5 @@ void destroy_all(window_t *win)
     sfMusic_destroy(win->music->open_menus);
     sfFont_destroy(win->font_berlin);
     sfFont_destroy(win->font_title);
-    free(win->music);
-    free(win->player->sprite);
-    free(win->player);
-    free(win->scene);
-    free(win);
+    free_struct(win);
 }
