@@ -280,6 +280,7 @@ void special_attack(window_t *win);
 void stats_attack(window_t *win);
 void check_enemy_turn(window_t *win);
 void enemy_attack(window_t *win);
+void get_texture_pause(window_t *win);
 
 // USEFUL
 sfVector2f get_pos_float(float x, float y);
@@ -344,6 +345,8 @@ int check_existing_inventory(window_t *win, char *name);
 int get_actual_pos_inv(inventory_t *inv, sfVector2f move_pos);
 char *get_name_from_type(int type);
 void open_inventory(window_t *win);
+void check_desequip_stuff(window_t *win, int actual_pos);
+void check_equip_stuff(window_t *win, int actual_pos);
 
 // PLAYER HANDLING
 int set_player(window_t *win);

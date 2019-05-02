@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** MUL_my_rpg_2018
 ** File description:
-** inventory
+** talk_pnj
 */
 
 #include "../include/rpg.h"

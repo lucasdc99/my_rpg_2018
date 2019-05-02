@@ -29,7 +29,7 @@ static void init_buttons(window_t *win)
     win->scene[COMBAT].button[2].callback = &stats_attack;
 }
 
-static void init_sprites_two(window_t *win)
+static void init_sprites_basic(window_t *win)
 {
     sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
     get_rect(297, 56, 30, 30));
@@ -65,15 +65,15 @@ static void init_sprites(window_t *win)
     get_pos_float(340, 20));
     init_sprite(&win->scene[COMBAT].sprite[3],
     "ressources/images/background_fight.png", get_pos_float(0, 0));
-    init_sprite(&win->scene[COMBAT].sprite[4], "ressources/images/platform_fight.png",
-    get_pos_float(260, 570));
-    init_sprite(&win->scene[COMBAT].sprite[5], "ressources/images/platform_fight.png",
-    get_pos_float(1490, 570));
+    init_sprite(&win->scene[COMBAT].sprite[4],
+    "ressources/images/platform_fight.png", get_pos_float(260, 570));
+    init_sprite(&win->scene[COMBAT].sprite[5],
+    "ressources/images/platform_fight.png", get_pos_float(1490, 570));
     init_sprite(&win->scene[COMBAT].sprite[6],
     "ressources/images/sword.png", get_pos_float(1440, 100));
-    init_sprite(&win->scene[COMBAT].sprite[7], "ressources/images/test_fight.png",
-    get_pos_float(0, 0));
-    init_sprites_two(win);
+    init_sprite(&win->scene[COMBAT].sprite[7],
+    "ressources/images/test_fight.png", get_pos_float(0, 0));
+    init_sprites_basic(win);
 }
 
 window_t *init_combat(window_t *win)
