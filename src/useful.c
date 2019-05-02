@@ -57,17 +57,3 @@ char *open_buff(char *filename)
     close(fd);
     return (buffer);
 }
-
-void str_to_unicode(char *str, sfUint32 *unistr[])
-{
-    sfUint32 tmp[300];
-    int a = 0;
-
-    unistr[0] = tmp;
-    if (str != NULL && str[0] != '\0') {
-        for (int i = 0; str[i] != '\0'; i++) {
-            unistr[0][a++] = check_unicode(str[i], &i);
-        }
-        unistr[0][a] = '\0';
-    }
-}
