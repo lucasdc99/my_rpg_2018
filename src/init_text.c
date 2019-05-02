@@ -21,31 +21,31 @@ void str_to_unicode(char *str, sfUint32 *unistr[])
             case '&':
                 unistr[0][a++] = '\n';
                 break;
-            case '8':
+            case '_':
                 unistr[0][a++] = 0x00E9;
                 i += 2;
                 break;
-            case '7':
+            case '#':
                 unistr[0][a++] = 0x00E0;
                 i += 2;
                 break;
-            case '6':
+            case '{':
                 unistr[0][a++] = 0x00EA;
                 i += 2;
                 break;
-            case '5':
+            case '[':
                 unistr[0][a++] = 0x00F9;
                 i += 2;
                 break;
-            case '4':
+            case '@':
                 unistr[0][a++] = 0x00FB;
                 i += 2;
                 break;
-            case '3':
+            case '|':
                 unistr[0][a++] = 0x00E2;
                 i += 2;
                 break;
-            case '2':
+            case ']':
                 unistr[0][a++] = 0x00E8;
                 i += 2;
                 break;

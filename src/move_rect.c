@@ -57,7 +57,10 @@ void animation_end(window_t *win)
     if (win->actual_page == END) {
         win->move_time = sfClock_getElapsedTime(win->move);
         win->seconds = win->move_time.microseconds / 150000.0;
-        win->scene[END].sprite[0].rect.left = 1416 * (win->seconds % 10);
+        if (win->player->health > 0)
+            win->scene[END].sprite[0].rect.left = 1416 * (win->seconds % 10);
+        else
+            win->scene[END].sprite[0].rect.left = 881 * (win->seconds % 12);
         sfSprite_setTextureRect(win->scene[END].sprite[0].sprite,
         win->scene[END].sprite[0].rect);
     }

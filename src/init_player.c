@@ -17,7 +17,7 @@ int set_player(window_t *win)
     sfTrue);
     sfSprite_setScale(win->inv->player, get_pos_float(3, 3));
     sfSprite_setTextureRect(win->inv->player, win->player->sprite->rect);
-    sfSprite_setPosition(win->inv->player, get_pos_float(1440, 305));
+    sfSprite_setPosition(win->inv->player, get_pos_float(1240, 305));
     return (0);
 }
 

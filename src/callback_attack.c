@@ -20,7 +20,7 @@ static void do_attack(window_t *win)
         sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite, rect);
         sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
         sfRenderWindow_drawSprite(win->window,
-        win->scene[COMBAT].sprite[6].sprite, NULL);
+        win->scene[COMBAT].sprite[7].sprite, NULL);
         sfRenderWindow_drawSprite(win->window,
         win->scene[COMBAT].sprite[0].sprite, NULL);
         sfRenderWindow_display(win->window);

@@ -21,6 +21,7 @@ void pick_sword(window_t *win)
     win->inv->items[actual_pos].name = get_name_from_type(type);
     win->objects[SWORD].item = 1;
     win->objects[SWORD].depth = 2;
+    sfText_setString(win->text->str, "Appuyez sur Enter pour continuer");
     display_text_in_textbox(win->quests);
     win->pause = 1;
     win->talking = 1;

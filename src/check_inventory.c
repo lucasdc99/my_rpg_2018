@@ -35,9 +35,9 @@ static int move_inv(window_t *win, int i)
     int item = -1;
 
     if (move_pos.x >= pos_item.x - 10 &&
-    move_pos.x < pos_item.x + 20) {
+    move_pos.x < pos_item.x + 40) {
         if (move_pos.y >= pos_item.y - 10 &&
-        move_pos.y < pos_item.y + 20) {
+        move_pos.y < pos_item.y + 40) {
             actual_pos = get_actual_pos_inv(win->inv, move_pos);
             win->objects[i].item = 2;
             win->inv->items[actual_pos].busy = 0;

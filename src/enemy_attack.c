@@ -20,7 +20,7 @@ static void do_attack(window_t *win)
         sfSprite_setTextureRect(win->enemy->sprite->sprite, rect);
         sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
         sfRenderWindow_drawSprite(win->window,
-        win->scene[COMBAT].sprite[6].sprite, NULL);
+        win->scene[COMBAT].sprite[7].sprite, NULL);
         sfRenderWindow_drawSprite(win->window,
         win->enemy->sprite->sprite, NULL);
         sfRenderWindow_display(win->window);
@@ -51,7 +51,7 @@ static void enemy_attack(window_t *win)
         tmp = 20 + (win->enemy->strength / 10);
     } else {
         sfText_setString(win->text->str, "Rate\n");
-        sfText_setPosition(win->text->str, get_pos_float(500, 500));
+        sfText_setPosition(win->text->str, get_pos_float(500, 900));
     }
     if (win->player->actual_health - tmp <= 0) {
         win->player->health = 0;

@@ -35,7 +35,7 @@ static void init_win_variable(window_t *win)
     win->inventory = 0;
     win->texture_button = sfTexture_createFromFile(name, NULL);
     win->rect_buttons = init_pos_button();
-    init_text(win->text, "\n", get_pos_float(1450, 950));
+    init_text(win->text, "\n", get_pos_float(1150, 950));
     win->pause = 0;
     win->turn = 0;
     win->talking = 0;
