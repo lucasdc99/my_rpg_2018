@@ -1,8 +1,8 @@
 Touches:
-Aller vers le haut : Z
-Aller vers le bas: S
-Aller #à gauche : Q
-Aller #à droite : D
+Aller vers le haut : FLECHE HAUT
+Aller vers le bas: FLECHE BAS
+Aller #à gauche : FLECHE GAUCHE
+Aller #à droite : FLECHE DROITE
 Int_éragir : E
 Inventaire : I
 Afficher les qu{êtes : O
