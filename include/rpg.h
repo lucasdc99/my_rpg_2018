@@ -87,6 +87,7 @@ typedef struct s_music {
     sfMusic *enemy_attack;
     sfMusic *basic_attack;
     sfMusic *open_menus;
+    sfVector2f pos_sound;
     int vol_pos;
     int drag_value;
     int vol_register;
@@ -295,6 +296,8 @@ void my_wait(window_t *win, int seconds);
 char *open_buff(char *filename);
 void str_to_unicode(char *str, sfUint32 *unistr[]);
 int get_texture_pause(window_t *win);
+int malloc_struct(window_t *win);
+int initialisation_depth_sprite_boss(window_t *win);
 
 // DESTROY
 void destroy_all(window_t *win);
@@ -316,6 +319,9 @@ int choose_ouzo(window_t *win);
 int choose_prime(window_t *win);
 int choose_wyvera(window_t *win);
 void set_description_text(window_t *win, char *buffer);
+int set_texture(window_t *win, char *name);
+void check_life(window_t *win, int damage);
+void do_animation(window_t *win, int damage);
 
 // ANIMATIONS
 void animation_mainmenu(window_t *win);
@@ -334,6 +340,7 @@ void save_quests(window_t *win);
 inventory_t *parser_inv(inventory_t *inv, char *filename);
 player_t *parser_player(player_t *player, char *filename);
 quest_t *parser_quests(quest_t *quest, char *filename);
+int parsing(window_t *win);
 
 // INVENTORY HANDLING
 sfVector2f get_inv_pos(inventory_t *inv);

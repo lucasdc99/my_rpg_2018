@@ -46,8 +46,7 @@ static int init_buttons_other(window_t *win)
     win->texture_button) == 84)
         return (84);
     pos_win.y += size.y + 10;
-    set_next_buttons(&win->scene[HEROES].button[3], win->rect_buttons,
-    QUITTER);
+    set_next_buttons(&win->scene[HEROES].button[3], win->rect_buttons, QUITTER);
     if (init_button(&win->scene[HEROES].button[3], pos_win, size,
     win->texture_button) == 84)
         return (84);
@@ -78,8 +77,24 @@ static int init_buttons(window_t *win)
     (size_win.y / 2) + 300), get_pos_float(size.x / 2, size.y),
     win->texture_button) == 84)
         return (84);
-    win->quests->combat = 0;
     return (init_buttons_other(win));
+}
+
+static int init_sprites(window_t *win)
+{
+    if (init_sprite(&win->scene[HEROES].sprite[0],
+    "ressources/images/Hex.png", get_pos_float(100, 100)) == 84)
+        return (84);
+    win->scene[HEROES].sprite[0].rect = get_rect(0, 100, 50, 50);
+    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
+    get_pos_float(15, 15));
+    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
+    win->scene[HEROES].sprite[0].rect);
+    if (init_sprite(&win->scene[HEROES].sprite[1],
+    "ressources/images/menu.png", get_pos_float(0, 0)) == 84)
+        return (84);
+    win->scene[HEROES].sprite[1].depth = -1;
+    return (0);
 }
 
 window_t *init_choose_heroes(window_t *win)
@@ -90,23 +105,10 @@ window_t *init_choose_heroes(window_t *win)
         return (NULL);
     if (init_buttons(win) == 84)
         return (NULL);
-    if (init_sprite(&win->scene[HEROES].sprite[0],
-    "ressources/images/Hex.png",
-    get_pos_float(100, 100)) == 84)
+    if (init_sprites(win) == 84)
         return (NULL);
-    win->scene[HEROES].sprite[0].rect.top = 100;
-    win->scene[HEROES].sprite[0].rect.left = 0;
-    win->scene[HEROES].sprite[0].rect.width = 50;
-    win->scene[HEROES].sprite[0].rect.height = 50;
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
-    if (init_sprite(&win->scene[HEROES].sprite[1],
-    "ressources/images/menu.png", get_pos_float(0, 0)) == 84)
-        return (NULL);
-    win->scene[HEROES].sprite[1].depth = -1;
     win->player->hero = 0;
+    win->quests->combat = 0;
     choose_hex(win);
     return (win);
 }

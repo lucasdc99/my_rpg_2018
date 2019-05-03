@@ -63,6 +63,8 @@ quest_t *parser_quests(quest_t *quest, char *filename)
         quest->quete_done = my_getnbr(str);
         str = get_next_line(fd);
         quest->combat = my_getnbr(str);
+        if (quest->combat > 3)
+            quest->combat = 0;
     }
     close(fd);
     return (quest);

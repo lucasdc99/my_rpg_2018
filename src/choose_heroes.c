@@ -8,22 +8,6 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static int set_texture(window_t *win, char *name)
-{
-    sfTexture_destroy(win->scene[HEROES].sprite[0].texture);
-    win->scene[HEROES].sprite[0].texture = sfTexture_createFromFile(name,
-    NULL);
-    if (win->scene[HEROES].sprite[0].texture == NULL)
-        return (84);
-    sfSprite_setTexture(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].texture, sfTrue);
-    sfSprite_setScale(win->scene[HEROES].sprite[0].sprite,
-    get_pos_float(15, 15));
-    sfSprite_setTextureRect(win->scene[HEROES].sprite[0].sprite,
-    win->scene[HEROES].sprite[0].rect);
-    return (0);
-}
-
 int choose_hex(window_t *win)
 {
     char *name = {"ressources/images/Hex.png"};

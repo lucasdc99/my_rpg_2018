@@ -8,7 +8,7 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void do_animation(window_t *win, int damage)
+void do_animation(window_t *win, int damage)
 {
     char *str = NULL;
 
@@ -18,25 +18,6 @@ static void do_animation(window_t *win, int damage)
         str = my_strcat(my_itc(win->enemy->actual_health), "/");
         str = my_strcat(str, my_itc(win->enemy->health));
         sfText_setString(win->enemy->text->str, str);
-    }
-}
-
-static void check_life(window_t *win, int damage)
-{
-    sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
-    get_rect(297, 56, 30, 30));
-    if (win->enemy->actual_health - damage <= 0) {
-        win->enemy->health = 0;
-        sfText_setString(win->text->str, "\n");
-        sfSprite_setPosition(win->player->sprite->sprite,
-        win->player->last_pos);
-        if (win->quests->combat == 3)
-            win->page = END;
-        else
-            win->page = FINAL;
-    } else {
-        do_animation(win, damage);
-        win->turn = 1;
     }
 }
 
@@ -64,28 +45,21 @@ static void do_attack(window_t *win, int type)
 
 int basic_attack(window_t *win)
 {
-    if (win->turn == 1)
+    if (win->turn == 1 || win->turn == 2 ||
+    win->page == END || win->page == FINAL)
         return (-1);
+    win->turn = 2;
     sfText_setString(win->text->str, "Attaque Basique\n");
-    my_wait(win, 10);
     sfMusic_play(win->music->basic_attack);
     do_attack(win, 2);
     check_life(win, 20 + (win->player->strength / 10));
     return (0);
 }
 
-int special_attack(window_t *win)
+static void decrease_life(window_t *win, int tmp)
 {
     char *str = NULL;
-    int tmp = 0;
 
-    if (win->turn == 1)
-        return (-1);
-    sfText_setString(win->text->str, "Attaque Speciale\n");
-    my_wait(win, 2);
-    sfMusic_play(win->music->special_attack);
-    do_attack(win, 1);
-    tmp = win->player->strength / 10;
     for (int i = 0; i < tmp; i++) {
         draw_scene(win);
         win->player->health--;
@@ -95,6 +69,21 @@ int special_attack(window_t *win)
         str = my_strcat(str, my_itc(win->player->health));
         sfText_setString(win->scene[COMBAT].text[0].str, str);
     }
+}
+
+int special_attack(window_t *win)
+{
+    int tmp = 0;
+
+    if (win->turn == 1 || win->turn == 2 ||
+    win->page == END || win->page == FINAL)
+        return (-1);
+    win->turn = 2;
+    sfText_setString(win->text->str, "Attaque Speciale\n");
+    sfMusic_play(win->music->special_attack);
+    do_attack(win, 1);
+    tmp = win->player->strength / 10;
+    decrease_life(win, tmp);
     check_life(win, 30 + (win->player->strength / 10));
     return (0);
 }

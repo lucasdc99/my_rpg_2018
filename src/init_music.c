@@ -92,6 +92,7 @@ static int create_musics(music_t *music)
 
 int init_music(music_t *music)
 {
+    music->pos_sound = get_pos_float(1400, 550);
     music->volume = 100;
     music->vol_pos = 800;
     if (create_musics(music) == 84)

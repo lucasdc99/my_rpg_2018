@@ -33,7 +33,7 @@ void animation_begin(window_t *win)
     } else if (part == 2) {
         win->no_saves = 0;
         sfText_setString(win->text->str, "Appuyez sur O\n");
-        sfText_setPosition(win->text->str, get_pos_float(1450, 950));
+        sfText_setPosition(win->text->str, get_pos_float(10, 950));
         part = 3;
     }
     if (part == 3 && win->no_saves == 1) {

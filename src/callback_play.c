@@ -56,6 +56,8 @@ int play_game(window_t *win)
     win->player = parser_player(win->player, "ressources/text/config_player");
     if (win->player == NULL)
         return (84);
+    if (win->player->actual_health > win->player->health)
+        win->player->actual_health = win->player->health;
     win->page = win->player->last_page;
     if (check_inv_quests(win) == 84)
         return (84);

@@ -71,6 +71,7 @@ window_t *init_final(window_t *win)
     win->scene[FINAL].button[0].callback = &quit_pause;
     win->scene[FINAL].button[1].callback = &main_menu;
     sfMusic_play(win->music->boss_song);
+    sfText_setString(win->text->str, "\n");
     if (sfMusic_getStatus(win->music->town_song) == sfPlaying)
         sfMusic_stop(win->music->town_song);
     if (sfMusic_getStatus(win->music->boss_battle) == sfPlaying)

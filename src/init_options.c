@@ -10,10 +10,13 @@
 
 static int init_texts_two(window_t *win, char **text, sfVector2f pos_window)
 {
+    char *str = NULL;
+
     if (init_text(&win->scene[OPTIONS].text[3], text[3],
     get_pos_float(pos_window.x, pos_window.y - 230), win->font_berlin) == 84)
         return (84);
-    if (init_text(&win->scene[OPTIONS].text[4], text[4],
+    str = my_strcat(my_itc(win->music->volume), "%");
+    if (init_text(&win->scene[OPTIONS].text[4], str,
     get_pos_float(pos_window.x + 50, pos_window.y - 150),
     win->font_berlin) == 84)
         return (84);
@@ -53,8 +56,8 @@ static int init_texts(window_t *win)
 static int init_buttons(window_t *win)
 {
     int order_button[] = {SAUVEGARDER, CURSEUR, CURSEUR, CURSEUR, CURSEUR};
-    int pos_x_pos[] = {900, 910, 1115, 1000, 1400};
-    int pos_y_pos[] = {800, 200, 200, 350, 550};
+    int pos_x_pos[] = {900, 910, 1115, 1000, win->music->pos_sound.x};
+    int pos_y_pos[] = {800, 200, 200, 350, win->music->pos_sound.y};
     int pos_x_size[] = {500, 80, 80, 100, 150};
     int pos_y_size[] = {100, 80, 80, 100, 100};
 

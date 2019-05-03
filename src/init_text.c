@@ -16,6 +16,8 @@ static char *check_fd(int *fd, int quete_done)
 
     if (fd[0] == 0) {
         fd[0] = open("ressources/text/script_paroles", O_RDONLY);
+        if (fd[0] < 0)
+            return (NULL);
         while (actual < quete_done) {
             opened++;
             str = get_next_line(fd[0]);
@@ -36,6 +38,8 @@ static char *get_str(quest_t *quest)
 
     if (quest->quete_done == 15) {
         if (fd != 0) {
+            while (get_next_line(fd) != NULL)
+                get_next_line(fd);
             if (close(fd) < 0)
                 return (NULL);
             fd = 0;

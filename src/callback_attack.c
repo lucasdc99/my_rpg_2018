@@ -8,6 +8,26 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+void check_life(window_t *win, int damage)
+{
+    sfSprite_setTextureRect(win->scene[COMBAT].sprite[0].sprite,
+    get_rect(297, 56, 30, 30));
+    if (win->enemy->actual_health - damage <= 0) {
+        win->enemy->health = 0;
+        sfText_setString(win->text->str, "\n");
+        sfSprite_setPosition(win->player->sprite->sprite,
+        win->player->last_pos);
+        if (win->quests->combat == 3)
+            win->page = END;
+        else
+            win->page = FINAL;
+        win->turn = 0;
+    } else {
+        do_animation(win, damage);
+        win->turn = 1;
+    }
+}
+
 static void do_attack(window_t *win)
 {
     sfIntRect rect;
@@ -30,18 +50,24 @@ static void do_attack(window_t *win)
 
 static void increase_health(window_t *win)
 {
+    char *str = NULL;
+
     win->player->actual_health++;
     if (win->player->actual_health > win->player->health)
         win->player->actual_health = win->player->health;
+    str = my_strcat(my_itc(win->player->actual_health), "/");
+    str = my_strcat(str, my_itc(win->player->health));
+    sfText_setString(win->scene[COMBAT].text[0].str, str);
 }
 
 int stats_attack(window_t *win)
 {
-    char *str = NULL;
     int tmp = 0;
 
-    if (win->turn == 1)
+    if (win->turn == 1 || win->turn == 2 ||
+    win->page == END || win->page == FINAL)
         return (-1);
+    win->turn = 2;
     sfText_setString(win->text->str, "\n");
     sfMusic_play(win->music->heal);
     do_attack(win);
@@ -51,9 +77,6 @@ int stats_attack(window_t *win)
     for (int i = 0; i < tmp; i++) {
         draw_scene(win);
         increase_health(win);
-        str = my_strcat(my_itc(win->player->actual_health), "/");
-        str = my_strcat(str, my_itc(win->player->health));
-        sfText_setString(win->scene[COMBAT].text[0].str, str);
     }
     win->turn = 1;
     return (0);

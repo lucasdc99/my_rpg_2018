@@ -44,6 +44,20 @@ void manage_game(window_t *win)
     }
 }
 
+static int change_page(window_t *win, ptr_func *ptr_choose)
+{
+    if (win->page != win->actual_page) {
+        win = ptr_choose[win->actual_page].end(win);
+        if (win == NULL)
+            return (84);
+        win = ptr_choose[win->page].start(win);
+        if (win == NULL)
+            return (84);
+        win->actual_page = win->page;
+    }
+    return (0);
+}
+
 int display(window_t *win)
 {
     ptr_func *ptr_choose = init_func();
@@ -52,15 +66,8 @@ int display(window_t *win)
     if (win == NULL)
         return (84);
     while (sfRenderWindow_isOpen(win->window)) {
-        if (win->page != win->actual_page) {
-            win = ptr_choose[win->actual_page].end(win);
-            if (win == NULL)
-                return (84);
-            win = ptr_choose[win->page].start(win);
-            if (win == NULL)
-                return (84);
-            win->actual_page = win->page;
-        }
+        if (change_page(win, ptr_choose) == 84)
+            return (84);
         while (sfRenderWindow_pollEvent(win->window, &win->event)) {
             if (ptr_choose[win->actual_page].event(win) == 84)
                 return (84);

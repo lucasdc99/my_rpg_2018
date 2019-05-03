@@ -43,15 +43,11 @@ static int init_end_button(window_t *win)
     return (0);
 }
 
-window_t *init_end(window_t *win)
+static int draw_time(window_t *win)
 {
     int rest = 0;
     char *str = NULL;
 
-    if (set_struct(win, 1, 2, 1) == 84)
-        return (NULL);
-    if (disp_win_or_lose(win) == 84)
-        return (NULL);
     win->move_time = sfClock_getElapsedTime(win->move);
     win->seconds = win->move_time.microseconds / 1000000;
     if (win->seconds > 60) {
@@ -63,6 +59,17 @@ window_t *init_end(window_t *win)
     str = my_strcat(str, "sec");
     if (init_text(&win->scene[END].text[1], str,
     get_pos_float(890, 200), win->font_berlin) == 84)
+        return (84);
+    return (0);
+}
+
+window_t *init_end(window_t *win)
+{
+    if (set_struct(win, 1, 2, 1) == 84)
+        return (NULL);
+    if (disp_win_or_lose(win) == 84)
+        return (NULL);
+    if (draw_time(win) == 84)
         return (NULL);
     win->no_saves = 1;
     if (init_end_button(win) == 84)

@@ -23,6 +23,17 @@ void mouse_pressed_event(window_t *win)
     }
 }
 
+static int check_callback(window_t *win, sfRectangleShape *rect, int i)
+{
+    sfRectangleShape_setTextureRect(rect,
+    win->scene[win->actual_page].button[i].rect_idle);
+    if (win->scene[win->actual_page].button[i].callback != NULL) {
+        if (win->scene[win->actual_page].button[i].callback(win) == 84)
+            return (84);
+    }
+    return (0);
+}
+
 int mouse_released_event(window_t *win)
 {
     sfVector2i click_pos = sfMouse_getPositionRenderWindow(win->window);
@@ -32,12 +43,8 @@ int mouse_released_event(window_t *win)
         rect = win->scene[win->actual_page].button[i].shape;
         if (button_is_clicked(win->scene[win->actual_page].button[i],
         click_pos)) {
-            sfRectangleShape_setTextureRect(rect,
-            win->scene[win->actual_page].button[i].rect_idle);
-            if (win->scene[win->actual_page].button[i].callback != NULL) {
-                if (win->scene[win->actual_page].button[i].callback(win) == 84)
-                    return (84);
-            }
+            if (check_callback(win, rect, i) == 84)
+                return (84);
         }
     }
     return (0);

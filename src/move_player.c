@@ -93,6 +93,5 @@ void move_player_right(window_t *win)
         sfSprite_setPosition(win->player->sprite->sprite, pos);
         win->player->sprite->rect.top = 110;
         animate_player_walk(win);
-
     }
 }

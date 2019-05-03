@@ -11,13 +11,13 @@
 static int initialisation_sprite_forest_two(window_t *win)
 {
     char *path = {"ressources/images/"};
-    int pos_x[] = {0, 30, 55, 125, 545, 335, 632, 505, 220, 205, 25,
+    int pos_x[] = {0, 30, 55, 125, 545, 335, 632, 505, 220, 265, 25,
         485, 1112, 1625, 1180, 1575, 1635};
     int pos_y[] = {0, 245, 10, 95, 3, 210, 342, 595, 465, 640, 775,
         810, 610, 45, 40, 255, 700};
     char *name[] = {"forest.png", "tree.png", "tree.png", "tree.png",
         "tree.png", "tree2.png", "tree2.png", "tree.png", "tree.png",
-        "tree2.png", "tree.png", "tombe.png", "tree.png",
+        "tree.png", "tree2.png", "tree.png", "tombe.png", "tree.png",
         "tree2.png", "tree2.png", "tree.png"};
 
     for (int i = 0; i < 17; i++) {

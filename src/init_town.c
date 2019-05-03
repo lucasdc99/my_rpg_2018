@@ -49,24 +49,31 @@ static int init_sprites(window_t *win)
     return (0);
 }
 
-window_t *init_town(window_t *win)
+static int init_buttons(window_t *win)
 {
     int order_button[] = {REPRENDRE, QUITTER};
     sfVector2f size = get_pos_float(400, 100);
 
-    if (set_struct(win, 2, 0, 6) == 84)
-        return (NULL);
-    if (init_sprites(win) == 84)
-        return (NULL);
     set_next_buttons(&win->scene[TOWN].button[0], win->rect_buttons,
     order_button[0]);
     if (init_button(&win->scene[TOWN].button[0], get_pos_float(-200, -200),
     size, win->texture_button) == 84)
-        return (NULL);
+        return (84);
     set_next_buttons(&win->scene[TOWN].button[1], win->rect_buttons,
     order_button[1]);
     if (init_button(&win->scene[TOWN].button[1], get_pos_float(-200, -200),
     size, win->texture_button) == 84)
+        return (84);
+    return (0);
+}
+
+window_t *init_town(window_t *win)
+{
+    if (set_struct(win, 2, 0, 6) == 84)
+        return (NULL);
+    if (init_sprites(win) == 84)
+        return (NULL);
+    if (init_buttons(win) == 84)
         return (NULL);
     win->scene[TOWN].button[0].callback = &quit_pause;
     win->scene[TOWN].button[1].callback = &main_menu;
