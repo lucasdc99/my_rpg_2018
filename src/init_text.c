@@ -8,23 +8,30 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+static char *open_fd(int *fd, int actual, int quete_done, int *opened)
+{
+    char *str = NULL;
+
+    fd[0] = open("ressources/text/script_paroles", O_RDONLY);
+    if (fd[0] < 0)
+        return (NULL);
+    while (actual < quete_done) {
+        opened[0]++;
+        str = get_next_line(fd[0]);
+        if (str == NULL || str[0] == '\0')
+            actual++;
+    }
+    return (str);
+}
+
 static char *check_fd(int *fd, int quete_done)
 {
     static int opened = 0;
     int actual = 0;
     char *str = NULL;
 
-    if (fd[0] == 0) {
-        fd[0] = open("ressources/text/script_paroles", O_RDONLY);
-        if (fd[0] < 0)
-            return (NULL);
-        while (actual < quete_done) {
-            opened++;
-            str = get_next_line(fd[0]);
-            if (str == NULL || str[0] == '\0')
-                actual++;
-        }
-    }
+    if (fd[0] == 0)
+        str = open_fd(fd, actual, quete_done, &opened);
     if (opened == 0 || str == NULL || str[0] == '\0')
         str = get_next_line(fd[0]);
     if (opened != 0)
@@ -37,13 +44,9 @@ static char *get_str(quest_t *quest)
     static int fd = 0;
 
     if (quest->quete_done == 15) {
-        if (fd != 0) {
-            while (get_next_line(fd) != NULL)
-                get_next_line(fd);
-            if (close(fd) < 0)
-                return (NULL);
-            fd = 0;
-        }
+        fd = get_fd(fd);
+        if (fd < 0)
+            return (NULL);
         return ("special");
     }
     return (check_fd(&fd, quest->quete_done));

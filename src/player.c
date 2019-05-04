@@ -23,7 +23,7 @@ static void set_var_player(window_t *win)
 
 int reset_player(window_t *win)
 {
-    win->no_saves = 1;
+    win->states->no_saves = 1;
     win->player = malloc(sizeof(player_t) * 1);
     if (win->player == NULL)
         return (84);

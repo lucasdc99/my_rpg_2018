@@ -23,8 +23,8 @@ void pick_sword(window_t *win)
     win->objects[SWORD].depth = 2;
     sfText_setString(win->text->str, "Appuyez sur Enter pour continuer");
     display_text_in_textbox(win->quests);
-    win->pause = 1;
-    win->talking = 1;
+    win->states->pause = 1;
+    win->states->talking = 1;
 }
 
 void pick_armor(window_t *win)
@@ -41,6 +41,6 @@ void pick_armor(window_t *win)
     win->objects[ARMOR].item = 1;
     win->objects[ARMOR].depth = 2;
     display_text_in_textbox(win->quests);
-    win->pause = 1;
-    win->talking = 1;
+    win->states->pause = 1;
+    win->states->talking = 1;
 }

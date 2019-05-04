@@ -49,12 +49,12 @@ static int draw_time(window_t *win)
     char *str = NULL;
 
     win->move_time = sfClock_getElapsedTime(win->move);
-    win->seconds = win->move_time.microseconds / 1000000;
-    if (win->seconds > 60) {
-        rest = win->seconds % 60;
-        win->seconds /= 60;
+    win->states->seconds = win->move_time.microseconds / 1000000;
+    if (win->states->seconds > 60) {
+        rest = win->states->seconds % 60;
+        win->states->seconds /= 60;
     }
-    str = my_strcat(my_itc(win->seconds), "min");
+    str = my_strcat(my_itc(win->states->seconds), "min");
     str = my_strcat(str, my_itc(rest));
     str = my_strcat(str, "sec");
     if (init_text(&win->scene[END].text[1], str,
@@ -71,7 +71,7 @@ window_t *init_end(window_t *win)
         return (NULL);
     if (draw_time(win) == 84)
         return (NULL);
-    win->no_saves = 1;
+    win->states->no_saves = 1;
     if (init_end_button(win) == 84)
         return (NULL);
     return (win);

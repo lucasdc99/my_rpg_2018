@@ -34,11 +34,11 @@ ptr_func *init_func(void)
 void manage_game(window_t *win)
 {
     if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
-    win->pause == 0 && win->no_saves == 0) {
+    win->states->pause == 0 && win->states->no_saves == 0) {
         move_player(win);
         if (win->actual_page == CASTLE) {
             win->move_time = sfClock_getElapsedTime(win->move);
-            win->seconds = win->move_time.microseconds / 400000.0;
+            win->states->seconds = win->move_time.microseconds / 400000.0;
             animation_torch(win, 20);
         }
     }
@@ -58,6 +58,17 @@ static int change_page(window_t *win, ptr_func *ptr_choose)
     return (0);
 }
 
+static int check_events(window_t *win, ptr_func *ptr_choose)
+{
+    if (change_page(win, ptr_choose) == 84)
+        return (84);
+    while (sfRenderWindow_pollEvent(win->window, &win->event)) {
+        if (ptr_choose[win->actual_page].event(win) == 84)
+            return (84);
+    }
+    return (0);
+}
+
 int display(window_t *win)
 {
     ptr_func *ptr_choose = init_func();
@@ -66,12 +77,8 @@ int display(window_t *win)
     if (win == NULL)
         return (84);
     while (sfRenderWindow_isOpen(win->window)) {
-        if (change_page(win, ptr_choose) == 84)
+        if (check_events(win, ptr_choose) == 84)
             return (84);
-        while (sfRenderWindow_pollEvent(win->window, &win->event)) {
-            if (ptr_choose[win->actual_page].event(win) == 84)
-                return (84);
-        }
         win = ptr_choose[win->actual_page].draw(win);
         animation_mainmenu(win);
         animation_choose_heroes(win);

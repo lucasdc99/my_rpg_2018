@@ -16,7 +16,7 @@ int pause_game(window_t *win)
 
     pos_window.x = (size_window.x - size.x) / 2;
     pos_window.y = (size_window.y - size.y) / 4;
-    win->pause = 1;
+    win->states->pause = 1;
     if (get_texture_pause(win) == 84)
         return (84);
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape,
@@ -87,7 +87,7 @@ static void get_texture_unpause(window_t *win)
 
 int unpause_game(window_t *win)
 {
-    win->pause = 0;
+    win->states->pause = 0;
     get_texture_unpause(win);
     sfRectangleShape_setPosition(win->scene[win->actual_page].button[0].shape,
     get_pos_float(-600, -300));

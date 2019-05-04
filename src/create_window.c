@@ -8,21 +8,23 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
-static void init_variable_game(window_t *win)
+static void init_states_game(window_t *win)
 {
-    win->pause = 0;
-    win->turn = 0;
-    win->talking = 0;
+    win->states->pause = 0;
+    win->states->turn = 0;
+    win->states->talking = 0;
     win->quests->combat = 0;
+    win->states->vsync = 1;
+    win->states->fps = 60;
     win->move = sfClock_create();
-    win->no_saves = 0;
+    win->states->no_saves = 0;
 }
 
 static int init_win_variable(window_t *win)
 {
     char *name = {"ressources/buttons/buttons.png"};
 
-    win->inventory = 0;
+    win->states->inventory = 0;
     win->font_berlin = sfFont_createFromFile("ressources/font/berlin.ttf");
     if (win->font_berlin == NULL)
         return (84);
@@ -38,7 +40,7 @@ static int init_win_variable(window_t *win)
     if (init_text(win->text, "\n", get_pos_float(10, 950),
     win->font_berlin) == 84)
         return (84);
-    init_variable_game(win);
+    init_states_game(win);
     return (0);
 }
 
@@ -56,9 +58,7 @@ window_t *create_window(window_t *win)
     if (malloc_struct(win) == 84)
         return (NULL);
     sfRenderWindow_setVerticalSyncEnabled(win->window, sfTrue);
-    win->vsync = 1;
     sfRenderWindow_setFramerateLimit(win->window, 60);
-    win->fps = 60;
     if (init_win_variable(win) == 84)
         return (NULL);
     return (win);

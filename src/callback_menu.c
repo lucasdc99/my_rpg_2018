@@ -47,7 +47,7 @@ int main_menu(window_t *win)
         if (save_data(win, tmp) == 84)
             return (84);
     }
-    win->pause = 0;
+    win->states->pause = 0;
     sfMusic_play(win->music->button_sound);
     if (sfMusic_getStatus(win->music->menu_song) == sfStopped)
         sfMusic_play(win->music->menu_song);

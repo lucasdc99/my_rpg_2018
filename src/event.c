@@ -10,8 +10,8 @@
 
 static int handle_skip_textbox(window_t *win, int actual_quest)
 {
-    if (win->quest == 0 && win->inventory == 0 &&
-    win->pause == 1 && win->talking == 1) {
+    if (win->states->quest == 0 && win->states->inventory == 0 &&
+    win->states->pause == 1 && win->states->talking == 1) {
         display_text_in_textbox(win->quests);
     }
     if (win->quests->quete_done != actual_quest) {
@@ -22,17 +22,19 @@ static int handle_skip_textbox(window_t *win, int actual_quest)
             actual_quest = 5;
             win->quests->quete_done = 5;
         }
-        win->talking = 0;
-        win->pause = 0;
+        win->states->talking = 0;
+        win->states->pause = 0;
     }
     return (actual_quest);
 }
 
 static void handle_inventory_key(window_t *win)
 {
-    if (win->inventory == 0 && win->pause == 0 && win->quest == 0)
+    if (win->states->inventory == 0 && win->states->pause == 0 &&
+    win->states->quest == 0)
         open_inventory(win);
-    else if (win->quest == 0 && win->pause == 1 && win->inventory == 1)
+    else if (win->states->quest == 0 && win->states->pause == 1 &&
+    win->states->inventory == 1)
         close_inventory(win);
 }
 
@@ -43,11 +45,13 @@ void check_keyboard_input_ingame(window_t *win)
     if (sfKeyboard_isKeyPressed(sfKeyI))
         handle_inventory_key(win);
     if (sfKeyboard_isKeyPressed(sfKeyO)) {
-        if (win->quest == 0 && win->inventory == 0 && win->pause == 0) {
+        if (win->states->quest == 0 && win->states->inventory == 0 &&
+        win->states->pause == 0) {
             open_quest(win);
             sfText_setString(win->text->str, "\n");
         }
-        else if (win->inventory == 0 && win->pause == 1 && win->quest == 1) {
+        else if (win->states->inventory == 0 && win->states->pause == 1 &&
+        win->states->quest == 1) {
             close_quest(win);
             sfText_setString(win->text->str, "\n");
         }
@@ -61,11 +65,10 @@ void check_keyboard_input_ingame(window_t *win)
 static int check_mouse_left(window_t *win)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        if (win->actual_page == OPTIONS)
-            if (drag_button(win) == 84)
-                return (84);
+        if (drag_button(win) == 84)
+            return (84);
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
-        win->inventory == 1) {
+        win->states->inventory == 1) {
             drag_and_drop_inv(win);
         }
     }
@@ -82,14 +85,14 @@ int global_event_condition(window_t *win)
         if (mouse_released_event(win) == 84)
             return (84);
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
-        win->inventory == 1) {
+        win->states->inventory == 1) {
             check_drag_and_drop_inv(win);
         }
     }
     if (win->event.type == sfEvtMouseMoved) {
         mouse_moved_event(win);
         if (win->actual_page >= CASTLE && win->actual_page < COMBAT &&
-        win->inventory == 1) {
+        win->states->inventory == 1) {
             set_text_inv(win);
         }
     }

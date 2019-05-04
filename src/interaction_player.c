@@ -10,8 +10,8 @@
 
 void close_inventory(window_t *win)
 {
-    win->pause = 0;
-    win->inventory = 0;
+    win->states->pause = 0;
+    win->states->inventory = 0;
     if (win->actual_page == TOWN) {
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = 0;
@@ -20,8 +20,8 @@ void close_inventory(window_t *win)
 
 void open_quest(window_t *win)
 {
-    win->quest = 1;
-    win->pause = 1;
+    win->states->quest = 1;
+    win->states->pause = 1;
     if (win->actual_page == TOWN) {
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = -1;
@@ -31,8 +31,8 @@ void open_quest(window_t *win)
 
 void close_quest(window_t *win)
 {
-    win->quest = 0;
-    win->pause = 0;
+    win->states->quest = 0;
+    win->states->pause = 0;
     if (win->actual_page == TOWN) {
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = 0;

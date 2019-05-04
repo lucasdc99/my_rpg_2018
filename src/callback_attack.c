@@ -21,10 +21,10 @@ void check_life(window_t *win, int damage)
             win->page = END;
         else
             win->page = FINAL;
-        win->turn = 0;
+        win->states->turn = 0;
     } else {
         do_animation(win, damage);
-        win->turn = 1;
+        win->states->turn = 1;
     }
 }
 
@@ -64,10 +64,10 @@ int stats_attack(window_t *win)
 {
     int tmp = 0;
 
-    if (win->turn == 1 || win->turn == 2 ||
+    if (win->states->turn == 1 || win->states->turn == 2 ||
     win->page == END || win->page == FINAL)
         return (-1);
-    win->turn = 2;
+    win->states->turn = 2;
     sfText_setString(win->text->str, "\n");
     sfMusic_play(win->music->heal);
     do_attack(win);
@@ -78,15 +78,15 @@ int stats_attack(window_t *win)
         draw_scene(win);
         increase_health(win);
     }
-    win->turn = 1;
+    win->states->turn = 1;
     return (0);
 }
 
 void check_enemy_turn(window_t *win)
 {
-    if (win->turn == 1 && win->actual_page == COMBAT) {
+    if (win->states->turn == 1 && win->actual_page == COMBAT) {
         my_wait(win, 2);
         enemy_attack(win);
-        win->turn = 0;
+        win->states->turn = 0;
     }
 }

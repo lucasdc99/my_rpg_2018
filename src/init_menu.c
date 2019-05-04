@@ -33,7 +33,7 @@ static int init_buttons(window_t *win)
 {
     if (loop_buttons(win) == 84)
         return (84);
-    if (win->no_saves == 0)
+    if (win->states->no_saves == 0)
         win->scene[MAINMENU].button[0].callback = &play_game;
     else
         win->scene[MAINMENU].button[0].callback = NULL;

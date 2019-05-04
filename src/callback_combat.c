@@ -45,10 +45,10 @@ static void do_attack(window_t *win, int type)
 
 int basic_attack(window_t *win)
 {
-    if (win->turn == 1 || win->turn == 2 ||
+    if (win->states->turn == 1 || win->states->turn == 2 ||
     win->page == END || win->page == FINAL)
         return (-1);
-    win->turn = 2;
+    win->states->turn = 2;
     sfText_setString(win->text->str, "Attaque Basique\n");
     sfMusic_play(win->music->basic_attack);
     do_attack(win, 2);
@@ -75,10 +75,10 @@ int special_attack(window_t *win)
 {
     int tmp = 0;
 
-    if (win->turn == 1 || win->turn == 2 ||
+    if (win->states->turn == 1 || win->states->turn == 2 ||
     win->page == END || win->page == FINAL)
         return (-1);
-    win->turn = 2;
+    win->states->turn = 2;
     sfText_setString(win->text->str, "Attaque Speciale\n");
     sfMusic_play(win->music->special_attack);
     do_attack(win, 1);

@@ -8,6 +8,18 @@
 #include "../include/rpg.h"
 #include "../include/my.h"
 
+int get_fd(int fd)
+{
+    if (fd != 0) {
+        while (get_next_line(fd) != NULL)
+            get_next_line(fd);
+        if (close(fd) < 0)
+            return (-1);
+        fd = 0;
+    }
+    return (0);
+}
+
 static sfUint32 check_unicode(char c, int *i)
 {
     sfUint32 code[] = {'\n', 0x00E9, 0x00E0, 0x00EA, 0x00F9, 0x00FB,

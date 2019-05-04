@@ -25,6 +25,9 @@ static int malloc_struct_end(window_t *win)
     win->positions = malloc(sizeof(pos_t) * 1);
     if (win->positions == NULL)
         return (84);
+    win->states = malloc(sizeof(states_t) * 1);
+    if (win->states == NULL)
+        return (84);
     return (0);
 }
 

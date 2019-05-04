@@ -38,8 +38,8 @@ int save_inventory(window_t *win)
 
 void open_inventory(window_t *win)
 {
-    win->pause = 1;
-    win->inventory = 1;
+    win->states->pause = 1;
+    win->states->inventory = 1;
     if (win->actual_page == TOWN) {
         for (int i = 1; i < win->scene[TOWN].nb_sprite; i++)
             win->scene[TOWN].sprite[i].depth = -1;

@@ -77,16 +77,16 @@ window_t *draw_scene(window_t *win)
     sfRenderWindow_clear(win->window, sfColor_fromRGB(25, 31, 38));
     draw_sprites(win);
     draw_others(win);
-    if (win->inventory == 1)
+    if (win->states->inventory == 1)
         draw_inventory(win);
-    if (win->quest == 1)
+    if (win->states->quest == 1)
         draw_quests(win);
     if (win->actual_page == COMBAT) {
         sfRenderWindow_drawText(win->window, win->enemy->text->str, NULL);
         sfRenderWindow_drawSprite(win->window,
         win->enemy->sprite->sprite, NULL);
     }
-    if (win->actual_page == CASTLE && win->no_saves == 1)
+    if (win->actual_page == CASTLE && win->states->no_saves == 1)
         animation_begin(win);
     sfRenderWindow_display(win->window);
     return (win);

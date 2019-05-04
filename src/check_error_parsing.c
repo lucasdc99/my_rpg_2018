@@ -27,7 +27,7 @@ static int define_inv(window_t *win)
 static int check_quest_error(window_t *win)
 {
     if (win->quests == NULL) {
-        win->no_saves = 1;
+        win->states->no_saves = 1;
         win->quests = malloc(sizeof(quest_t) * 1);
         if (win->quests == NULL)
             return (84);
@@ -50,9 +50,9 @@ static int check_error_config(window_t *win)
             return (84);
     }
     if (win->player->last_pos.x < 0)
-        win->no_saves = 1;
+        win->states->no_saves = 1;
     if (win->inv == NULL) {
-        win->no_saves = 1;
+        win->states->no_saves = 1;
         if (define_inv(win) == 84)
             return (84);
         if (save_inventory(win) == 84)

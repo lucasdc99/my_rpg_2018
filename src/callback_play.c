@@ -22,7 +22,7 @@ static int check_new_game(window_t *win)
         if (save_inventory(win) == 84)
             return (84);
         win->player->last_pos = get_pos_float(930, 600);
-        win->no_saves = 1;
+        win->states->no_saves = 1;
         save_config_player(win);
     }
     return (0);

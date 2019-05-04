@@ -28,10 +28,10 @@ void my_wait(window_t *win, int seconds)
 {
     sfClock_restart(win->combat_clock);
     win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-    win->seconds = win->combat_time.microseconds / 1000000.0;
-    while (win->seconds < seconds) {
+    win->states->seconds = win->combat_time.microseconds / 1000000.0;
+    while (win->states->seconds < seconds) {
         win->combat_time = sfClock_getElapsedTime(win->combat_clock);
-        win->seconds = win->combat_time.microseconds / 100000.0;
+        win->states->seconds = win->combat_time.microseconds / 100000.0;
     }
 }
 

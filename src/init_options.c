@@ -72,21 +72,6 @@ static int init_buttons(window_t *win)
     return (0);
 }
 
-static void set_fps(window_t *win)
-{
-    if (win->fps == 60) {
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[1].shape,
-        win->scene[OPTIONS].button[1].rect_idle);
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[1].shape,
-        win->scene[OPTIONS].button[1].rect_pressed);
-    } else {
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[2].shape,
-        win->scene[OPTIONS].button[2].rect_idle);
-        sfRectangleShape_setTextureRect(win->scene[OPTIONS].button[2].shape,
-        win->scene[OPTIONS].button[2].rect_pressed);
-    }
-}
-
 window_t *init_options(window_t *win)
 {
     if (set_struct(win, 5, 7, 1) == 84)

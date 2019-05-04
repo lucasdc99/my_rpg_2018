@@ -46,7 +46,7 @@ static void do_regeneration(window_t *win)
     char *str = NULL;
 
     if (win->player->actual_health + 5 <= win->player->health) {
-        for (int i = 0; i < win->seconds % 10; i++) {
+        for (int i = 0; i < win->states->seconds % 10; i++) {
             draw_scene(win);
             win->player->actual_health++;
             str = my_strcat(my_itc(win->player->actual_health), "/");
@@ -62,8 +62,8 @@ static int check_fail(window_t *win)
     sfUint32 *unicode;
 
     win->move_time = sfClock_getElapsedTime(win->move);
-    win->seconds = win->move_time.microseconds / 100000.0;
-    if ((win->seconds % 15) != 0) {
+    win->states->seconds = win->move_time.microseconds / 100000.0;
+    if ((win->states->seconds % 15) != 0) {
         tmp = 20 + (win->enemy->strength / 10);
     } else {
         str_to_unicode("Rat_é", &unicode);
@@ -94,5 +94,5 @@ void enemy_attack(window_t *win)
     my_wait(win, 3);
     if (win->objects[ARMOR].equiped == 1)
         do_regeneration(win);
-    win->turn = 0;
+    win->states->turn = 0;
 }

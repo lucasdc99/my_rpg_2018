@@ -157,26 +157,9 @@ typedef struct s_inventory {
     items_t *items;
 } inventory_t;
 
-typedef struct s_window {
-    sfTexture *texture_button;
-    sfRenderWindow *window;
-    sfEvent event;
-    sfFont *font_berlin;
-    sfFont *font_title;
-    scene_t *scene;
-    player_t *player;
-    enemy_t *enemy;
-    music_t *music;
-    pos_t *positions;
-    enum page page;
-    enum page actual_page;
+typedef struct s_states {
     int vsync;
     int fps;
-    sfClock *move;
-    sfClock *combat_clock;
-    sfTime move_time;
-    sfTime combat_time;
-    sfIntRect *rect_buttons;
     int seconds;
     int pause;
     int inventory;
@@ -184,11 +167,32 @@ typedef struct s_window {
     int quest;
     int no_saves;
     int turn;
-    sprite_t *objects;
-    int nb_objects;
+} states_t;
+
+typedef struct s_window {
+    sfTexture *texture_button;
+    sfRenderWindow *window;
+    sfEvent event;
+    sfFont *font_berlin;
+    sfFont *font_title;
+    sfClock *move;
+    sfClock *combat_clock;
+    sfTime move_time;
+    sfTime combat_time;
+    sfIntRect *rect_buttons;
+    scene_t *scene;
+    player_t *player;
+    enemy_t *enemy;
+    music_t *music;
+    states_t *states;
+    pos_t *positions;
     inventory_t *inv;
     quest_t *quests;
     text_t *text;
+    sprite_t *objects;
+    int nb_objects;
+    enum page page;
+    enum page actual_page;
 } window_t;
 
 typedef struct s_button {
@@ -298,6 +302,7 @@ void str_to_unicode(char *str, sfUint32 *unistr[]);
 int get_texture_pause(window_t *win);
 int malloc_struct(window_t *win);
 int initialisation_depth_sprite_boss(window_t *win);
+int get_fd(int fd);
 
 // DESTROY
 void destroy_all(window_t *win);
@@ -322,6 +327,7 @@ void set_description_text(window_t *win, char *buffer);
 int set_texture(window_t *win, char *name);
 void check_life(window_t *win, int damage);
 void do_animation(window_t *win, int damage);
+int init_buttons_other(window_t *win);
 
 // ANIMATIONS
 void animation_mainmenu(window_t *win);
@@ -400,5 +406,6 @@ void draw_description(window_t *win, int i);
 
 // OPTIONS
 int set_vsync(window_t *win);
+void set_fps(window_t *win);
 
 #endif
