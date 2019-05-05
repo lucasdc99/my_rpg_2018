@@ -38,6 +38,7 @@ static int check_quest_error(window_t *win)
         if (win->quests->text == NULL)
             return (84);
         win->quests->quete_done = 0;
+        win->quests->combat = 0;
         save_quests(win);
     }
     return (0);

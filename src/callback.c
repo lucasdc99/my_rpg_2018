@@ -10,7 +10,6 @@
 
 int heroes_menu(window_t *win)
 {
-    sfMusic_play(win->music->button_sound);
     win->page = HEROES;
     return (0);
 }

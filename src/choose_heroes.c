@@ -14,6 +14,7 @@ int choose_hex(window_t *win)
     char *desc_file = {"ressources/text/description/Hex_des"};
     char *buffer = get_buffer(desc_file);
 
+    buffer = get_buffer(desc_file);
     win->player->name = "Hex";
     win->player->health = 70;
     win->player->actual_health = 70;

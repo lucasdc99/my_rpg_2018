@@ -97,5 +97,9 @@ int init_music(music_t *music)
     music->vol_pos = 800;
     if (create_musics(music) == 84)
         return (84);
+    sfMusic_setLoop(music->boss_battle, sfTrue);    
+    sfMusic_setLoop(music->boss_song, sfTrue);    
+    sfMusic_setLoop(music->boss_final, sfTrue);    
+    sfMusic_setLoop(music->town_song, sfTrue);    
     return (0);
 }
