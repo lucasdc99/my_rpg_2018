@@ -12,11 +12,11 @@ OPTIONS
 
 USER INTERACTIONS
 
-	ESC_KEY	pause game.
+	ESC_KEY		pause game.
 	
-	I_KEY open inventory.
+	I_KEY 		open inventory.
   
-	O_KEY  open quests.
+	O_KEY  		open quests.
   
-	ARROW_KEYS move player.
+	ARROW_KEYS 	move player.
  
