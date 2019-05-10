@@ -4,7 +4,7 @@ USAGE
 
 DESCRIPTION
 
-    Beat the boss !
+	Beat the boss !
 
 OPTIONS
 
